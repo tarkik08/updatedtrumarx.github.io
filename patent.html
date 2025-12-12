@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trumarx | Patent Services</title>
+    <meta name="description" content="Secure your inventions with expert Patent services. From filing to prosecution, we protect your bright ideas and innovations.">
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#111111',        /* Near Black Text */
+                            dark: '#111111',        /* Near Black BG */
+                            darkCard: '#1F1F1F',    /* Lighter Black for cards */
+                            light: '#FFFFFF',       /* White for light sections */
+                            accent: '#888888',      /* Neutral Grey for accents/borders */
+                            accentHover: '#666666',  /* Darker Grey */
+                            textLight: '#FFFFFF',   /* White text on dark bg */
+                            textDark: '#111111',    /* Near Black text on light bg */
+                            logoGrey: '#888888',    /* Neutral Grey */
+                            logoBlack: '#111111',   /* Near Black */
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"San Francisco"', 
+                            '"Helvetica Neue"', 
+                            'Helvetica', 
+                            'Arial', 
+                            'sans-serif'
+                        ],
+                        serif: ['"Merriweather"', 'serif'],
+                    },
+                    boxShadow: {
+                        'legal': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Theme Logic -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const checkbox = document.getElementById('theme-toggle');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                if(checkbox) checkbox.checked = false;
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if(checkbox) checkbox.checked = true;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('theme-toggle');
+            if (checkbox) {
+                checkbox.checked = document.documentElement.classList.contains('dark');
+            }
+        });
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8); /* Apple Frost Light */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .legal-nav {
+            background: rgba(17, 17, 17, 0.8); /* Near Black Frost Dark */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Modal Transitions */
+        .modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .modal.active .modal-content { transform: scale(1) translateY(0); }
+
+        /* Contact Modal Animation Override */
+        #contact-modal-overlay .modal-content {
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
+        }
+        #contact-modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(100%);
+        }
+        
+        /* General Smooth Transitions */
+        body, div, nav, section, footer, button, a, span, i, h1, h2, h3, p, input, select, label {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 legal-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex flex-col leading-none group hover:opacity-80 transition-opacity">
+                    <div class="text-3xl tracking-tight">
+                        <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                        <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                    </div>
+                    <span class="text-[10px] text-brand-logoGrey tracking-wide mt-1 font-medium">brand legal management</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
+                    <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                    <a href="aboutus.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                    <a href="achievements.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Achievements</a>
+                    <a href="testimonials.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
+                    <a href="services.html" class="text-brand-accent transition-colors">Services</a>
+                    <a href="careers.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                    
+                    <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+                    <!-- Theme Toggle Switch with Icons -->
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sun text-brand-accent text-xs"></i>
+                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="theme-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10" onclick="toggleTheme()"/>
+                            <label for="theme-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                        <i class="fas fa-moon text-gray-400 dark:text-brand-textLight text-xs"></i>
+                    </div>
+
+                    <!-- Button (Apple Blue) -->
+                    <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-brand-textDark dark:text-brand-textLight text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-200 dark:border-gray-700">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 dark:text-gray-400">Home</a>
+                <a href="aboutus.html" class="text-gray-600 dark:text-gray-400">About Us</a>
+                <a href="achievements.html" class="text-gray-600 dark:text-gray-400">Achievements</a>
+                <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
+                <a href="services.html" class="text-brand-textDark dark:text-brand-textLight">Services</a>
+                <a href="careers.html" class="text-gray-600 dark:text-gray-400">Careers</a>
+                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+                <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="relative pt-32 pb-20 bg-brand-light dark:bg-brand-dark">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-brand-textDark dark:text-brand-textLight uppercase">
+                Don't Lose Control Over <br><span class="text-brand-accent">Your Bright Ideas!</span>
+            </h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto font-medium">
+                Patent Your Inventions. Secure Your Legacy.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openModal()" class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg">
+                    Start Your Application
+                </button>
+                <a href="#patent-details" class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center gap-2 group">
+                    Learn Requirements <i class="fas fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="py-16 bg-white dark:bg-brand-dark pb-24">
+        <div class="max-w-4xl mx-auto px-6 space-y-16">
+
+            <!-- Intro Block -->
+            <div class="prose dark:prose-invert max-w-none">
+                <div class="bg-gray-50 dark:bg-brand-darkCard p-8 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm">
+                    <h2 class="text-2xl font-bold text-brand-navy dark:text-brand-textLight mb-6 flex items-center">
+                        <i class="fas fa-lightbulb text-brand-accent mr-3"></i> Understanding Patents in India
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify mb-4">
+                        In India, Patents are granted for inventions which culminate in a product or process. Mere abstract theories or mathematical formulae are kept out of the purview of Patenting in India. Also computer programs ‘per se’ cannot be Patented in India, as they are considered to be Copyrights in India.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify mb-4">
+                        What are some of the Patentable inventions? This is a question that troubles many people. When you come to us, we will give you a comprehensive answer to the question.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify mb-4">
+                        Patent rights can be given for inventions in any technological field, regardless of whether it is a nanotechnology chip or a kitchen utensil. It can either be a product or a process, like a chemical compound or the process of making that chemical compound respectively.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify">
+                        As a matter of fact, most products contain several inventions. A laptop, for instance, can comprise of multiple inventions that seamlessly work together.
+                    </p>
+                </div>
+            </div>
+
+            <!-- What Can Be Patented Section -->
+            <div id="patent-details" class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4 uppercase tracking-wide">What Can Be Patented?</h2>
+                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Criteria Grid -->
+            <div class="grid md:grid-cols-1 gap-8">
+                
+                <!-- Novelty -->
+                <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl border border-gray-100 dark:border-white/5 shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 bg-brand-light dark:bg-white/5 rounded-full flex items-center justify-center text-brand-accent text-2xl">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">Novelty</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-justify">
+                            Novelty is an important criterion in determining patentability of an invention. Novelty or new invention is defined under Section 2(l) of the Patents Act as “any invention or technology which has not been anticipated by publication in any document or used in the country or elsewhere in the world before the date of filing of patent application with complete specification, i.e., the subject matter has not fallen in public domain or that it does not form part of the state of the art”. Simply put, the novelty requirement basically states that an invention should never have been published in the public domain. It must be new with no same or similar prior arts.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Inventive Step -->
+                <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl border border-gray-100 dark:border-white/5 shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 bg-brand-light dark:bg-white/5 rounded-full flex items-center justify-center text-brand-accent text-2xl">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">Inventive Step or Non-Obviousness</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-justify">
+                            Inventive step is defined under Section 2(ja) of the Patents Act as “a feature of an invention that involves technical advance as compared to the existing knowledge or having economic significance or both and that makes the invention not obvious to a person skilled in the art”. This means that the invention must not be obvious to a person skilled in the same field as the invention relates to. It must be inventive and not obvious to a person skilled in the same field.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Patentable Subject Matter -->
+                <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl border border-gray-100 dark:border-white/5 shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 bg-brand-light dark:bg-white/5 rounded-full flex items-center justify-center text-brand-accent text-2xl">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">Patentable Subject Matter</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-justify">
+                            The foremost consideration is to determine whether the invention relates to a patentable subject-matter. Sections 3 and 4 of the Patents Act list out non-patentable subject matter. As long as the invention does not fall under any provision of Sections 3 or 4, it means it has patentable subject matter (subject to the satisfaction of the other criteria).
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- Footer Logo -->
+            <a href="index.html" class="inline-flex items-center gap-1 group hover:opacity-80 transition-opacity mb-6">
+                <div class="text-2xl tracking-tight">
+                    <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                    <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                </div>
+            </a>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
+                <a href="services.html" class="hover:text-brand-accent transition-colors">Practice Areas</a>
+                <a href="aboutus.html" class="hover:text-brand-accent transition-colors">Our Team</a>
+                <a href="#" onclick="openContactModal(event)" class="hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <p class="text-gray-400 text-xs">&copy; 2025 Trumarx IP Solutions. All Rights Reserved. Attorney Advertising.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-md p-8 relative modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Consultation</h3>
+            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
+            <form id="consultation-form" onsubmit="event.preventDefault(); submitForm();">
+                <div class="space-y-4">
+                    <input name="name" type="text" placeholder="Full Name" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="email" type="email" placeholder="Email Address" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="phone" type="tel" placeholder="Phone Number" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <input name="subject" type="text" placeholder="Subject" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <textarea name="message" placeholder="Message" rows="4" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
+                    <button class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
+            <button onclick="closeSuccessPopup()" class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-6 text-brand-navy dark:text-brand-textLight">Contact Information</h3>
+            
+            <div class="space-y-6">
+                <address class="not-italic text-gray-600 dark:text-gray-400 space-y-2">
+                    <p class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
+                        <span class="ml-4">
+                            No. 23, Hari Prem Complex, 2nd Floor,<br>
+                            CMH Road, Indiranagar 1st Stage,<br>
+                            Bangalore – 560038
+                        </span>
+                    </p>
+                </address>
+
+                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+
+                <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                    <p class="flex justify-between items-center"><span><i class="fas fa-headset w-5 mr-3 text-gray-400"></i>Support:</span> <a href="tel:08040911324" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 40911324</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-registered w-5 mr-3 text-gray-400"></i>Trademark:</span> <a href="tel:08041462623" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 4146 2623</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-copyright w-5 mr-3 text-gray-400"></i>Copyright:</span> <a href="tel:08025284226" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284226</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-lightbulb w-5 mr-3 text-gray-400"></i>Patent:</span> <a href="tel:08025284227" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284227</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Mobile:</span> <a href="tel:+919886266396" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight font-bold">+91 98862 66396</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-envelope w-5 mr-3 text-gray-400"></i>E-mail:</span> <a href="mailto:support@trumarx.in" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">support@trumarx.in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("IrcWHw8pMd_KcgXef");
+        })();
+
+        // Modal Logic
+        const modal = document.getElementById('modal-overlay');
+        const successPopup = document.getElementById('success-popup');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
+        function submitForm() {
+            const form = document.getElementById('consultation-form');
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+
+            // The 'required' attribute on inputs handles basic browser-side validation
+            emailjs.send("service_56xv4pj", "template_njaikm8", data)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    closeModal();
+                    successPopup.classList.remove('hidden');
+                    setTimeout(()=>successPopup.classList.add('active'),10);
+                    form.reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Failed to send message. Please try again.');
+                });
+        }
+        function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
+        
+        // Contact Modal Logic
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal(event) {
+            if(event) event.preventDefault();
+            contactModal.classList.remove('hidden');
+            if(event) {
+                const modalContent = contactModal.querySelector('.modal-content');
+                const rect = modalContent.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                modalContent.style.transformOrigin = `${x}px ${y}px`;
+            }
+            setTimeout(()=>contactModal.classList.add('active'),10);
+        }
+        function closeContactModal() { contactModal.classList.remove('active'); setTimeout(()=>contactModal.classList.add('hidden'),300); }
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+    </script>
+</body>
+</html>

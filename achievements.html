@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trumarx | Achievements</title>
+    <meta name="description" content="Explore the milestone achievements and landmark cases handled by Trumarx, showcasing our commitment to excellence in IP law.">
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#111111',        /* Near Black Text */
+                            dark: '#111111',        /* Near Black BG */
+                            darkCard: '#1F1F1F',    /* Lighter Black for cards */
+                            light: '#FFFFFF',       /* White for light sections */
+                            accent: '#888888',      /* Neutral Grey for accents/borders */
+                            accentHover: '#666666',  /* Darker Grey */
+                            textLight: '#FFFFFF',   /* White text on dark bg */
+                            textDark: '#111111',    /* Near Black text on light bg */
+                            logoGrey: '#888888',    /* Neutral Grey */
+                            logoBlack: '#111111',   /* Near Black */
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"San Francisco"', 
+                            '"Helvetica Neue"', 
+                            'Helvetica', 
+                            'Arial', 
+                            'sans-serif'
+                        ],
+                        serif: ['"Merriweather"', 'serif'],
+                    },
+                    boxShadow: {
+                        'legal': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Theme Logic -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const checkbox = document.getElementById('theme-toggle');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                if(checkbox) checkbox.checked = false;
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if(checkbox) checkbox.checked = true;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('theme-toggle');
+            if (checkbox) {
+                checkbox.checked = document.documentElement.classList.contains('dark');
+            }
+        });
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8); /* Apple Frost Light */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .legal-nav {
+            background: rgba(17, 17, 17, 0.8); /* Near Black Frost Dark */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Modal Transitions */
+        .modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .modal.active .modal-content { transform: scale(1) translateY(0); }
+
+        /* Contact Modal Animation Override */
+        #contact-modal-overlay .modal-content {
+            transform-origin: 50% 100%; /* from bottom center */
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
+        }
+        #contact-modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Achievement Modal Animation Override */
+        .achievement-modal-content {
+            transform-origin: 50% 100%;
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
+        }
+        .modal.active .achievement-modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(100%);
+        }
+        
+        /* General Smooth Transitions */
+        body, div, nav, section, footer, button, a, span, i, h1, h2, h3, p, input, select, label {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 legal-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex flex-col leading-none group hover:opacity-80 transition-opacity">
+                    <div class="text-3xl tracking-tight">
+                        <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                        <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                    </div>
+                    <span class="text-[10px] text-brand-logoGrey tracking-wide mt-1 font-medium">brand legal management</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
+                    <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                    <a href="aboutus.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                    <a href="achievements.html" class="text-brand-accent transition-colors">Achievements</a>
+                    <a href="testimonials.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
+                    <a href="services.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Services</a>
+                    <a href="careers.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                    
+                    <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+                    <!-- Theme Toggle Switch with Icons -->
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sun text-brand-accent text-xs"></i>
+                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="theme-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10" onclick="toggleTheme()"/>
+                            <label for="theme-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                        <i class="fas fa-moon text-gray-400 dark:text-brand-textLight text-xs"></i>
+                    </div>
+
+                    <!-- Button (Apple Blue) -->
+                    <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-brand-textDark dark:text-brand-textLight text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-200 dark:border-gray-700">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 dark:text-gray-400">Home</a>
+                <a href="aboutus.html" class="text-gray-600 dark:text-gray-400">About Us</a>
+                <a href="achievements.html" class="text-brand-textDark dark:text-brand-textLight">Achievements</a>
+                <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
+                <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
+                <a href="careers.html" class="text-gray-600 dark:text-gray-400">Careers</a>
+                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+                <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Achievements Hero -->
+    <section class="relative pt-32 pb-20 bg-brand-light dark:bg-brand-dark overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-8 text-brand-textDark dark:text-brand-textLight">
+                A Legacy of <br><span class="text-brand-accent">Success.</span>
+            </h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10">
+                From global brands to complex legal challenges, our strategic approach to intellectual property delivers results. Explore some of our success stories.
+            </p>
+        </div>
+    </section>
+
+    <!-- Achievements Grid Section -->
+    <section class="py-24 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">Our Success Stories</h2>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">We take pride in turning complex challenges into success stories. Here are a few examples of how we've helped our clients protect their most valuable assets.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- BYJU’S Card -->
+                <div onclick="openByjusModal()" class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    <div class="h-16 mb-6 flex items-center justify-start">
+                        <img src="byjus.jpg" alt="BYJU'S Logo" class="max-h-12 object-contain">
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">BYJU’S</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Pioneering IP strategy for India’s most renowned edutech brand from its inception.</p>
+                </div>
+                <!-- DRIVEZY Card -->
+                <div onclick="openDrivezyModal()" class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    <div class="h-16 mb-6 flex items-center justify-start">
+                        <img src="drivzey-1.jpg" alt="DRIVEZY Logo" class="max-h-12 object-contain">
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">DRIVEZY</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">From discrepancy to partnership, providing comprehensive IPR solutions.</p>
+                </div>
+                <!-- QUANTUM LEAP Card -->
+                <div onclick="openQuantumLeapModal()" class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    <div class="h-16 mb-6 flex items-center justify-start">
+                        <img src="quantum-leap.jpg" alt="Quantum Leap Logo" class="max-h-12 object-contain">
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">QUANTUM LEAP</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Long-term IP partner for renowned speaker Rajeev Talreja, securing valuable content.</p>
+                </div>
+                <!-- SOURCEONE Card -->
+                <div onclick="openSourceoneModal()" class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    <div class="h-16 mb-6 flex items-center justify-start">
+                        <img src="sourceone.jpg" alt="SourceOne Logo" class="max-h-12 object-contain">
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">SOURCEONE</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Turned a refused application into a registered trademark through precise documentation.</p>
+                </div>
+                <!-- CAPTAIN Card -->
+                <div onclick="openCaptainModal()" class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    <div class="h-16 mb-6 flex items-center justify-start">
+                        <img src="captain.jpg" alt="Captain Logo" class="max-h-12 object-contain">
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">CAPTAIN</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Successfully resolved a refused and abandoned trademark, turning an impossible case into a success.</p>
+                </div>
+                <!-- GODUCHY Card -->
+                <div onclick="openGoduchyModal()" class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    <div class="h-16 mb-6 flex items-center justify-start">
+                        <img src="goduchy-1.jpg" alt="Goduchy Logo" class="max-h-12 object-contain">
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">GODUCHY</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Successfully registered a complex conical bottle design patent through detailed representation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- Footer Logo -->
+            <a href="index.html" class="inline-flex items-center gap-1 group hover:opacity-80 transition-opacity mb-6">
+                <div class="text-2xl tracking-tight">
+                    <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                    <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                </div>
+            </a>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
+                <a href="services.html" class="hover:text-brand-accent transition-colors">Practice Areas</a>
+                <a href="aboutus.html" class="hover:text-brand-accent transition-colors">Our Team</a>
+                <a href="#" onclick="openContactModal(); return false;" class="hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <p class="text-gray-400 text-xs">&copy; 2025 Trumarx IP Solutions. All Rights Reserved. Attorney Advertising.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-md p-8 relative modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Consultation</h3>
+            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
+            <form id="consultation-form" onsubmit="event.preventDefault(); submitForm();">
+                <div class="space-y-4">
+                    <input name="name" type="text" placeholder="Full Name" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="email" type="email" placeholder="Email Address" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="phone" type="tel" placeholder="Phone Number" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <input name="subject" type="text" placeholder="Subject" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <textarea name="message" placeholder="Message" rows="4" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
+                    <button class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
+            <button onclick="closeSuccessPopup()" class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-6 text-brand-navy dark:text-brand-textLight">Contact Information</h3>
+            
+            <div class="space-y-6">
+                <address class="not-italic text-gray-600 dark:text-gray-400 space-y-2">
+                    <p class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
+                        <span class="ml-4">
+                            No. 23, Hari Prem Complex, 2nd Floor,<br>
+                            CMH Road, Indiranagar 1st Stage,<br>
+                            Bangalore – 560038
+                        </span>
+                    </p>
+                </address>
+
+                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+
+                <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                    <p class="flex justify-between items-center"><span><i class="fas fa-headset w-5 mr-3 text-gray-400"></i>Support:</span> <a href="tel:08040911324" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 40911324</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-registered w-5 mr-3 text-gray-400"></i>Trademark:</span> <a href="tel:08041462623" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 4146 2623</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-copyright w-5 mr-3 text-gray-400"></i>Copyright:</span> <a href="tel:08025284226" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284226</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-lightbulb w-5 mr-3 text-gray-400"></i>Patent:</span> <a href="tel:08025284227" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284227</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Mobile:</span> <a href="tel:+919886266396" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight font-bold">+91 98862 66396</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-envelope w-5 mr-3 text-gray-400"></i>E-mail:</span> <a href="mailto:support@trumarx.in" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">support@trumarx.in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BYJU'S Modal -->
+    <div id="byjus-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-3xl p-8 relative achievement-modal-content">
+            <button onclick="closeByjusModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i class="fas fa-times"></i></button>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="aspect-square rounded-2xl flex items-center justify-center">
+                    <img src="byjus.jpg" alt="BYJU'S Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">BYJU’S</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        India’s most renowned edutech brand started of its initial brand recognition with trumarx. Team trumarx from day one has focused on guiding the management at Byju’s in all aspects of their brand IP management. A journey that began with the filing of just 3 trademarks today has grown to a multitude of classes under various categories. Trumarx is proud to have grown with them as they scaled globally and also filed them under the well-known mark successfully which resulted in them being valued tremendously across sectors as a brand to recko with.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DRIVEZY Modal -->
+    <div id="drivezy-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-3xl p-8 relative achievement-modal-content">
+            <button onclick="closeDrivezyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i class="fas fa-times"></i></button>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="aspect-square rounded-2xl flex items-center justify-center">
+                    <img src="drivzey-1.jpg" alt="DRIVEZY Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">DRIVEZY</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        A Chance sighting of the logo evoked curiosity in identifying the classes trademark was applied for the said brand. To our surprise, a huge discrepancy was noted by the team, following which a comprehensive solution worked on and presented to the management. This solution was approved by the relevant government body and since then Drivezy has partnered with trumarx for all their IPR requirements.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUANTUM LEAP Modal -->
+    <div id="quantumleap-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-3xl p-8 relative achievement-modal-content">
+            <button onclick="closeQuantumLeapModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i class="fas fa-times"></i></button>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="aspect-square rounded-2xl flex items-center justify-center">
+                    <img src="quantum-leap.jpg" alt="QUANTUM LEAP Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">QUANTUM LEAP</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        Rajeev Talreja is not one who requires any introduction as such. A well known motivational speaker and author,the team at trumarx considers themselves fortunate to be associated with him since 2007. The team’s committed and sincere responses have constantly derived the most effective solutions which have enabled filing of 24 different trademark applications. All valuable framing modules and content have been specifically addressed to successfully.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOURCEONE Modal -->
+    <div id="sourceone-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-3xl p-8 relative achievement-modal-content">
+            <button onclick="closeSourceoneModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i class="fas fa-times"></i></button>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="aspect-square rounded-2xl flex items-center justify-center">
+                    <img src="sourceone.jpg" alt="SOURCEONE Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">SOURCEONE</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        This journey started off with the client handing us over a case (of a refused application) they had considered impossible. We took up the case and re applied for the same by focusing on getting the documentations correct and precise. Currently SOURCEONE has their trademarks registered in all respective classes as also other trademarks through Trumarx.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPTAIN Modal -->
+    <div id="captain-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-3xl p-8 relative achievement-modal-content">
+            <button onclick="closeCaptainModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i class="fas fa-times"></i></button>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="aspect-square rounded-2xl flex items-center justify-center">
+                    <img src="captain.jpg" alt="CAPTAIN Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">CAPTAIN</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        The trademark of our client was refused on certain grounds as well as abandoned. Trumarx took up this challenging case to resolve it & set the bar higher for ourselves. The team at TRUMARX studied the entire case, worked on the crucial details / documents and uploaded them precisely with utmost perfection. This impossible case was turned into a success and positioned TRUMARX as a brand in itself for making the impossible possible.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GODUCHY Modal -->
+    <div id="goduchy-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-3xl p-8 relative achievement-modal-content">
+            <button onclick="closeGoduchyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i class="fas fa-times"></i></button>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="aspect-square rounded-2xl flex items-center justify-center">
+                    <img src="goduchy-1.jpg" alt="GODUCHY Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">GODUCHY</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        A ‘Design patent’ for a ‘conical bottle design’ was a tuff case to take. Our client showed confidence in us hence, we couldn’t disappoint him. We made sure to provide the ‘Examination Team’ with the detailed representation of the design, which led to registration of the same successfully.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("IrcWHw8pMd_KcgXef");
+        })();
+
+        // Modal Logic
+        const modal = document.getElementById('modal-overlay');
+        const successPopup = document.getElementById('success-popup');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
+        function submitForm() {
+            const form = document.getElementById('consultation-form');
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+
+            // The 'required' attribute on inputs handles basic browser-side validation
+            emailjs.send("service_56xv4pj", "template_njaikm8", data)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    closeModal();
+                    successPopup.classList.remove('hidden');
+                    setTimeout(()=>successPopup.classList.add('active'),10);
+                    form.reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Failed to send message. Please try again.');
+                });
+        }
+        function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
+        
+        // Contact Modal Logic
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal() { contactModal.classList.remove('hidden'); setTimeout(()=>contactModal.classList.add('active'),10); }
+        function closeContactModal() { contactModal.classList.remove('active'); setTimeout(()=>contactModal.classList.add('hidden'),300); }
+
+        // Achievement Modals Logic
+        const byjusModal = document.getElementById('byjus-modal-overlay');
+        function openByjusModal() { byjusModal.classList.remove('hidden'); setTimeout(()=>byjusModal.classList.add('active'),10); }
+        function closeByjusModal() { byjusModal.classList.remove('active'); setTimeout(()=>byjusModal.classList.add('hidden'),300); }
+
+        const drivezyModal = document.getElementById('drivezy-modal-overlay');
+        function openDrivezyModal() { drivezyModal.classList.remove('hidden'); setTimeout(()=>drivezyModal.classList.add('active'),10); }
+        function closeDrivezyModal() { drivezyModal.classList.remove('active'); setTimeout(()=>drivezyModal.classList.add('hidden'),300); }
+
+        const quantumLeapModal = document.getElementById('quantumleap-modal-overlay');
+        function openQuantumLeapModal() { quantumLeapModal.classList.remove('hidden'); setTimeout(()=>quantumLeapModal.classList.add('active'),10); }
+        function closeQuantumLeapModal() { quantumLeapModal.classList.remove('active'); setTimeout(()=>quantumLeapModal.classList.add('hidden'),300); }
+
+        const sourceoneModal = document.getElementById('sourceone-modal-overlay');
+        function openSourceoneModal() { sourceoneModal.classList.remove('hidden'); setTimeout(()=>sourceoneModal.classList.add('active'),10); }
+        function closeSourceoneModal() { sourceoneModal.classList.remove('active'); setTimeout(()=>sourceoneModal.classList.add('hidden'),300); }
+
+        const captainModal = document.getElementById('captain-modal-overlay');
+        function openCaptainModal() { captainModal.classList.remove('hidden'); setTimeout(()=>captainModal.classList.add('active'),10); }
+        function closeCaptainModal() { captainModal.classList.remove('active'); setTimeout(()=>captainModal.classList.add('hidden'),300); }
+
+        const goduchyModal = document.getElementById('goduchy-modal-overlay');
+        function openGoduchyModal() { goduchyModal.classList.remove('hidden'); setTimeout(()=>goduchyModal.classList.add('active'),10); }
+        function closeGoduchyModal() { goduchyModal.classList.remove('active'); setTimeout(()=>goduchyModal.classList.add('hidden'),300); }
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+    </script>
+</body>
+</html>

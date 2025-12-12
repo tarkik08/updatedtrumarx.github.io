@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trumarx | About Us</title>
+    <meta name="description" content="Learn more about Trumarx, our mission, values, and the team dedicated to safeguarding your intellectual property.">
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#111111',        /* Near Black Text */
+                            dark: '#111111',        /* Near Black BG */
+                            darkCard: '#1F1F1F',    /* Lighter Black for cards */
+                            light: '#FFFFFF',       /* White for light sections */
+                            accent: '#888888',      /* Neutral Grey for accents/borders */
+                            accentHover: '#666666',  /* Darker Grey */
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"San Francisco"', 
+                            '"Helvetica Neue"', 
+                            'Helvetica', 
+                            'Arial', 
+                            'sans-serif'
+                        ],
+                        serif: ['"Merriweather"', 'serif'],
+                    },
+                    boxShadow: {
+                        'legal': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8); /* Apple Frost Light */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .legal-nav {
+            background: rgba(17, 17, 17, 0.8); /* Near Black Frost Dark */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Hero Animation Utilities - SCROLL VERSION */
+        /* Explicitly remove transitions for scroll-bound elements to prevent lag */
+        .split-text, .split-line, .split-box {
+            transition: none !important; 
+        }
+        
+        /* Hardware acceleration hints */
+        .split-line { width: 0; will-change: width; }
+        .split-box { grid-template-rows: 0fr; will-change: grid-template-rows; }
+        .split-text { opacity: 0; transform: translateY(2rem); will-change: opacity, transform; }
+
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #888888;
+        }
+        
+        /* General Smooth Transitions */
+        body, div, nav, section, footer, button, a, span, i, h1, h2, h3, p, input, select, label {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900 dark:text-white bg-white dark:bg-brand-dark relative overflow-x-hidden">
+
+    <!-- Theme Initialization Script (Run immediately) -->
+    <script>
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex flex-col leading-none group hover:opacity-80 transition-opacity">
+                    <div class="text-3xl tracking-tight">
+                        <span class="font-bold text-gray-500">tru</span><span class="font-bold text-gray-900 dark:text-white">marx</span>
+                        <span class="align-top text-[10px] font-bold border-2 border-gray-900 dark:border-white rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-gray-900 dark:text-white">®</span>
+                    </div>
+                    <span class="text-[10px] text-gray-500 tracking-wide mt-1 font-medium">brand legal management</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
+                    <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                    <a href="aboutus.html" class="text-brand-accent transition-colors">About Us</a>
+                    <a href="achievements.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Achievements</a>
+                    <a href="testimonials.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
+                    <a href="services.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Services</a>
+                    <a href="careers.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                    
+                    <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+                    <!-- Theme Toggle Switch -->
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sun text-brand-accent text-xs"></i>
+                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="theme-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10 pointer-events-none"/>
+                            <label onclick="toggleTheme()" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                        <i class="fas fa-moon text-gray-400 dark:text-white text-xs"></i>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-900 dark:text-white text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-200 dark:border-gray-700">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 dark:text-gray-400">Home</a>
+                <a href="aboutus.html" class="text-gray-900 dark:text-white">About Us</a>
+                <a href="achievements.html" class="text-gray-600 dark:text-gray-400">Achievements</a>
+                <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
+                <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
+                <a href="careers.html" class="text-gray-600 dark:text-gray-400">Careers</a>
+                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+                <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 
+        ANIMATED HERO SECTION (SCROLL-CONTROLLED)
+        Height is 300vh to allow for scroll "scrubbing". 
+        Content is sticky so it stays in view while you scroll.
+    -->
+    <section id="hero-section" class="relative h-[300vh] bg-brand-light dark:bg-brand-dark transition-colors duration-500">
+        
+        <!-- Sticky Container -->
+        <div id="hero-sticky-container" class="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden">
+
+            <!-- Top Title Segment -->
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white z-20 transition-colors duration-500">
+                Guardians of
+            </h1>
+
+            <!-- The Expanding Container -->
+            <div class="w-screen my-2 md:my-4 relative z-10 flex flex-col items-center">
+
+                <!-- Step 1: Horizontal Line -->
+                <div class="split-line h-[2px] bg-gray-900 dark:bg-white"></div>
+
+                <!-- Step 2: Expanding Box -->
+                <div class="split-box w-full grid">
+                    <div class="overflow-hidden">
+                        <!-- Step 3: Content Background Block -->
+                        <div class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-10 md:p-14 rounded-sm shadow-xl mt-[-1px] w-full text-center transform origin-top transition-colors duration-500">
+                            <!-- Step 4: Text Reveal -->
+                            <p class="split-text text-lg md:text-xl font-light leading-relaxed mx-auto">
+                                Trumarx is an Intellectual Property law firm founded in 2014. We specialize in Patents, Trademarks, Designs, Copyrights, and Domain Names, leveraging strong global associations to enable seamless international filings and prosecutions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Title Segment -->
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-brand-accent z-20">
+                Innovation.
+            </h1>
+
+        </div>
+    </section>
+
+    <!-- FOUNDER SECTION -->
+    <section class="py-24 bg-brand-navy relative overflow-hidden">
+        <!-- Subtle Grid Pattern Background -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#888 1px, transparent 1px), linear-gradient(90deg, #888 1px, transparent 1px); background-size: 40px 40px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
+            
+            <!-- Left Side: Text Content -->
+            <div class="order-2 md:order-1 text-center md:text-left flex flex-col justify-center">
+                <div class="inline-block px-3 py-1 mb-6 border border-brand-accent/30 rounded-full w-max mx-auto md:mx-0">
+                    <span class="text-brand-accent font-bold tracking-[0.2em] text-[10px] uppercase">The Founder</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                    Pradeesh PL <br>
+                    <span class="text-brand-accent font-light">Founder and CEO</span>
+                </h2>
+                
+                <p class="text-gray-400 mb-8 leading-relaxed text-lg font-light">
+                    "Our vision is to deliver focused, high-quality, and timely IP solutions. We don't just protect ideas; we build the legal fortress that allows your innovation to thrive globally."
+                </p>
+
+                <p class="text-sm text-gray-500 leading-relaxed max-w-md mx-auto md:mx-0">
+                    Leveraging over two decades of expertise in IP protection across electronics, IT, and life sciences. Pradeesh established Trumarx in 2014 to bridge the gap between complex legal frameworks and business strategy.
+                </p>
+            </div>
+
+            <!-- Right Side: Image Composition -->
+            <div class="order-1 md:order-2 relative w-full max-w-md mx-auto md:ml-auto">
+                <!-- Background Accent Shape -->
+                <div class="absolute top-8 right-[-20px] w-full h-full bg-brand-darkCard/50 border border-white/5 rounded-none md:rounded-3xl -z-10 transform md:translate-x-8 md:translate-y-8"></div>
+                
+                <!-- Main Image Container -->
+                <div class="relative rounded-lg overflow-hidden shadow-2xl border border-white/10 group">
+                    <!-- 
+                        NOTE: Using the local path you requested. 
+                        Added 'onerror' fallback so the preview doesn't break if you aren't on your local machine.
+                    -->
+                    <img
+                        src="founder.png"
+                        alt="Pradeesh PL"
+                        class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent opacity-60"></div>
+                </div>
+
+                <!-- Floating Tile 1 (Top Left) -->
+                <div class="absolute -top-6 -left-4 md:-left-12 z-20 bg-white p-5 rounded-lg shadow-xl flex flex-col items-center justify-center w-32 h-32 md:w-36 md:h-36 animate-[fadeIn_1s_ease-out] hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                    <div class="text-brand-accent text-3xl mb-2"><i class="fas fa-certificate"></i></div>
+                    <div class="text-brand-navy font-bold text-lg leading-none">20+</div>
+                    <div class="text-[10px] text-gray-500 uppercase tracking-wider font-medium mt-1">Years Exp.</div>
+                </div>
+
+                <!-- Floating Tile 2 (Bottom Right) -->
+                <div class="absolute bottom-4 -right-4 md:-right-8 z-20 bg-brand-accent p-5 rounded-lg shadow-xl flex flex-col items-center justify-center min-w-[140px] md:min-w-[160px] animate-[fadeIn_1s_ease-out_0.3s_both] hover:-translate-y-2 transition-transform duration-300 cursor-default">
+                     <div class="text-2xl mb-2 text-white"><i class="fas fa-globe-americas"></i></div>
+                     <div class="text-white font-bold text-lg leading-none mb-1">Global</div>
+                     <div class="text-white/80 text-[10px] uppercase tracking-wider font-medium">50+ Associations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values / Mission -->
+    <section class="py-24 bg-brand-light dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Core Values</h2>
+                <p class="text-gray-500 dark:text-gray-400">The principles that guide every case we handle.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Value 1 -->
+                <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:border-brand-accent/50 transition-colors group">
+                    <div class="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:bg-brand-accent group-hover:text-white transition-colors">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Integrity</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Unwavering ethical standards in all our dealings. We provide honest assessments, even when they are difficult to hear.</p>
+                </div>
+                <!-- Value 2 -->
+                <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:border-brand-accent/50 transition-colors group">
+                    <div class="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:bg-brand-accent group-hover:text-white transition-colors">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Strategy</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">IP is not just paperwork; it's a business asset. We craft strategies that align with your long-term commercial goals.</p>
+                </div>
+                <!-- Value 3 -->
+                <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:border-brand-accent/50 transition-colors group">
+                    <div class="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:bg-brand-accent group-hover:text-white transition-colors">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Accessibility</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Demystifying complex legal jargon. We ensure you understand every step of the process protecting your work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- Footer Logo -->
+            <a href="index.html" class="inline-flex items-center gap-1 group hover:opacity-80 transition-opacity mb-6">
+                <div class="text-2xl tracking-tight">
+                    <span class="font-bold text-gray-500">tru</span><span class="font-bold text-gray-900 dark:text-white">marx</span>
+                    <span class="align-top text-[10px] font-bold border-2 border-gray-900 dark:border-white rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-gray-900 dark:text-white">®</span>
+                </div>
+            </a>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
+                <a href="services.html" class="hover:text-brand-accent transition-colors">Practice Areas</a>
+                <a href="aboutus.html" class="hover:text-brand-accent transition-colors">Our Team</a>
+                <a href="#" onclick="openContactModal(event)" class="hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <p class="text-gray-400 text-xs">&copy; 2025 Trumarx IP Solutions. All Rights Reserved. Attorney Advertising.</p>
+        </div>
+    </footer>
+
+    <!-- MODALS -->
+    <!-- Consultation Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-md p-8 relative modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-white transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Request Consultation</h3>
+            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
+            <form id="consultation-form" onsubmit="event.preventDefault(); submitForm();">
+                <div class="space-y-4">
+                    <input name="name" type="text" placeholder="Full Name" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-white" required>
+                    <input name="email" type="email" placeholder="Email Address" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-white" required>
+                    <input name="phone" type="tel" placeholder="Phone Number" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-white">
+                    <input name="subject" type="text" placeholder="Subject" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-white">
+                    <textarea name="message" placeholder="Message" rows="4" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-white resize-none"></textarea>
+                    <button class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Request Received</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
+            <button onclick="closeSuccessPopup()" class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-white transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Contact Information</h3>
+            <div class="space-y-6">
+                <address class="not-italic text-gray-600 dark:text-gray-400 space-y-2">
+                    <p class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
+                        <span class="ml-4">
+                            No. 23, Hari Prem Complex, 2nd Floor,<br>
+                            CMH Road, Indiranagar 1st Stage,<br>
+                            Bangalore – 560038
+                        </span>
+                    </p>
+                </address>
+                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+                <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                    <p class="flex justify-between items-center"><span><i class="fas fa-headset w-5 mr-3 text-gray-400"></i>Support:</span> <a href="tel:08040911324" class="hover:text-brand-accent text-gray-900 dark:text-white">080 – 40911324</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-registered w-5 mr-3 text-gray-400"></i>Trademark:</span> <a href="tel:08041462623" class="hover:text-brand-accent text-gray-900 dark:text-white">080 – 4146 2623</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-copyright w-5 mr-3 text-gray-400"></i>Copyright:</span> <a href="tel:08025284226" class="hover:text-brand-accent text-gray-900 dark:text-white">080 – 25284226</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-lightbulb w-5 mr-3 text-gray-400"></i>Patent:</span> <a href="tel:08025284227" class="hover:text-brand-accent text-gray-900 dark:text-white">080 – 25284227</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Mobile:</span> <a href="tel:+919886266396" class="hover:text-brand-accent text-gray-900 dark:text-white font-bold">+91 98862 66396</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-envelope w-5 mr-3 text-gray-400"></i>E-mail:</span> <a href="mailto:support@trumarx.in" class="hover:text-brand-accent text-gray-900 dark:text-white">support@trumarx.in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        (function(){ emailjs.init("IrcWHw8pMd_KcgXef"); })();
+
+        // --- Dark Mode Logic ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const checkbox = document.getElementById('theme-toggle');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                if(checkbox) checkbox.checked = false;
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if(checkbox) checkbox.checked = true;
+            }
+        }
+
+        // Set initial toggle state based on current mode
+        window.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('theme-toggle');
+            if (checkbox) {
+                checkbox.checked = document.documentElement.classList.contains('dark');
+            }
+        });
+
+        // --- Scroll-Linked Animation (Scrubbing) ---
+        window.addEventListener('scroll', () => {
+            const section = document.getElementById('hero-section');
+            if (!section) return;
+
+            const windowHeight = window.innerHeight;
+            
+            // "scrollableHeight" is how much distance the user has to scroll through 
+            // inside this pinned section before unpinning.
+            const scrollableHeight = section.offsetHeight - windowHeight;
+            
+            // Calculate progress (0 to 1) based on current scroll position
+            // Since the section is at the very top (offset 0), we can use scrollY directly.
+            // If it were lower down, we'd use (scrollY - section.offsetTop).
+            const progress = Math.max(0, Math.min(1, window.scrollY / scrollableHeight));
+
+            // Element Selectors
+            const line = document.querySelector('.split-line');
+            const box = document.querySelector('.split-box');
+            const text = document.querySelector('.split-text');
+
+            // --- Phase 1: Line Expands (Scroll 0% -> 30%) ---
+            const lineProgress = Math.min(1, progress / 0.3);
+            if(line) line.style.width = `${lineProgress * 100}%`;
+
+            // --- Phase 2: Box Opens (Scroll 30% -> 70%) ---
+            // Maps the 0.3-0.7 range to 0-1
+            const boxProgress = Math.max(0, Math.min(1, (progress - 0.3) / 0.4));
+            if(box) box.style.gridTemplateRows = `${boxProgress}fr`;
+
+            // --- Phase 3: Text Reveals (Scroll 70% -> 90%) ---
+            // Maps the 0.7-0.9 range to 0-1
+            const textProgress = Math.max(0, Math.min(1, (progress - 0.7) / 0.2));
+            if(text) {
+                text.style.opacity = textProgress;
+                // Moves from 2rem down -> 0rem
+                text.style.transform = `translateY(${(1 - textProgress) * 2}rem)`;
+            }
+        });
+
+        // --- Modals ---
+        const modal = document.getElementById('modal-overlay');
+        const successPopup = document.getElementById('success-popup');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
+        function submitForm() {
+            const form = document.getElementById('consultation-form');
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+            emailjs.send("service_56xv4pj", "template_njaikm8", data)
+                .then(function(response) {
+                    closeModal();
+                    successPopup.classList.remove('hidden');
+                    setTimeout(()=>successPopup.classList.add('active'),10);
+                    form.reset();
+                }, function(error) {
+                    alert('Failed to send message. Please try again.');
+                });
+        }
+        function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
+        
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal(event) {
+            if(event) event.preventDefault();
+            contactModal.classList.remove('hidden');
+            if(event) {
+                const modalContent = contactModal.querySelector('.modal-content');
+                const rect = modalContent.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                modalContent.style.transformOrigin = `${x}px ${y}px`;
+            }
+            setTimeout(()=>contactModal.classList.add('active'),10);
+        }
+        function closeContactModal() { contactModal.classList.remove('active'); setTimeout(()=>contactModal.classList.add('hidden'),300); }
+
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trumarx | Intellectual Property Attorneys</title>
+    <meta name="description" content="Premier legal counsel for Trademarks, Patents, and Copyrights. Safeguarding innovation in Bangalore and beyond.">
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#111111',        /* Near Black Text */
+                            dark: '#111111',        /* Near Black BG */
+                            darkCard: '#1F1F1F',    /* Lighter Black for cards */
+                            light: '#FFFFFF',       /* White for light sections */
+                            accent: '#888888',      /* Neutral Grey for accents/borders */
+                            accentHover: '#666666',  /* Darker Grey */
+                            textLight: '#FFFFFF',   /* White text on dark bg */
+                            textDark: '#111111',    /* Near Black text on light bg */
+                            logoGrey: '#888888',    /* Neutral Grey */
+                            logoBlack: '#111111',   /* Near Black */
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"San Francisco"', 
+                            '"Helvetica Neue"', 
+                            'Helvetica', 
+                            'Arial', 
+                            'sans-serif'
+                        ],
+                        serif: ['"Merriweather"', 'serif'],
+                    },
+                    boxShadow: {
+                        'legal': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Theme Logic -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const checkbox = document.getElementById('theme-toggle');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                if(checkbox) checkbox.checked = false;
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if(checkbox) checkbox.checked = true;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('theme-toggle');
+            if (checkbox) {
+                checkbox.checked = document.documentElement.classList.contains('dark');
+            }
+        });
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8); /* Apple Frost Light */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .legal-nav {
+            background: rgba(17, 17, 17, 0.8); /* Near Black Frost Dark */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Cinematic Scroll Classes */
+        .cinematic-layer {
+            will-change: transform, opacity;
+            transform-origin: center center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            pointer-events: none; 
+            transition: none !important;
+        }
+        
+        .cinematic-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: center center;
+            transition: none !important;
+        }
+
+        /* Large Intro Text */
+        .mega-text {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: clamp(3rem, 12vw, 9rem);
+            line-height: 0.9;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            white-space: nowrap;
+        }
+
+        /* Modal Transitions */
+        .modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .modal.active .modal-content { transform: scale(1) translateY(0); }
+        
+        /* Contact Modal Animation Override */
+        #contact-modal-overlay .modal-content {
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
+        }
+        #contact-modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(100%);
+        }
+        
+        /* FAQ Accordion Animation */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        /* JS handles smooth FAQ accordion animation */
+
+        /* Fluid Logo River Animation */
+        @keyframes float-1 {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes float-2 {
+            0%, 100% { transform: translateY(5px); }
+            50% { transform: translateY(15px); }
+        }
+        @keyframes float-3 {
+            0%, 100% { transform: translateY(-5px); }
+            50% { transform: translateY(5px); }
+        }
+        .logo-float-1 { animation: float-1 8s ease-in-out infinite; }
+        .logo-float-2 { animation: float-2 10s ease-in-out infinite; }
+        .logo-float-3 { animation: float-3 7s ease-in-out infinite; }
+        @keyframes float-4 {
+            0%, 100% { transform: translateY(8px); }
+            50% { transform: translateY(-8px); }
+        }
+        .logo-float-4 { animation: float-4 9s ease-in-out infinite; }
+
+        /* Logo River Animation */
+        @keyframes scroll-left {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        #logo-river-1, #logo-river-2, #logo-river-3 {
+            white-space: nowrap; /* Prevent logos from wrapping */
+            will-change: transform;
+            display: flex;
+            align-items: center;
+            animation: scroll-left 50s linear infinite;
+        }
+        #logo-river-1 { animation: scroll-left 40s linear infinite; }
+        #logo-river-2 { animation: scroll-left 65s linear infinite; }
+        #logo-river-3 { animation: scroll-left 50s linear infinite; }
+
+        /* General Smooth Transitions */
+        body, div, nav, section, footer, button, a, span, i, h1, h2, h3, p, input, select, label {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 legal-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex flex-col leading-none group hover:opacity-80 transition-opacity">
+                    <div class="text-3xl tracking-tight">
+                        <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                        <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                    </div>
+                    <span class="text-[10px] text-brand-logoGrey tracking-wide mt-1 font-medium">brand legal management</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
+                    <a href="index.html" class="text-brand-accent transition-colors">Home</a>
+                    <a href="aboutus.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                    <a href="achievements.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Achievements</a>
+                    <a href="testimonials.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
+                    <a href="services.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Services</a>
+                    <a href="careers.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                    
+                    <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+                    <!-- Theme Toggle Switch with Icons -->
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sun text-brand-accent text-xs"></i>
+                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="theme-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10" onclick="toggleTheme()"/>
+                            <label for="theme-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                        <i class="fas fa-moon text-gray-400 dark:text-brand-textLight text-xs"></i>
+                    </div>
+
+                    <!-- Button (Apple Blue) -->
+                    <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-brand-textDark dark:text-brand-textLight text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-200 dark:border-gray-700">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-brand-textDark dark:text-brand-textLight">Home</a>
+                <a href="aboutus.html" class="text-gray-600 dark:text-gray-400">About Us</a>
+                <a href="achievements.html" class="text-gray-600 dark:text-gray-400">Achievements</a>
+                <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
+                <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
+                <a href="careers.html" class="text-gray-600 dark:text-gray-400">Careers</a>
+                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+                <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-24 pb-32 overflow-hidden bg-white dark:bg-brand-dark min-h-screen flex items-center">
+        
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <!-- Left: Content -->
+            <div class="text-center lg:text-left">
+                <div class="inline-block mb-6">
+                    <span class="text-brand-accent font-semibold tracking-wide text-xs uppercase">Est. 2014 • Founded by Pradeesh PL</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-brand-textDark dark:text-brand-textLight leading-tight">
+                    Intellectual Property <br>
+                    <span class="text-brand-accent">Rights & Protection.</span>
+                </h1>
+
+                <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                    Specializing in Patents, Trademarks, Designs, Copyrights, and Domain Names. We handle international filing and prosecution for diverse industries, from IT to Entertainment.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <button onclick="openModal()" class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/30">
+                        Schedule Consultation
+                    </button>
+                    <a href="#services" class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center gap-2 group">
+                        Practice Areas <i class="fas fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center justify-center lg:justify-start gap-12 text-gray-400">
+                    <span class="text-xs uppercase tracking-widest font-semibold text-gray-400 dark:text-gray-600">Affiliations</span>
+                    <div class="flex gap-6 font-semibold text-brand-navy dark:text-brand-textLight opacity-80 text-sm">
+                        <span>WIPO</span><span>INTA</span><span>AIPPI</span><span>FICCI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Key Statistics -->
+            <div class="relative hidden lg:block">
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 shadow-2xl border border-gray-100 dark:border-white/10 rounded-2xl h-full min-h-[400px] flex flex-col justify-center">
+                    <h3 class="font-bold text-xl text-brand-navy dark:text-brand-textLight mb-8 text-center">Proven Expertise in IP Law</h3>
+                    <div class="grid grid-cols-2 gap-8">
+                        <!-- Stat 1 -->
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-brand-accent mb-1">20+</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Years Experience</div>
+                        </div>
+                        <!-- Stat 2 -->
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-brand-accent mb-1">5K+</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Trademarks Filed</div>
+                        </div>
+                        <!-- Stat 3 -->
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-brand-accent mb-1">50+</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Global Associations</div>
+                        </div>
+                        <!-- Stat 4 -->
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-brand-accent mb-1">98%</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Success Rate</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <a href="aboutus.html" class="text-xs font-medium text-brand-accent hover:underline">Learn more about our firm &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMMERSIVE SCROLL SECTION -->
+    <section id="achievements" class="relative h-[800vh] bg-black">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+            
+            <!-- 1. INTRO TEXT LAYER -->
+            <div id="layer-intro" class="cinematic-layer z-50 flex-col text-center">
+                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm uppercase mb-8">Trusted By Legends</p>
+                <div class="mega-text">
+                    YOUR LEGACY<br>OUR MISSION
+                </div>
+                <!-- Bouncy Arrow -->
+                <div class="mt-8 animate-bounce text-brand-accent/80">
+                    <i class="fas fa-chevron-down text-3xl"></i>
+                </div>
+            </div>
+
+            <!-- 2. SALAAR LAYER -->
+            <div id="layer-salaar" class="cinematic-layer z-40 opacity-0 scale-0">
+                <img src="Salaar.jpg" class="cinematic-image" alt="Salaar Poster">
+            </div>
+
+            <!-- 3. KANTARA LAYER -->
+            <div id="layer-kantara" class="cinematic-layer z-30 opacity-0 scale-0">
+                <img src="Kantara.png" class="cinematic-image" alt="Kantara Poster">
+            </div>
+
+            <!-- 4. KGF LAYER -->
+            <div id="layer-kgf" class="cinematic-layer z-20 opacity-0 scale-0">
+                <img src="KGF.png" class="cinematic-image" alt="KGF Chapter 2 Poster">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Services Grid (Practice Areas) -->
+    <section id="services" class="py-24 relative bg-brand-light dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="inline-block mb-4">
+                    <span class="text-gray-500 dark:text-brand-accent font-bold tracking-wide text-xs uppercase">Our Services</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-navy dark:text-brand-textLight mb-4 tracking-tight">Comprehensive IP Strategy</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
+                    Tailored legal solutions to safeguard your creative and industrial assets.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Cards -->
+                <a href="trademark.html" class="block">
+                    <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                        <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-registered"></i></div>
+                        <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Trademark</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                            Comprehensive brand identity protection, clearance searches, and prosecution.
+                        </p>
+                    </div>
+                </a>
+
+                <a href="patent.html" class="block">
+                    <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                        <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-lightbulb"></i></div>
+                        <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Patent</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                            Securing inventions through rigorous filing, drafting, and defense strategies.
+                        </p>
+                    </div>
+                </a>
+
+                <a href="copyright.html" class="block">
+                    <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                        <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-copyright"></i></div>
+                        <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Copyright</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                            Protection for literary, artistic, and musical works across global jurisdictions.
+                        </p>
+                    </div>
+                </a>
+
+                <div class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-drafting-compass"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Design</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Safeguarding aesthetic designs and industrial patterns from infringement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Trumarx Advantage -->
+    <section id="advantage" class="py-20 bg-white dark:bg-brand-dark border-t border-gray-100 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center md:text-left group">
+                    <div class="w-12 h-12 rounded-full bg-brand-light dark:bg-white/10 flex items-center justify-center mb-6 text-brand-accent text-xl group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-navy dark:text-brand-textLight mb-3">Strategic Prosecution</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">We don't just file; we strategize. Our team anticipates objections and crafts robust applications to ensure maximum enforceability.</p>
+                </div>
+                <div class="text-center md:text-left group">
+                    <div class="w-12 h-12 rounded-full bg-brand-light dark:bg-white/10 flex items-center justify-center mb-6 text-brand-accent text-xl group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-navy dark:text-brand-textLight mb-3">Global Network</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Direct access to IP offices in 50+ jurisdictions. We manage your international portfolio through a single point of contact.</p>
+                </div>
+                <div class="text-center md:text-left group">
+                    <div class="w-12 h-12 rounded-full bg-brand-light dark:bg-white/10 flex items-center justify-center mb-6 text-brand-accent text-xl group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-navy dark:text-brand-textLight mb-3">24/7 Monitoring</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Proactive surveillance of your assets. We detect and address infringements before they impact your brand value.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder's Spotlight -->
+    <section class="py-20 bg-brand-light dark:bg-brand-darkCard">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-textLight leading-snug mb-8">
+                "Intellectual Property is not just a legal right; it is the currency of the modern economy. We are dedicated to ensuring your currency never devalues."
+            </h2>
+            <div class="flex items-center justify-center gap-4">
+                <div class="text-center">
+                    <p class="font-bold text-brand-accent uppercase tracking-widest text-xs">-Pradeesh PL</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Founder and CEO</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Valued Clients -->
+    <section class="py-24 bg-white dark:bg-brand-dark">
+        <a href="achievements.html" class="block">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-2">Our Valued Clients</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Trusted partners in innovation</p>
+                </div>
+                <div class="flex justify-center items-center gap-8 flex-wrap">
+                    <img src="captain.jpg" alt="Captain" class="w-24 h-24 rounded-full object-cover">
+                    <img src="quantum-leap.jpg" alt="Quantum Leap" class="w-24 h-24 rounded-full object-cover">
+                    <img src="goduchy-1.jpg" alt="Goduchy" class="w-24 h-24 rounded-full object-cover">
+                    <img src="byjus.jpg" alt="BYJU'S" class="w-24 h-24 rounded-full object-cover">
+                    <img src="sourceone.jpg" alt="SourceOne" class="w-24 h-24 rounded-full object-cover">
+                    <img src="drivzey-1.jpg" alt="DRIVEZY" class="w-24 h-24 rounded-full object-cover">
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <!-- Client Voices -->
+    <section class="py-24 bg-white dark:bg-brand-dark border-t border-gray-100 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-12 text-center">Client Voices</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <a href="testimonials.html" class="block p-8 bg-brand-light dark:bg-brand-darkCard rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex flex-col h-full">
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"We had applied our trademark registration for our brand EMINENCE. In spite of existence of similar marks, M/s. Trumarx satisfactorily accomplished the registration process. We have a great pleasure and confidence in recommending Trumarx to others customers."</p>
+                        <div>
+                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">PC Sukanand, CEO</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">EMINENCE HOMES & SPACES</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="testimonials.html" class="block p-8 bg-brand-light dark:bg-brand-darkCard rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex flex-col h-full">
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"Our brand name TRANSWATER was under a legal issue because of an international company using the same name and it was got objected. Team TRUMARX helped us to fight the case and to get the brand name registered in our favour."</p>
+                        <div>
+                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">Vikas Brahmavar, Director</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">TRANSWATER</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="mt-12 text-center">
+                <a href="testimonials.html" class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center gap-2 group mx-auto w-fit">
+                    View All Testimonials <i class="fas fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq-section" class="py-24 bg-brand-light dark:bg-brand-dark">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-10 text-center">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="group bg-white dark:bg-brand-darkCard p-6 rounded-2xl shadow-sm cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-brand-navy dark:text-brand-textLight">
+                        How long does trademark registration take in India?
+                        <span class="transform group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down text-brand-accent"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div>
+                            <p class="text-gray-600 dark:text-gray-400 pt-4 text-sm leading-relaxed">
+                                Typically, the process takes 18-24 months if there are no objections. Trumarx expedites filing and promptly handles examination reports to minimize delays.
+                            </p>
+                        </div>
+                    </div>
+                </details>
+                <details class="group bg-white dark:bg-brand-darkCard p-6 rounded-2xl shadow-sm cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-brand-navy dark:text-brand-textLight">
+                        Do you handle international patent filing?
+                        <span class="transform group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down text-brand-accent"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div>
+                            <p class="text-gray-600 dark:text-gray-400 pt-4 text-sm leading-relaxed">
+                                Yes. We specialize in PCT (Patent Cooperation Treaty) applications, allowing you to seek patent protection in over 150 countries simultaneously.
+                            </p>
+                        </div>
+                    </div>
+                </details>
+                <details class="group bg-white dark:bg-brand-darkCard p-6 rounded-2xl shadow-sm cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-brand-navy dark:text-brand-textLight">
+                        What industries do you serve?
+                        <span class="transform group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down text-brand-accent"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div>
+                            <p class="text-gray-600 dark:text-gray-400 pt-4 text-sm leading-relaxed">
+                                We serve a diverse range of industries including Information Technology, Entertainment & Media, Manufacturing, Life Sciences, and Retail.
+                            </p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- Footer Logo -->
+            <a href="index.html" class="inline-flex items-center gap-1 group hover:opacity-80 transition-opacity mb-6">
+                <div class="text-2xl tracking-tight">
+                    <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                    <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                </div>
+            </a>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
+                <a href="#" class="hover:text-brand-accent transition-colors">Practice Areas</a>
+                <a href="#" class="hover:text-brand-accent transition-colors">Our Team</a>
+                <a href="#" onclick="openContactModal(event)" class="hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <p class="text-gray-400 text-xs">&copy; 2025 Trumarx IP Solutions. All Rights Reserved. Attorney Advertising.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Consultation</h3>
+            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
+            <form id="consultation-form" onsubmit="event.preventDefault(); submitForm();">
+                <div class="space-y-4">
+                    <input name="name" type="text" placeholder="Full Name" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="email" type="email" placeholder="Email Address" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="phone" type="tel" placeholder="Phone Number" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <input name="subject" type="text" placeholder="Subject" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <textarea name="message" placeholder="Message" rows="4" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
+                    <button class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
+            <button onclick="closeSuccessPopup()" class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-6 text-brand-navy dark:text-brand-textLight">Contact Information</h3>
+            
+            <div class="space-y-6">
+                <address class="not-italic text-gray-600 dark:text-gray-400 space-y-2">
+                    <p class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
+                        <span class="ml-4">
+                            No. 23, Hari Prem Complex, 2nd Floor,<br>
+                            CMH Road, Indiranagar 1st Stage,<br>
+                            Bangalore – 560038
+                        </span>
+                    </p>
+                </address>
+
+                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+
+                <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                    <p class="flex justify-between items-center"><span><i class="fas fa-headset w-5 mr-3 text-gray-400"></i>Support:</span> <a href="tel:08040911324" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 40911324</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-registered w-5 mr-3 text-gray-400"></i>Trademark:</span> <a href="tel:08041462623" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 4146 2623</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-copyright w-5 mr-3 text-gray-400"></i>Copyright:</span> <a href="tel:08025284226" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284226</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-lightbulb w-5 mr-3 text-gray-400"></i>Patent:</span> <a href="tel:08025284227" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284227</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Mobile:</span> <a href="tel:+919886266396" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight font-bold">+91 98862 66396</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-envelope w-5 mr-3 text-gray-400"></i>E-mail:</span> <a href="mailto:support@trumarx.in" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">support@trumarx.in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts (Scroll & Logic Preserved) -->
+    <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("IrcWHw8pMd_KcgXef");
+        })();
+
+        // Modal Logic
+        const modal = document.getElementById('modal-overlay');
+        const successPopup = document.getElementById('success-popup');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
+        function submitForm() {
+            const form = document.getElementById('consultation-form');
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+
+            // The 'required' attribute on inputs handles basic browser-side validation
+            emailjs.send("service_56xv4pj", "template_njaikm8", data)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    closeModal();
+                    successPopup.classList.remove('hidden');
+                    setTimeout(()=>successPopup.classList.add('active'),10);
+                    form.reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Failed to send message. Please try again.');
+                });
+        }
+        function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
+
+        // Contact Modal Logic
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal(event) {
+            if(event) event.preventDefault();
+            contactModal.classList.remove('hidden');
+            if(event) {
+                const modalContent = contactModal.querySelector('.modal-content');
+                const rect = modalContent.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                modalContent.style.transformOrigin = `${x}px ${y}px`;
+            }
+            setTimeout(()=>contactModal.classList.add('active'),10);
+        }
+        function closeContactModal() { contactModal.classList.remove('active'); setTimeout(()=>contactModal.classList.add('hidden'),300); }
+
+        // CINEMATIC SCROLL LOGIC
+        const section = document.getElementById('achievements');
+        const layerIntro = document.getElementById('layer-intro');
+        const layerSalaar = document.getElementById('layer-salaar');
+        const layerKantara = document.getElementById('layer-kantara');
+        const layerKgf = document.getElementById('layer-kgf');
+
+        window.addEventListener('scroll', () => {
+            const rect = section.getBoundingClientRect();
+            const start = rect.top;
+            const height = rect.height;
+            const viewH = window.innerHeight;
+            
+            // Map scroll to 0-1 progress
+            let progress = 0;
+            if (start <= 0) {
+                progress = Math.abs(start) / (height - viewH);
+            }
+            if (progress < 0) progress = 0;
+            if (progress > 1) progress = 1;
+
+            // --- ANIMATION STAGES ---
+            // 0.00 - 0.25: Intro Text (Zoom 1x -> 15x, Fade Out)
+            // 0.25 - 0.50: Salaar (Zoom 0.5x -> 1.2x, Fade Out)
+            // 0.50 - 0.75: Kantara (Zoom 0.5x -> 1.2x, Fade Out)
+            // 0.75 - 1.00: KGF (Zoom 0.5x -> 1.2x, Fade Out)
+
+            // 1. INTRO TEXT (Solid, Moderate Zoom, Fade Out from Start)
+            if (progress < 0.25) {
+                let localP = progress / 0.25; 
+                let scaleVal = 1 + (localP * 14); 
+                layerIntro.style.transform = `scale(${scaleVal})`;
+                let fade = 1 - localP;
+                layerIntro.style.opacity = Math.max(0, fade);
+            } else {
+                layerIntro.style.opacity = 0;
+            }
+
+            // 2. SALAAR (0.25 to 0.50)
+            if (progress > 0.25) {
+                let localP = (progress - 0.25) / 0.25; 
+                let scaleVal = 0.5 + (localP * 0.7); 
+                layerSalaar.style.transform = `scale(${scaleVal})`;
+                layerSalaar.style.zIndex = 40;
+
+                if (scaleVal < 1.0) layerSalaar.style.opacity = 1; 
+                else layerSalaar.style.opacity = 1 - ((scaleVal - 1.0) * 5); 
+
+                if (scaleVal < 0.55) layerSalaar.style.opacity = (scaleVal - 0.5) * 10; 
+            } else {
+                layerSalaar.style.opacity = 0;
+            }
+
+            // 3. KANTARA (0.50 to 0.75)
+            if (progress > 0.50) {
+                let localP = (progress - 0.50) / 0.25;
+                let scaleVal = 0.5 + (localP * 0.7);
+                layerKantara.style.transform = `scale(${scaleVal})`;
+                layerKantara.style.zIndex = 50;
+
+                if (scaleVal < 1.0) layerKantara.style.opacity = 1;
+                else layerKantara.style.opacity = 1 - ((scaleVal - 1.0) * 5);
+
+                if (scaleVal < 0.55) layerKantara.style.opacity = (scaleVal - 0.5) * 10;
+            } else {
+                layerKantara.style.opacity = 0;
+            }
+
+            // 4. KGF (0.75 to 1.00)
+            if (progress > 0.75) {
+                let localP = (progress - 0.75) / 0.25;
+                if(localP > 1) localP = 1;
+                let scaleVal = 0.5 + (localP * 0.7);
+                layerKgf.style.transform = `scale(${scaleVal})`;
+                layerKgf.style.zIndex = 60;
+
+                if (scaleVal < 0.55) layerKgf.style.opacity = (scaleVal - 0.5) * 10;
+                else layerKgf.style.opacity = 1;
+            } else {
+                layerKgf.style.opacity = 0;
+            }
+        });
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+
+        // SMOOTH FAQ ACCORDION
+        class Accordion {
+            constructor(el) {
+                this.el = el;
+                this.summary = el.querySelector('summary');
+                this.content = el.querySelector('.faq-answer');
+                this.animation = null;
+                this.isClosing = false;
+                this.isExpanding = false;
+                this.summary.addEventListener('click', (e) => this.onClick(e));
+            }
+
+            onClick(e) {
+                e.preventDefault();
+                this.el.style.overflow = 'hidden';
+                
+                if (this.isClosing || !this.el.open) {
+                    this.open();
+                } else if (this.isExpanding || this.el.open) {
+                    this.shrink();
+                }
+            }
+
+            shrink() {
+                this.isClosing = true;
+                
+                const startHeight = `${this.el.offsetHeight}px`;
+                const endHeight = `${this.summary.offsetHeight}px`;
+                
+                if (this.animation) {
+                    this.animation.cancel();
+                }
+                
+                this.animation = this.el.animate({
+                    height: [startHeight, endHeight]
+                }, {
+                    duration: 300,
+                    easing: 'ease-out'
+                });
+                
+                this.animation.onfinish = () => {
+                    this.el.removeAttribute('open');
+                    this.isClosing = false;
+                    this.el.style.height = this.el.style.overflow = '';
+                };
+            }
+
+            open() {
+                this.el.style.height = `${this.el.offsetHeight}px`;
+                this.el.setAttribute('open', '');
+                window.requestAnimationFrame(() => this.expand());
+            }
+
+            expand() {
+                this.isExpanding = true;
+                const startHeight = `${this.el.offsetHeight}px`;
+                const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+                
+                if (this.animation) {
+                    this.animation.cancel();
+                }
+                
+                this.animation = this.el.animate({
+                    height: [startHeight, endHeight]
+                }, {
+                    duration: 300,
+                    easing: 'ease-in-out'
+                });
+
+                this.animation.onfinish = () => {
+                    this.isExpanding = false;
+                    this.el.style.height = this.el.style.overflow = '';
+                };
+            }
+        }
+
+        document.querySelectorAll('#faq-section details').forEach((el) => {
+            new Accordion(el);
+        });
+    </script>
+</body>
+</html>

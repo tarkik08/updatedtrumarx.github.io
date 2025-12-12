@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trumarx | Copyright Services</title>
+    <meta name="description" content="Protect your creative works with comprehensive copyright services from Trumarx. Secure your literary, artistic, and musical creations.">
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#111111',        /* Near Black Text */
+                            dark: '#111111',        /* Near Black BG */
+                            darkCard: '#1F1F1F',    /* Lighter Black for cards */
+                            light: '#FFFFFF',       /* White for light sections */
+                            accent: '#888888',      /* Neutral Grey for accents/borders */
+                            accentHover: '#666666',  /* Darker Grey */
+                            textLight: '#FFFFFF',   /* White text on dark bg */
+                            textDark: '#111111',    /* Near Black text on light bg */
+                            logoGrey: '#888888',    /* Neutral Grey */
+                            logoBlack: '#111111',   /* Near Black */
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"San Francisco"', 
+                            '"Helvetica Neue"', 
+                            'Helvetica', 
+                            'Arial', 
+                            'sans-serif'
+                        ],
+                        serif: ['"Merriweather"', 'serif'],
+                    },
+                    boxShadow: {
+                        'legal': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Theme Logic -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const checkbox = document.getElementById('theme-toggle');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                if(checkbox) checkbox.checked = false;
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if(checkbox) checkbox.checked = true;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('theme-toggle');
+            if (checkbox) {
+                checkbox.checked = document.documentElement.classList.contains('dark');
+            }
+        });
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8); /* Apple Frost Light */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .legal-nav {
+            background: rgba(17, 17, 17, 0.8); /* Near Black Frost Dark */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Modal Transitions */
+        .modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .modal.active .modal-content { transform: scale(1) translateY(0); }
+
+        /* Contact Modal Animation Override */
+        #contact-modal-overlay .modal-content {
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
+        }
+        #contact-modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #888888;
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(100%);
+        }
+        
+        /* General Smooth Transitions */
+        body, div, nav, section, footer, button, a, span, i, h1, h2, h3, p, input, select, label {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 legal-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex flex-col leading-none group hover:opacity-80 transition-opacity">
+                    <div class="text-3xl tracking-tight">
+                        <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                        <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                    </div>
+                    <span class="text-[10px] text-brand-logoGrey tracking-wide mt-1 font-medium">brand legal management</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
+                    <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                    <a href="aboutus.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                    <a href="achievements.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Achievements</a>
+                    <a href="testimonials.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
+                    <a href="services.html" class="text-brand-accent transition-colors">Services</a>
+                    <a href="careers.html" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                    
+                    <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+                    <!-- Theme Toggle Switch with Icons -->
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sun text-brand-accent text-xs"></i>
+                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="theme-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10" onclick="toggleTheme()"/>
+                            <label for="theme-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                        <i class="fas fa-moon text-gray-400 dark:text-brand-textLight text-xs"></i>
+                    </div>
+
+                    <!-- Button (Apple Blue) -->
+                    <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-brand-textDark dark:text-brand-textLight text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-200 dark:border-gray-700">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 dark:text-gray-400">Home</a>
+                <a href="aboutus.html" class="text-gray-600 dark:text-gray-400">About Us</a>
+                <a href="achievements.html" class="text-gray-600 dark:text-gray-400">Achievements</a>
+                <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
+                <a href="services.html" class="text-brand-textDark dark:text-brand-textLight">Services</a>
+                <a href="careers.html" class="text-gray-600 dark:text-gray-400">Careers</a>
+                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+                <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Copyright Hero -->
+    <section class="relative pt-32 pb-20 bg-brand-light dark:bg-brand-dark overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-8 text-brand-textDark dark:text-brand-textLight">
+                Copyright <br><span class="text-brand-accent">Protection.</span>
+            </h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10">
+                Safeguarding the creative works of authors, artists, and originators. From literary masterpieces to digital software, we ensure your intellectual property is legally secured.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openModal()" class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg">
+                    Get Started
+                </button>
+                <a href="#what-is-copyright" class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center gap-2 group">
+                    Learn More <i class="fas fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is Copyright -->
+    <section id="what-is-copyright" class="py-24 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">What is Copyright?</h2>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">A legal right granted exclusively to the creator of an original work.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-brand-navy dark:text-brand-textLight mb-6">Scope of Protection</h3>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+                        Copyright is a legal right given exclusively to the creator/originator (or assignee) of a work. It includes the right to reproduce, publish, perform, translate, and adapt the work in any material form.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 font-medium">
+                        "Work" includes:
+                    </p>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-accent mt-1 mr-3"></i>
+                            <span>Literary works (including computer programs)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-accent mt-1 mr-3"></i>
+                            <span>Artistic works (paintings, sculptures, drawings)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-accent mt-1 mr-3"></i>
+                            <span>Dramatic and musical works</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-accent mt-1 mr-3"></i>
+                            <span>Cinematographic films and sound recordings</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl">
+                    <div class="text-brand-accent mb-6 text-4xl text-center"><i class="fas fa-copyright"></i></div>
+                    <p class="text-gray-600 dark:text-gray-400 text-center leading-relaxed">
+                        "The protection and safeguards provided by copyright are conducive to the reward of creativity. This protection induces creators to create more and motivates others to contribute to the world of art and literature."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Register Copyright -->
+    <section class="py-24 bg-brand-light dark:bg-brand-darkCard">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">Why Register Your Copyright?</h2>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">While protection exists from creation, registration provides critical legal advantages.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-brand-dark p-8 rounded-2xl shadow-legal text-center">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-gavel"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Prima Facie Evidence</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        A Certificate of Registration serves as prima facie evidence in a court of law regarding ownership disputes.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-brand-dark p-8 rounded-2xl shadow-legal text-center">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Legal Remedies</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Registration enables the owner to seek civil and criminal remedies against offenders for infringement.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-brand-dark p-8 rounded-2xl shadow-legal text-center">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-hourglass-half"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Long Duration</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Protection lasts for the author's life + 60 years. For other works, it is 60 years from publication.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Copyright Services -->
+    <section class="py-24 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">Our Copyright Services</h2>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Comprehensive solutions for creators and businesses.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-file-contract"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Copyright Registration</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Filing and prosecution of copyright applications for all types of creative works.
+                    </p>
+                </div>
+
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Software Protection</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Specialized registration for computer programs, software code, and databases.
+                    </p>
+                </div>
+
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-balance-scale-right"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Infringement Actions</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Legal representation in civil and criminal suits against copyright violators.
+                    </p>
+                </div>
+
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-handshake"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Licensing & Assignment</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Drafting and reviewing agreements for transferring or licensing copyright.
+                    </p>
+                </div>
+
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-globe-americas"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">International Advisory</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Guidance on protecting your creative works in foreign jurisdictions.
+                    </p>
+                </div>
+
+                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-search-dollar"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Due Diligence</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Auditing copyright assets during mergers, acquisitions, and valuations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-brand-light dark:bg-brand-darkCard">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-6">
+                Protect Your Creative Assets
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">
+                Ensure your hard work is legally protected. Contact us to register your copyright today.
+            </p>
+            <button onclick="openModal()" class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg">
+                Start Your Copyright Registration
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- Footer Logo -->
+            <a href="index.html" class="inline-flex items-center gap-1 group hover:opacity-80 transition-opacity mb-6">
+                <div class="text-2xl tracking-tight">
+                    <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-brand-textLight">marx</span>
+                    <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-brand-textLight rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-brand-textLight">®</span>
+                </div>
+            </a>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
+                <a href="services.html" class="hover:text-brand-accent transition-colors">Practice Areas</a>
+                <a href="aboutus.html" class="hover:text-brand-accent transition-colors">Our Team</a>
+                <a href="#" onclick="openContactModal(event)" class="hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <p class="text-gray-400 text-xs">&copy; 2025 Trumarx IP Solutions. All Rights Reserved. Attorney Advertising.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-md p-8 relative modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Consultation</h3>
+            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
+            <form id="consultation-form" onsubmit="event.preventDefault(); submitForm();">
+                <div class="space-y-4">
+                    <input name="name" type="text" placeholder="Full Name" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="email" type="email" placeholder="Email Address" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
+                    <input name="phone" type="tel" placeholder="Phone Number" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <input name="subject" type="text" placeholder="Subject" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                    <textarea name="message" placeholder="Message" rows="4" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
+                    <button class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
+            <button onclick="closeSuccessPopup()" class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal-overlay" class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-6 text-brand-navy dark:text-brand-textLight">Contact Information</h3>
+            
+            <div class="space-y-6">
+                <address class="not-italic text-gray-600 dark:text-gray-400 space-y-2">
+                    <p class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
+                        <span class="ml-4">
+                            No. 23, Hari Prem Complex, 2nd Floor,<br>
+                            CMH Road, Indiranagar 1st Stage,<br>
+                            Bangalore – 560038
+                        </span>
+                    </p>
+                </address>
+
+                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+
+                <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                    <p class="flex justify-between items-center"><span><i class="fas fa-headset w-5 mr-3 text-gray-400"></i>Support:</span> <a href="tel:08040911324" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 40911324</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-registered w-5 mr-3 text-gray-400"></i>Trademark:</span> <a href="tel:08041462623" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 4146 2623</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-copyright w-5 mr-3 text-gray-400"></i>Copyright:</span> <a href="tel:08025284226" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284226</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-lightbulb w-5 mr-3 text-gray-400"></i>Patent:</span> <a href="tel:08025284227" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284227</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Mobile:</span> <a href="tel:+919886266396" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight font-bold">+91 98862 66396</a></p>
+                    <p class="flex justify-between items-center"><span><i class="fas fa-envelope w-5 mr-3 text-gray-400"></i>E-mail:</span> <a href="mailto:support@trumarx.in" class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">support@trumarx.in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("IrcWHw8pMd_KcgXef");
+        })();
+
+        // Modal Logic
+        const modal = document.getElementById('modal-overlay');
+        const successPopup = document.getElementById('success-popup');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
+        function submitForm() {
+            const form = document.getElementById('consultation-form');
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+
+            // The 'required' attribute on inputs handles basic browser-side validation
+            emailjs.send("service_56xv4pj", "template_njaikm8", data)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    closeModal();
+                    successPopup.classList.remove('hidden');
+                    setTimeout(()=>successPopup.classList.add('active'),10);
+                    form.reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Failed to send message. Please try again.');
+                });
+        }
+        function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
+        
+        // Contact Modal Logic
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal(event) {
+            if(event) event.preventDefault();
+            contactModal.classList.remove('hidden');
+            if(event) {
+                const modalContent = contactModal.querySelector('.modal-content');
+                const rect = modalContent.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                modalContent.style.transformOrigin = `${x}px ${y}px`;
+            }
+            setTimeout(()=>contactModal.classList.add('active'),10);
+        }
+        function closeContactModal() { contactModal.classList.remove('active'); setTimeout(()=>contactModal.classList.add('hidden'),300); }
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+    </script>
+</body>
+</html>
