@@ -383,7 +383,7 @@
                             </div>
                             
                             <div class="mt-8">
-                                <a href="mailto:Legal@trumarx.in" class="block w-full py-3 bg-brand-accent hover:bg-brand-accentHover text-white font-bold text-center rounded-lg transition-colors text-sm">
+                                <a onclick="applyNow()" class="block w-full py-3 bg-brand-accent hover:bg-brand-accentHover text-white font-bold text-center rounded-lg transition-colors text-sm cursor-pointer">
                                     Apply Now
                                 </a>
                             </div>
@@ -552,6 +552,47 @@
                 link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
             });
         }
+
+        // Application Logic
+        function applyNow() {
+            const mailtoLink = 'mailto:legal@trumarx.in?subject=Internship Application&body=Dear Trumarx Team,%0A%0AI am interested in applying for the internship position. Please find my resume attached.%0A%0ABest regards,%0A[Your Name]';
+            window.open(mailtoLink, '_blank');
+
+            // Show fallback modal after a short delay
+            setTimeout(() => {
+                const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
+                if (mailtoFallbackModal) {
+                    mailtoFallbackModal.classList.remove('hidden');
+                    setTimeout(() => mailtoFallbackModal.classList.add('active'), 10);
+                }
+            }, 1000);
+        }
+
+        function closeMailtoFallbackModal() {
+            const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
+            if (mailtoFallbackModal) {
+                mailtoFallbackModal.classList.remove('active');
+                setTimeout(() => mailtoFallbackModal.classList.add('hidden'), 300);
+            }
+        }
     </script>
+
+    <!-- Mailto Fallback Modal -->
+    <div id="mailto-fallback-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center modal-content font-sans">
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-envelope text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Email Application</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                If the email client didn't open, please copy this email address and send your resume manually:
+            </p>
+            <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
+                <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold">legal@trumarx.in</p>
+            </div>
+            <button onclick="closeMailtoFallbackModal()" class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+        </div>
+    </div>
+
 </body>
 </html>
