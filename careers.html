@@ -556,7 +556,7 @@
         // Application Logic
         function applyNow() {
             const mailtoLink = 'mailto:legal@trumarx.in?subject=Internship Application&body=Dear Trumarx Team,%0A%0AI am interested in applying for the internship position. Please find my resume attached.%0A%0ABest regards,%0A[Your Name]';
-            window.open(mailtoLink, '_blank');
+            window.location.href = mailtoLink;
 
             // Show fallback modal after a short delay
             setTimeout(() => {
