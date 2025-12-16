@@ -677,7 +677,7 @@
     <script>
         // Initialize EmailJS
         (function(){
-            emailjs.init("{{EMAILJS_PUBLIC_KEY}}");
+            emailjs.init("IrcWHw8pMd_KcgXef");
         })();
 
         // Modal Logic
@@ -697,7 +697,7 @@
             };
 
             // The 'required' attribute on inputs handles basic browser-side validation
-            emailjs.send("{{EMAILJS_SERVICE_ID}}", "{{EMAILJS_TEMPLATE_ID}}", data)
+            emailjs.send("service_56xv4pj", "template_lg9btcd", data)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     closeModal();
