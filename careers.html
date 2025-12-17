@@ -178,9 +178,6 @@
                     <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
                         Consultation
                     </button>
-                    <button id="auth-btn" onclick="openAdminLogin()" class="px-4 py-2 rounded-xl bg-brand-navy text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
-                        Admin Login
-                    </button>
                 </div>
 
                 <div class="flex items-center gap-4 md:hidden">
@@ -200,7 +197,6 @@
                 <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
                 <a href="careers.html" class="text-brand-textDark dark:text-brand-textLight">Careers</a>
                 <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
-                <button id="mobile-auth-btn" onclick="openAdminLogin()" class="w-full text-center px-5 py-3 rounded-xl bg-brand-navy text-white font-bold shadow-lg mb-2">Admin Login</button>
                 <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
             </div>
         </div>
@@ -409,35 +405,6 @@
         </div>
     </section>
 
-    <!-- Admin Panel -->
-    <section id="admin-panel" class="py-24 bg-brand-light dark:bg-brand-darkCard border-t border-gray-200 dark:border-white/5 hidden">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-2xl font-bold text-brand-navy dark:text-brand-textLight mb-8 text-center">Manage Job Postings</h2>
-            <div class="bg-white dark:bg-brand-dark p-8 rounded-2xl shadow-legal">
-                <h3 class="text-xl font-bold mb-6 text-brand-navy dark:text-brand-textLight">Add New Job Posting</h3>
-                <form id="job-form" onsubmit="event.preventDefault(); submitJob();">
-                    <input id="edit-index" type="hidden">
-                    <div class="space-y-4">
-                        <input id="job-title" type="text" placeholder="Job Title" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
-                        <textarea id="job-description" placeholder="Job Description" rows="4" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none" required></textarea>
-                        <select id="job-type" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
-                            <option value="Full-Time">Full-Time</option>
-                            <option value="Internship">Internship</option>
-                        </select>
-                        <input id="job-location" type="text" placeholder="Location (e.g., Bangalore, Remote)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                        <input id="job-experience" type="text" placeholder="Experience (e.g., 2-3 years, Fresher)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                        <input id="job-salary" type="text" placeholder="Salary (e.g., 5-8 LPA, Competitive)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                        <input id="job-qualifications" type="text" placeholder="Qualifications (e.g., LLB, CS, MBA)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                        <div>
-                            <label for="job-deadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Deadline for Application</label>
-                            <input id="job-deadline" type="date" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                        </div>
-                        <button id="submit-btn" class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Save Job</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="py-16 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-brand-dark">
@@ -642,64 +609,6 @@
             }
         }
 
-        // Admin Login Logic
-        function openAdminLogin() { 
-            const adminLoginModal = document.getElementById('admin-login-modal');
-            if (adminLoginModal) {
-                adminLoginModal.classList.remove('hidden'); 
-                setTimeout(() => adminLoginModal.classList.add('active'), 10); 
-            } else {
-                alert('Modal not found');
-            }
-        }
-        function closeAdminLoginModal() { 
-            const adminLoginModal = document.getElementById('admin-login-modal');
-            if (adminLoginModal) {
-                adminLoginModal.classList.remove('active'); 
-                setTimeout(() => adminLoginModal.classList.add('hidden'), 300); 
-            }
-        }
-        function showConfirmModal(message, callback) {
-            document.getElementById('confirm-message').textContent = message;
-            window.confirmCallback = callback;
-            const modal = document.getElementById('confirm-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.add('active'), 10);
-        }
-        function confirmAction(confirmed) {
-            const modal = document.getElementById('confirm-modal');
-            modal.classList.remove('active');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-            if (window.confirmCallback) {
-                window.confirmCallback(confirmed);
-            }
-        }
-        function showMessageModal(title, message, type = 'info') {
-            const modal = document.getElementById('message-modal');
-            if (modal) {
-                const titleEl = document.getElementById('message-title');
-                const textEl = document.getElementById('message-text');
-                const okBtn = document.getElementById('message-ok-btn');
-                titleEl.textContent = title;
-                textEl.textContent = message;
-                if (type === 'error') {
-                    titleEl.className = 'text-2xl font-bold mb-4 text-red-500 dark:text-red-400';
-                    okBtn.className = 'w-full py-3 bg-red-500 text-white font-bold text-sm rounded-full hover:bg-red-600 transition-colors shadow-lg';
-                } else {
-                    titleEl.className = 'text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight';
-                    okBtn.className = 'w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg';
-                }
-                modal.classList.remove('hidden');
-                setTimeout(() => modal.classList.add('active'), 10);
-            } else {
-                alert(title + ': ' + message); // Fallback
-            }
-        }
-        function closeMessageModal() {
-            const modal = document.getElementById('message-modal');
-            modal.classList.remove('active');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
 
         let jobsCache = [];
 
@@ -715,121 +624,6 @@
             return Array.isArray(data.jobs) ? data.jobs : [];
         }
 
-        async function saveJobsToApi(jobs) {
-            const token = localStorage.getItem('adminToken');
-            console.log('Admin token exists:', !!token);
-            console.log('Jobs to save:', jobs);
-            
-            const response = await fetch('/.netlify/functions/jobs-save', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': token ? `Bearer ${token}` : ''
-                },
-                body: JSON.stringify({ jobs })
-            });
-
-            // Log response details for debugging
-            console.log('Response status:', response.status);
-            console.log('Response headers:', response.headers);
-            
-            if (!response.ok) {
-                let errorData;
-                try {
-                    errorData = await response.json();
-                    console.error('Server error details:', errorData);
-                } catch (e) {
-                    console.error('Could not parse error response:', e);
-                    errorData = { error: 'Unknown server error' };
-                }
-                throw new Error(errorData.error || 'Failed to save jobs');
-            }
-
-            if (response.status === 401) {
-                adminLogout();
-                throw new Error('Unauthorized');
-            }
-
-            const data = await response.json();
-            localStorage.setItem('jobsUpdatedAt', Date.now().toString());
-            return data;
-        }
-        function submitAdminLogin() {
-            const username = document.getElementById('admin-username').value;
-            const password = document.getElementById('admin-password').value;
-            // Production version: calls Netlify function
-            fetch('/.netlify/functions/admin-login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    localStorage.setItem('adminLoggedIn', 'true');
-                    if (data.token) {
-                        localStorage.setItem('adminToken', data.token);
-                    }
-                    closeAdminLoginModal();
-                    showAdminPanel();
-                } else {
-                    showMessageModal('Login Failed', 'Invalid credentials. Please try again.', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showMessageModal('Error', 'Login failed. Please try again.', 'error');
-            });
-            // For local testing, uncomment below and comment above
-            /*
-            if (username === 'admin' && password === 'password') {
-                localStorage.setItem('adminLoggedIn', 'true');
-                closeAdminLoginModal();
-                showAdminPanel();
-            } else {
-                showMessageModal('Login Failed', 'Invalid credentials. Please try again.');
-            }
-            */
-        }
-        function showAdminPanel() {
-            console.log('showAdminPanel called');
-            const panel = document.getElementById('admin-panel');
-            const authBtn = document.getElementById('auth-btn');
-            const mobileAuthBtn = document.getElementById('mobile-auth-btn');
-            console.log('Elements:', { panel, authBtn, mobileAuthBtn });
-            if (panel) panel.classList.remove('hidden');
-            if (authBtn) {
-                authBtn.textContent = 'Logout';
-                authBtn.onclick = adminLogout;
-                authBtn.className = 'px-4 py-2 rounded-xl bg-red-500 text-white font-medium text-[12px] hover:bg-red-600 transition-all shadow-sm';
-            }
-            if (mobileAuthBtn) {
-                mobileAuthBtn.textContent = 'Logout';
-                mobileAuthBtn.onclick = adminLogout;
-                mobileAuthBtn.className = 'w-full text-center px-5 py-3 rounded-xl bg-red-500 text-white font-bold shadow-lg mb-2';
-            }
-            loadJobs();
-        }
-        function adminLogout() {
-            localStorage.removeItem('adminLoggedIn');
-            localStorage.removeItem('adminToken');
-            const panel = document.getElementById('admin-panel');
-            const authBtn = document.getElementById('auth-btn');
-            const mobileAuthBtn = document.getElementById('mobile-auth-btn');
-            if (panel) panel.classList.add('hidden');
-            if (authBtn) {
-                authBtn.textContent = 'Admin Login';
-                authBtn.onclick = openAdminLogin;
-                authBtn.className = 'px-4 py-2 rounded-xl bg-brand-navy text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm';
-            }
-            if (mobileAuthBtn) {
-                mobileAuthBtn.textContent = 'Admin Login';
-                mobileAuthBtn.onclick = openAdminLogin;
-                mobileAuthBtn.className = 'w-full text-center px-5 py-3 rounded-xl bg-brand-navy text-white font-bold shadow-lg mb-2';
-            }
-            loadJobs(); // Reload to hide edit/delete buttons
-        }
         async function loadJobs() {
             const container = document.getElementById('jobs-container');
             try {
@@ -867,7 +661,6 @@
                         ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${formatDate(job.deadline)}</span></div>` : ''}
                         <div class="flex justify-between items-center">
                             <button onclick="applyForJob('${job.title}')" class="px-4 py-2 bg-brand-accent text-white rounded-full hover:bg-brand-accentHover transition-colors">Apply Now</button>
-                            ${localStorage.getItem('adminLoggedIn') === 'true' ? `<div class="flex gap-2"><button onclick="editJob(${index})" class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"><i class="fas fa-edit"></i></button><button onclick="deleteJob(${index})" class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"><i class="fas fa-trash"></i></button></div>` : ''}
                         </div>
                     </div>
                 `).join('');
@@ -883,108 +676,15 @@
             return `${day}-${month}-${year}`;
         }
 
-        async function submitJob() {
-            const title = document.getElementById('job-title').value;
-            const description = document.getElementById('job-description').value;
-            const type = document.getElementById('job-type').value;
-            const location = document.getElementById('job-location').value;
-            const experience = document.getElementById('job-experience').value;
-            const salary = document.getElementById('job-salary').value;
-            const qualifications = document.getElementById('job-qualifications').value;
-            const deadline = document.getElementById('job-deadline').value;
-            const editIndex = document.getElementById('edit-index').value;
- 
-            const jobData = { 
-                title, 
-                description, 
-                type, 
-                location, 
-                experience, 
-                salary, 
-                qualifications, 
-                deadline 
-            };
- 
-            if (editIndex !== '') {
-                jobsCache[editIndex] = jobData;
-            } else {
-                jobsCache.push(jobData);
-            }
- 
-            try {
-                await saveJobsToApi(jobsCache);
-                document.getElementById('job-form').reset();
-                document.getElementById('edit-index').value = '';
-                document.getElementById('submit-btn').textContent = 'Save Job';
-                await loadJobs();
-                showMessageModal('Success', editIndex !== '' ? 'Job updated successfully!' : 'Job saved successfully!');
-            } catch (error) {
-                console.error('Error:', error);
-                showMessageModal('Error', 'Failed to save job posting. Please try again.', 'error');
-            }
-        }
-        function editJob(index) {
-            const job = jobsCache[index];
-            if (!job) return;
-            document.getElementById('job-title').value = job.title || '';
-            document.getElementById('job-description').value = job.description || '';
-            document.getElementById('job-type').value = job.type || '';
-            document.getElementById('job-location').value = job.location || '';
-            document.getElementById('job-experience').value = job.experience || '';
-            document.getElementById('job-salary').value = job.salary || '';
-            document.getElementById('job-qualifications').value = job.qualifications || '';
-            document.getElementById('job-deadline').value = job.deadline || '';
-            document.getElementById('edit-index').value = index;
-            document.getElementById('submit-btn').textContent = 'Update Job';
-            // Scroll to form
-            document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
-        }
-        function deleteJob(index) {
-            showConfirmModal('Are you sure you want to delete this job posting?', (confirmed) => {
-                if (confirmed) {
-                    (async () => {
-                        jobsCache.splice(index, 1);
-                        try {
-                            await saveJobsToApi(jobsCache);
-                            await loadJobs();
-                            showMessageModal('Deleted', 'Job posting deleted successfully.');
-                        } catch (error) {
-                            console.error('Error:', error);
-                            showMessageModal('Error', 'Failed to delete job posting. Please try again.', 'error');
-                        }
-                    })();
-                }
-            });
-        }
 
         // Load jobs on page load
         document.addEventListener('DOMContentLoaded', () => {
-            // Clear admin login state on every page load/reload
-            localStorage.removeItem('adminLoggedIn');
-            localStorage.removeItem('adminToken');
-            
             loadJobs();
-            
-            // Update UI to show login state
-            const panel = document.getElementById('admin-panel');
-            const authBtn = document.getElementById('auth-btn');
-            const mobileAuthBtn = document.getElementById('mobile-auth-btn');
-            
-            if (panel) panel.classList.add('hidden');
-            if (authBtn) {
-                authBtn.textContent = 'Admin Login';
-                authBtn.onclick = openAdminLogin;
-                authBtn.className = 'px-4 py-2 rounded-xl bg-brand-navy text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm';
-            }
-            if (mobileAuthBtn) {
-                mobileAuthBtn.textContent = 'Admin Login';
-                mobileAuthBtn.onclick = openAdminLogin;
-                mobileAuthBtn.className = 'w-full text-center px-5 py-3 rounded-xl bg-brand-navy text-white font-bold shadow-lg mb-2';
-            }
         });
+        
         // Sync jobs across tabs
         window.addEventListener('storage', (event) => {
-            if (event.key === 'jobsUpdatedAt' || event.key === 'adminLoggedIn' || event.key === 'adminToken') {
+            if (event.key === 'jobsUpdatedAt') {
                 loadJobs();
             }
         });
@@ -1007,33 +707,7 @@
         </div>
     </div>
 
-    <!-- Admin Login Modal -->
-    <div id="admin-login-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
-            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
-            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Admin Login</h3>
-            <p class="text-sm text-gray-500 mb-6">Enter credentials to manage job postings.</p>
-            <form id="admin-login-form" onsubmit="event.preventDefault(); submitAdminLogin();">
-                <div class="space-y-4">
-                    <input id="admin-username" type="text" placeholder="Username" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
-                    <input id="admin-password" type="password" placeholder="Password" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight" required>
-                    <button class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Login</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- Confirm Modal -->
-    <div id="confirm-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Confirm Action</h3>
-            <p id="confirm-message" class="text-sm text-gray-500 dark:text-gray-400 mb-6">Are you sure?</p>
-            <div class="flex gap-4">
-                <button onclick="confirmAction(true)" class="flex-1 py-3 bg-red-500 text-white font-bold text-sm rounded-full hover:bg-red-600 transition-colors shadow-lg">Yes</button>
-                <button onclick="confirmAction(false)" class="flex-1 py-3 bg-gray-500 text-white font-bold text-sm rounded-full hover:bg-gray-600 transition-colors shadow-lg">No</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Internship Application Modal -->
     <div id="internship-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
@@ -1059,15 +733,6 @@
         </div>
     </div>
 
-    <!-- Message Modal -->
-    <div id="message-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
-            <button onclick="closeMessageModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
-            <h3 id="message-title" class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Message</h3>
-            <p id="message-text" class="text-sm text-gray-500 dark:text-gray-400 mb-6">Message here.</p>
-            <button id="message-ok-btn" onclick="closeMessageModal()" class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">OK</button>
-        </div>
-    </div>
 
 </body>
 </html>
