@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
 const headers = {
@@ -8,10 +8,10 @@ const headers = {
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
 };
 
-function readSeedJobs() {
+async function readJobsFromFile() {
   try {
     const filePath = path.join(__dirname, '..', '..', 'data', 'careers.json');
-    const raw = fs.readFileSync(filePath, 'utf8');
+    const raw = await fs.readFile(filePath, 'utf8');
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) return parsed;
     if (parsed && Array.isArray(parsed.jobs)) return parsed.jobs;
@@ -31,18 +31,11 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { getStore } = await import('@netlify/blobs');
-    const store = getStore('careers');
-
-    let jobs = await store.get('jobs', { type: 'json' });
-
-    if (jobs === null) {
-      jobs = readSeedJobs();
-      await store.setJSON('jobs', jobs);
-    }
+    let jobs = await readJobsFromFile();
 
     return { statusCode: 200, headers, body: JSON.stringify({ jobs }) };
   } catch (error) {
+    console.error('Error in jobs-get:', error);
     return {
       statusCode: 500,
       headers,

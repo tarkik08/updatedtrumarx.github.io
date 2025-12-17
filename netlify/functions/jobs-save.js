@@ -73,10 +73,23 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid jobs payload' }) };
     }
 
-    const { getStore } = await import('@netlify/blobs');
-    const store = getStore('careers');
-
-    await store.setJSON('jobs', jobs);
+    // Use file-based storage instead of Netlify Blobs
+    const fs = require('fs').promises;
+    const path = require('path');
+    
+    try {
+      const dataDir = path.join(__dirname, '..', '..', 'data');
+      const filePath = path.join(dataDir, 'careers.json');
+      
+      // Ensure data directory exists
+      await fs.mkdir(dataDir, { recursive: true });
+      
+      // Write jobs to file
+      await fs.writeFile(filePath, JSON.stringify({ jobs }, null, 2));
+    } catch (fileError) {
+      console.error('File storage error:', fileError);
+      throw fileError;
+    }
 
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   } catch (error) {
