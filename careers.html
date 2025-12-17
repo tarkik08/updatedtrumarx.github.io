@@ -178,11 +178,8 @@
                     <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
                         Consultation
                     </button>
-                    <button onclick="openAdminLogin()" id="admin-login-btn" class="px-4 py-2 rounded-xl bg-brand-navy text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                    <button id="auth-btn" onclick="openAdminLogin()" class="px-4 py-2 rounded-xl bg-brand-navy text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
                         Admin Login
-                    </button>
-                    <button onclick="adminLogout()" id="admin-logout-btn" class="px-4 py-2 rounded-xl bg-red-500 text-white font-medium text-[12px] hover:bg-red-600 transition-all shadow-sm hidden">
-                        Logout
                     </button>
                 </div>
 
@@ -203,8 +200,7 @@
                 <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
                 <a href="careers.html" class="text-brand-textDark dark:text-brand-textLight">Careers</a>
                 <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
-                <button onclick="openAdminLogin()" id="mobile-admin-login-btn" class="w-full text-center px-5 py-3 rounded-xl bg-brand-navy text-white font-bold shadow-lg mb-2">Admin Login</button>
-                <button onclick="adminLogout()" id="mobile-admin-logout-btn" class="w-full text-center px-5 py-3 rounded-xl bg-red-500 text-white font-bold shadow-lg mb-2 hidden">Logout</button>
+                <button id="mobile-auth-btn" onclick="openAdminLogin()" class="w-full text-center px-5 py-3 rounded-xl bg-brand-navy text-white font-bold shadow-lg mb-2">Admin Login</button>
                 <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
             </div>
         </div>
@@ -640,15 +636,25 @@
                 window.confirmCallback(confirmed);
             }
         }
-        function showMessageModal(title, message) {
+        function showMessageModal(title, message, type = 'info') {
             const modal = document.getElementById('message-modal');
             if (modal) {
-                document.getElementById('message-title').textContent = title;
-                document.getElementById('message-text').textContent = message;
+                const titleEl = document.getElementById('message-title');
+                const textEl = document.getElementById('message-text');
+                const okBtn = modal.querySelector('button');
+                titleEl.textContent = title;
+                textEl.textContent = message;
+                if (type === 'error') {
+                    titleEl.className = 'text-2xl font-bold mb-4 text-red-500 dark:text-red-400';
+                    okBtn.className = 'w-full py-3 bg-red-500 text-white font-bold text-sm rounded-full hover:bg-red-600 transition-colors shadow-lg';
+                } else {
+                    titleEl.className = 'text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight';
+                    okBtn.className = 'w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg';
+                }
                 modal.classList.remove('hidden');
                 setTimeout(() => modal.classList.add('active'), 10);
             } else {
-                alert(title + ': ' + message); // Fallback to alert if modal not found
+                alert(title + ': ' + message); // Fallback
             }
         }
         function closeMessageModal() {
@@ -672,12 +678,12 @@
                     closeAdminLoginModal();
                     showAdminPanel();
                 } else {
-                    showMessageModal('Login Failed', 'Invalid credentials. Please try again.');
+                    showMessageModal('Login Failed', 'Invalid credentials. Please try again.', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showMessageModal('Error', 'Login failed. Please try again.');
+                showMessageModal('Error', 'Login failed. Please try again.', 'error');
             });
             // For local testing, uncomment below and comment above
             /*
@@ -691,25 +697,40 @@
             */
         }
         function showAdminPanel() {
+            console.log('showAdminPanel called');
             const panel = document.getElementById('admin-panel');
-            const loginBtn = document.getElementById('admin-login-btn');
-            const mobileLoginBtn = document.getElementById('mobile-admin-login-btn');
-            const logoutBtn = document.getElementById('admin-logout-btn');
-            const mobileLogoutBtn = document.getElementById('mobile-admin-logout-btn');
+            const authBtn = document.getElementById('auth-btn');
+            const mobileAuthBtn = document.getElementById('mobile-auth-btn');
+            console.log('Elements:', { panel, authBtn, mobileAuthBtn });
             if (panel) panel.classList.remove('hidden');
-            if (loginBtn) loginBtn.classList.add('hidden');
-            if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
-            if (logoutBtn) logoutBtn.classList.remove('hidden');
-            if (mobileLogoutBtn) mobileLogoutBtn.classList.remove('hidden');
+            if (authBtn) {
+                authBtn.textContent = 'Logout';
+                authBtn.onclick = adminLogout;
+                authBtn.className = 'px-4 py-2 rounded-xl bg-red-500 text-white font-medium text-[12px] hover:bg-red-600 transition-all shadow-sm';
+            }
+            if (mobileAuthBtn) {
+                mobileAuthBtn.textContent = 'Logout';
+                mobileAuthBtn.onclick = adminLogout;
+                mobileAuthBtn.className = 'w-full text-center px-5 py-3 rounded-xl bg-red-500 text-white font-bold shadow-lg mb-2';
+            }
             loadJobs();
         }
         function adminLogout() {
             localStorage.removeItem('adminLoggedIn');
-            document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('admin-login-btn').classList.remove('hidden');
-            document.getElementById('mobile-admin-login-btn').classList.remove('hidden');
-            document.getElementById('admin-logout-btn').classList.add('hidden');
-            document.getElementById('mobile-admin-logout-btn').classList.add('hidden');
+            const panel = document.getElementById('admin-panel');
+            const authBtn = document.getElementById('auth-btn');
+            const mobileAuthBtn = document.getElementById('mobile-auth-btn');
+            if (panel) panel.classList.add('hidden');
+            if (authBtn) {
+                authBtn.textContent = 'Admin Login';
+                authBtn.onclick = openAdminLogin;
+                authBtn.className = 'px-4 py-2 rounded-xl bg-brand-navy text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm';
+            }
+            if (mobileAuthBtn) {
+                mobileAuthBtn.textContent = 'Admin Login';
+                mobileAuthBtn.onclick = openAdminLogin;
+                mobileAuthBtn.className = 'w-full text-center px-5 py-3 rounded-xl bg-brand-navy text-white font-bold shadow-lg mb-2';
+            }
             loadJobs(); // Reload to hide edit/delete buttons
         }
         function loadJobs() {
@@ -779,6 +800,12 @@
             loadJobs();
             if (localStorage.getItem('adminLoggedIn') === 'true') {
                 showAdminPanel();
+            }
+        });
+        // Sync jobs across tabs
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'jobs') {
+                loadJobs();
             }
         });
     </script>
