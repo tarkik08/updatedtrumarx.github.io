@@ -1,16 +1,15 @@
 const { EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = process.env;
-const emailjs = require('@emailjs/nodejs');
+const EmailJS = require('@emailjs/nodejs').default;  // Note the .default
 
-// Debug log environment variables (won't be visible in production, only in logs)
+// Debug log environment variables
 console.log('Environment variables:', {
     hasPublicKey: !!EMAILJS_PUBLIC_KEY,
+    publicKeyStartsWith: EMAILJS_PUBLIC_KEY ? `${EMAILJS_PUBLIC_KEY.substring(0, 3)}...` : 'undefined',
     hasServiceId: !!EMAILJS_SERVICE_ID,
-    hasTemplateId: !!EMAILJS_TEMPLATE_ID,
-    publicKeyStartsWith: EMAILJS_PUBLIC_KEY ? `${EMAILJS_PUBLIC_KEY.substring(0, 3)}...` : 'undefined'
+    hasTemplateId: !!EMAILJS_TEMPLATE_ID
 });
 
 exports.handler = async (event) => {
-    // Only allow POST requests
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
@@ -19,25 +18,19 @@ exports.handler = async (event) => {
     }
 
     try {
-        if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-            throw new Error(`Missing required environment variables. Check Netlify environment settings.`);
-        }
-
         const data = JSON.parse(event.body);
         console.log('Sending email with data:', { 
             serviceId: EMAILJS_SERVICE_ID,
             templateId: EMAILJS_TEMPLATE_ID,
             data: { ...data, message: data.message ? '[MESSAGE_CONTENT]' : 'empty' }
         });
-        
-        // Initialize EmailJS with your public key
-        emailjs.init(EMAILJS_PUBLIC_KEY);
-        
-        // Send email using EmailJS
-        const response = await emailjs.send(
+
+        // Send email using EmailJS with the public key
+        const response = await EmailJS.send(
             EMAILJS_SERVICE_ID,
             EMAILJS_TEMPLATE_ID,
-            data
+            data,
+            EMAILJS_PUBLIC_KEY  // Pass the public key directly to send
         );
 
         console.log('Email sent successfully:', { response });
@@ -53,20 +46,15 @@ exports.handler = async (event) => {
         console.error('Error sending email:', {
             message: error.message,
             stack: error.stack,
-            envVars: {
-                hasPublicKey: !!EMAILJS_PUBLIC_KEY,
-                publicKeyStartsWith: EMAILJS_PUBLIC_KEY ? `${EMAILJS_PUBLIC_KEY.substring(0, 3)}...` : 'undefined',
-                hasServiceId: !!EMAILJS_SERVICE_ID,
-                hasTemplateId: !!EMAILJS_TEMPLATE_ID
-            }
+            errorObject: JSON.stringify(error, Object.getOwnPropertyNames(error))
         });
         
         return {
             statusCode: 500,
             body: JSON.stringify({ 
                 success: false, 
-                error: error.message || 'Failed to send email',
-                details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+                error: 'Failed to send email. Please try again later.',
+                details: process.env.NODE_ENV === 'development' ? error.message : undefined
             })
         };
     }
