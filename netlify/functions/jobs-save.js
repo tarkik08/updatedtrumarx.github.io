@@ -1,3 +1,4 @@
+// Version 2.0 - Using file-based storage instead of Netlify Blobs
 const crypto = require('crypto');
 
 const headers = {
