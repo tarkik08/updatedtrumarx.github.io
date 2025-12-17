@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { GoogleSpreadsheet } = require('google-spreadsheet');
+const { JWT } = require('google-auth-library');
 
 const headers = {
   'Content-Type': 'application/json',
@@ -76,13 +77,14 @@ exports.handler = async (event) => {
 
     // Google Sheets API setup
     console.log('Using Google Sheets API');
-    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
-    
-    // Authenticate with service account
-    await doc.useServiceAccountAuth({
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    const serviceAccountAuth = new JWT({
+      email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
+
+    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
+    await doc.useServiceAccountAuth(serviceAccountAuth);
 
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[0]; // First sheet
