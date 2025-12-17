@@ -31,7 +31,19 @@ exports.handler = async (event) => {
   }
 
   try {
-    let jobs = await readJobsFromFile();
+    // Manual Netlify Blobs configuration
+    const { getStore } = await import('@netlify/blobs');
+    const store = getStore('careers', {
+      siteID: process.env.NETLIFY_SITE_ID || process.env.SITE_ID,
+      token: process.env.NETLIFY_AUTH_TOKEN || process.env.API_TOKEN
+    });
+
+    let jobs = await store.get('jobs', { type: 'json' });
+
+    if (jobs === null) {
+      jobs = await readJobsFromFile();
+      await store.setJSON('jobs', jobs);
+    }
 
     return { statusCode: 200, headers, body: JSON.stringify({ jobs }) };
   } catch (error) {
