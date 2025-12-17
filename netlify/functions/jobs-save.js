@@ -75,6 +75,12 @@ exports.handler = async (event) => {
     }
 
     // Manual Netlify Blobs configuration
+    console.log('Environment variables check:');
+    console.log('NETLIFY_SITE_ID:', process.env.NETLIFY_SITE_ID);
+    console.log('SITE_ID:', process.env.SITE_ID);
+    console.log('NETLIFY_AUTH_TOKEN:', process.env.NETLIFY_AUTH_TOKEN ? '***' : 'missing');
+    console.log('API_TOKEN:', process.env.API_TOKEN ? '***' : 'missing');
+    
     const { getStore } = await import('@netlify/blobs');
     const store = getStore('careers', {
       siteID: process.env.NETLIFY_SITE_ID || process.env.SITE_ID,
