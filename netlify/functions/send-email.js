@@ -1,4 +1,4 @@
-const { EMAILJS_USER_ID, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = process.env;
+const { EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = process.env;
 const emailjs = require('@emailjs/nodejs');
 
 exports.handler = async (event) => {
@@ -13,8 +13,8 @@ exports.handler = async (event) => {
     try {
         const data = JSON.parse(event.body);
         
-        // Initialize EmailJS with your user ID
-        emailjs.init(EMAILJS_USER_ID);
+        // Initialize EmailJS with your public key
+        emailjs.init(EMAILJS_PUBLIC_KEY);
         
         // Send email using EmailJS
         const response = await emailjs.send(
