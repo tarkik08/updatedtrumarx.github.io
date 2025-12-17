@@ -641,11 +641,15 @@
             }
         }
         function showMessageModal(title, message) {
-            document.getElementById('message-title').textContent = title;
-            document.getElementById('message-text').textContent = message;
             const modal = document.getElementById('message-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.add('active'), 10);
+            if (modal) {
+                document.getElementById('message-title').textContent = title;
+                document.getElementById('message-text').textContent = message;
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.add('active'), 10);
+            } else {
+                alert(title + ': ' + message); // Fallback to alert if modal not found
+            }
         }
         function closeMessageModal() {
             const modal = document.getElementById('message-modal');
@@ -687,11 +691,16 @@
             */
         }
         function showAdminPanel() {
-            document.getElementById('admin-panel').classList.remove('hidden');
-            document.getElementById('admin-login-btn').classList.add('hidden');
-            document.getElementById('mobile-admin-login-btn').classList.add('hidden');
-            document.getElementById('admin-logout-btn').classList.remove('hidden');
-            document.getElementById('mobile-admin-logout-btn').classList.remove('hidden');
+            const panel = document.getElementById('admin-panel');
+            const loginBtn = document.getElementById('admin-login-btn');
+            const mobileLoginBtn = document.getElementById('mobile-admin-login-btn');
+            const logoutBtn = document.getElementById('admin-logout-btn');
+            const mobileLogoutBtn = document.getElementById('mobile-admin-logout-btn');
+            if (panel) panel.classList.remove('hidden');
+            if (loginBtn) loginBtn.classList.add('hidden');
+            if (mobileLoginBtn) mobileLoginBtn.classList.add('hidden');
+            if (logoutBtn) logoutBtn.classList.remove('hidden');
+            if (mobileLogoutBtn) mobileLogoutBtn.classList.remove('hidden');
             loadJobs();
         }
         function adminLogout() {
