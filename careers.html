@@ -387,7 +387,7 @@
                             </div>
                             
                             <div class="mt-8">
-                                <a onclick="applyNow()" class="block w-full py-3 bg-brand-accent hover:bg-brand-accentHover text-white font-bold text-center rounded-lg transition-colors text-sm cursor-pointer">
+                                <a onclick="applyForInternship()" class="block w-full py-3 bg-brand-accent hover:bg-brand-accentHover text-white font-bold text-center rounded-lg transition-colors text-sm cursor-pointer">
                                     Apply Now
                                 </a>
                             </div>
@@ -424,7 +424,14 @@
                             <option value="Full-Time">Full-Time</option>
                             <option value="Internship">Internship</option>
                         </select>
-                        <input id="job-deadline" type="date" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                        <input id="job-location" type="text" placeholder="Location (e.g., Bangalore, Remote)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                        <input id="job-experience" type="text" placeholder="Experience (e.g., 2-3 years, Fresher)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                        <input id="job-salary" type="text" placeholder="Salary (e.g., 5-8 LPA, Competitive)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                        <input id="job-qualifications" type="text" placeholder="Qualifications (e.g., LLB, CS, MBA)" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                        <div>
+                            <label for="job-deadline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Deadline for Application</label>
+                            <input id="job-deadline" type="date" class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
+                        </div>
                         <button id="submit-btn" class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Save Job</button>
                     </div>
                 </form>
@@ -583,7 +590,7 @@
 
         // Application Logic
         function applyForJob(jobTitle) {
-            const mailtoLink = `mailto:legal@trumarx.in?subject=Application for ${jobTitle}&body=Dear Hiring Team,%0A%0AI am interested in the ${jobTitle} position.%0A%0APlease find my resume attached.%0A%0ABest regards,%0A[Your Name]`;
+            const mailtoLink = `mailto:legal@trumarx.in?subject=Job Application - ${jobTitle}&body=Dear Hiring Team,%0A%0AI am writing to express my strong interest in the ${jobTitle} position at Trumarx. I found this opportunity on your careers page and believe my skills and experience align well with your requirements.%0A%0AI am particularly drawn to Trumarx's expertise in trademark and IP law, and I am excited about the possibility of contributing to your team's success.%0A%0AI have attached my resume for your review and would welcome the opportunity to discuss how my background can benefit your organization.%0A%0AThank you for considering my application. I look forward to hearing from you.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your LinkedIn/Portfolio (if applicable)]`;
             window.location.href = mailtoLink;
 
             // Show fallback modal after a short delay
@@ -601,6 +608,37 @@
             if (mailtoFallbackModal) {
                 mailtoFallbackModal.classList.remove('active');
                 setTimeout(() => mailtoFallbackModal.classList.add('hidden'), 300);
+            }
+        }
+
+        // Internship Application Logic
+        function applyForInternship() {
+            const mailtoLink = `mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]`;
+            
+            // Try to open the email client
+            const emailOpened = window.open(mailtoLink, '_blank');
+            
+            // Show fallback modal if email client doesn't open
+            setTimeout(() => {
+                if (!emailOpened || emailOpened.closed || typeof emailOpened.closed === 'undefined') {
+                    openInternshipModal();
+                }
+            }, 500);
+        }
+
+        function openInternshipModal() {
+            const modal = document.getElementById('internship-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+        }
+
+        function closeInternshipModal() {
+            const modal = document.getElementById('internship-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.classList.add('hidden'), 300);
             }
         }
 
@@ -641,7 +679,7 @@
             if (modal) {
                 const titleEl = document.getElementById('message-title');
                 const textEl = document.getElementById('message-text');
-                const okBtn = modal.querySelector('button');
+                const okBtn = document.getElementById('message-ok-btn');
                 titleEl.textContent = title;
                 textEl.textContent = message;
                 if (type === 'error') {
@@ -811,9 +849,18 @@
             } else {
                 container.innerHTML = jobsCache.map((job, index) => `
                     <div class="bg-white dark:bg-brand-dark p-6 rounded-2xl shadow-legal">
-                        <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-2">${job.title}</h3>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight">${job.title}</h3>
+                            <span class="px-3 py-1 bg-brand-accent text-white text-xs font-medium rounded-full">${job.type}</span>
+                        </div>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">${job.description}</p>
-                        <p class="text-sm text-brand-accent mb-4">Type: ${job.type} ${job.deadline ? '| Deadline: ' + job.deadline : ''}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                            ${job.location ? `<div class="flex items-center text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-map-marker-alt text-brand-accent mr-2 w-4"></i><span>${job.location}</span></div>` : ''}
+                            ${job.experience ? `<div class="flex items-center text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-briefcase text-brand-accent mr-2 w-4"></i><span>${job.experience}</span></div>` : ''}
+                            ${job.salary ? `<div class="flex items-center text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-rupee-sign text-brand-accent mr-2 w-4"></i><span>${job.salary}</span></div>` : ''}
+                            ${job.qualifications ? `<div class="flex items-center text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-graduation-cap text-brand-accent mr-2 w-4"></i><span>${job.qualifications}</span></div>` : ''}
+                        </div>
+                        ${job.deadline ? `<div class="flex items-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${formatDate(job.deadline)}</span></div>` : ''}
                         <div class="flex justify-between items-center">
                             <button onclick="applyForJob('${job.title}')" class="px-4 py-2 bg-brand-accent text-white rounded-full hover:bg-brand-accentHover transition-colors">Apply Now</button>
                             ${localStorage.getItem('adminLoggedIn') === 'true' ? `<div class="flex gap-2"><button onclick="editJob(${index})" class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"><i class="fas fa-edit"></i></button><button onclick="deleteJob(${index})" class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"><i class="fas fa-trash"></i></button></div>` : ''}
@@ -822,17 +869,42 @@
                 `).join('');
             }
         }
+        // Date formatting function
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
         async function submitJob() {
             const title = document.getElementById('job-title').value;
             const description = document.getElementById('job-description').value;
             const type = document.getElementById('job-type').value;
+            const location = document.getElementById('job-location').value;
+            const experience = document.getElementById('job-experience').value;
+            const salary = document.getElementById('job-salary').value;
+            const qualifications = document.getElementById('job-qualifications').value;
             const deadline = document.getElementById('job-deadline').value;
             const editIndex = document.getElementById('edit-index').value;
  
+            const jobData = { 
+                title, 
+                description, 
+                type, 
+                location, 
+                experience, 
+                salary, 
+                qualifications, 
+                deadline 
+            };
+ 
             if (editIndex !== '') {
-                jobsCache[editIndex] = { title, description, type, deadline };
+                jobsCache[editIndex] = jobData;
             } else {
-                jobsCache.push({ title, description, type, deadline });
+                jobsCache.push(jobData);
             }
  
             try {
@@ -850,9 +922,13 @@
         function editJob(index) {
             const job = jobsCache[index];
             if (!job) return;
-            document.getElementById('job-title').value = job.title;
-            document.getElementById('job-description').value = job.description;
-            document.getElementById('job-type').value = job.type;
+            document.getElementById('job-title').value = job.title || '';
+            document.getElementById('job-description').value = job.description || '';
+            document.getElementById('job-type').value = job.type || '';
+            document.getElementById('job-location').value = job.location || '';
+            document.getElementById('job-experience').value = job.experience || '';
+            document.getElementById('job-salary').value = job.salary || '';
+            document.getElementById('job-qualifications').value = job.qualifications || '';
             document.getElementById('job-deadline').value = job.deadline || '';
             document.getElementById('edit-index').value = index;
             document.getElementById('submit-btn').textContent = 'Update Job';
@@ -879,9 +955,27 @@
 
         // Load jobs on page load
         document.addEventListener('DOMContentLoaded', () => {
+            // Clear admin login state on every page load/reload
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('adminToken');
+            
             loadJobs();
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                showAdminPanel();
+            
+            // Update UI to show login state
+            const panel = document.getElementById('admin-panel');
+            const authBtn = document.getElementById('auth-btn');
+            const mobileAuthBtn = document.getElementById('mobile-auth-btn');
+            
+            if (panel) panel.classList.add('hidden');
+            if (authBtn) {
+                authBtn.textContent = 'Admin Login';
+                authBtn.onclick = openAdminLogin;
+                authBtn.className = 'px-4 py-2 rounded-xl bg-brand-navy text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm';
+            }
+            if (mobileAuthBtn) {
+                mobileAuthBtn.textContent = 'Admin Login';
+                mobileAuthBtn.onclick = openAdminLogin;
+                mobileAuthBtn.className = 'w-full text-center px-5 py-3 rounded-xl bg-brand-navy text-white font-bold shadow-lg mb-2';
             }
         });
         // Sync jobs across tabs
@@ -937,13 +1031,37 @@
         </div>
     </div>
 
+    <!-- Internship Application Modal -->
+    <div id="internship-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
+            <button onclick="closeInternshipModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
+            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-briefcase text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Apply for Internship</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                If the email client didn't open, please send your resume and cover letter to:
+            </p>
+            <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
+                <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold text-center">legal@trumarx.in</p>
+            </div>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mb-6">
+                Subject: Internship Application - [Your Name]
+            </p>
+            <div class="flex gap-3">
+                <button onclick="closeInternshipModal()" class="flex-1 py-3 bg-gray-500 text-white font-bold text-sm rounded-full hover:bg-gray-600 transition-colors shadow-lg">Close</button>
+                <button onclick="window.location.href='mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]';" class="flex-1 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Open Email</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Message Modal -->
     <div id="message-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
         <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
             <button onclick="closeMessageModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i class="fas fa-times"></i></button>
             <h3 id="message-title" class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Message</h3>
             <p id="message-text" class="text-sm text-gray-500 dark:text-gray-400 mb-6">Message here.</p>
-            <button onclick="closeMessageModal()" class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">OK</button>
+            <button id="message-ok-btn" onclick="closeMessageModal()" class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">OK</button>
         </div>
     </div>
 
