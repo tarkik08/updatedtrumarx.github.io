@@ -1,5 +1,5 @@
-// Version 2.0 - Using file-based storage instead of Netlify Blobs
 const crypto = require('crypto');
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 
 const headers = {
   'Content-Type': 'application/json',
@@ -74,17 +74,33 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid jobs payload' }) };
     }
 
-    // Hardcoded configuration to bypass environment variable issues
-    console.log('Using hardcoded configuration');
-    console.log('NETLIFY_AUTH_TOKEN exists:', !!process.env.NETLIFY_AUTH_TOKEN);
+    // Google Sheets API setup
+    console.log('Using Google Sheets API');
+    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
     
-    const { getStore } = await import('@netlify/blobs');
-    const store = getStore('careers', {
-      siteID: '12d723af-3f91-47e3-9cda-ff6f24152a48', // Correct Netlify site ID
-      token: process.env.NETLIFY_AUTH_TOKEN // Still need auth token
+    // Authenticate with service account
+    await doc.useServiceAccountAuth({
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     });
 
-    await store.setJSON('jobs', jobs);
+    await doc.loadInfo();
+    const sheet = doc.sheetsByIndex[0]; // First sheet
+
+    // Clear existing data and add new jobs
+    await sheet.clear();
+    await sheet.setHeaderRow(['id', 'title', 'description', 'type', 'deadline', 'created_at']);
+
+    const rows = jobs.map((job, index) => [
+      index + 1,
+      job.title || '',
+      job.description || '',
+      job.type || '',
+      job.deadline || '',
+      new Date().toISOString()
+    ]);
+
+    await sheet.addRows(rows);
 
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   } catch (error) {

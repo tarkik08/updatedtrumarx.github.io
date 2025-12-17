@@ -1,5 +1,4 @@
-const fs = require('fs').promises;
-const path = require('path');
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 
 const headers = {
   'Content-Type': 'application/json',
@@ -31,19 +30,30 @@ exports.handler = async (event) => {
   }
 
   try {
-    // Manual Netlify Blobs configuration with hardcoded site ID
-    const { getStore } = await import('@netlify/blobs');
-    const store = getStore('careers', {
-      siteID: '12d723af-3f91-47e3-9cda-ff6f24152a48', // Correct Netlify site ID
-      token: process.env.NETLIFY_AUTH_TOKEN || process.env.API_TOKEN
+    // Google Sheets API setup
+    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
+    
+    // Authenticate with service account
+    await doc.useServiceAccountAuth({
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     });
 
-    let jobs = await store.get('jobs', { type: 'json' });
+    await doc.loadInfo();
+    const sheet = doc.sheetsByIndex[0]; // First sheet
 
-    if (jobs === null) {
-      jobs = await readJobsFromFile();
-      await store.setJSON('jobs', jobs);
-    }
+    // Get all rows
+    const rows = await sheet.getRows();
+    
+    // Convert to job objects
+    const jobs = rows.map((row, index) => ({
+      id: index + 1,
+      title: row.title || '',
+      description: row.description || '',
+      type: row.type || '',
+      deadline: row.deadline || '',
+      created_at: row.created_at || ''
+    }));
 
     return { statusCode: 200, headers, body: JSON.stringify({ jobs }) };
   } catch (error) {
