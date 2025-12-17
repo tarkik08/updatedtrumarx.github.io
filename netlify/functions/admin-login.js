@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
   }
 
   return {
-    statusCode: 401,
+    statusCode: 200,
     body: JSON.stringify({ success: false, message: 'Invalid credentials' }),
   };
 };
