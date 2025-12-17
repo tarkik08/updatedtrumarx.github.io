@@ -74,17 +74,15 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid jobs payload' }) };
     }
 
-    // Manual Netlify Blobs configuration
-    console.log('Environment variables check:');
-    console.log('NETLIFY_SITE_ID:', process.env.NETLIFY_SITE_ID);
+    // Use Netlify built-in environment variables
+    console.log('Built-in environment variables check:');
     console.log('SITE_ID:', process.env.SITE_ID);
-    console.log('NETLIFY_AUTH_TOKEN:', process.env.NETLIFY_AUTH_TOKEN ? '***' : 'missing');
-    console.log('API_TOKEN:', process.env.API_TOKEN ? '***' : 'missing');
+    console.log('NETLIFY_AUTH_TOKEN exists:', !!process.env.NETLIFY_AUTH_TOKEN);
     
     const { getStore } = await import('@netlify/blobs');
     const store = getStore('careers', {
-      siteID: process.env.NETLIFY_SITE_ID || process.env.SITE_ID,
-      token: process.env.NETLIFY_AUTH_TOKEN || process.env.API_TOKEN
+      siteID: process.env.SITE_ID, // Netlify provides this automatically
+      token: process.env.NETLIFY_AUTH_TOKEN // This needs to be set manually
     });
 
     await store.setJSON('jobs', jobs);
