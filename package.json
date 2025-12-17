@@ -1,0 +1,14 @@
+{
+  "name": "trumarx-website",
+  "version": "1.0.0",
+  "description": "Trumarx Intellectual Property Attorneys website",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^3.10.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

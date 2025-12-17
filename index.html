@@ -687,29 +687,41 @@
         const successPopup = document.getElementById('success-popup');
         function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
         function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
-        function submitForm() {
+        async function submitForm() {
             const form = document.getElementById('consultation-form');
             const formData = new FormData(form);
             const data = {
                 name: formData.get('name'),
                 email: formData.get('email'),
-                phone: formData.get('phone'),
-                subject: formData.get('subject'),
+                phone: formData.get('phone') || 'Not provided',
+                subject: formData.get('subject') || 'New Contact Form Submission',
                 message: formData.get('message')
             };
 
-            // The 'required' attribute on inputs handles basic browser-side validation
-            emailjs.send("service_56xv4pj", "template_njaikm8", data)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
+            try {
+                const response = await fetch('/.netlify/functions/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    console.log('Email sent successfully:', result);
                     closeModal();
                     successPopup.classList.remove('hidden');
-                    setTimeout(()=>successPopup.classList.add('active'),10);
+                    setTimeout(() => successPopup.classList.add('active'), 10);
                     form.reset();
-                }, function(error) {
-                    console.log('FAILED...', error);
-                    alert('Failed to send message. Please try again.');
-                });
+                } else {
+                    throw new Error(result.error || 'Failed to send email');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to send message. Please try again later.');
+            }
         }
         function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
 
