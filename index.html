@@ -676,10 +676,11 @@
     </div>
 
     <!-- Scripts (Scroll & Logic Preserved) -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // Initialize EmailJS
+        // Initialize EmailJS with your credentials
         (function(){
-            emailjs.init("IrcWHw8pMd_KcgXef");
+            emailjs.init('BKc28jNp5F87T2WGi'); // Your EmailJS Public Key
         })();
 
         // Modal Logic
@@ -689,7 +690,7 @@
         function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
         
         // Submit form using EmailJS
-        async function submitForm(event) {
+        function submitForm(event) {
             event.preventDefault();
             
             const form = document.getElementById('consultation-form');
@@ -709,32 +710,30 @@
                 message: formData.get('message')
             };
 
-            try {
-                // Send email using EmailJS
-                await emailjs.send(
-                    'service_56xv4pj',  // Your EmailJS Service ID
-                    'template_njaikm8', // Your EmailJS Template ID
-                    templateParams
-                );
-                
-                // Success handling
+            // Send email using EmailJS
+            emailjs.send(
+                'service_56xv4pj',  // Your EmailJS Service ID
+                'template_njaikm8', // Your EmailJS Template ID
+                templateParams
+            )
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
                 closeModal();
                 successPopup.classList.remove('hidden');
                 setTimeout(() => successPopup.classList.add('active'), 10);
                 form.reset();
-                
-            } catch (error) {
-                console.error('EmailJS Error:', error);
+            }, function(error) {
+                console.error('FAILED...', error);
                 alert('Failed to send message. Please try again later or contact us directly at support@trumarx.in');
-            } finally {
+            })
+            .finally(() => {
                 // Re-enable submit button and restore original text
                 submitButton.disabled = false;
                 submitButton.innerHTML = originalButtonText;
-            }
+            });
         }
-        function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
 
-        // Contact Modal Logic
+        // Contact Modal Functions
         const contactModal = document.getElementById('contact-modal-overlay');
         function openContactModal(event) {
             if(event) event.preventDefault();
@@ -748,7 +747,10 @@
             }
             setTimeout(()=>contactModal.classList.add('active'),10);
         }
-        function closeContactModal() { contactModal.classList.remove('active'); setTimeout(()=>contactModal.classList.add('hidden'),300); }
+        function closeContactModal() { 
+            contactModal.classList.remove('active'); 
+            setTimeout(()=>contactModal.classList.add('hidden'),300); 
+        }
 
         // CINEMATIC SCROLL LOGIC
         const section = document.getElementById('achievements');
