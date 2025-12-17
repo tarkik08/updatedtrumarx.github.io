@@ -83,8 +83,7 @@ exports.handler = async (event) => {
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
 
-    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
-    await doc.useServiceAccountAuth(serviceAccountAuth);
+    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID, serviceAccountAuth);
 
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[0]; // First sheet
