@@ -1,0 +1,15 @@
+name = "trumarx-website"
+main = "functions/send-email.js"
+compatibility_date = "2023-12-17"
+
+[build]
+  command = "npm install"
+  publish = "."
+
+[build.upload]
+  format = "service-worker"
+  main = "functions/send-email.js"
+
+[site]
+  bucket = "."
+  entry-point = "functions"

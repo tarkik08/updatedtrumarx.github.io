@@ -690,6 +690,9 @@
         async function submitForm() {
             const form = document.getElementById('consultation-form');
             const formData = new FormData(form);
+            const modal = document.querySelector('.modal');
+            const successPopup = document.querySelector('.success-popup');
+            
             const data = {
                 name: formData.get('name'),
                 email: formData.get('email'),
@@ -699,7 +702,7 @@
             };
 
             try {
-                const response = await fetch('/.netlify/functions/send-email', {
+                const response = await fetch('/send-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -709,14 +712,13 @@
 
                 const result = await response.json();
 
-                if (response.ok) {
-                    console.log('Email sent successfully:', result);
+                if (response.ok && result.success) {
                     closeModal();
                     successPopup.classList.remove('hidden');
                     setTimeout(() => successPopup.classList.add('active'), 10);
                     form.reset();
                 } else {
-                    throw new Error(result.error || 'Failed to send email');
+                    throw new Error(result.error || 'Failed to send message');
                 }
             } catch (error) {
                 console.error('Error:', error);
