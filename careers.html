@@ -617,6 +617,7 @@
         function submitAdminLogin() {
             const username = document.getElementById('admin-username').value;
             const password = document.getElementById('admin-password').value;
+            // Production version: calls Netlify function
             fetch('/.netlify/functions/admin-login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -636,6 +637,16 @@
                 console.error('Error:', error);
                 alert('Login failed');
             });
+            // For local testing, uncomment below and comment above
+            /*
+            if (username === 'admin' && password === 'password') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                closeAdminLoginModal();
+                showAdminPanel();
+            } else {
+                alert('Invalid credentials');
+            }
+            */
         }
         function showAdminPanel() {
             document.getElementById('admin-panel').classList.remove('hidden');
