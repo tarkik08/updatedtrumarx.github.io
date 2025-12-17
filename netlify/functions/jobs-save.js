@@ -54,8 +54,11 @@ exports.handler = async (event) => {
     const token = authHeader.startsWith('Bearer ') ? authHeader.slice('Bearer '.length) : null;
     const secret = process.env.ADMIN_TOKEN_SECRET;
 
+    console.log('ADMIN_TOKEN_SECRET exists:', !!secret);
+    console.log('Token provided:', !!token);
+
     if (!secret) {
-      return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server misconfigured' }) };
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server misconfigured - missing ADMIN_TOKEN_SECRET' }) };
     }
 
     const payload = verifyToken(token, secret);
@@ -77,6 +80,15 @@ exports.handler = async (event) => {
 
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   } catch (error) {
-    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Failed to save jobs' }) };
+    console.error('Detailed error in jobs-save:', error);
+    return { 
+      statusCode: 500, 
+      headers, 
+      body: JSON.stringify({ 
+        error: 'Failed to save jobs', 
+        details: error.message,
+        stack: error.stack 
+      }) 
+    };
   }
 };
