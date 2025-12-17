@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@emailjs/nodejs": "^5.0.2",
     "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@vercel/node": "^2.15.8"
   }
 }

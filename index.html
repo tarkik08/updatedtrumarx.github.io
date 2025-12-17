@@ -687,42 +687,49 @@
         const successPopup = document.getElementById('success-popup');
         function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
         function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
-        async function submitForm() {
+        
+        // Submit form using EmailJS
+        async function submitForm(event) {
+            event.preventDefault();
+            
             const form = document.getElementById('consultation-form');
             const formData = new FormData(form);
-            const modal = document.querySelector('.modal');
-            const successPopup = document.querySelector('.success-popup');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
             
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
+            // Disable submit button and show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            const templateParams = {
+                from_name: formData.get('name'),
+                from_email: formData.get('email'),
                 phone: formData.get('phone') || 'Not provided',
                 subject: formData.get('subject') || 'New Contact Form Submission',
                 message: formData.get('message')
             };
 
             try {
-                const response = await fetch('/send-email', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-
-                if (response.ok && result.success) {
-                    closeModal();
-                    successPopup.classList.remove('hidden');
-                    setTimeout(() => successPopup.classList.add('active'), 10);
-                    form.reset();
-                } else {
-                    throw new Error(result.error || 'Failed to send message');
-                }
+                // Send email using EmailJS
+                await emailjs.send(
+                    'service_56xv4pj',  // Your EmailJS Service ID
+                    'template_njaikm8', // Your EmailJS Template ID
+                    templateParams
+                );
+                
+                // Success handling
+                closeModal();
+                successPopup.classList.remove('hidden');
+                setTimeout(() => successPopup.classList.add('active'), 10);
+                form.reset();
+                
             } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to send message. Please try again later.');
+                console.error('EmailJS Error:', error);
+                alert('Failed to send message. Please try again later or contact us directly at support@trumarx.in');
+            } finally {
+                // Re-enable submit button and restore original text
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
             }
         }
         function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(()=>successPopup.classList.add('hidden'),300); }
