@@ -20,19 +20,22 @@ exports.handler = async (event) => {
   }
 
   try {
-    console.log('Environment variables:', {
+    console.log('Environment variables check:', {
       hasServiceAccountEmail: !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       hasPrivateKey: !!process.env.GOOGLE_PRIVATE_KEY,
       hasSpreadsheetId: !!process.env.GOOGLE_SPREADSHEET_ID,
     });
 
-    if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 
-        !process.env.GOOGLE_PRIVATE_KEY || 
-        !process.env.GOOGLE_SPREADSHEET_ID) {
-      throw new Error('Missing required environment variables');
+    if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL) {
+      throw new Error('GOOGLE_SERVICE_ACCOUNT_EMAIL is not set');
+    }
+    if (!process.env.GOOGLE_PRIVATE_KEY) {
+      throw new Error('GOOGLE_PRIVATE_KEY is not set');
+    }
+    if (!process.env.GOOGLE_SPREADSHEET_ID) {
+      throw new Error('GOOGLE_SPREADSHEET_ID is not set');
     }
 
-    // Google Sheets API setup
     console.log('Initializing Google Sheets API...');
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -45,9 +48,12 @@ exports.handler = async (event) => {
     
     try {
       await doc.loadInfo();
-      console.log(`Loaded spreadsheet: ${doc.title}`);
+      console.log(`Successfully loaded spreadsheet: ${doc.title}`);
     } catch (error) {
-      console.error('Error loading spreadsheet:', error.message);
+      console.error('Failed to load spreadsheet. Possible issues:');
+      console.error('- Incorrect spreadsheet ID');
+      console.error('- Service account does not have access to the spreadsheet');
+      console.error('Full error:', error);
       throw new Error(`Failed to load spreadsheet: ${error.message}`);
     }
 
@@ -55,25 +61,19 @@ exports.handler = async (event) => {
     console.log(`Using sheet: ${sheet.title}`);
 
     try {
+      console.log('Loading header row...');
+      await sheet.loadHeaderRow();
+      console.log('Headers loaded:', sheet.headerValues);
+      
       console.log('Fetching rows...');
-      await sheet.loadHeaderRow(); // Make sure to load header row first
       const rows = await sheet.getRows();
-      console.log(`Fetched ${rows.length} rows from Google Sheets`);
+      console.log(`Fetched ${rows.length} rows`);
 
-      // Log headers for debugging
-      console.log('Sheet headers:', sheet.headerValues);
-
-      // Convert to job objects
       const jobs = rows.map((row, index) => {
         const job = {};
-        const headers = sheet.headerValues || [];
-        
-        // Map headers to row data using row.get()
-        headers.forEach((header) => {
+        sheet.headerValues.forEach(header => {
           job[header] = row.get(header) || '';
         });
-
-        console.log(`Processed job ${index + 1}:`, job);
 
         return {
           id: index + 1,
@@ -85,7 +85,7 @@ exports.handler = async (event) => {
         };
       });
 
-      console.log('Successfully processed jobs:', jobs.length);
+      console.log(`Successfully processed ${jobs.length} jobs`);
       return { 
         statusCode: 200, 
         headers,
@@ -93,16 +93,16 @@ exports.handler = async (event) => {
       };
 
     } catch (error) {
-      console.error('Error processing sheet data:', error);
+      console.error('Error processing sheet data:');
+      console.error('Message:', error.message);
+      console.error('Stack:', error.stack);
       throw new Error(`Failed to process sheet data: ${error.message}`);
     }
 
   } catch (error) {
-    console.error('Error in jobs-get:', {
-      message: error.message,
-      stack: error.stack,
-      name: error.name
-    });
+    console.error('FATAL ERROR in jobs-get:');
+    console.error('Message:', error.message);
+    console.error('Stack:', error.stack);
     
     return {
       statusCode: 500,
