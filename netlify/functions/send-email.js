@@ -1,5 +1,5 @@
 const { EMAILJS_USER_ID, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = process.env;
-const emailjs = require('@emailjs/browser');
+const emailjs = require('@emailjs/nodejs');
 
 exports.handler = async (event) => {
     // Only allow POST requests
@@ -13,12 +13,14 @@ exports.handler = async (event) => {
     try {
         const data = JSON.parse(event.body);
         
+        // Initialize EmailJS with your user ID
+        emailjs.init(EMAILJS_USER_ID);
+        
         // Send email using EmailJS
         const response = await emailjs.send(
             EMAILJS_SERVICE_ID,
             EMAILJS_TEMPLATE_ID,
-            data,
-            EMAILJS_USER_ID
+            data
         );
 
         return {
