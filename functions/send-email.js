@@ -1,5 +1,22 @@
 // functions/send-email.js
 export async function onRequestPost(context) {
+    // Set CORS headers
+    const corsHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    // Handle OPTIONS method for CORS preflight
+    if (context.request.method === 'OPTIONS') {
+        return new Response(null, {
+            headers: {
+                ...corsHeaders,
+                'Access-Control-Max-Age': '86400', // 24 hours
+            },
+        });
+    }
+
     try {
         const { request } = context;
         const data = await request.json();
@@ -38,7 +55,10 @@ export async function onRequestPost(context) {
             message: 'Email sent successfully',
             data: result
         }), {
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                ...corsHeaders
+            }
         });
 
     } catch (error) {
@@ -49,7 +69,10 @@ export async function onRequestPost(context) {
             details: context.env.NODE_ENV === 'development' ? error.message : undefined
         }), { 
             status: 500,
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                ...corsHeaders
+            }
         });
     }
 }
