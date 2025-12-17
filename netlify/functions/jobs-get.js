@@ -31,10 +31,10 @@ exports.handler = async (event) => {
   }
 
   try {
-    // Manual Netlify Blobs configuration
+    // Manual Netlify Blobs configuration with hardcoded site ID
     const { getStore } = await import('@netlify/blobs');
     const store = getStore('careers', {
-      siteID: process.env.NETLIFY_SITE_ID || process.env.SITE_ID,
+      siteID: '12d723af-3f91-47e3-9cda-ff6f24152a48', // Correct Netlify site ID
       token: process.env.NETLIFY_AUTH_TOKEN || process.env.API_TOKEN
     });
 
