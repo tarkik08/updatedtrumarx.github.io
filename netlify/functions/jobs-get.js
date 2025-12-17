@@ -9,6 +9,8 @@ const headers = {
 };
 
 exports.handler = async (event) => {
+  console.log('jobs-get function called');
+  
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' };
   }
@@ -18,57 +20,97 @@ exports.handler = async (event) => {
   }
 
   try {
+    console.log('Environment variables:', {
+      hasServiceAccountEmail: !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      hasPrivateKey: !!process.env.GOOGLE_PRIVATE_KEY,
+      hasSpreadsheetId: !!process.env.GOOGLE_SPREADSHEET_ID,
+    });
+
+    if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 
+        !process.env.GOOGLE_PRIVATE_KEY || 
+        !process.env.GOOGLE_SPREADSHEET_ID) {
+      throw new Error('Missing required environment variables');
+    }
+
     // Google Sheets API setup
-    console.log('Fetching jobs from Google Sheets...');
+    console.log('Initializing Google Sheets API...');
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
 
+    console.log('Loading spreadsheet...');
     const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID, serviceAccountAuth);
-    await doc.loadInfo();
+    
+    try {
+      await doc.loadInfo();
+      console.log(`Loaded spreadsheet: ${doc.title}`);
+    } catch (error) {
+      console.error('Error loading spreadsheet:', error.message);
+      throw new Error(`Failed to load spreadsheet: ${error.message}`);
+    }
+
     const sheet = doc.sheetsByIndex[0]; // First sheet
+    console.log(`Using sheet: ${sheet.title}`);
 
-    // Get all rows (skip header row)
-    const rows = await sheet.getRows();
-    console.log(`Fetched ${rows.length} rows from Google Sheets`);
+    try {
+      console.log('Fetching rows...');
+      await sheet.loadHeaderRow(); // Make sure to load header row first
+      const rows = await sheet.getRows();
+      console.log(`Fetched ${rows.length} rows from Google Sheets`);
 
-    // Convert to job objects
-    const jobs = rows.map((row, index) => {
-      // Get the header row to map columns correctly
-      const headers = sheet.headerValues || [];
-      const job = {};
+      // Log headers for debugging
+      console.log('Sheet headers:', sheet.headerValues);
 
-      // Map headers to row data
-      headers.forEach((header, i) => {
-        job[header] = row._rawData[i] || '';
+      // Convert to job objects
+      const jobs = rows.map((row, index) => {
+        const job = {};
+        const headers = sheet.headerValues || [];
+        
+        // Map headers to row data using row.get()
+        headers.forEach((header) => {
+          job[header] = row.get(header) || '';
+        });
+
+        console.log(`Processed job ${index + 1}:`, job);
+
+        return {
+          id: index + 1,
+          title: job.title || '',
+          description: job.description || '',
+          type: job.type || '',
+          deadline: job.deadline || '',
+          created_at: job.created_at || new Date().toISOString()
+        };
       });
 
-      return {
-        id: index + 1,
-        title: job.title || '',
-        description: job.description || '',
-        type: job.type || '',
-        deadline: job.deadline || '',
-        created_at: job.created_at || new Date().toISOString()
+      console.log('Successfully processed jobs:', jobs.length);
+      return { 
+        statusCode: 200, 
+        headers,
+        body: JSON.stringify({ jobs }) 
       };
-    });
 
-    console.log('Jobs data:', JSON.stringify(jobs, null, 2));
-    return { 
-      statusCode: 200, 
-      headers,
-      body: JSON.stringify({ jobs }) 
-    };
+    } catch (error) {
+      console.error('Error processing sheet data:', error);
+      throw new Error(`Failed to process sheet data: ${error.message}`);
+    }
+
   } catch (error) {
-    console.error('Error in jobs-get:', error);
+    console.error('Error in jobs-get:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
     return {
       statusCode: 500,
       headers,
       body: JSON.stringify({ 
         error: 'Failed to load jobs',
-        details: error.message 
+        message: error.message,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
       }),
     };
   }
