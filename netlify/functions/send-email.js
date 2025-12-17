@@ -1,5 +1,5 @@
 const { EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } = process.env;
-const EmailJS = require('@emailjs/nodejs').default;  // Note the .default
+const fetch = require('node-fetch');
 
 // Debug log environment variables
 console.log('Environment variables:', {
@@ -25,21 +25,34 @@ exports.handler = async (event) => {
             data: { ...data, message: data.message ? '[MESSAGE_CONTENT]' : 'empty' }
         });
 
-        // Send email using EmailJS with the public key
-        const response = await EmailJS.send(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            data,
-            EMAILJS_PUBLIC_KEY  // Pass the public key directly to send
-        );
+        // Use EmailJS REST API directly
+        const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                service_id: EMAILJS_SERVICE_ID,
+                template_id: EMAILJS_TEMPLATE_ID,
+                user_id: EMAILJS_PUBLIC_KEY,  // Using public key as user_id
+                template_params: data
+            })
+        });
 
-        console.log('Email sent successfully:', { response });
+        if (!response.ok) {
+            const errorData = await response.text();
+            throw new Error(`EmailJS API error: ${response.status} - ${errorData}`);
+        }
+
+        const result = await response.json();
+        console.log('Email sent successfully:', result);
+        
         return {
             statusCode: 200,
             body: JSON.stringify({ 
                 success: true, 
                 message: 'Email sent successfully',
-                data: response 
+                data: result
             })
         };
     } catch (error) {
