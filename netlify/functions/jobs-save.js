@@ -90,13 +90,17 @@ exports.handler = async (event) => {
 
     // Clear existing data and add new jobs
     await sheet.clear();
-    await sheet.setHeaderRow(['id', 'title', 'description', 'type', 'deadline', 'created_at']);
+    await sheet.setHeaderRow(['id', 'title', 'description', 'type', 'location', 'experience', 'salary', 'qualifications', 'deadline', 'created_at']);
 
     const rows = jobs.map((job, index) => [
       index + 1,
       job.title || '',
       job.description || '',
       job.type || '',
+      job.location || '',
+      job.experience || '',
+      job.salary || '',
+      job.qualifications || '',
       job.deadline || '',
       new Date().toISOString()
     ]);

@@ -80,6 +80,10 @@ exports.handler = async (event) => {
           title: job.title || '',
           description: job.description || '',
           type: job.type || '',
+          location: job.location || '',
+          experience: job.experience || '',
+          salary: job.salary || '',
+          qualifications: job.qualifications || '',
           deadline: job.deadline || '',
           created_at: job.created_at || new Date().toISOString()
         };
