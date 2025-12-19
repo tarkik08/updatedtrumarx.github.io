@@ -611,6 +611,7 @@
 
 
         let jobsCache = [];
+        let serverTime = null;
 
         async function fetchJobsFromApi() {
             const response = await fetch('/.netlify/functions/jobs-get', {
@@ -621,13 +622,15 @@
                 throw new Error('Failed to load jobs');
             }
             const data = await response.json();
-            return Array.isArray(data.jobs) ? data.jobs : [];
+            return data;
         }
 
         async function loadJobs() {
             const container = document.getElementById('jobs-container');
             try {
-                jobsCache = await fetchJobsFromApi();
+                const data = await fetchJobsFromApi();
+                jobsCache = Array.isArray(data.jobs) ? data.jobs : [];
+                serverTime = data.serverTime ? new Date(data.serverTime) : new Date();
             } catch (error) {
                 console.error('Error:', error);
                 if (container) {
@@ -660,7 +663,7 @@
                         </div>
                         ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${formatDate(job.deadline)}</span></div>` : ''}
                         <div class="flex justify-between items-center">
-                            ${job.deadline && isDeadlinePassed(job.deadline) ? 
+                            ${job.deadline && isDeadlinePassed(job.deadline, serverTime) ? 
                                 `<button disabled class="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full cursor-not-allowed">Closed</button>` : 
                                 `<button onclick="applyForJob('${job.title}')" class="px-4 py-2 bg-brand-accent text-white rounded-full hover:bg-brand-accentHover transition-colors">Apply Now</button>`
                             }
@@ -700,11 +703,15 @@
         }
 
         // Check if a deadline has passed
-        function isDeadlinePassed(deadlineString) {
+        function isDeadlinePassed(deadlineString, now) {
             if (!deadlineString) return false;
             const deadline = parseDate(deadlineString);
             if (!deadline) return false; // If we can't parse the date, assume it's not passed
-            return deadline < new Date();
+            
+            // Set the deadline to the end of the day
+            deadline.setHours(23, 59, 59, 999);
+            
+            return deadline < now;
         }
 
         // Date formatting function
