@@ -660,12 +660,23 @@
                         </div>
                         ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${formatDate(job.deadline)}</span></div>` : ''}
                         <div class="flex justify-between items-center">
-                            <button onclick="applyForJob('${job.title}')" class="px-4 py-2 bg-brand-accent text-white rounded-full hover:bg-brand-accentHover transition-colors">Apply Now</button>
+                            ${job.deadline && isDeadlinePassed(job.deadline) ? 
+                                `<button disabled class="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full cursor-not-allowed">Closed</button>` : 
+                                `<button onclick="applyForJob('${job.title}')" class="px-4 py-2 bg-brand-accent text-white rounded-full hover:bg-brand-accentHover transition-colors">Apply Now</button>`
+                            }
                         </div>
                     </div>
                 `).join('');
             }
         }
+        // Check if a deadline has passed
+        function isDeadlinePassed(deadlineString) {
+            if (!deadlineString) return false;
+            const deadline = new Date(deadlineString);
+            const now = new Date();
+            return deadline < now;
+        }
+
         // Date formatting function
         function formatDate(dateString) {
             if (!dateString) return '';
