@@ -611,7 +611,6 @@
 
 
         let jobsCache = [];
-        let serverTime = null;
 
         async function fetchJobsFromApi() {
             const response = await fetch('/.netlify/functions/jobs-get', {
@@ -630,7 +629,6 @@
             try {
                 const data = await fetchJobsFromApi();
                 jobsCache = Array.isArray(data.jobs) ? data.jobs : [];
-                serverTime = data.serverTime ? new Date(data.serverTime) : new Date();
             } catch (error) {
                 console.error('Error:', error);
                 if (container) {
