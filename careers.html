@@ -676,7 +676,7 @@
         function parseDate(dateString) {
             if (!dateString) return null;
             
-            // Try parsing as DD-MM-YYYY format first (primary format for deadline checking)
+            // Try parsing as DD-MM-YYYY format only
             const parts = dateString.split(/[-/.]/);
             if (parts.length === 3) {
                 // DD-MM-YYYY format
@@ -692,10 +692,6 @@
                     return date;
                 }
             }
-            
-            // If DD-MM-YYYY fails, try other formats as fallback
-            let date = new Date(dateString);
-            if (!isNaN(date.getTime())) return date;
             
             console.warn('Could not parse date as DD-MM-YYYY:', dateString);
             return null;
