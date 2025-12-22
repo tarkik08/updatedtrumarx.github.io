@@ -661,9 +661,9 @@
                                 ${job.qualifications ? `<div class="flex items-center justify-end text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-graduation-cap text-brand-accent mr-2 w-4"></i><span>${job.qualifications}</span></div>` : ''}
                             </div>
                         </div>
-                        ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${formatDate(job.deadline)}</span></div>` : ''}
+                        ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${job.deadline}</span></div>` : ''}
                         <div class="flex justify-between items-center">
-                            ${job.deadline && isDeadlinePassed(job.deadline, serverTime) ? 
+                            ${job.deadline && isDeadlinePassed(job.deadline) ? 
                                 `<button disabled class="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full cursor-not-allowed">Closed</button>` : 
                                 `<button onclick="applyForJob('${job.title}')" class="px-4 py-2 bg-brand-accent text-white rounded-full hover:bg-brand-accentHover transition-colors">Apply Now</button>`
                             }
@@ -672,41 +672,44 @@
                 `).join('');
             }
         }
-        // Parse date string to Date object, handling different formats
+        // Parse date string to Date object, specifically handling DD-MM-YYYY format
         function parseDate(dateString) {
             if (!dateString) return null;
             
-            // Try parsing as ISO string first
-            let date = new Date(dateString);
-            if (!isNaN(date.getTime())) return date;
-            
-            // Try parsing as DD-MM-YYYY format
+            // Try parsing as DD-MM-YYYY format first (primary format for deadline checking)
             const parts = dateString.split(/[-/.]/);
             if (parts.length === 3) {
-                // Try different orderings
-                const formats = [
-                    new Date(parts[2], parts[1] - 1, parts[0]), // DD-MM-YYYY
-                    new Date(parts[0], parts[1] - 1, parts[2]), // MM-DD-YYYY or YYYY-MM-DD
-                    new Date(dateString.replace(/(\d+)(st|nd|rd|th)/, '$1')) // Handle ordinal dates
-                ];
+                // DD-MM-YYYY format
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1; // JavaScript months are 0-indexed
+                const year = parseInt(parts[2], 10);
                 
-                // Find the first valid date
-                for (const format of formats) {
-                    if (!isNaN(format.getTime())) {
-                        return format;
-                    }
+                const date = new Date(year, month, day);
+                if (!isNaN(date.getTime()) && 
+                    date.getDate() === day && 
+                    date.getMonth() === month && 
+                    date.getFullYear() === year) {
+                    return date;
                 }
             }
             
-            console.warn('Could not parse date:', dateString);
+            // If DD-MM-YYYY fails, try other formats as fallback
+            let date = new Date(dateString);
+            if (!isNaN(date.getTime())) return date;
+            
+            console.warn('Could not parse date as DD-MM-YYYY:', dateString);
             return null;
         }
 
-        // Check if a deadline has passed
-        function isDeadlinePassed(deadlineString, now) {
+        // Check if a deadline has passed using current internet time
+        function isDeadlinePassed(deadlineString) {
             if (!deadlineString) return false;
+            
             const deadline = parseDate(deadlineString);
             if (!deadline) return false; // If we can't parse the date, assume it's not passed
+            
+            // Use current date/time from user's system (internet time)
+            const now = new Date();
             
             // Set the deadline to the end of the day
             deadline.setHours(23, 59, 59, 999);
