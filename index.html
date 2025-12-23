@@ -882,10 +882,21 @@
                 message: formData.get('message')
             };
 
+            // Validation: Check if IDs are injected
+            const serviceID = '{{EMAILJS_SERVICE_ID}}';
+            const templateID = '{{EMAILJS_TEMPLATE_ID}}';
+
+            if (serviceID.startsWith('{{') || serviceID.includes('MISSING')) {
+                alert('Configuration Error: Service ID not injected properly. Check Netlify Env Vars.');
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                return;
+            }
+
             // Send email using EmailJS
             emailjs.send(
-                '{{EMAILJS_SERVICE_ID}}',  // Your EmailJS Service ID
-                '{{EMAILJS_TEMPLATE_ID}}', // Your EmailJS Template ID
+                serviceID,
+                templateID,
                 templateParams
             )
                 .then(function (response) {
@@ -896,7 +907,8 @@
                     form.reset();
                 }, function (error) {
                     console.error('FAILED...', error);
-                    alert('Failed to send message. Please try again later or contact us directly at support@trumarx.in');
+                    // Alert the specific error reason
+                    alert('Failed to send message: ' + (error.text || JSON.stringify(error)) + '\n\nPlease contact support@trumarx.in directly.');
                 })
                 .finally(() => {
                     submitButton.disabled = false;
