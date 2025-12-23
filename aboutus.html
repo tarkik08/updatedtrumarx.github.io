@@ -396,7 +396,7 @@
 
     <script>
         // Initialize EmailJS
-        (function(){ emailjs.init("IrcWHw8pMd_KcgXef"); })();
+        (function(){ emailjs.init("{{EMAILJS_PUBLIC_KEY}}"); })();
 
         // --- Dark Mode Logic ---
         function toggleTheme() {
@@ -477,7 +477,7 @@
                 subject: formData.get('subject'),
                 message: formData.get('message')
             };
-            emailjs.send("service_56xv4pj", "template_njaikm8", data)
+            emailjs.send("{{EMAILJS_SERVICE_ID}}", "{{EMAILJS_TEMPLATE_ID}}", data)
                 .then(function(response) {
                     closeModal();
                     successPopup.classList.remove('hidden');

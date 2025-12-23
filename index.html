@@ -843,7 +843,7 @@
     <script>
         // Initialize EmailJS with your credentials
         (function () {
-            emailjs.init(''); // Your EmailJS Public Key
+            emailjs.init('{{EMAILJS_PUBLIC_KEY}}'); // Your EmailJS Public Key
         })();
 
         // Modal Logic
@@ -879,8 +879,8 @@
 
             // Send email using EmailJS
             emailjs.send(
-                '',  // Your EmailJS Service ID
-                '', // Your EmailJS Template ID
+                '{{EMAILJS_SERVICE_ID}}',  // Your EmailJS Service ID
+                '{{EMAILJS_TEMPLATE_ID}}', // Your EmailJS Template ID
                 templateParams
             )
                 .then(function (response) {
