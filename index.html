@@ -907,8 +907,7 @@
                     form.reset();
                 }, function (error) {
                     console.error('FAILED...', error);
-                    // Alert the specific error reason
-                    alert('Failed to send message: ' + (error.text || JSON.stringify(error)) + '\n\nPlease contact support@trumarx.in directly.');
+                    alert('We could not send your message. Please verify your internet connection or try again later.\n\nFor urgent matters, please contact support@trumarx.in');
                 })
                 .finally(() => {
                     submitButton.disabled = false;
