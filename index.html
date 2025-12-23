@@ -843,7 +843,12 @@
     <script>
         // Initialize EmailJS with your credentials
         (function () {
-            emailjs.init('{{EMAILJS_PUBLIC_KEY}}'); // Your EmailJS Public Key
+            const publicKey = '{{EMAILJS_PUBLIC_KEY}}';
+            if (publicKey.startsWith('{{')) {
+                console.error('CRITICAL ERROR: EmailJS Public Key is still a placeholder. Build script did not run or Environment Variables are missing.');
+                alert('System Error: Email configuration missing. Please report this to the administrator.');
+            }
+            emailjs.init(publicKey);
         })();
 
         // Modal Logic
