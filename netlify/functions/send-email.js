@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -8,12 +8,12 @@ exports.handler = async (event) => {
     };
   }
 
-  const { name, email, phone, subject, message } = JSON.parse(event.body);
+  const { from_name, from_email, phone, subject, message } = JSON.parse(event.body);
 
-  const transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransporter({
     host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: Number(process.env.SMTP_PORT) === 465,
+    port: process.env.SMTP_PORT,
+    secure: process.env.SMTP_PORT == 465, // true for 465, false for other ports
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -22,16 +22,10 @@ exports.handler = async (event) => {
 
   try {
     await transporter.sendMail({
-      from: `"Website Contact" <${process.env.SMTP_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
-      replyTo: email,
+      from: process.env.SMTP_USER,
+      to: 'your-recipient@example.com', // Replace with your email
       subject: subject || 'New Contact Form Submission',
-      text: `Name: ${name}
-Email: ${email}
-Phone: ${phone || 'Not provided'}
-
-Message:
-${message}`,
+      text: `Name: ${from_name}\nEmail: ${from_email}\nPhone: ${phone || 'Not provided'}\nMessage: ${message}`,
     });
 
     return {

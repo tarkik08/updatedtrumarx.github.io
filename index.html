@@ -818,7 +818,7 @@
                         class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
                     <button type="submit"
                         class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit
-                    </button>
+                        Request</button>
                 </div>
             </form>
         </div>
@@ -876,7 +876,12 @@
 
             const templateParams = {
                 from_name: formData.get('name'),
+                name: formData.get('name'), // Also send 'name' locally
+
                 from_email: formData.get('email'),
+                email: formData.get('email'), // Also send 'email'
+                reply_to: formData.get('email'), // Useful for auto-reply templates
+
                 phone: formData.get('phone') || 'Not provided',
                 subject: formData.get('subject') || 'New Contact Form Submission',
                 message: formData.get('message')

@@ -468,9 +468,14 @@
             const formData = new FormData(form);
             const data = {
                 name: formData.get('name'),
+                from_name: formData.get('name'), // Compatibility with various templates
+
                 email: formData.get('email'),
+                from_email: formData.get('email'), // Compatibility
+                reply_to: formData.get('email'), // Auto-reply support
+
                 phone: formData.get('phone'),
-                subject: formData.get('subject'),
+                subject: formData.get('subject') || 'Service Inquiry', // Add default subject
                 message: formData.get('message')
             };
 
