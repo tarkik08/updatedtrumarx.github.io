@@ -887,6 +887,13 @@
                 message: formData.get('message')
             };
 
+            // DEBUG: Log the exact data being sent
+            console.log('--- DEBUG: EmailJS Params ---');
+            console.log('Form Input [name]:', formData.get('name'));
+            console.log('Form Input [email]:', formData.get('email'));
+            console.log('Final Template Params:', templateParams);
+            console.log('-----------------------------');
+
             // Validation: Check if IDs are injected
             const serviceID = '{{EMAILJS_SERVICE_ID}}';
             const templateID = '{{EMAILJS_TEMPLATE_ID}}';
