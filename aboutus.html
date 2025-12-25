@@ -14,13 +14,7 @@
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-    < script src="theme.js" ></script>
+    <script src="theme.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
@@ -70,15 +64,7 @@
             will-change: opacity, transform;
         }
 
-        /* Toggle Switch Styles */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #c9a961;
-        }
 
-        .toggle-checkbox:checked+.toggle-label {
-            background-color: #c9a961;
-        }
 
         /* General Smooth Transitions */
         body,
@@ -104,15 +90,7 @@
 
 <body class="font-sans text-gray-900 dark:text-white bg-white dark:bg-brand-dark relative overflow-x-hidden">
 
-    <!-- Theme Initialization Script (Run immediately) -->
-    <script>
-        // Check local storage or system preference
-        if(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
+    <!-- Theme Initialization Script (Removed) -->
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
@@ -145,18 +123,7 @@
 
                     <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
 
-                    <!-- Theme Toggle Switch -->
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-sun text-brand-accent text-xs"></i>
-                        <div
-                            class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
-                            <input type="checkbox" name="toggle" id="theme-toggle"
-                                class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10 pointer-events-none" />
-                            <label onclick="toggleTheme()"
-                                class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
-                        </div>
-                        <i class="fas fa-moon text-gray-400 dark:text-white text-xs"></i>
-                    </div>
+
 
                     <!-- CTA Button -->
                     <button onclick="openModal()"
@@ -182,7 +149,7 @@
                 <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
                 <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
                 <a href="careers.html" class="text-gray-600 dark:text-gray-400">Careers</a>
-                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+
                 <button onclick="openModal()"
                     class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book
                     Consultation</button>
@@ -484,29 +451,7 @@
         // Initialize EmailJS
         (function () { emailjs.init("{{EMAILJS_PUBLIC_KEY}}"); })();
 
-        // --- Dark Mode Logic ---
-        function toggleTheme() {
-            const html = document.documentElement;
-            const checkbox = document.getElementById('theme-toggle');
 
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                if (checkbox) checkbox.checked = false;
-            } else {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                if (checkbox) checkbox.checked = true;
-            }
-        }
-
-        // Set initial toggle state based on current mode
-        window.addEventListener('DOMContentLoaded', () => {
-            const checkbox = document.getElementById('theme-toggle');
-            if (checkbox) {
-                checkbox.checked = document.documentElement.classList.contains('dark');
-            }
-        });
 
         // --- Scroll-Linked Animation (Scrubbing) ---
         window.addEventListener('scroll', () => {

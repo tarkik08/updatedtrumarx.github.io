@@ -1,45 +1,58 @@
 tailwind.config = {
-    darkMode: 'class',
+    darkMode: 'class', // Keeping this but we won't toggle it.
     theme: {
         extend: {
             colors: {
                 brand: {
                     // Core Brand Colors
-                    navy: '#2b5aa6',        /* Royal Blue: Primary Brand Color */
-                    gold: '#c9a961',        /* Brushed Gold: Elegant Accent */
-                    charcoal: '#2e3338',    /* Charcoal: Sophisticated Neutral */
-                    white: '#fafbfc',       /* Soft White */
+                    navy: '#1a3d7a',        /* Dark Royal Blue: Primary */
+                    gold: '#c9a961',        /* Brushed Gold: Accent */
+                    charcoal: '#2e3338',    /* Charcoal: Primary Text */
+                    white: '#fafbfc',       /* Off White: Background */
 
                     // Supporting Colors
-                    blueLight: '#4a7bc8',   /* Light Royal: Accents/Link Hover (Dark Mode) */
-                    blueDeep: '#1a3d6b',    /* Deep Navy: Hover States (Light Mode) */
-                    goldWarm: '#d4b579',    /* Warm Gold: Highlights */
-                    slate: '#505761',       /* Slate Gray: Secondary Text */
+                    navyDeep: '#0f2847',    /* Deep Navy */
+                    blue: '#2b5aa6',        /* Lighter Royal Blue */
+                    goldWarm: '#d4b579',    /* Warm Gold */
+                    goldAntique: '#b89654', /* Antique Gold */
+                    slate: '#6b7280',       /* Slate */
+                    grayLight: '#e1e4e8',   /* Light Gray */
+                    grayMedium: '#a8aeb5',  /* Medium Gray */
+                    charcoalDeep: '#1a1d21',/* Deep Charcoal */
 
-                    // Light Mode Semantics
-                    light: '#fafbfc',       /* Background (Soft White) */
-                    textDark: '#2e3338',    /* Primary Text (Charcoal) */
-                    textDarkSecondary: '#505761', /* Secondary Text (Slate Gray) */
+                    // Functional Semantics (Single Theme Mappings)
+                    // These map both 'light' and 'dark' variants to the same single-theme look
+                    // or to complementary contrasts if maintaining standard light-theme logic.
 
-                    // Dark Mode Semantics
-                    dark: '#1a1d21',        /* Background (Very Dark Charcoal) */
-                    darkCard: '#2e3338',    /* Card/Section BG (Charcoal) */
-                    darkCardHover: '#363b41', /* Slightly lighter Charcoal for hover */
-                    textLight: '#e8eaed',   /* Primary Text (Soft White) */
-                    textLightSecondary: '#a8aeb5', /* Secondary Text (Light Gray) */
-                    borderDark: '#404449',  /* Borders (Medium Gray) */
+                    bg: '#fafbfc',          /* Main Background */
+                    card: '#ffffff',        /* Card Background */
+                    text: '#2e3338',        /* Primary Text */
+                    textSecondary: '#505761', /* Secondary Text */
+                    border: '#e1e4e8',      /* Borders */
 
-                    // Mappings for Backward Compatibility
-                    accent: '#c9a961',      /* Mapped to Brushed Gold */
-                    accentHover: '#b8956a', /* Mapped to Bronze/Darker Gold */
-                    logoGrey: '#505761',    /* Mapped to Slate Gray */
-                    logoBlack: '#2b5aa6',   /* Mapped to Royal Blue for Logo */
+                    // Backward Compatibility / Semantic Overrides
+                    // We map these to ensure existing classes look correct in the new Single Theme.
+
+                    light: '#fafbfc',       /* Maps to BG */
+                    dark: '#fafbfc',        /* Maps to BG (overriding dark mode bg to be light) */
+
+                    darkCard: '#ffffff',    /* Maps to Card White */
+                    darkCardHover: '#f3f4f6',
+
+                    textDark: '#2e3338',    /* Primary Text */
+                    textLight: '#2e3338',   /* Force Dark text even if 'text-brand-textLight' is used */
+
+                    accent: '#c9a961',
+                    accentHover: '#b89654',
+
+                    logoGrey: '#505761',
+                    logoBlack: '#1a3d7a',
                 },
                 functional: {
-                    success: '#10b981',
-                    warning: '#f59e0b',
-                    error: '#ef4444',
-                    info: '#3b82f6',
+                    success: '#2d7a4f',
+                    warning: '#d97706',
+                    error: '#c53030',
+                    info: '#3182ce',
                 }
             },
             fontFamily: {
@@ -55,8 +68,8 @@ tailwind.config = {
                 serif: ['"Merriweather"', 'serif'],
             },
             boxShadow: {
-                'legal': '0 4px 20px -2px rgba(43, 90, 166, 0.1)', /* Shadow with Royal Blue tint */
-                'gold': '0 4px 20px -2px rgba(201, 169, 97, 0.2)', /* Shadow with Gold tint */
+                'legal': '0 4px 20px -2px rgba(26, 61, 122, 0.1)', /* Dark Royal Blue Tint */
+                'gold': '0 4px 20px -2px rgba(201, 169, 97, 0.2)',
             }
         }
     }

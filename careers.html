@@ -17,35 +17,7 @@
     <script src="theme.js"></script>
 
     <!-- Theme Logic -->
-    <script>
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
 
-        function toggleTheme() {
-            const html = document.documentElement;
-            const checkbox = document.getElementById('theme-toggle');
-
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                if (checkbox) checkbox.checked = false;
-            } else {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                if (checkbox) checkbox.checked = true;
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const checkbox = document.getElementById('theme-toggle');
-            if (checkbox) {
-                checkbox.checked = document.documentElement.classList.contains('dark');
-            }
-        });
-    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
@@ -175,19 +147,7 @@
 
                     <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
 
-                    <!-- Theme Toggle Switch with Icons -->
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-sun text-brand-accent text-xs"></i>
-                        <div
-                            class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
-                            <input type="checkbox" name="toggle" id="theme-toggle"
-                                class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10"
-                                onclick="toggleTheme()" />
-                            <label for="theme-toggle"
-                                class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
-                        </div>
-                        <i class="fas fa-moon text-gray-400 dark:text-brand-textLight text-xs"></i>
-                    </div>
+
 
                     <!-- Button -->
                     <button onclick="openModal()"
@@ -213,7 +173,7 @@
                 <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
                 <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
                 <a href="careers.html" class="text-brand-textDark dark:text-brand-textLight">Careers</a>
-                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+
                 <button onclick="openModal()"
                     class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book
                     Consultation</button>
