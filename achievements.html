@@ -131,38 +131,33 @@
 <body class="font-sans text-brand-text bg-brand-bg relative overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav">
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <a href="index.html" class="flex flex-col leading-none group hover:opacity-80 transition-opacity">
                     <div class="text-3xl tracking-tight">
-                        <span class="font-bold text-gray-400">tru</span><span
-                            class="font-bold text-brand-text">marx</span>
+                        <span class="font-bold text-gray-400">tru</span><span class="font-bold text-white">marx</span>
                         <span
-                            class="align-top text-[10px] font-bold border-2 border-brand-text rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-text">®</span>
+                            class="align-top text-[10px] font-bold border-2 border-white rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-white">®</span>
                     </div>
-                    <span class="text-[10px] text-gray-400 tracking-wide mt-1 font-medium">brand legal
-                        management</span>
+                    <span class="text-[10px] text-gray-400 tracking-wide mt-1 font-medium">brand legal management</span>
                 </a>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
-                    <a href="index.html"
-                        class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Home</a>
-                    <a href="aboutus.html"
-                        class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                    <a href="index.html" class="text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                    <a href="aboutus.html" class="text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
                     <a href="achievements.html" class="text-brand-accent transition-colors">Achievements</a>
                     <a href="testimonials.html"
-                        class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
-                    <a href="services.html"
-                        class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Services</a>
-                    <a href="careers.html"
-                        class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                        class="text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
+                    <a href="services.html" class="text-gray-300 hover:text-brand-accent transition-colors">Services</a>
+                    <a href="careers.html" class="text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
 
-                    <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+                    <div class="h-4 w-px bg-gray-700"></div>
 
-                    <!-- Button (Apple Blue) -->
+
+                    <!-- CTA Button -->
                     <button onclick="openModal()"
                         class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
                         Consultation
@@ -170,22 +165,21 @@
                 </div>
 
                 <div class="flex items-center gap-4 md:hidden">
-                    <button id="mobile-menu-btn" class="text-brand-textDark dark:text-brand-textLight text-xl">
+                    <button id="mobile-menu-btn" class="text-white text-xl">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu"
-            class="hidden md:hidden absolute w-full legal-nav border-t border-gray-200 dark:border-gray-700">
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-700 bg-brand-bg">
             <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
-                <a href="index.html" class="text-gray-600 dark:text-gray-400">Home</a>
-                <a href="aboutus.html" class="text-gray-600 dark:text-gray-400">About Us</a>
-                <a href="achievements.html" class="text-brand-textDark dark:text-brand-textLight">Achievements</a>
-                <a href="testimonials.html" class="text-gray-600 dark:text-gray-400">Testimonials</a>
-                <a href="services.html" class="text-gray-600 dark:text-gray-400">Services</a>
-                <a href="careers.html" class="text-gray-600 dark:text-gray-400">Careers</a>
+                <a href="index.html" class="text-gray-300">Home</a>
+                <a href="aboutus.html" class="text-gray-300">About Us</a>
+                <a href="achievements.html" class="text-brand-accent">Achievements</a>
+                <a href="testimonials.html" class="text-gray-300">Testimonials</a>
+                <a href="services.html" class="text-gray-300">Services</a>
+                <a href="careers.html" class="text-gray-300">Careers</a>
 
                 <button onclick="openModal()"
                     class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book
@@ -221,62 +215,62 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- BYJU’S Card -->
                 <div onclick="openByjusModal()"
-                    class="bg-brand-card p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    class="bg-brand-navy p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                     <div class="h-16 mb-6 flex items-center justify-start">
                         <img src="byjus.jpg" alt="BYJU'S Logo" class="max-h-12 object-contain">
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">BYJU’S</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Pioneering IP strategy for India’s most renowned
+                    <h3 class="text-xl font-bold text-brand-card mb-3">BYJU’S</h3>
+                    <p class="text-sm text-gray-400">Pioneering IP strategy for India’s most renowned
                         edutech brand from its inception.</p>
                 </div>
                 <!-- DRIVEZY Card -->
                 <div onclick="openDrivezyModal()"
-                    class="bg-brand-card p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    class="bg-brand-navy p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                     <div class="h-16 mb-6 flex items-center justify-start">
                         <img src="drivzey-1.jpg" alt="DRIVEZY Logo" class="max-h-12 object-contain">
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">DRIVEZY</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">From discrepancy to partnership, providing
+                    <h3 class="text-xl font-bold text-brand-card mb-3">DRIVEZY</h3>
+                    <p class="text-sm text-gray-400">From discrepancy to partnership, providing
                         comprehensive IPR solutions.</p>
                 </div>
                 <!-- QUANTUM LEAP Card -->
                 <div onclick="openQuantumLeapModal()"
-                    class="bg-brand-card p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    class="bg-brand-navy p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                     <div class="h-16 mb-6 flex items-center justify-start">
                         <img src="quantum-leap.jpg" alt="Quantum Leap Logo" class="max-h-12 object-contain">
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">QUANTUM LEAP</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Long-term IP partner for renowned speaker Rajeev
+                    <h3 class="text-xl font-bold text-brand-card mb-3">QUANTUM LEAP</h3>
+                    <p class="text-sm text-gray-400">Long-term IP partner for renowned speaker Rajeev
                         Talreja, securing valuable content.</p>
                 </div>
                 <!-- SOURCEONE Card -->
                 <div onclick="openSourceoneModal()"
-                    class="bg-brand-card p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    class="bg-brand-navy p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                     <div class="h-16 mb-6 flex items-center justify-start">
                         <img src="sourceone.jpg" alt="SourceOne Logo" class="max-h-12 object-contain">
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">SOURCEONE</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Turned a refused application into a registered
+                    <h3 class="text-xl font-bold text-brand-card mb-3">SOURCEONE</h3>
+                    <p class="text-sm text-gray-400">Turned a refused application into a registered
                         trademark through precise documentation.</p>
                 </div>
                 <!-- CAPTAIN Card -->
                 <div onclick="openCaptainModal()"
-                    class="bg-brand-card p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    class="bg-brand-navy p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                     <div class="h-16 mb-6 flex items-center justify-start">
                         <img src="captain.jpg" alt="Captain Logo" class="max-h-12 object-contain">
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">CAPTAIN</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Successfully resolved a refused and abandoned
+                    <h3 class="text-xl font-bold text-brand-card mb-3">CAPTAIN</h3>
+                    <p class="text-sm text-gray-400">Successfully resolved a refused and abandoned
                         trademark, turning an impossible case into a success.</p>
                 </div>
                 <!-- GODUCHY Card -->
                 <div onclick="openGoduchyModal()"
-                    class="bg-brand-card p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                    class="bg-brand-navy p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                     <div class="h-16 mb-6 flex items-center justify-start">
                         <img src="goduchy-1.jpg" alt="Goduchy Logo" class="max-h-12 object-contain">
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight mb-3">GODUCHY</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Successfully registered a complex conical bottle
+                    <h3 class="text-xl font-bold text-brand-card mb-3">GODUCHY</h3>
+                    <p class="text-sm text-gray-400">Successfully registered a complex conical bottle
                         design patent through detailed representation.</p>
                 </div>
             </div>
