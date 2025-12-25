@@ -39,30 +39,9 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Hero Animation Utilities - SCROLL VERSION */
         /* Explicitly remove transitions for scroll-bound elements to prevent lag */
-        .split-text,
-        .split-line,
-        .split-box {
-            transition: none !important;
-        }
-
         /* Hardware acceleration hints */
-        .split-line {
-            width: 0;
-            will-change: width;
-        }
-
-        .split-box {
-            grid-template-rows: 0fr;
-            will-change: grid-template-rows;
-        }
-
-        .split-text {
-            opacity: 0;
-            transform: translateY(2rem);
-            will-change: opacity, transform;
-        }
+        /* Animation styles removed */
 
 
 
@@ -168,50 +147,17 @@
         Height is 300vh to allow for scroll "scrubbing". 
         Content is sticky so it stays in view while you scroll.
     -->
-                <section id="hero-section"
-                    class="relative h-[300vh] bg-brand-light dark:bg-brand-dark transition-colors duration-500">
-
-                    <!-- Sticky Container -->
-                    <div id="hero-sticky-container"
-                        class="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden">
-
-                        <!-- Top Title Segment -->
-                        <h1
-                            class="text-4xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white z-20 transition-colors duration-500">
-                            Guardians of
+                <!-- Standard Hero Section -->
+                <section class="relative pt-32 pb-20 bg-brand-bg relative overflow-hidden">
+                    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                        <h1 class="text-4xl md:text-7xl font-bold tracking-tight text-white mb-8">
+                            Guardians of <br><span class="text-brand-accent">Innovation.</span>
                         </h1>
-
-                        <!-- The Expanding Container -->
-                        <div class="w-screen my-2 md:my-4 relative z-10 flex flex-col items-center">
-
-                            <!-- Step 1: Horizontal Line -->
-                            <div class="split-line h-[2px] bg-gray-900 dark:bg-white"></div>
-
-                            <!-- Step 2: Expanding Box -->
-                            <div class="split-box w-full grid">
-                                <div class="overflow-hidden">
-                                    <!-- Step 3: Content Background Block -->
-                                    <div
-                                        class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-10 md:p-14 rounded-sm shadow-xl mt-[-1px] w-full text-center transform origin-top transition-colors duration-500">
-                                        <!-- Step 4: Text Reveal -->
-                                        <p class="split-text text-lg md:text-xl font-light leading-relaxed mx-auto">
-                                            Trumarx is an Intellectual Property law firm founded in 2014. We specialize
-                                            in Patents,
-                                            Trademarks, Designs, Copyrights, and Domain Names, leveraging strong global
-                                            associations
-                                            to enable seamless international filings and prosecutions.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Bottom Title Segment -->
-                        <h1 class="text-4xl md:text-7xl font-bold tracking-tight text-brand-accent z-20">
-                            Innovation.
-                        </h1>
-
+                        <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+                            Trumarx is an Intellectual Property law firm founded in 2014. We specialize in Patents,
+                            Trademarks, Designs, Copyrights, and Domain Names, leveraging strong global associations
+                            to enable seamless international filings and prosecutions.
+                        </p>
                     </div>
                 </section>
 
@@ -294,48 +240,48 @@
                 </section>
 
                 <!-- Values / Mission -->
-                <section class="py-12 md:py-24 bg-brand-light dark:bg-brand-dark">
+                <section class="py-12 md:py-24 bg-brand-bg">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-16">
-                            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Core Values</h2>
-                            <p class="text-gray-500 dark:text-gray-400">The principles that guide every case we handle.
+                            <h2 class="text-3xl font-bold text-white mb-4">Our Core Values</h2>
+                            <p class="text-gray-400">The principles that guide every case we handle.
                             </p>
                         </div>
 
                         <div class="grid md:grid-cols-3 gap-8">
                             <!-- Value 1 -->
                             <div
-                                class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:border-brand-accent/50 transition-colors group">
+                                class="bg-brand-card p-8 rounded-2xl shadow-sm border border-white/5 hover:border-brand-accent/50 transition-colors group">
                                 <div
                                     class="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:bg-brand-accent group-hover:text-white transition-colors">
                                     <i class="fas fa-shield-alt"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Integrity</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Unwavering ethical standards in all
+                                <h3 class="text-xl font-bold text-white mb-3">Integrity</h3>
+                                <p class="text-sm text-gray-400">Unwavering ethical standards in all
                                     our
                                     dealings. We provide honest assessments, even when they are difficult to hear.</p>
                             </div>
                             <!-- Value 2 -->
                             <div
-                                class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:border-brand-accent/50 transition-colors group">
+                                class="bg-brand-card p-8 rounded-2xl shadow-sm border border-white/5 hover:border-brand-accent/50 transition-colors group">
                                 <div
                                     class="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:bg-brand-accent group-hover:text-white transition-colors">
                                     <i class="fas fa-brain"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Strategy</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">IP is not just paperwork; it's a
+                                <h3 class="text-xl font-bold text-white mb-3">Strategy</h3>
+                                <p class="text-sm text-gray-400">IP is not just paperwork; it's a
                                     business asset.
                                     We craft strategies that align with your long-term commercial goals.</p>
                             </div>
                             <!-- Value 3 -->
                             <div
-                                class="bg-white dark:bg-brand-darkCard p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 hover:border-brand-accent/50 transition-colors group">
+                                class="bg-brand-card p-8 rounded-2xl shadow-sm border border-white/5 hover:border-brand-accent/50 transition-colors group">
                                 <div
                                     class="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:bg-brand-accent group-hover:text-white transition-colors">
                                     <i class="fas fa-globe"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Accessibility</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Demystifying complex legal jargon.
+                                <h3 class="text-xl font-bold text-white mb-3">Accessibility</h3>
+                                <p class="text-sm text-gray-400">Demystifying complex legal jargon.
                                     We ensure you
                                     understand every step of the process protecting your work.</p>
                             </div>
