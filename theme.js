@@ -4,36 +4,36 @@ tailwind.config = {
         extend: {
             colors: {
                 brand: {
-                    // Primary Colors
-                    navy: '#1a2b4a',        /* Deep Navy Blue: Authority, Trust (Primary) */
-                    gold: '#d4a574',        /* Rich Gold: Prestige, Excellence (Secondary) */
-                    white: '#ffffff',       /* Crisp White */
-                    charcoal: '#1f1f1f',    /* Deep Charcoal: Text/Dark BG */
+                    // Core Brand Colors
+                    navy: '#2b5aa6',        /* Royal Blue: Primary Brand Color */
+                    gold: '#c9a961',        /* Brushed Gold: Elegant Accent */
+                    charcoal: '#2e3338',    /* Charcoal: Sophisticated Neutral */
+                    white: '#fafbfc',       /* Soft White */
 
-                    // Secondary/Accents
-                    slate: '#4a5f7f',       /* Slate Blue: Softer professional tone */
-                    bronze: '#b8956a',      /* Warm Bronze: Hover for Gold */
-                    gray: '#6b7280',        /* Cool Gray: Neutral body text */
+                    // Supporting Colors
+                    blueLight: '#4a7bc8',   /* Light Royal: Accents/Link Hover (Dark Mode) */
+                    blueDeep: '#1a3d6b',    /* Deep Navy: Hover States (Light Mode) */
+                    goldWarm: '#d4b579',    /* Warm Gold: Highlights */
+                    slate: '#505761',       /* Slate Gray: Secondary Text */
 
-                    // Light Mode Specifics
-                    light: '#f8f9fa',       /* Light Mode Background (Very light gray) */
-                    textDark: '#1f1f1f',    /* Light Mode Primary Text (Charcoal) */
-                    textDarkSecondary: '#2d3748', /* Light Mode Secondary Text */
+                    // Light Mode Semantics
+                    light: '#fafbfc',       /* Background (Soft White) */
+                    textDark: '#2e3338',    /* Primary Text (Charcoal) */
+                    textDarkSecondary: '#505761', /* Secondary Text (Slate Gray) */
 
-                    // Dark Mode Specifics
-                    dark: '#0f1419',        /* Dark Mode Background (Very dark blue-gray) */
-                    darkCard: '#1a1d23',    /* Dark Mode Secondary BG (Cards) */
-                    darkCardHover: '#252a31', /* Dark Mode Card Hover */
-                    textLight: '#f8f9fa',   /* Dark Mode Text (Off-white) */
-                    navyLight: '#5a7aa6',   /* Lighter Navy for Dark Mode visibility */
-                    goldBright: '#e6c08a',  /* Brighter Gold for Dark Mode contrast */
-                    borderDark: '#3a3f47',  /* Dark Mode Borders */
+                    // Dark Mode Semantics
+                    dark: '#1a1d21',        /* Background (Very Dark Charcoal) */
+                    darkCard: '#2e3338',    /* Card/Section BG (Charcoal) */
+                    darkCardHover: '#363b41', /* Slightly lighter Charcoal for hover */
+                    textLight: '#e8eaed',   /* Primary Text (Soft White) */
+                    textLightSecondary: '#a8aeb5', /* Secondary Text (Light Gray) */
+                    borderDark: '#404449',  /* Borders (Medium Gray) */
 
-                    // Mappings to existing classes for backward compatibility/ease of transition
-                    accent: '#d4a574',      /* Mapped to Gold */
-                    accentHover: '#b8956a', /* Mapped to Bronze */
-                    logoGrey: '#6b7280',    /* Mapped to Cool Gray */
-                    logoBlack: '#1a2b4a',   /* Mapped to Navy for Logo */
+                    // Mappings for Backward Compatibility
+                    accent: '#c9a961',      /* Mapped to Brushed Gold */
+                    accentHover: '#b8956a', /* Mapped to Bronze/Darker Gold */
+                    logoGrey: '#505761',    /* Mapped to Slate Gray */
+                    logoBlack: '#2b5aa6',   /* Mapped to Royal Blue for Logo */
                 },
                 functional: {
                     success: '#10b981',
@@ -55,8 +55,8 @@ tailwind.config = {
                 serif: ['"Merriweather"', 'serif'],
             },
             boxShadow: {
-                'legal': '0 4px 20px -2px rgba(26, 43, 74, 0.1)', /* Shadow with Navy tint */
-                'gold': '0 4px 20px -2px rgba(212, 165, 116, 0.2)', /* Shadow with Gold tint */
+                'legal': '0 4px 20px -2px rgba(43, 90, 166, 0.1)', /* Shadow with Royal Blue tint */
+                'gold': '0 4px 20px -2px rgba(201, 169, 97, 0.2)', /* Shadow with Gold tint */
             }
         }
     }
