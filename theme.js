@@ -24,23 +24,23 @@ tailwind.config = {
                     // These map both 'light' and 'dark' variants to the same single-theme look
                     // or to complementary contrasts if maintaining standard light-theme logic.
 
-                    bg: '#fafbfc',          /* Main Background */
-                    card: '#ffffff',        /* Card Background */
-                    text: '#2e3338',        /* Primary Text */
-                    textSecondary: '#505761', /* Secondary Text */
-                    border: '#e1e4e8',      /* Borders */
+                    bg: '#1a3d7a',          /* Main Background: Dark Royal Blue */
+                    card: '#0f2847',        /* Card Background: Deep Navy */
+                    text: '#fafbfc',        /* Primary Text: Off White */
+                    textSecondary: '#a8aeb5', /* Secondary Text: Medium Gray */
+                    border: '#2b5aa6',      /* Borders: Lighter Royal Blue */
 
                     // Backward Compatibility / Semantic Overrides
                     // We map these to ensure existing classes look correct in the new Single Theme.
 
-                    light: '#fafbfc',       /* Maps to BG */
-                    dark: '#fafbfc',        /* Maps to BG (overriding dark mode bg to be light) */
+                    light: '#1a3d7a',       /* Maps to Navy BG */
+                    dark: '#1a3d7a',        /* Maps to Navy BG */
 
-                    darkCard: '#ffffff',    /* Maps to Card White */
-                    darkCardHover: '#f3f4f6',
+                    darkCard: '#0f2847',    /* Maps to Deep Navy */
+                    darkCardHover: '#1a3d7a',
 
-                    textDark: '#2e3338',    /* Primary Text */
-                    textLight: '#2e3338',   /* Force Dark text even if 'text-brand-textLight' is used */
+                    textDark: '#fafbfc',    /* Force text to White */
+                    textLight: '#fafbfc',   /* Force text to White */
 
                     accent: '#c9a961',
                     accentHover: '#b89654',
