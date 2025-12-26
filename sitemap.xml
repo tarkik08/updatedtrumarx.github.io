@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Homepage - Highest Priority -->
+  <url>
+    <loc>https://www.example.com/index.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Core Service Pages - High Priority -->
+  <url>
+    <loc>https://www.example.com/trademark.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.example.com/patent.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.example.com/copyright.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.example.com/industrialdesign.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Services Overview & About - Important Pages -->
+  <url>
+    <loc>https://www.example.com/services.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.example.com/aboutus.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Dynamic Content Pages - Updated Frequently -->
+  <url>
+    <loc>https://www.example.com/achievements.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.example.com/testimonials.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Careers Page -->
+  <url>
+    <loc>https://www.example.com/careers.html</loc>
+    <lastmod>2025-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
