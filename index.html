@@ -833,6 +833,104 @@
 
 
 
+        // CINEMATIC SCROLL ANIMATION
+        window.addEventListener('scroll', () => {
+            const section = document.getElementById('achievements');
+            if (!section) return;
+
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const windowHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+
+            // Calculate progress through the section (0 to 1)
+            const scrollProgress = (scrollY - sectionTop) / (sectionHeight - windowHeight);
+            const progress = Math.max(0, Math.min(1, scrollProgress));
+
+            // Get all layers
+            const introLayer = document.getElementById('layer-intro');
+            const salaarLayer = document.getElementById('layer-salaar');
+            const kantaraLayer = document.getElementById('layer-kantara');
+            const kgfLayer = document.getElementById('layer-kgf');
+
+            if (!introLayer || !salaarLayer || !kantaraLayer || !kgfLayer) return;
+
+            // Phase 1: Intro Text (0% - 20%)
+            // Text zooms in and fades out
+            if (progress <= 0.2) {
+                const introProgress = progress / 0.2; // 0 to 1
+                const scale = 1 + (introProgress * 0.5); // Zoom from 1 to 1.5
+                const opacity = 1 - introProgress; // Fade from 1 to 0
+
+                introLayer.style.transform = `scale(${scale})`;
+                introLayer.style.opacity = opacity;
+                introLayer.style.display = 'flex';
+            } else {
+                introLayer.style.display = 'none';
+            }
+
+            // Phase 2: Salaar (20% - 40%)
+            if (progress > 0.2 && progress <= 0.4) {
+                const salaarProgress = (progress - 0.2) / 0.2; // 0 to 1
+                const scale = 0.5 + (salaarProgress * 0.5); // Scale from 0.5 to 1
+                const opacity = salaarProgress; // Fade in from 0 to 1
+
+                salaarLayer.style.transform = `scale(${scale})`;
+                salaarLayer.style.opacity = opacity;
+                salaarLayer.style.display = 'flex';
+            } else if (progress > 0.4 && progress <= 0.5) {
+                // Hold Salaar (40% - 50%)
+                salaarLayer.style.transform = 'scale(1)';
+                salaarLayer.style.opacity = '1';
+                salaarLayer.style.display = 'flex';
+            } else if (progress > 0.5 && progress <= 0.55) {
+                // Fade out Salaar (50% - 55%)
+                const fadeProgress = (progress - 0.5) / 0.05;
+                salaarLayer.style.transform = 'scale(1)';
+                salaarLayer.style.opacity = 1 - fadeProgress;
+                salaarLayer.style.display = 'flex';
+            } else if (progress <= 0.2 || progress > 0.55) {
+                salaarLayer.style.display = 'none';
+            }
+
+            // Phase 3: Kantara (55% - 75%)
+            if (progress > 0.55 && progress <= 0.65) {
+                const kantaraProgress = (progress - 0.55) / 0.1; // 0 to 1
+                const scale = 0.5 + (kantaraProgress * 0.5); // Scale from 0.5 to 1
+                const opacity = kantaraProgress; // Fade in from 0 to 1
+
+                kantaraLayer.style.transform = `scale(${scale})`;
+                kantaraLayer.style.opacity = opacity;
+                kantaraLayer.style.display = 'flex';
+            } else if (progress > 0.65 && progress <= 0.75) {
+                // Hold Kantara (65% - 75%)
+                kantaraLayer.style.transform = 'scale(1)';
+                kantaraLayer.style.opacity = '1';
+                kantaraLayer.style.display = 'flex';
+            } else if (progress > 0.75 && progress <= 0.8) {
+                // Fade out Kantara (75% - 80%)
+                const fadeProgress = (progress - 0.75) / 0.05;
+                kantaraLayer.style.transform = 'scale(1)';
+                kantaraLayer.style.opacity = 1 - fadeProgress;
+                kantaraLayer.style.display = 'flex';
+            } else if (progress <= 0.55 || progress > 0.8) {
+                kantaraLayer.style.display = 'none';
+            }
+
+            // Phase 4: KGF (80% - 100%)
+            if (progress > 0.8) {
+                const kgfProgress = (progress - 0.8) / 0.2; // 0 to 1
+                const scale = 0.5 + (kgfProgress * 0.5); // Scale from 0.5 to 1
+                const opacity = kgfProgress; // Fade in from 0 to 1
+
+                kgfLayer.style.transform = `scale(${scale})`;
+                kgfLayer.style.opacity = opacity;
+                kgfLayer.style.display = 'flex';
+            } else {
+                kgfLayer.style.display = 'none';
+            }
+        });
+
         // Mobile Menu Logic
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
