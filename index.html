@@ -15,15 +15,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="config.js"></script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-        })();
-    </script>
-    <!-- EmailJS -->
+
 
 
     <script src="theme.js"></script>
@@ -882,7 +874,7 @@
             setTimeout(() => contactModal.classList.add('hidden'), 300);
         }
 
-        // Submit form using EmailJS
+        // Submit form using PHP backend
         function submitForm(event) {
             event.preventDefault();
 
@@ -891,8 +883,8 @@
             const originalButtonText = submitButton.innerHTML;
             const formData = new FormData(form);
 
-            // Prepare data for EmailJS
-            const templateParams = {
+            // Prepare data for PHP backend
+            const data = {
                 name: formData.get('name'),
                 email: formData.get('email'),
                 phone: formData.get('phone'),
@@ -904,16 +896,28 @@
             submitButton.disabled = true;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-                .then(function (response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    closeModal();
-                    setTimeout(() => {
-                        successPopup.classList.remove('hidden');
-                        setTimeout(() => successPopup.classList.add('active'), 10);
-                    }, 300);
-                    form.reset();
-                }, function (error) {
+            fetch('https://trumarx.in/send-mail.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        console.log('SUCCESS!', result.message);
+                        closeModal();
+                        setTimeout(() => {
+                            successPopup.classList.remove('hidden');
+                            setTimeout(() => successPopup.classList.add('active'), 10);
+                        }, 300);
+                        form.reset();
+                    } else {
+                        throw new Error(result.message);
+                    }
+                })
+                .catch(error => {
                     console.log('FAILED...', error);
                     alert('Sorry, there was an error sending your message. Please try again later.');
                 })
