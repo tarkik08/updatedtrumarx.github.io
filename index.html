@@ -344,12 +344,15 @@
             <!-- Left: Content -->
             <div class="text-center lg:text-left">
                 <div class="inline-block mb-6">
-                    <span class="text-brand-accent font-semibold tracking-wide text-xs uppercase">Est. 2014 • Founded by
-                        Pradeesh PL</span>
+                    <span class="text-brand-accent font-semibold tracking-wide text-xs uppercase block sm:inline">Est.
+                        2014 • Founded by</span>
+                    <span
+                        class="text-brand-accent font-semibold tracking-wide text-xs uppercase block sm:inline">Pradeesh
+                        PL</span>
                 </div>
 
                 <h1
-                    class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-brand-textDark dark:text-brand-textLight leading-tight">
+                    class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-brand-textDark dark:text-brand-textLight leading-tight break-words">
                     Intellectual Property <br>
                     <span class="text-brand-accent">Rights & Protection.</span>
                 </h1>
@@ -362,11 +365,11 @@
 
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                     <button onclick="openModal()"
-                        class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/30">
+                        class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/30 w-full sm:w-auto">
                         Schedule Consultation
                     </button>
                     <a href="#services"
-                        class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center gap-2 group">
+                        class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
                         Practice Areas <i
                             class="fas fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
                     </a>
@@ -374,57 +377,68 @@
 
                 <div
                     class="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-12 text-gray-400 px-4 sm:px-0">
-                    <span class="text-xs uppercase tracking-widest font-semibold text-brand-accent">Affiliations</span>
-                    <span class="text-xs flex items-center gap-2">
-                        <i class="fas fa-check-circle text-brand-accent"></i> INTA
-                    </span>
-                    <span class="text-xs flex items-center gap-2">
-                        <i class="fas fa-check-circle text-brand-accent"></i> AIPLA
-                    </span>
-                </div>
-
-                <!-- Right: Key Statistics -->
-                <div class="relative hidden lg:block">
-                    <div
-                        class="bg-brand-light dark:bg-brand-darkCard p-8 shadow-2xl border border-gray-100 dark:border-white/10 rounded-2xl h-full min-h-[400px] flex flex-col justify-center">
-                        <h3 class="font-bold text-xl text-brand-navy dark:text-brand-textLight mb-8 text-center">Proven
-                            Expertise in IP Law</h3>
-                        <div class="grid grid-cols-2 gap-8">
-                            <!-- Stat 1 -->
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-brand-accent mb-1">20+</div>
-                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Years
-                                    Experience</div>
-                            </div>
-                            <!-- Stat 2 -->
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-brand-accent mb-1">5K+</div>
-                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                    Trademarks
-                                    Filed</div>
-                            </div>
-                            <!-- Stat 3 -->
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-brand-accent mb-1">50+</div>
-                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Global
-                                    Associations</div>
-                            </div>
-                            <!-- Stat 4 -->
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-brand-accent mb-1">98%</div>
-                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Success
-                                    Rate
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-8 text-center">
-                            <a href="aboutus.html" class="text-xs font-medium text-brand-accent hover:underline">Learn
-                                more
-                                about our firm &rarr;</a>
-                        </div>
+                    <span
+                        class="text-xs uppercase tracking-widest font-semibold text-brand-accent w-full sm:w-auto text-center sm:text-left">Affiliations</span>
+                    <div class="flex gap-6 justify-center sm:justify-start w-full sm:w-auto">
+                        <span class="text-xs flex items-center gap-2">
+                            <i class="fas fa-check-circle text-brand-accent"></i> INTA
+                        </span>
+                        <span class="text-xs flex items-center gap-2">
+                            <i class="fas fa-check-circle text-brand-accent"></i> AIPLA
+                        </span>
                     </div>
                 </div>
             </div>
+
+            <!-- Right: Key Statistics -->
+            <div class="relative block mt-8 lg:mt-0">
+                <div
+                    class="bg-brand-light dark:bg-brand-darkCard p-6 sm:p-8 shadow-2xl border border-gray-100 dark:border-white/10 rounded-2xl h-full min-h-[auto] lg:min-h-[400px] flex flex-col justify-center">
+                    <h3 class="font-bold text-xl text-brand-navy dark:text-brand-textLight mb-8 text-center">Proven
+                        Expertise in IP Law</h3>
+                    <div class="grid grid-cols-2 gap-4 sm:gap-8">
+                        <!-- Stat 1 -->
+                        <div class="text-center">
+                            <div class="text-3xl sm:text-4xl font-bold text-brand-accent mb-1">20+</div>
+                            <div
+                                class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                Years
+                                Experience</div>
+                        </div>
+                        <!-- Stat 2 -->
+                        <div class="text-center">
+                            <div class="text-3xl sm:text-4xl font-bold text-brand-accent mb-1">5K+</div>
+                            <div
+                                class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                Trademarks
+                                Filed</div>
+                        </div>
+                        <!-- Stat 3 -->
+                        <div class="text-center">
+                            <div class="text-3xl sm:text-4xl font-bold text-brand-accent mb-1">50+</div>
+                            <div
+                                class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                Global
+                                Associations</div>
+                        </div>
+                        <!-- Stat 4 -->
+                        <div class="text-center">
+                            <div class="text-3xl sm:text-4xl font-bold text-brand-accent mb-1">98%</div>
+                            <div
+                                class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                Success
+                                Rate
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <a href="aboutus.html" class="text-xs font-medium text-brand-accent hover:underline">Learn
+                            more
+                            about our firm &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- IMMERSIVE SCROLL SECTION -->
