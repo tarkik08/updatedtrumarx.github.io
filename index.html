@@ -15,7 +15,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 
     <script src="theme.js"></script>
 
@@ -746,287 +746,229 @@
     </div>
 
     <!-- Scripts (Scroll & Logic Preserved) -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        // Initialize EmailJS with your credentials
-        (function () {
-            const publicKey = '{{EMAILJS_PUBLIC_KEY}}';
-            if (publicKey.startsWith('{{')) {
-                console.error('CRITICAL ERROR: EmailJS Public Key is still a placeholder. Build script did not run or Environment Variables are missing.');
-                alert('System Error: Email configuration missing. Please report this to the administrator.');
-            }
-            emailjs.init(publicKey);
-        })();
 
-        // Modal Logic
-        const modal = document.getElementById('modal-overlay');
-        const successPopup = document.getElementById('success-popup');
-        function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
-        function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
-        function closeSuccessPopup() {
-            successPopup.classList.remove('active');
-            setTimeout(() => successPopup.classList.add('hidden'), 300);
-        }
 
-        // Submit form using EmailJS
-        function submitForm(event) {
-            event.preventDefault();
+    // Modal Logic
+    const modal = document.getElementById('modal-overlay');
+    const successPopup = document.getElementById('success-popup');
+    function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
+    function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
+    function closeSuccessPopup() {
+    successPopup.classList.remove('active');
+    setTimeout(() => successPopup.classList.add('hidden'), 300);
+    }
 
-            const form = document.getElementById('consultation-form');
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            const formData = new FormData(form);
+    // Submit form using PHP Backend
+    function submitForm(event) {
+    event.preventDefault();
 
-            // Disable submit button and show loading state
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    const form = document.getElementById('consultation-form');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.innerHTML;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
-            const templateParams = {
-                from_name: formData.get('name'),
-                name: formData.get('name'), // Also send 'name' locally
+    // Disable submit button and show loading state
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-                from_email: formData.get('email'),
-                email: formData.get('email'), // Also send 'email'
-                reply_to: formData.get('email'), // Useful for auto-reply templates
+    fetch('contact.php', {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then(response => {
+    if (!response.ok) {
+    throw new Error('Network response was not ok');
+    }
+    return response.json();
+    })
+    .then(data => {
+    if (data.status === 'success') {
+    closeModal();
+    setTimeout(() => {
+    successPopup.classList.remove('hidden');
+    setTimeout(() => successPopup.classList.add('active'), 10);
+    }, 300);
+    form.reset();
+    } else {
+    throw new Error(data.message || 'Form submission failed');
+    }
+    })
+    .catch(error => {
+    console.error('Error:', error);
+    alert('Sorry, there was an error sending your message. Please try again later.');
+    })
+    .finally(() => {
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalButtonText;
+    });
+    }
 
-                phone: formData.get('phone') || 'Not provided',
-                subject: formData.get('subject') || 'New Contact Form Submission',
-                message: formData.get('message')
-            };
 
-            // DEBUG: Log the exact data being sent
-            console.log('--- DEBUG: EmailJS Params ---');
-            console.log('Form Input [name]:', formData.get('name'));
-            console.log('Form Input [email]:', formData.get('email'));
-            console.log('Final Template Params:', templateParams);
-            console.log('-----------------------------');
+    // Contact Modal Functions
+    const contactModal = document.getElementById('contact-modal-overlay');
+    function openContactModal(event) {
+    if (event) event.preventDefault();
+    contactModal.classList.remove('hidden');
+    if (event) {
+    const modalContent = contactModal.querySelector('.modal-content');
+    const rect = modalContent.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    modalContent.style.transformOrigin = `${x}px ${y}px`;
+    }
+    setTimeout(() => contactModal.classList.add('active'), 10);
+    }
+    function closeContactModal() {
+    contactModal.classList.remove('active');
+    setTimeout(() => contactModal.classList.add('hidden'), 300);
+    }
 
-            // Validation: Check if IDs are injected
-            const serviceID = '{{EMAILJS_SERVICE_ID}}';
-            const templateID = '{{EMAILJS_TEMPLATE_ID}}';
+    // CINEMATIC SCROLL LOGIC
+    const section = document.getElementById('achievements');
+    const layerIntro = document.getElementById('layer-intro');
+    const layerSalaar = document.getElementById('layer-salaar');
+    const layerKantara = document.getElementById('layer-kantara');
+    const layerKgf = document.getElementById('layer-kgf');
 
-            if (serviceID.startsWith('{{') || serviceID.includes('MISSING')) {
-                alert('Configuration Error: Service ID not injected properly. Check Netlify Env Vars.');
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonText;
-                return;
-            }
+    window.addEventListener('scroll', () => {
+    const rect = section.getBoundingClientRect();
+    const start = rect.top;
+    const height = rect.height;
+    const viewH = window.innerHeight;
 
-            // Send email using EmailJS
-            emailjs.send(
-                serviceID,
-                templateID,
-                templateParams
-            )
-                .then(function (response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    closeModal();
-                    successPopup.classList.remove('hidden');
-                    setTimeout(() => successPopup.classList.add('active'), 10);
-                    form.reset();
-                }, function (error) {
-                    console.error('FAILED...', error);
-                    alert('We could not send your message. Please verify your internet connection or try again later.\n\nFor urgent matters, please contact support@trumarx.in');
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                });
-        }
+    // Map scroll to 0-1 progress
+    let progress = 0;
+    if (start <= 0) { progress=Math.abs(start) / (height - viewH); } if (progress < 0) progress=0; if (progress> 1)
+        progress = 1;
 
-        // Contact Modal Functions
-        const contactModal = document.getElementById('contact-modal-overlay');
-        function openContactModal(event) {
-            if (event) event.preventDefault();
-            contactModal.classList.remove('hidden');
-            if (event) {
-                const modalContent = contactModal.querySelector('.modal-content');
-                const rect = modalContent.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                modalContent.style.transformOrigin = `${x}px ${y}px`;
-            }
-            setTimeout(() => contactModal.classList.add('active'), 10);
-        }
-        function closeContactModal() {
-            contactModal.classList.remove('active');
-            setTimeout(() => contactModal.classList.add('hidden'), 300);
-        }
+        // --- ANIMATION STAGES ---
+        // 0.00 - 0.25: Intro Text (Zoom 1x -> 15x, Fade Out)
+        // 0.25 - 0.50: Salaar (Zoom 0.5x -> 1.2x, Fade Out)
+        // 0.50 - 0.75: Kantara (Zoom 0.5x -> 1.2x, Fade Out)
+        // 0.75 - 1.00: KGF (Zoom 0.5x -> 1.2x, Fade Out)
 
-        // CINEMATIC SCROLL LOGIC
-        const section = document.getElementById('achievements');
-        const layerIntro = document.getElementById('layer-intro');
-        const layerSalaar = document.getElementById('layer-salaar');
-        const layerKantara = document.getElementById('layer-kantara');
-        const layerKgf = document.getElementById('layer-kgf');
+        // 1. INTRO TEXT (Solid, Moderate Zoom, Fade Out from Start)
+        if (progress < 0.25) { let localP=progress / 0.25; let scaleVal=1 + (localP * 14);
+            layerIntro.style.transform=`scale(${scaleVal})`; let fade=1 - localP; layerIntro.style.opacity=Math.max(0,
+            fade); } else { layerIntro.style.opacity=0; } // 2. SALAAR (0.25 to 0.50) if (progress> 0.25) {
+            let localP = (progress - 0.25) / 0.25;
+            let scaleVal = 0.5 + (localP * 0.7);
+            layerSalaar.style.transform = `scale(${scaleVal})`;
+            layerSalaar.style.zIndex = 40;
 
-        window.addEventListener('scroll', () => {
-            const rect = section.getBoundingClientRect();
-            const start = rect.top;
-            const height = rect.height;
-            const viewH = window.innerHeight;
-
-            // Map scroll to 0-1 progress
-            let progress = 0;
-            if (start <= 0) {
-                progress = Math.abs(start) / (height - viewH);
-            }
-            if (progress < 0) progress = 0;
-            if (progress > 1) progress = 1;
-
-            // --- ANIMATION STAGES ---
-            // 0.00 - 0.25: Intro Text (Zoom 1x -> 15x, Fade Out)
-            // 0.25 - 0.50: Salaar (Zoom 0.5x -> 1.2x, Fade Out)
-            // 0.50 - 0.75: Kantara (Zoom 0.5x -> 1.2x, Fade Out)
-            // 0.75 - 1.00: KGF (Zoom 0.5x -> 1.2x, Fade Out)
-
-            // 1. INTRO TEXT (Solid, Moderate Zoom, Fade Out from Start)
-            if (progress < 0.25) {
-                let localP = progress / 0.25;
-                let scaleVal = 1 + (localP * 14);
-                layerIntro.style.transform = `scale(${scaleVal})`;
-                let fade = 1 - localP;
-                layerIntro.style.opacity = Math.max(0, fade);
-            } else {
-                layerIntro.style.opacity = 0;
-            }
-
-            // 2. SALAAR (0.25 to 0.50)
-            if (progress > 0.25) {
-                let localP = (progress - 0.25) / 0.25;
-                let scaleVal = 0.5 + (localP * 0.7);
-                layerSalaar.style.transform = `scale(${scaleVal})`;
-                layerSalaar.style.zIndex = 40;
-
-                if (scaleVal < 1.0) layerSalaar.style.opacity = 1;
-                else layerSalaar.style.opacity = 1 - ((scaleVal - 1.0) * 5);
-
-                if (scaleVal < 0.55) layerSalaar.style.opacity = (scaleVal - 0.5) * 10;
-            } else {
-                layerSalaar.style.opacity = 0;
-            }
-
-            // 3. KANTARA (0.50 to 0.75)
-            if (progress > 0.50) {
+            if (scaleVal < 1.0) layerSalaar.style.opacity=1; else layerSalaar.style.opacity=1 - ((scaleVal - 1.0) * 5);
+                if (scaleVal < 0.55) layerSalaar.style.opacity=(scaleVal - 0.5) * 10; } else {
+                layerSalaar.style.opacity=0; } // 3. KANTARA (0.50 to 0.75) if (progress> 0.50) {
                 let localP = (progress - 0.50) / 0.25;
                 let scaleVal = 0.5 + (localP * 0.7);
                 layerKantara.style.transform = `scale(${scaleVal})`;
                 layerKantara.style.zIndex = 50;
 
-                if (scaleVal < 1.0) layerKantara.style.opacity = 1;
-                else layerKantara.style.opacity = 1 - ((scaleVal - 1.0) * 5);
+                if (scaleVal < 1.0) layerKantara.style.opacity=1; else layerKantara.style.opacity=1 - ((scaleVal - 1.0)
+                    * 5); if (scaleVal < 0.55) layerKantara.style.opacity=(scaleVal - 0.5) * 10; } else {
+                    layerKantara.style.opacity=0; } // 4. KGF (0.75 to 1.00) if (progress> 0.75) {
+                    let localP = (progress - 0.75) / 0.25;
+                    if (localP > 1) localP = 1;
+                    let scaleVal = 0.5 + (localP * 0.7);
+                    layerKgf.style.transform = `scale(${scaleVal})`;
+                    layerKgf.style.zIndex = 60;
 
-                if (scaleVal < 0.55) layerKantara.style.opacity = (scaleVal - 0.5) * 10;
-            } else {
-                layerKantara.style.opacity = 0;
-            }
+                    if (scaleVal < 0.55) layerKgf.style.opacity=(scaleVal - 0.5) * 10; else layerKgf.style.opacity=1; }
+                        else { layerKgf.style.opacity=0; } }); // Mobile Menu Logic const
+                        mobileBtn=document.getElementById('mobile-menu-btn'); const
+                        mobileMenu=document.getElementById('mobile-menu'); if (mobileBtn && mobileMenu) {
+                        mobileBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('hidden'));
+                        // Close menu when a link is clicked
+                        mobileMenu.querySelectorAll('a, button').forEach(link => {
+                        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                        });
+                        }
 
-            // 4. KGF (0.75 to 1.00)
-            if (progress > 0.75) {
-                let localP = (progress - 0.75) / 0.25;
-                if (localP > 1) localP = 1;
-                let scaleVal = 0.5 + (localP * 0.7);
-                layerKgf.style.transform = `scale(${scaleVal})`;
-                layerKgf.style.zIndex = 60;
+                        // SMOOTH FAQ ACCORDION
+                        class Accordion {
+                        constructor(el) {
+                        this.el = el;
+                        this.summary = el.querySelector('summary');
+                        this.content = el.querySelector('.faq-answer');
+                        this.animation = null;
+                        this.isClosing = false;
+                        this.isExpanding = false;
+                        this.summary.addEventListener('click', (e) => this.onClick(e));
+                        }
 
-                if (scaleVal < 0.55) layerKgf.style.opacity = (scaleVal - 0.5) * 10;
-                else layerKgf.style.opacity = 1;
-            } else {
-                layerKgf.style.opacity = 0;
-            }
-        });
+                        onClick(e) {
+                        e.preventDefault();
+                        this.el.style.overflow = 'hidden';
 
-        // Mobile Menu Logic
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileBtn && mobileMenu) {
-            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            // Close menu when a link is clicked
-            mobileMenu.querySelectorAll('a, button').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-        }
+                        if (this.isClosing || !this.el.open) {
+                        this.open();
+                        } else if (this.isExpanding || this.el.open) {
+                        this.shrink();
+                        }
+                        }
 
-        // SMOOTH FAQ ACCORDION
-        class Accordion {
-            constructor(el) {
-                this.el = el;
-                this.summary = el.querySelector('summary');
-                this.content = el.querySelector('.faq-answer');
-                this.animation = null;
-                this.isClosing = false;
-                this.isExpanding = false;
-                this.summary.addEventListener('click', (e) => this.onClick(e));
-            }
+                        shrink() {
+                        this.isClosing = true;
 
-            onClick(e) {
-                e.preventDefault();
-                this.el.style.overflow = 'hidden';
+                        const startHeight = `${this.el.offsetHeight}px`;
+                        const endHeight = `${this.summary.offsetHeight}px`;
 
-                if (this.isClosing || !this.el.open) {
-                    this.open();
-                } else if (this.isExpanding || this.el.open) {
-                    this.shrink();
-                }
-            }
+                        if (this.animation) {
+                        this.animation.cancel();
+                        }
 
-            shrink() {
-                this.isClosing = true;
+                        this.animation = this.el.animate({
+                        height: [startHeight, endHeight]
+                        }, {
+                        duration: 300,
+                        easing: 'ease-out'
+                        });
 
-                const startHeight = `${this.el.offsetHeight}px`;
-                const endHeight = `${this.summary.offsetHeight}px`;
+                        this.animation.onfinish = () => {
+                        this.el.removeAttribute('open');
+                        this.isClosing = false;
+                        this.el.style.height = this.el.style.overflow = '';
+                        };
+                        }
 
-                if (this.animation) {
-                    this.animation.cancel();
-                }
+                        open() {
+                        this.el.style.height = `${this.el.offsetHeight}px`;
+                        this.el.setAttribute('open', '');
+                        window.requestAnimationFrame(() => this.expand());
+                        }
 
-                this.animation = this.el.animate({
-                    height: [startHeight, endHeight]
-                }, {
-                    duration: 300,
-                    easing: 'ease-out'
-                });
+                        expand() {
+                        this.isExpanding = true;
+                        const startHeight = `${this.el.offsetHeight}px`;
+                        const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
 
-                this.animation.onfinish = () => {
-                    this.el.removeAttribute('open');
-                    this.isClosing = false;
-                    this.el.style.height = this.el.style.overflow = '';
-                };
-            }
+                        if (this.animation) {
+                        this.animation.cancel();
+                        }
 
-            open() {
-                this.el.style.height = `${this.el.offsetHeight}px`;
-                this.el.setAttribute('open', '');
-                window.requestAnimationFrame(() => this.expand());
-            }
+                        this.animation = this.el.animate({
+                        height: [startHeight, endHeight]
+                        }, {
+                        duration: 300,
+                        easing: 'ease-in-out'
+                        });
 
-            expand() {
-                this.isExpanding = true;
-                const startHeight = `${this.el.offsetHeight}px`;
-                const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+                        this.animation.onfinish = () => {
+                        this.isExpanding = false;
+                        this.el.style.height = this.el.style.overflow = '';
+                        };
+                        }
+                        }
 
-                if (this.animation) {
-                    this.animation.cancel();
-                }
-
-                this.animation = this.el.animate({
-                    height: [startHeight, endHeight]
-                }, {
-                    duration: 300,
-                    easing: 'ease-in-out'
-                });
-
-                this.animation.onfinish = () => {
-                    this.isExpanding = false;
-                    this.el.style.height = this.el.style.overflow = '';
-                };
-            }
-        }
-
-        document.querySelectorAll('#faq-section details').forEach((el) => {
-            new Accordion(el);
-        });
-    </script>
+                        document.querySelectorAll('#faq-section details').forEach((el) => {
+                        new Accordion(el);
+                        });
+                        </script>
 </body>
 
 </html>

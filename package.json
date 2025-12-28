@@ -1,14 +1,6 @@
 {
   "name": "updatedtrumarx-site",
   "version": "1.0.0",
-  "scripts": {
-    "build": "node build.js"
-  },
-  "dependencies": {
-    "@netlify/blobs": "^10.0.0",
-    "bcrypt": "^5.1.0",
-    "nodemailer": "^6.9.7",
-    "google-spreadsheet": "^4.1.4",
-    "google-auth-library": "^9.7.0"
-  }
+  "scripts": {},
+  "dependencies": {}
 }
