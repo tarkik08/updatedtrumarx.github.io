@@ -14,6 +14,15 @@
     <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        })();
+    </script>
     <!-- EmailJS -->
 
 
@@ -551,25 +560,60 @@
         </div>
     </section>
 
-    <!-- Our Valued Clients -->
-    <section class="py-24 bg-brand-bg">
-        <a href="achievements.html" class="block">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-2">Our Valued Clients
-                    </h2>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Trusted partners in innovation</p>
-                </div>
-                <div class="flex justify-center items-center gap-8 flex-wrap">
-                    <img src="captain.jpg" alt="Captain" class="w-24 h-24 rounded-full object-cover">
-                    <img src="quantum-leap.jpg" alt="Quantum Leap" class="w-24 h-24 rounded-full object-cover">
-                    <img src="goduchy-1.jpg" alt="Goduchy" class="w-24 h-24 rounded-full object-cover">
-                    <img src="byjus.jpg" alt="BYJU'S" class="w-24 h-24 rounded-full object-cover">
-                    <img src="sourceone.jpg" alt="SourceOne" class="w-24 h-24 rounded-full object-cover">
-                    <img src="drivzey-1.jpg" alt="DRIVEZY" class="w-24 h-24 rounded-full object-cover">
+    <!-- Cinematic Scroll Section: Achievements -->
+    <section id="achievements" class="relative bg-black" style="height: 400vh;">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+
+            <!-- Layer 1: Intro Text -->
+            <div id="layer-intro" class="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black">
+                <h2 class="text-5xl md:text-8xl font-bold text-white mb-6 tracking-tighter text-center">
+                    <span class="block text-brand-accent">Cinematic</span>
+                    Success
+                </h2>
+                <p class="text-gray-400 text-xl max-w-xl text-center px-4">Protecting the intellectual property of
+                    India's biggest blockbusters.</p>
+                <div class="mt-8 animate-bounce text-white/50">
+                    <i class="fas fa-chevron-down text-2xl"></i>
                 </div>
             </div>
-        </a>
+
+            <!-- Layer 2: Salaar -->
+            <div id="layer-salaar"
+                class="absolute inset-0 flex items-center justify-center z-30 opacity-0 origin-center bg-black">
+                <div class="relative w-full h-full">
+                    <img src="Salaar.jpg" alt="Salaar" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute bottom-10 left-6 md:bottom-20 md:left-20">
+                        <h3 class="text-4xl md:text-6xl font-bold text-white mb-2">Salaar</h3>
+                        <p class="text-brand-accent text-lg font-medium">Trademark & Copyright Protection</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layer 3: Kantara -->
+            <div id="layer-kantara"
+                class="absolute inset-0 flex items-center justify-center z-20 opacity-0 origin-center bg-black">
+                <div class="relative w-full h-full">
+                    <img src="Kantara.png" alt="Kantara" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute bottom-10 left-6 md:bottom-20 md:left-20">
+                        <h3 class="text-4xl md:text-6xl font-bold text-white mb-2">Kantara</h3>
+                        <p class="text-brand-accent text-lg font-medium">Script & Music Rights</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layer 4: KGF -->
+            <div id="layer-kgf"
+                class="absolute inset-0 flex items-center justify-center z-10 opacity-0 origin-center bg-black">
+                <div class="relative w-full h-full">
+                    <img src="KGF.png" alt="KGF" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute bottom-10 left-6 md:bottom-20 md:left-20">
+                        <h3 class="text-4xl md:text-6xl font-bold text-white mb-2">KGF Chapter 2</h3>
+                        <p class="text-brand-accent text-lg font-medium">Brand & Merchandise Protection</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </section>
 
     <!-- Client Voices -->
@@ -758,7 +802,7 @@
     setTimeout(() => successPopup.classList.add('hidden'), 300);
     }
 
-    // Submit form using PHP Backend
+    // Submit form using EmailJS
     function submitForm(event) {
     event.preventDefault();
 
@@ -766,40 +810,31 @@
     const submitButton = form.querySelector('button[type="submit"]');
     const originalButtonText = submitButton.innerHTML;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+
+    // Prepare data for EmailJS
+    const templateParams = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    phone: formData.get('phone'),
+    subject: formData.get('subject'),
+    message: formData.get('message')
+    };
 
     // Disable submit button and show loading state
     submitButton.disabled = true;
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-    fetch('contact.php', {
-    method: 'POST',
-    headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
-    .then(response => {
-    if (!response.ok) {
-    throw new Error('Network response was not ok');
-    }
-    return response.json();
-    })
-    .then(data => {
-    if (data.status === 'success') {
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+    .then(function(response) {
+    console.log('SUCCESS!', response.status, response.text);
     closeModal();
     setTimeout(() => {
     successPopup.classList.remove('hidden');
     setTimeout(() => successPopup.classList.add('active'), 10);
     }, 300);
     form.reset();
-    } else {
-    throw new Error(data.message || 'Form submission failed');
-    }
-    })
-    .catch(error => {
-    console.error('Error:', error);
+    }, function(error) {
+    console.log('FAILED...', error);
     alert('Sorry, there was an error sending your message. Please try again later.');
     })
     .finally(() => {

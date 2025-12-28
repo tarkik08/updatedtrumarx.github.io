@@ -12,6 +12,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        })();
+    </script>
+
 
     <script src="theme.js"></script>
 
@@ -481,7 +490,7 @@
                     class="fas fa-times"></i></button>
             <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Consultation</h3>
             <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
-            <form id="consultation-form" onsubmit="event.preventDefault(); submitForm();">
+            <form id="consultation-form" onsubmit="submitForm(event)">
                 <div class="space-y-4">
                     <input name="name" type="text" placeholder="Full Name"
                         class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight"
@@ -577,43 +586,50 @@
     </div>
 
     <script>
-        // Initialize EmailJS
-        (function () {
-            emailjs.init("{{EMAILJS_PUBLIC_KEY}}");
-        })();
-
         // Modal Logic
         const modal = document.getElementById('modal-overlay');
         const successPopup = document.getElementById('success-popup');
         function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
         function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
-        function submitForm() {
+
+        // Submit form using EmailJS
+        function submitForm(event) {
+            // Prevent default just to be safe if passed
+            if (event) event.preventDefault();
+
             const form = document.getElementById('consultation-form');
+            const submitButton = form.querySelector('button');
+            const originalButtonText = submitButton.innerHTML;
             const formData = new FormData(form);
-            const data = {
+
+            const templateParams = {
                 name: formData.get('name'),
-                from_name: formData.get('name'), // Compatibility
-
                 email: formData.get('email'),
-                from_email: formData.get('email'), // Compatibility
-                reply_to: formData.get('email'), // Auto-reply support
-
                 phone: formData.get('phone'),
-                subject: formData.get('subject') || 'Industrial Design Inquiry', // Specific default subject
+                subject: formData.get('subject') || 'Industrial Design Inquiry',
                 message: formData.get('message')
             };
 
-            // The 'required' attribute on inputs handles basic browser-side validation
-            emailjs.send("{{EMAILJS_SERVICE_ID}}", "{{EMAILJS_TEMPLATE_ID}}", data)
+            // Disable submit button and show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
                 .then(function (response) {
                     console.log('SUCCESS!', response.status, response.text);
                     closeModal();
-                    successPopup.classList.remove('hidden');
-                    setTimeout(() => successPopup.classList.add('active'), 10);
+                    setTimeout(() => {
+                        successPopup.classList.remove('hidden');
+                        setTimeout(() => successPopup.classList.add('active'), 10);
+                    }, 300);
                     form.reset();
                 }, function (error) {
-                    console.log('FAILED...', error);
-                    alert('Failed to send message. Please try again.');
+                    console.error('FAILED...', error);
+                    alert('An error occurred. Please try again later.');
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
                 });
         }
         function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(() => successPopup.classList.add('hidden'), 300); }

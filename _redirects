@@ -1,8 +1,0 @@
-# Handle SPA routing - all routes to index.html
-/*    /index.html   200
-
-# API routes
-/send-email    /.netlify/functions/send-email    200
-
-# Force HTTPS
-/*    https://%{host}%{path}    301
