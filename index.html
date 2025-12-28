@@ -90,23 +90,23 @@
         .mega-text {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: clamp(2rem, 10vw, 9rem);
-            line-height: 1.1;
+            line-height: 0.9;
             text-align: center;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: #FFFFFF;
-            /* Allow wrapping on mobile */
-            white-space: normal;
-            max-width: 100%;
-            padding: 0 1rem;
+            /* Default: Desktop (No Wrap) */
+            white-space: nowrap;
+            padding: 0;
         }
 
-        /* Keep nowrap on tablets and desktop (1024px+) */
-        @media (min-width: 1024px) {
+        /* Mobile Adjustments (Max-width 1023px) */
+        @media (max-width: 1023px) {
             .mega-text {
-                white-space: nowrap;
-                line-height: 0.9;
-                padding: 0;
+                white-space: normal;
+                line-height: 1.1;
+                max-width: 100%;
+                padding: 0 1rem;
             }
         }
 
