@@ -11,8 +11,7 @@
     <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 
     <script src="theme.js"></script>
 
@@ -564,38 +563,51 @@
     </div>
 
     <script>
-        // Initialize EmailJS
-        (function () {
-            emailjs.init("{{EMAILJS_PUBLIC_KEY}}");
-        })();
-
-        // Modal Logic
-        const modal = document.getElementById('modal-overlay');
-        const successPopup = document.getElementById('success-popup');
-        function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
-        function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
+        // Submit form using PHP Backend
         function submitForm() {
             const form = document.getElementById('consultation-form');
+            const submitButton = form.querySelector('button');
+            const originalButtonText = submitButton.innerHTML;
             const formData = new FormData(form);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                subject: formData.get('subject'),
-                message: formData.get('message')
-            };
+            const data = Object.fromEntries(formData.entries());
 
-            // The 'required' attribute on inputs handles basic browser-side validation
-            emailjs.send("{{EMAILJS_SERVICE_ID}}", "{{EMAILJS_TEMPLATE_ID}}", data)
-                .then(function (response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    closeModal();
-                    successPopup.classList.remove('hidden');
-                    setTimeout(() => successPopup.classList.add('active'), 10);
-                    form.reset();
-                }, function (error) {
-                    console.log('FAILED...', error);
-                    alert('Failed to send message. Please try again.');
+            // Disable submit button and show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            fetch('contact.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        closeModal();
+                        setTimeout(() => {
+                            successPopup.classList.remove('hidden');
+                            setTimeout(() => successPopup.classList.add('active'), 10);
+                        }, 300);
+                        form.reset();
+                    } else {
+                        throw new Error(data.message || 'Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
                 });
         }
         function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(() => successPopup.classList.add('hidden'), 300); }
