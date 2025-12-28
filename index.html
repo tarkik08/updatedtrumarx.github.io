@@ -89,13 +89,25 @@
         /* Large Intro Text */
         .mega-text {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: clamp(3rem, 12vw, 9rem);
-            line-height: 0.9;
+            font-size: clamp(2rem, 10vw, 9rem);
+            line-height: 1.1;
             text-align: center;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: #FFFFFF;
-            white-space: nowrap;
+            /* Allow wrapping on mobile */
+            white-space: normal;
+            max-width: 100%;
+            padding: 0 1rem;
+        }
+
+        /* Keep nowrap only on larger screens */
+        @media (min-width: 768px) {
+            .mega-text {
+                white-space: nowrap;
+                line-height: 0.9;
+                padding: 0;
+            }
         }
 
         /* Modal Transitions */
@@ -342,7 +354,8 @@
                     <span class="text-brand-accent">Rights & Protection.</span>
                 </h1>
 
-                <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                <p
+                    class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed break-words px-4 sm:px-0">
                     Specializing in Patents, Trademarks, Designs, Copyrights, and Domain Names. We handle international
                     filing and prosecution for diverse industries, from IT to Entertainment.
                 </p>
@@ -359,53 +372,59 @@
                     </a>
                 </div>
 
-                <div class="mt-12 flex items-center justify-center lg:justify-start gap-12 text-gray-400">
-                    <span class="text-xs uppercase tracking-widest font-semibold text-brand-accent">Affiliations</span>
-                    <div class="flex gap-6 font-semibold text-brand-navy dark:text-brand-textLight opacity-80 text-sm">
-                        <span>WIPO</span><span>INTA</span><span>AIPPI</span><span>FICCI</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Key Statistics -->
-            <div class="relative hidden lg:block">
                 <div
-                    class="bg-brand-light dark:bg-brand-darkCard p-8 shadow-2xl border border-gray-100 dark:border-white/10 rounded-2xl h-full min-h-[400px] flex flex-col justify-center">
-                    <h3 class="font-bold text-xl text-brand-navy dark:text-brand-textLight mb-8 text-center">Proven
-                        Expertise in IP Law</h3>
-                    <div class="grid grid-cols-2 gap-8">
-                        <!-- Stat 1 -->
-                        <div class="text-center">
-                            <div class="text-4xl font-bold text-brand-accent mb-1">20+</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Years
-                                Experience</div>
-                        </div>
-                        <!-- Stat 2 -->
-                        <div class="text-center">
-                            <div class="text-4xl font-bold text-brand-accent mb-1">5K+</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Trademarks
-                                Filed</div>
-                        </div>
-                        <!-- Stat 3 -->
-                        <div class="text-center">
-                            <div class="text-4xl font-bold text-brand-accent mb-1">50+</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Global
-                                Associations</div>
-                        </div>
-                        <!-- Stat 4 -->
-                        <div class="text-center">
-                            <div class="text-4xl font-bold text-brand-accent mb-1">98%</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Success Rate
+                    class="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-12 text-gray-400 px-4 sm:px-0">
+                    <span class="text-xs uppercase tracking-widest font-semibold text-brand-accent">Affiliations</span>
+                    <span class="text-xs flex items-center gap-2">
+                        <i class="fas fa-check-circle text-brand-accent"></i> INTA
+                    </span>
+                    <span class="text-xs flex items-center gap-2">
+                        <i class="fas fa-check-circle text-brand-accent"></i> AIPLA
+                    </span>
+                </div>
+
+                <!-- Right: Key Statistics -->
+                <div class="relative hidden lg:block">
+                    <div
+                        class="bg-brand-light dark:bg-brand-darkCard p-8 shadow-2xl border border-gray-100 dark:border-white/10 rounded-2xl h-full min-h-[400px] flex flex-col justify-center">
+                        <h3 class="font-bold text-xl text-brand-navy dark:text-brand-textLight mb-8 text-center">Proven
+                            Expertise in IP Law</h3>
+                        <div class="grid grid-cols-2 gap-8">
+                            <!-- Stat 1 -->
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-brand-accent mb-1">20+</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Years
+                                    Experience</div>
+                            </div>
+                            <!-- Stat 2 -->
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-brand-accent mb-1">5K+</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                    Trademarks
+                                    Filed</div>
+                            </div>
+                            <!-- Stat 3 -->
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-brand-accent mb-1">50+</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Global
+                                    Associations</div>
+                            </div>
+                            <!-- Stat 4 -->
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-brand-accent mb-1">98%</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Success
+                                    Rate
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-8 text-center">
-                        <a href="aboutus.html" class="text-xs font-medium text-brand-accent hover:underline">Learn more
-                            about our firm &rarr;</a>
+                        <div class="mt-8 text-center">
+                            <a href="aboutus.html" class="text-xs font-medium text-brand-accent hover:underline">Learn
+                                more
+                                about our firm &rarr;</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- IMMERSIVE SCROLL SECTION -->
