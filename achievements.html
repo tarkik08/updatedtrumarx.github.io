@@ -591,7 +591,7 @@
             submitButton.disabled = true;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-            fetch('https://trumarx.in/send-mail.php', {
+            fetch('https://testing.trumarx.in/send-mail.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
