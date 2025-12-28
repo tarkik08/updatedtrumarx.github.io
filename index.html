@@ -560,61 +560,28 @@
         </div>
     </section>
 
-    <!-- Cinematic Scroll Section: Achievements -->
-    <section id="achievements" class="relative bg-black" style="height: 400vh;">
-        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-
-            <!-- Layer 1: Intro Text -->
-            <div id="layer-intro" class="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black">
-                <h2 class="text-5xl md:text-8xl font-bold text-white mb-6 tracking-tighter text-center">
-                    <span class="block text-brand-accent">Cinematic</span>
-                    Success
-                </h2>
-                <p class="text-gray-400 text-xl max-w-xl text-center px-4">Protecting the intellectual property of
-                    India's biggest blockbusters.</p>
-                <div class="mt-8 animate-bounce text-white/50">
-                    <i class="fas fa-chevron-down text-2xl"></i>
+    <!-- Our Valued Clients -->
+    <section class="py-24 bg-brand-bg">
+        <a href="achievements.html" class="block">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-2">Our Valued Clients
+                    </h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Trusted partners in innovation</p>
+                </div>
+                <div class="flex justify-center items-center gap-8 flex-wrap">
+                    <img src="captain.jpg" alt="Captain" class="w-24 h-24 rounded-full object-cover">
+                    <img src="quantum-leap.jpg" alt="Quantum Leap" class="w-24 h-24 rounded-full object-cover">
+                    <img src="goduchy-1.jpg" alt="Goduchy" class="w-24 h-24 rounded-full object-cover">
+                    <img src="byjus.jpg" alt="BYJU'S" class="w-24 h-24 rounded-full object-cover">
+                    <img src="sourceone.jpg" alt="SourceOne" class="w-24 h-24 rounded-full object-cover">
+                    <img src="drivzey-1.jpg" alt="DRIVEZY" class="w-24 h-24 rounded-full object-cover">
                 </div>
             </div>
-
-            <!-- Layer 2: Salaar -->
-            <div id="layer-salaar"
-                class="absolute inset-0 flex items-center justify-center z-30 opacity-0 origin-center bg-black">
-                <div class="relative w-full h-full">
-                    <img src="Salaar.jpg" alt="Salaar" class="w-full h-full object-cover opacity-60">
-                    <div class="absolute bottom-10 left-6 md:bottom-20 md:left-20">
-                        <h3 class="text-4xl md:text-6xl font-bold text-white mb-2">Salaar</h3>
-                        <p class="text-brand-accent text-lg font-medium">Trademark & Copyright Protection</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Layer 3: Kantara -->
-            <div id="layer-kantara"
-                class="absolute inset-0 flex items-center justify-center z-20 opacity-0 origin-center bg-black">
-                <div class="relative w-full h-full">
-                    <img src="Kantara.png" alt="Kantara" class="w-full h-full object-cover opacity-60">
-                    <div class="absolute bottom-10 left-6 md:bottom-20 md:left-20">
-                        <h3 class="text-4xl md:text-6xl font-bold text-white mb-2">Kantara</h3>
-                        <p class="text-brand-accent text-lg font-medium">Script & Music Rights</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Layer 4: KGF -->
-            <div id="layer-kgf"
-                class="absolute inset-0 flex items-center justify-center z-10 opacity-0 origin-center bg-black">
-                <div class="relative w-full h-full">
-                    <img src="KGF.png" alt="KGF" class="w-full h-full object-cover opacity-60">
-                    <div class="absolute bottom-10 left-6 md:bottom-20 md:left-20">
-                        <h3 class="text-4xl md:text-6xl font-bold text-white mb-2">KGF Chapter 2</h3>
-                        <p class="text-brand-accent text-lg font-medium">Brand & Merchandise Protection</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        </a>
     </section>
+
+
 
     <!-- Client Voices -->
     <section class="py-24 bg-brand-bg border-t border-white/10">
@@ -790,220 +757,173 @@
     </div>
 
     <!-- Scripts (Scroll & Logic Preserved) -->
+    <script>
 
 
-    // Modal Logic
-    const modal = document.getElementById('modal-overlay');
-    const successPopup = document.getElementById('success-popup');
-    function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
-    function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
-    function closeSuccessPopup() {
-    successPopup.classList.remove('active');
-    setTimeout(() => successPopup.classList.add('hidden'), 300);
-    }
+        // Modal Logic
+        const modal = document.getElementById('modal-overlay');
+        const successPopup = document.getElementById('success-popup');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
+        function closeSuccessPopup() {
+            successPopup.classList.remove('active');
+            setTimeout(() => successPopup.classList.add('hidden'), 300);
+        }
 
-    // Submit form using EmailJS
-    function submitForm(event) {
-    event.preventDefault();
+        // Submit form using EmailJS
+        function submitForm(event) {
+            event.preventDefault();
 
-    const form = document.getElementById('consultation-form');
-    const submitButton = form.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.innerHTML;
-    const formData = new FormData(form);
+            const form = document.getElementById('consultation-form');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            const formData = new FormData(form);
 
-    // Prepare data for EmailJS
-    const templateParams = {
-    name: formData.get('name'),
-    email: formData.get('email'),
-    phone: formData.get('phone'),
-    subject: formData.get('subject'),
-    message: formData.get('message')
-    };
+            // Prepare data for EmailJS
+            const templateParams = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
 
-    // Disable submit button and show loading state
-    submitButton.disabled = true;
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            // Disable submit button and show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-    .then(function(response) {
-    console.log('SUCCESS!', response.status, response.text);
-    closeModal();
-    setTimeout(() => {
-    successPopup.classList.remove('hidden');
-    setTimeout(() => successPopup.classList.add('active'), 10);
-    }, 300);
-    form.reset();
-    }, function(error) {
-    console.log('FAILED...', error);
-    alert('Sorry, there was an error sending your message. Please try again later.');
-    })
-    .finally(() => {
-    submitButton.disabled = false;
-    submitButton.innerHTML = originalButtonText;
-    });
-    }
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                .then(function (response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    closeModal();
+                    setTimeout(() => {
+                        successPopup.classList.remove('hidden');
+                        setTimeout(() => successPopup.classList.add('active'), 10);
+                    }, 300);
+                    form.reset();
+                }, function (error) {
+                    console.log('FAILED...', error);
+                    alert('Sorry, there was an error sending your message. Please try again later.');
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                });
+        }
 
 
-    // Contact Modal Functions
-    const contactModal = document.getElementById('contact-modal-overlay');
-    function openContactModal(event) {
-    if (event) event.preventDefault();
-    contactModal.classList.remove('hidden');
-    if (event) {
-    const modalContent = contactModal.querySelector('.modal-content');
-    const rect = modalContent.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    modalContent.style.transformOrigin = `${x}px ${y}px`;
-    }
-    setTimeout(() => contactModal.classList.add('active'), 10);
-    }
-    function closeContactModal() {
-    contactModal.classList.remove('active');
-    setTimeout(() => contactModal.classList.add('hidden'), 300);
-    }
+        // Contact Modal Functions
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal(event) {
+            if (event) event.preventDefault();
+            contactModal.classList.remove('hidden');
+            if (event) {
+                const modalContent = contactModal.querySelector('.modal-content');
+                const rect = modalContent.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                modalContent.style.transformOrigin = `${x}px ${y}px`;
+            }
+            setTimeout(() => contactModal.classList.add('active'), 10);
+        }
+        function closeContactModal() {
+            contactModal.classList.remove('active');
+            setTimeout(() => contactModal.classList.add('hidden'), 300);
+        }
 
-    // CINEMATIC SCROLL LOGIC
-    const section = document.getElementById('achievements');
-    const layerIntro = document.getElementById('layer-intro');
-    const layerSalaar = document.getElementById('layer-salaar');
-    const layerKantara = document.getElementById('layer-kantara');
-    const layerKgf = document.getElementById('layer-kgf');
 
-    window.addEventListener('scroll', () => {
-    const rect = section.getBoundingClientRect();
-    const start = rect.top;
-    const height = rect.height;
-    const viewH = window.innerHeight;
 
-    // Map scroll to 0-1 progress
-    let progress = 0;
-    if (start <= 0) { progress=Math.abs(start) / (height - viewH); } if (progress < 0) progress=0; if (progress> 1)
-        progress = 1;
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
 
-        // --- ANIMATION STAGES ---
-        // 0.00 - 0.25: Intro Text (Zoom 1x -> 15x, Fade Out)
-        // 0.25 - 0.50: Salaar (Zoom 0.5x -> 1.2x, Fade Out)
-        // 0.50 - 0.75: Kantara (Zoom 0.5x -> 1.2x, Fade Out)
-        // 0.75 - 1.00: KGF (Zoom 0.5x -> 1.2x, Fade Out)
+        // SMOOTH FAQ ACCORDION
+        class Accordion {
+            constructor(el) {
+                this.el = el;
+                this.summary = el.querySelector('summary');
+                this.content = el.querySelector('.faq-answer');
+                this.animation = null;
+                this.isClosing = false;
+                this.isExpanding = false;
+                this.summary.addEventListener('click', (e) => this.onClick(e));
+            }
 
-        // 1. INTRO TEXT (Solid, Moderate Zoom, Fade Out from Start)
-        if (progress < 0.25) { let localP=progress / 0.25; let scaleVal=1 + (localP * 14);
-            layerIntro.style.transform=`scale(${scaleVal})`; let fade=1 - localP; layerIntro.style.opacity=Math.max(0,
-            fade); } else { layerIntro.style.opacity=0; } // 2. SALAAR (0.25 to 0.50) if (progress> 0.25) {
-            let localP = (progress - 0.25) / 0.25;
-            let scaleVal = 0.5 + (localP * 0.7);
-            layerSalaar.style.transform = `scale(${scaleVal})`;
-            layerSalaar.style.zIndex = 40;
+            onClick(e) {
+                e.preventDefault();
+                this.el.style.overflow = 'hidden';
 
-            if (scaleVal < 1.0) layerSalaar.style.opacity=1; else layerSalaar.style.opacity=1 - ((scaleVal - 1.0) * 5);
-                if (scaleVal < 0.55) layerSalaar.style.opacity=(scaleVal - 0.5) * 10; } else {
-                layerSalaar.style.opacity=0; } // 3. KANTARA (0.50 to 0.75) if (progress> 0.50) {
-                let localP = (progress - 0.50) / 0.25;
-                let scaleVal = 0.5 + (localP * 0.7);
-                layerKantara.style.transform = `scale(${scaleVal})`;
-                layerKantara.style.zIndex = 50;
+                if (this.isClosing || !this.el.open) {
+                    this.open();
+                } else if (this.isExpanding || this.el.open) {
+                    this.shrink();
+                }
+            }
 
-                if (scaleVal < 1.0) layerKantara.style.opacity=1; else layerKantara.style.opacity=1 - ((scaleVal - 1.0)
-                    * 5); if (scaleVal < 0.55) layerKantara.style.opacity=(scaleVal - 0.5) * 10; } else {
-                    layerKantara.style.opacity=0; } // 4. KGF (0.75 to 1.00) if (progress> 0.75) {
-                    let localP = (progress - 0.75) / 0.25;
-                    if (localP > 1) localP = 1;
-                    let scaleVal = 0.5 + (localP * 0.7);
-                    layerKgf.style.transform = `scale(${scaleVal})`;
-                    layerKgf.style.zIndex = 60;
+            shrink() {
+                this.isClosing = true;
 
-                    if (scaleVal < 0.55) layerKgf.style.opacity=(scaleVal - 0.5) * 10; else layerKgf.style.opacity=1; }
-                        else { layerKgf.style.opacity=0; } }); // Mobile Menu Logic const
-                        mobileBtn=document.getElementById('mobile-menu-btn'); const
-                        mobileMenu=document.getElementById('mobile-menu'); if (mobileBtn && mobileMenu) {
-                        mobileBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('hidden'));
-                        // Close menu when a link is clicked
-                        mobileMenu.querySelectorAll('a, button').forEach(link => {
-                        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-                        });
-                        }
+                const startHeight = `${this.el.offsetHeight}px`;
+                const endHeight = `${this.summary.offsetHeight}px`;
 
-                        // SMOOTH FAQ ACCORDION
-                        class Accordion {
-                        constructor(el) {
-                        this.el = el;
-                        this.summary = el.querySelector('summary');
-                        this.content = el.querySelector('.faq-answer');
-                        this.animation = null;
-                        this.isClosing = false;
-                        this.isExpanding = false;
-                        this.summary.addEventListener('click', (e) => this.onClick(e));
-                        }
+                if (this.animation) {
+                    this.animation.cancel();
+                }
 
-                        onClick(e) {
-                        e.preventDefault();
-                        this.el.style.overflow = 'hidden';
+                this.animation = this.el.animate({
+                    height: [startHeight, endHeight]
+                }, {
+                    duration: 300,
+                    easing: 'ease-out'
+                });
 
-                        if (this.isClosing || !this.el.open) {
-                        this.open();
-                        } else if (this.isExpanding || this.el.open) {
-                        this.shrink();
-                        }
-                        }
+                this.animation.onfinish = () => {
+                    this.el.removeAttribute('open');
+                    this.isClosing = false;
+                    this.el.style.height = this.el.style.overflow = '';
+                };
+            }
 
-                        shrink() {
-                        this.isClosing = true;
+            open() {
+                this.el.style.height = `${this.el.offsetHeight}px`;
+                this.el.setAttribute('open', '');
+                window.requestAnimationFrame(() => this.expand());
+            }
 
-                        const startHeight = `${this.el.offsetHeight}px`;
-                        const endHeight = `${this.summary.offsetHeight}px`;
+            expand() {
+                this.isExpanding = true;
+                const startHeight = `${this.el.offsetHeight}px`;
+                const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
 
-                        if (this.animation) {
-                        this.animation.cancel();
-                        }
+                if (this.animation) {
+                    this.animation.cancel();
+                }
 
-                        this.animation = this.el.animate({
-                        height: [startHeight, endHeight]
-                        }, {
-                        duration: 300,
-                        easing: 'ease-out'
-                        });
+                this.animation = this.el.animate({
+                    height: [startHeight, endHeight]
+                }, {
+                    duration: 300,
+                    easing: 'ease-in-out'
+                });
 
-                        this.animation.onfinish = () => {
-                        this.el.removeAttribute('open');
-                        this.isClosing = false;
-                        this.el.style.height = this.el.style.overflow = '';
-                        };
-                        }
+                this.animation.onfinish = () => {
+                    this.isExpanding = false;
+                    this.el.style.height = this.el.style.overflow = '';
+                };
+            }
+        }
 
-                        open() {
-                        this.el.style.height = `${this.el.offsetHeight}px`;
-                        this.el.setAttribute('open', '');
-                        window.requestAnimationFrame(() => this.expand());
-                        }
-
-                        expand() {
-                        this.isExpanding = true;
-                        const startHeight = `${this.el.offsetHeight}px`;
-                        const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
-
-                        if (this.animation) {
-                        this.animation.cancel();
-                        }
-
-                        this.animation = this.el.animate({
-                        height: [startHeight, endHeight]
-                        }, {
-                        duration: 300,
-                        easing: 'ease-in-out'
-                        });
-
-                        this.animation.onfinish = () => {
-                        this.isExpanding = false;
-                        this.el.style.height = this.el.style.overflow = '';
-                        };
-                        }
-                        }
-
-                        document.querySelectorAll('#faq-section details').forEach((el) => {
-                        new Accordion(el);
-                        });
-                        </script>
+        document.querySelectorAll('#faq-section details').forEach((el) => {
+            new Accordion(el);
+        });
+    </script>
 </body>
 
 </html>

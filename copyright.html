@@ -519,6 +519,12 @@
     </div>
 
     <script>
+        // Modal Logic
+        const modal = document.getElementById('modal-overlay');
+        const successPopup = document.getElementById('success-popup');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
+
         // Submit form using EmailJS
         function submitForm(event) {
             // Prevent default just to be safe if passed
