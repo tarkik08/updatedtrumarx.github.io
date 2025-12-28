@@ -95,15 +95,15 @@
             font-weight: 700;
             letter-spacing: -0.02em;
             color: #FFFFFF;
-            /* Default: Desktop (No Wrap) */
-            white-space: nowrap;
+            /* Default: Desktop (No Wrap) - Enforced */
+            white-space: nowrap !important;
             padding: 0;
         }
 
-        /* Mobile Adjustments (Max-width 1023px) */
-        @media (max-width: 1023px) {
+        /* Mobile Adjustments (Max-width 767px) - Only for phones */
+        @media (max-width: 767px) {
             .mega-text {
-                white-space: normal;
+                white-space: normal !important;
                 line-height: 1.1;
                 max-width: 100%;
                 padding: 0 1rem;
