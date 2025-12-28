@@ -1,20 +1,28 @@
 <?php
 /**
  * Trumarx Consultation Form - Email Handler
- * Uses cPanel SMTP to send form submissions
- * 
- * Upload this file to: public_html/send-mail.php on your cPanel hosting
+ * Uses cPanel to send form submissions
  */
 
-// CORS Headers - Allow requests from your domains
+// Error handling - must be first
+error_reporting(0);
+ini_set('display_errors', 0);
+
+// CORS Headers - Must be sent before any output
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Accept');
+header('Content-Type: application/json; charset=UTF-8');
 
 // Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
+    exit();
+}
+
+// For GET requests, show a simple status (useful for testing)
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    echo json_encode(['status' => 'ok', 'message' => 'Email endpoint is working. Use POST to send emails.']);
     exit();
 }
 
@@ -28,6 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Get POST data
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
+
+// Check if JSON parsing failed
+if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Invalid JSON data']);
+    exit();
+}
 
 // Validate required fields
 if (empty($data['name']) || empty($data['email'])) {
@@ -49,12 +64,6 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Invalid email format']);
     exit();
 }
-
-// SMTP Configuration
-$smtp_host = 'mail.trumarx.in';
-$smtp_port = 465;
-$smtp_user = 'consultation@trumarx.in';
-$smtp_pass = 'legal@2025!@#';
 
 // Email settings
 $to = 'consultation@trumarx.in';
@@ -112,33 +121,25 @@ $email_body = "
 ";
 
 // Email headers
-$headers = [
-    'MIME-Version: 1.0',
-    'Content-type: text/html; charset=UTF-8',
-    'From: Trumarx Website <consultation@trumarx.in>',
-    'Reply-To: ' . $name . ' <' . $email . '>',
-    'X-Mailer: PHP/' . phpversion()
-];
+$headers = "MIME-Version: 1.0\r\n";
+$headers .= "Content-type: text/html; charset=UTF-8\r\n";
+$headers .= "From: Trumarx Website <consultation@trumarx.in>\r\n";
+$headers .= "Reply-To: $name <$email>\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
-// Try to send email using PHP's mail() function
-// Note: cPanel typically configures sendmail to use the server's mail settings
-try {
-    $mail_sent = mail($to, $email_subject, $email_body, implode("\r\n", $headers));
-    
-    if ($mail_sent) {
-        echo json_encode([
-            'success' => true, 
-            'message' => 'Your consultation request has been sent successfully!'
-        ]);
-    } else {
-        throw new Exception('Mail function returned false');
-    }
-} catch (Exception $e) {
+// Send email
+$mail_sent = @mail($to, $email_subject, $email_body, $headers);
+
+if ($mail_sent) {
+    echo json_encode([
+        'success' => true,
+        'message' => 'Your consultation request has been sent successfully!'
+    ]);
+} else {
     http_response_code(500);
     echo json_encode([
-        'success' => false, 
-        'message' => 'Failed to send email. Please try again later.',
-        'error' => $e->getMessage()
+        'success' => false,
+        'message' => 'Failed to send email. Please try again later.'
     ]);
 }
 ?>
