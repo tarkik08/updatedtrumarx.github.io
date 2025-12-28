@@ -735,8 +735,7 @@
                 <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
                 <a href="services.html" class="hover:text-brand-accent transition-colors">Practice Areas</a>
                 <a href="aboutus.html" class="hover:text-brand-accent transition-colors">Our Team</a>
-                <a href="#" onclick="openContactModal(event)"
-                    class="hover:text-brand-accent transition-colors">Contact</a>
+                <a href="#" onclick="openModal()" class="hover:text-brand-accent transition-colors">Contact</a>
             </div>
 
             <p class="text-xs text-gray-500 dark:text-gray-500">Prototype — Not for reuse without permission, 2025
@@ -846,24 +845,7 @@
         }
 
 
-        // Contact Modal Functions
-        const contactModal = document.getElementById('contact-modal-overlay');
-        function openContactModal(event) {
-            if (event) event.preventDefault();
-            contactModal.classList.remove('hidden');
-            if (event) {
-                const modalContent = contactModal.querySelector('.modal-content');
-                const rect = modalContent.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                modalContent.style.transformOrigin = `${x}px ${y}px`;
-            }
-            setTimeout(() => contactModal.classList.add('active'), 10);
-        }
-        function closeContactModal() {
-            contactModal.classList.remove('active');
-            setTimeout(() => contactModal.classList.add('hidden'), 300);
-        }
+
 
 
 
