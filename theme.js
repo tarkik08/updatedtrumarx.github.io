@@ -4,55 +4,50 @@ tailwind.config = {
         extend: {
             colors: {
                 brand: {
-                    // Core Brand Colors
-                    navy: '#1a3d7a',        /* Dark Royal Blue: Primary */
-                    gold: '#c9a961',        /* Brushed Gold: Accent */
-                    charcoal: '#2e3338',    /* Charcoal: Primary Text */
-                    white: '#fafbfc',       /* Off White: Background */
+                    // Core Brand Colors - Midnight & Azure (Premium Trust)
+                    navy: '#0a1628',        /* Midnight Blue: Primary */
+                    gold: '#3b82f6',        /* Azure Blue: Accent */
+                    charcoal: '#1e3a5f',    /* Deep Navy: Primary Text */
+                    white: '#f1f5f9',       /* Cool White: Background */
 
                     // Supporting Colors
-                    navyDeep: '#0f2847',    /* Deep Navy */
-                    blue: '#2b5aa6',        /* Lighter Royal Blue */
-                    goldWarm: '#d4b579',    /* Warm Gold */
-                    goldAntique: '#b89654', /* Antique Gold */
-                    slate: '#6b7280',       /* Slate */
-                    grayLight: '#e1e4e8',   /* Light Gray */
-                    grayMedium: '#a8aeb5',  /* Medium Gray */
-                    charcoalDeep: '#1a1d21',/* Deep Charcoal */
+                    navyDeep: '#050b14',    /* True Black Midnight */
+                    blue: '#60a5fa',        /* Light Azure */
+                    goldWarm: '#60a5fa',    /* Light Azure */
+                    goldAntique: '#2563eb', /* Deep Azure */
+                    slate: '#475569',       /* Slate Blue */
+                    grayLight: '#e2e8f0',   /* Cool Gray */
+                    grayMedium: '#94a3b8',  /* Medium Gray Blue */
+                    charcoalDeep: '#020408',/* Deep Midnight */
 
-                    // Functional Semantics (Single Theme Mappings)
-                    // These map both 'light' and 'dark' variants to the same single-theme look
-                    // or to complementary contrasts if maintaining standard light-theme logic.
+                    // Functional Semantics
+                    bg: '#0a1628',          /* Main Background: Midnight Blue */
+                    card: '#1e3a5f',        /* Card Background: Deep Navy */
+                    text: '#f1f5f9',        /* Primary Text: Cool White */
+                    textSecondary: '#94a3b8', /* Secondary Text: Gray Blue */
+                    border: '#2563eb',      /* Borders: Deep Azure */
 
-                    bg: '#1a3d7a',          /* Main Background: Dark Royal Blue */
-                    card: '#0f2847',        /* Card Background: Deep Navy */
-                    text: '#fafbfc',        /* Primary Text: Off White */
-                    textSecondary: '#a8aeb5', /* Secondary Text: Medium Gray */
-                    border: '#2b5aa6',      /* Borders: Lighter Royal Blue */
+                    // Backward Compatibility
+                    light: '#0a1628',       /* Maps to Midnight BG */
+                    dark: '#0a1628',        /* Maps to Midnight BG */
 
-                    // Backward Compatibility / Semantic Overrides
-                    // We map these to ensure existing classes look correct in the new Single Theme.
+                    darkCard: '#1e3a5f',    /* Maps to Deep Navy */
+                    darkCardHover: '#2d4f7c',
 
-                    light: '#1a3d7a',       /* Maps to Navy BG */
-                    dark: '#1a3d7a',        /* Maps to Navy BG */
+                    textDark: '#f1f5f9',    /* Force text to White */
+                    textLight: '#f1f5f9',   /* Force text to White */
 
-                    darkCard: '#0f2847',    /* Maps to Deep Navy */
-                    darkCardHover: '#1a3d7a',
+                    accent: '#3b82f6',      /* Azure Accent */
+                    accentHover: '#2563eb', /* Deep Azure Hover */
 
-                    textDark: '#fafbfc',    /* Force text to White */
-                    textLight: '#fafbfc',   /* Force text to White */
-
-                    accent: '#c9a961',
-                    accentHover: '#b89654',
-
-                    logoGrey: '#505761',
-                    logoBlack: '#1a3d7a',
+                    logoGrey: '#475569',
+                    logoBlack: '#0a1628',
                 },
                 functional: {
-                    success: '#2d7a4f',
-                    warning: '#d97706',
-                    error: '#c53030',
-                    info: '#3182ce',
+                    success: '#10b981',     /* Green Success */
+                    warning: '#f59e0b',     /* Amber Warning */
+                    error: '#ef4444',       /* Red Error */
+                    info: '#3b82f6',        /* Azure Info */
                 }
             },
             fontFamily: {
