@@ -704,16 +704,53 @@
 
         let jobsCache = [];
 
-        async function fetchJobsFromApi() {
-            const response = await fetch('data/careers.json', {
-                method: 'GET',
-                headers: { 'Accept': 'application/json' }
-            });
-            if (!response.ok) {
-                throw new Error('Failed to load jobs');
+        // Google Sheet CSV URL
+        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1zcTv57-SUUmFQw2yPxht0RvicWAxvX4Tq41mqCiQKug/export?format=csv';
+
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const jobs = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const row = [];
+                let inQuotes = false;
+                let currentField = '';
+
+                for (let char of lines[i]) {
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        row.push(currentField.trim());
+                        currentField = '';
+                    } else {
+                        currentField += char;
+                    }
+                }
+                row.push(currentField.trim());
+
+                if (row.length === headers.length) {
+                    const job = {};
+                    row.forEach((value, index) => {
+                        job[headers[index]] = value;
+                    });
+                    jobs.push(job);
+                }
             }
-            const data = await response.json();
-            return data;
+            return jobs;
+        }
+
+        async function fetchJobsFromApi() {
+            try {
+                const response = await fetch(GOOGLE_SHEET_CSV_URL);
+                if (!response.ok) throw new Error('Failed to load jobs');
+                const csvText = await response.text();
+                const jobs = parseCSV(csvText);
+                return { jobs: jobs };
+            } catch (error) {
+                console.error('Error fetching jobs:', error);
+                throw error;
+            }
         }
 
         async function loadJobs() {
