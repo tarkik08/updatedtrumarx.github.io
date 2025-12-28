@@ -414,7 +414,8 @@
 
             <!-- 1. INTRO TEXT LAYER -->
             <div id="layer-intro" class="cinematic-layer z-50 flex-col text-center">
-                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm uppercase mb-8">GUARDIANS OF GREATNESS</p>
+                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm uppercase mb-8">GUARDIANS OF GREATNESS
+                </p>
                 <div class="mega-text">
                     FROM FIRST FRAME<br>TO FINAL CUT
                 </div>
@@ -855,12 +856,14 @@
 
             if (!introLayer || !salaarLayer || !kantaraLayer || !kgfLayer) return;
 
-            // Phase 1: Intro Text (0% - 20%)
-            // Text zooms in and fades out
-            if (progress <= 0.2) {
-                const introProgress = progress / 0.2; // 0 to 1
-                const scale = 1 + (introProgress * 0.5); // Zoom from 1 to 1.5
-                const opacity = 1 - introProgress; // Fade from 1 to 0
+            // Phase 1: Intro Text (0% - 25%)
+            // Dramatic zoom with slow fade
+            if (progress <= 0.25) {
+                const introProgress = progress / 0.25;
+                // Ease-out for smoother zoom
+                const eased = 1 - Math.pow(1 - introProgress, 3);
+                const scale = 1 + (eased * 0.8); // Zoom from 1 to 1.8 (more dramatic)
+                const opacity = 1 - (introProgress * introProgress); // Quadratic fade for smoothness
 
                 introLayer.style.transform = `scale(${scale})`;
                 introLayer.style.opacity = opacity;
@@ -869,59 +872,66 @@
                 introLayer.style.display = 'none';
             }
 
-            // Phase 2: Salaar (20% - 40%)
-            if (progress > 0.2 && progress <= 0.4) {
-                const salaarProgress = (progress - 0.2) / 0.2; // 0 to 1
-                const scale = 0.5 + (salaarProgress * 0.5); // Scale from 0.5 to 1
-                const opacity = salaarProgress; // Fade in from 0 to 1
+            // Phase 2: Salaar (25% - 50%)
+            if (progress > 0.25 && progress <= 0.4) {
+                // Fade in with scale (25% - 40%)
+                const salaarProgress = (progress - 0.25) / 0.15;
+                const eased = salaarProgress * salaarProgress * (3 - 2 * salaarProgress); // Smoothstep
+                const scale = 0.7 + (eased * 0.3); // Scale from 0.7 to 1
+                const opacity = eased;
 
                 salaarLayer.style.transform = `scale(${scale})`;
                 salaarLayer.style.opacity = opacity;
                 salaarLayer.style.display = 'flex';
-            } else if (progress > 0.4 && progress <= 0.5) {
-                // Hold Salaar (40% - 50%)
+            } else if (progress > 0.4 && progress <= 0.45) {
+                // Hold Salaar at full scale (40% - 45%)
                 salaarLayer.style.transform = 'scale(1)';
                 salaarLayer.style.opacity = '1';
                 salaarLayer.style.display = 'flex';
-            } else if (progress > 0.5 && progress <= 0.55) {
-                // Fade out Salaar (50% - 55%)
-                const fadeProgress = (progress - 0.5) / 0.05;
+            } else if (progress > 0.45 && progress <= 0.5) {
+                // Fade out (45% - 50%)
+                const fadeProgress = (progress - 0.45) / 0.05;
+                const opacity = 1 - fadeProgress;
                 salaarLayer.style.transform = 'scale(1)';
-                salaarLayer.style.opacity = 1 - fadeProgress;
+                salaarLayer.style.opacity = opacity;
                 salaarLayer.style.display = 'flex';
-            } else if (progress <= 0.2 || progress > 0.55) {
+            } else if (progress <= 0.25 || progress > 0.5) {
                 salaarLayer.style.display = 'none';
             }
 
-            // Phase 3: Kantara (55% - 75%)
-            if (progress > 0.55 && progress <= 0.65) {
-                const kantaraProgress = (progress - 0.55) / 0.1; // 0 to 1
-                const scale = 0.5 + (kantaraProgress * 0.5); // Scale from 0.5 to 1
-                const opacity = kantaraProgress; // Fade in from 0 to 1
+            // Phase 3: Kantara (50% - 75%)
+            if (progress > 0.5 && progress <= 0.65) {
+                // Fade in with scale (50% - 65%)
+                const kantaraProgress = (progress - 0.5) / 0.15;
+                const eased = kantaraProgress * kantaraProgress * (3 - 2 * kantaraProgress);
+                const scale = 0.7 + (eased * 0.3);
+                const opacity = eased;
 
                 kantaraLayer.style.transform = `scale(${scale})`;
                 kantaraLayer.style.opacity = opacity;
                 kantaraLayer.style.display = 'flex';
-            } else if (progress > 0.65 && progress <= 0.75) {
-                // Hold Kantara (65% - 75%)
+            } else if (progress > 0.65 && progress <= 0.7) {
+                // Hold Kantara (65% - 70%)
                 kantaraLayer.style.transform = 'scale(1)';
                 kantaraLayer.style.opacity = '1';
                 kantaraLayer.style.display = 'flex';
-            } else if (progress > 0.75 && progress <= 0.8) {
-                // Fade out Kantara (75% - 80%)
-                const fadeProgress = (progress - 0.75) / 0.05;
+            } else if (progress > 0.7 && progress <= 0.75) {
+                // Fade out (70% - 75%)
+                const fadeProgress = (progress - 0.7) / 0.05;
+                const opacity = 1 - fadeProgress;
                 kantaraLayer.style.transform = 'scale(1)';
-                kantaraLayer.style.opacity = 1 - fadeProgress;
+                kantaraLayer.style.opacity = opacity;
                 kantaraLayer.style.display = 'flex';
-            } else if (progress <= 0.55 || progress > 0.8) {
+            } else if (progress <= 0.5 || progress > 0.75) {
                 kantaraLayer.style.display = 'none';
             }
 
-            // Phase 4: KGF (80% - 100%)
-            if (progress > 0.8) {
-                const kgfProgress = (progress - 0.8) / 0.2; // 0 to 1
-                const scale = 0.5 + (kgfProgress * 0.5); // Scale from 0.5 to 1
-                const opacity = kgfProgress; // Fade in from 0 to 1
+            // Phase 4: KGF (75% - 100%)
+            if (progress > 0.75) {
+                const kgfProgress = (progress - 0.75) / 0.25;
+                const eased = kgfProgress * kgfProgress * (3 - 2 * kgfProgress);
+                const scale = 0.7 + (eased * 0.3);
+                const opacity = Math.min(1, eased * 1.2); // Slightly faster fade-in
 
                 kgfLayer.style.transform = `scale(${scale})`;
                 kgfLayer.style.opacity = opacity;
