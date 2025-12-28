@@ -44,7 +44,7 @@ if (empty($name) || empty($email) || empty($message)) {
 // 5. Email Configuration
 // =========================================================================
 // TODO: CHANGE THIS TO YOUR EMAIL ADDRESS
-$to = "trumarx@trumarx.in"; // Replace with your actual email
+$to = "molletitarkiksaiii@gmail.com"; // Replace with your actual email
 // =========================================================================
 
 $email_subject = "Contact Form: " . $subject;
