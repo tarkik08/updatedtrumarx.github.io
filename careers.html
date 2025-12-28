@@ -12,7 +12,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        })();
+    </script>
 
 
     <script src="theme.js"></script>
@@ -574,8 +581,9 @@
                         function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
                         function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
 
-                        // Submit form using PHP backend
+                        // Submit form using EmailJS
                         function submitForm(event) {
+                            // Prevent default just to be safe if passed
                             if (event) event.preventDefault();
 
                             const form = document.getElementById('consultation-form');
@@ -583,7 +591,7 @@
                             const originalButtonText = submitButton.innerHTML;
                             const formData = new FormData(form);
 
-                            const data = {
+                            const templateParams = {
                                 name: formData.get('name'),
                                 email: formData.get('email'),
                                 phone: formData.get('phone'),
@@ -591,29 +599,20 @@
                                 message: formData.get('message')
                             };
 
+                            // Disable submit button and show loading state
                             submitButton.disabled = true;
                             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-                            fetch('https://testing.trumarx.in/send-mail.php', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(data)
-                            })
-                                .then(response => response.json())
-                                .then(result => {
-                                    if (result.success) {
-                                        console.log('SUCCESS!', result.message);
-                                        closeModal();
-                                        setTimeout(() => {
-                                            successPopup.classList.remove('hidden');
-                                            setTimeout(() => successPopup.classList.add('active'), 10);
-                                        }, 300);
-                                        form.reset();
-                                    } else {
-                                        throw new Error(result.message);
-                                    }
-                                })
-                                .catch(error => {
+                            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                                .then(function (response) {
+                                    console.log('SUCCESS!', response.status, response.text);
+                                    closeModal();
+                                    setTimeout(() => {
+                                        successPopup.classList.remove('hidden');
+                                        setTimeout(() => successPopup.classList.add('active'), 10);
+                                    }, 300);
+                                    form.reset();
+                                }, function (error) {
                                     console.error('FAILED...', error);
                                     alert('An error occurred. Please try again later.');
                                 })
