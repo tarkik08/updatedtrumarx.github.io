@@ -494,8 +494,7 @@
                     class="hover:text-brand-accent transition-colors">Contact</a>
             </div>
 
-            <p class="text-xs text-gray-500">Prototype — Not for reuse without permission, © 2025
-                Designed & Developed by Tarkik</p>
+
 
         </div>
     </footer>
@@ -559,9 +558,12 @@
                     <p class="flex items-start">
                         <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
                         <span class="ml-4">
-                            No. 23, Hari Prem Complex, 2nd Floor,<br>
-                            CMH Road, Indiranagar 1st Stage,<br>
-                            Bangalore – 560038
+                            <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
+                                rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">
+                                No. 23, Hari Prem Complex, 2nd Floor,<br>
+                                CMH Road, Indiranagar 1st Stage,<br>
+                                Bangalore – 560038
+                            </a>
                         </span>
                     </p>
                 </address>
@@ -570,236 +572,223 @@
 
                 <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                     <p class="flex justify-between items-center"><span><i
-                                class="fas fa-headset w-5 mr-3 text-gray-400"></i>Support:</span> <a
-                            href="tel:08040911324"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 40911324</a>
-                    </p>
-                    <p class="flex justify-between items-center"><span><i
-                                class="fas fa-registered w-5 mr-3 text-gray-400"></i>Trademark:</span> <a
-                            href="tel:08041462623"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 4146
-                            2623</a></p>
-                    <p class="flex justify-between items-center"><span><i
-                                class="fas fa-copyright w-5 mr-3 text-gray-400"></i>Copyright:</span> <a
-                            href="tel:08025284226"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284226</a>
-                    </p>
-                    <p class="flex justify-between items-center"><span><i
-                                class="fas fa-lightbulb w-5 mr-3 text-gray-400"></i>Patent:</span> <a
-                            href="tel:08025284227"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 – 25284227</a>
-                    </p>
-                    <p class="flex justify-between items-center"><span><i
-                                class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Mobile:</span> <a
-                            href="tel:+919886266396"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight font-bold">+91
-                            98862 66396</a></p>
-                    <p class="flex justify-between items-center"><span><i
-                                class="fas fa-envelope w-5 mr-3 text-gray-400"></i>E-mail:</span> <a
+                                class="fas fa-envelope w-5 mr-3 text-gray-400"></i>Email:</span> <a
                             href="mailto:support@trumarx.in"
                             class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">support@trumarx.in</a>
                     </p>
-                    <script>
-                        // Modal Logic
-                        const modal = document.getElementById('modal-overlay');
-                        const successPopup = document.getElementById('success-popup');
-                        function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
-                        function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Number:</span> <a
+                            href="tel:+918310179462"
+                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight font-bold">+91
+                            831-0179462</a>
+                    </p>
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-phone w-5 mr-3 text-gray-400"></i>Landline:</span> <a
+                            href="tel:08040911324"
+                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 4091 1324</a>
+                    </p>
+                </div>
+                <script>
+                    // Modal Logic
+                    const modal = document.getElementById('modal-overlay');
+                    const successPopup = document.getElementById('success-popup');
+                    function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
+                    function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
 
-                        // Submit form using EmailJS
-                        function submitForm(event) {
-                            // Prevent default just to be safe if passed
-                            if (event) event.preventDefault();
+                    // Submit form using EmailJS
+                    function submitForm(event) {
+                        // Prevent default just to be safe if passed
+                        if (event) event.preventDefault();
 
-                            const form = document.getElementById('consultation-form');
-                            const submitButton = form.querySelector('button');
-                            const originalButtonText = submitButton.innerHTML;
-                            const formData = new FormData(form);
+                        const form = document.getElementById('consultation-form');
+                        const submitButton = form.querySelector('button');
+                        const originalButtonText = submitButton.innerHTML;
+                        const formData = new FormData(form);
 
-                            const templateParams = {
-                                name: formData.get('name'),
-                                email: formData.get('email'),
-                                phone: formData.get('phone'),
-                                subject: formData.get('subject'),
-                                message: formData.get('message')
-                            };
+                        const templateParams = {
+                            name: formData.get('name'),
+                            email: formData.get('email'),
+                            phone: formData.get('phone'),
+                            subject: formData.get('subject'),
+                            message: formData.get('message')
+                        };
 
-                            // Disable submit button and show loading state
-                            submitButton.disabled = true;
-                            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                        // Disable submit button and show loading state
+                        submitButton.disabled = true;
+                        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-                            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-                                .then(function (response) {
-                                    console.log('SUCCESS!', response.status, response.text);
-                                    closeModal();
-                                    setTimeout(() => {
-                                        successPopup.classList.remove('hidden');
-                                        setTimeout(() => successPopup.classList.add('active'), 10);
-                                    }, 300);
-                                    form.reset();
-                                }, function (error) {
-                                    console.error('FAILED...', error);
-                                    alert('An error occurred. Please try again later.');
-                                })
-                                .finally(() => {
-                                    submitButton.disabled = false;
-                                    submitButton.innerHTML = originalButtonText;
-                                });
-                        }
-                        function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(() => successPopup.classList.add('hidden'), 300); }
-
-                        // Contact Modal Logic
-                        const contactModal = document.getElementById('contact-modal-overlay');
-                        function openContactModal(event) {
-                            if (event) event.preventDefault();
-                            contactModal.classList.remove('hidden');
-                            if (event) {
-                                const modalContent = contactModal.querySelector('.modal-content');
-                                const rect = modalContent.getBoundingClientRect();
-                                const x = event.clientX - rect.left;
-                                const y = event.clientY - rect.top;
-                                modalContent.style.transformOrigin = `${x}px ${y}px`;
-                            }
-                            setTimeout(() => contactModal.classList.add('active'), 10);
-                        }
-                        function closeContactModal() { contactModal.classList.remove('active'); setTimeout(() => contactModal.classList.add('hidden'), 300); }
-
-                        // Mobile Menu Logic
-                        const mobileBtn = document.getElementById('mobile-menu-btn');
-                        const mobileMenu = document.getElementById('mobile-menu');
-                        if (mobileBtn && mobileMenu) {
-                            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-                            // Close menu when a link is clicked
-                            mobileMenu.querySelectorAll('a, button').forEach(link => {
-                                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                            .then(function (response) {
+                                console.log('SUCCESS!', response.status, response.text);
+                                closeModal();
+                                setTimeout(() => {
+                                    successPopup.classList.remove('hidden');
+                                    setTimeout(() => successPopup.classList.add('active'), 10);
+                                }, 300);
+                                form.reset();
+                            }, function (error) {
+                                console.error('FAILED...', error);
+                                alert('An error occurred. Please try again later.');
+                            })
+                            .finally(() => {
+                                submitButton.disabled = false;
+                                submitButton.innerHTML = originalButtonText;
                             });
+                    }
+                    function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(() => successPopup.classList.add('hidden'), 300); }
+
+                    // Contact Modal Logic
+                    const contactModal = document.getElementById('contact-modal-overlay');
+                    function openContactModal(event) {
+                        if (event) event.preventDefault();
+                        contactModal.classList.remove('hidden');
+                        if (event) {
+                            const modalContent = contactModal.querySelector('.modal-content');
+                            const rect = modalContent.getBoundingClientRect();
+                            const x = event.clientX - rect.left;
+                            const y = event.clientY - rect.top;
+                            modalContent.style.transformOrigin = `${x}px ${y}px`;
                         }
+                        setTimeout(() => contactModal.classList.add('active'), 10);
+                    }
+                    function closeContactModal() { contactModal.classList.remove('active'); setTimeout(() => contactModal.classList.add('hidden'), 300); }
 
-                        // Application Logic
-                        function applyForJob(jobTitle) {
-                            const mailtoLink = `mailto:legal@trumarx.in?subject=Job Application - ${jobTitle}&body=Dear Hiring Team,%0A%0AI am writing to express my strong interest in the ${jobTitle} position at Trumarx. I found this opportunity on your careers page and believe my skills and experience align well with your requirements.%0A%0AI am particularly drawn to Trumarx's expertise in trademark and IP law, and I am excited about the possibility of contributing to your team's success.%0A%0AI have attached my resume for your review and would welcome the opportunity to discuss how my background can benefit your organization.%0A%0AThank you for considering my application. I look forward to hearing from you.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your LinkedIn/Portfolio (if applicable)]`;
-                            window.location.href = mailtoLink;
+                    // Mobile Menu Logic
+                    const mobileBtn = document.getElementById('mobile-menu-btn');
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileBtn && mobileMenu) {
+                        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                        // Close menu when a link is clicked
+                        mobileMenu.querySelectorAll('a, button').forEach(link => {
+                            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                        });
+                    }
 
-                            // Show fallback modal after a short delay
-                            setTimeout(() => {
-                                const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
-                                if (mailtoFallbackModal) {
-                                    mailtoFallbackModal.classList.remove('hidden');
-                                    setTimeout(() => mailtoFallbackModal.classList.add('active'), 10);
-                                }
-                            }, 1000);
-                        }
+                    // Application Logic
+                    function applyForJob(jobTitle) {
+                        const mailtoLink = `mailto:legal@trumarx.in?subject=Job Application - ${jobTitle}&body=Dear Hiring Team,%0A%0AI am writing to express my strong interest in the ${jobTitle} position at Trumarx. I found this opportunity on your careers page and believe my skills and experience align well with your requirements.%0A%0AI am particularly drawn to Trumarx's expertise in trademark and IP law, and I am excited about the possibility of contributing to your team's success.%0A%0AI have attached my resume for your review and would welcome the opportunity to discuss how my background can benefit your organization.%0A%0AThank you for considering my application. I look forward to hearing from you.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your LinkedIn/Portfolio (if applicable)]`;
+                        window.location.href = mailtoLink;
 
-                        function closeMailtoFallbackModal() {
+                        // Show fallback modal after a short delay
+                        setTimeout(() => {
                             const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
                             if (mailtoFallbackModal) {
-                                mailtoFallbackModal.classList.remove('active');
-                                setTimeout(() => mailtoFallbackModal.classList.add('hidden'), 300);
+                                mailtoFallbackModal.classList.remove('hidden');
+                                setTimeout(() => mailtoFallbackModal.classList.add('active'), 10);
                             }
+                        }, 1000);
+                    }
+
+                    function closeMailtoFallbackModal() {
+                        const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
+                        if (mailtoFallbackModal) {
+                            mailtoFallbackModal.classList.remove('active');
+                            setTimeout(() => mailtoFallbackModal.classList.add('hidden'), 300);
                         }
+                    }
 
-                        // Internship Application Logic
-                        function applyForInternship() {
-                            const mailtoLink = `mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]`;
+                    // Internship Application Logic
+                    function applyForInternship() {
+                        const mailtoLink = `mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]`;
 
-                            // Try to open the email client
-                            const emailOpened = window.open(mailtoLink, '_blank');
+                        // Try to open the email client
+                        const emailOpened = window.open(mailtoLink, '_blank');
 
-                            // Show fallback modal if email client doesn't open
-                            setTimeout(() => {
-                                if (!emailOpened || emailOpened.closed || typeof emailOpened.closed === 'undefined') {
-                                    openInternshipModal();
+                        // Show fallback modal if email client doesn't open
+                        setTimeout(() => {
+                            if (!emailOpened || emailOpened.closed || typeof emailOpened.closed === 'undefined') {
+                                openInternshipModal();
+                            }
+                        }, 500);
+                    }
+
+                    function openInternshipModal() {
+                        const modal = document.getElementById('internship-modal');
+                        if (modal) {
+                            modal.classList.remove('hidden');
+                            setTimeout(() => modal.classList.add('active'), 10);
+                        }
+                    }
+
+                    function closeInternshipModal() {
+                        const modal = document.getElementById('internship-modal');
+                        if (modal) {
+                            modal.classList.remove('active');
+                            setTimeout(() => modal.classList.add('hidden'), 300);
+                        }
+                    }
+
+
+                    let jobsCache = [];
+
+                    // Google Sheet CSV URL
+                    const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1zcTv57-SUUmFQw2yPxht0RvicWAxvX4Tq41mqCiQKug/export?format=csv';
+
+                    function parseCSV(csvText) {
+                        const lines = csvText.trim().split('\n');
+                        const headers = lines[0].split(',').map(h => h.trim());
+                        const jobs = [];
+
+                        for (let i = 1; i < lines.length; i++) {
+                            const row = [];
+                            let inQuotes = false;
+                            let currentField = '';
+
+                            for (let char of lines[i]) {
+                                if (char === '"') {
+                                    inQuotes = !inQuotes;
+                                } else if (char === ',' && !inQuotes) {
+                                    row.push(currentField.trim());
+                                    currentField = '';
+                                } else {
+                                    currentField += char;
                                 }
-                            }, 500);
-                        }
+                            }
+                            row.push(currentField.trim());
 
-                        function openInternshipModal() {
-                            const modal = document.getElementById('internship-modal');
-                            if (modal) {
-                                modal.classList.remove('hidden');
-                                setTimeout(() => modal.classList.add('active'), 10);
+                            if (row.length === headers.length) {
+                                const job = {};
+                                row.forEach((value, index) => {
+                                    job[headers[index]] = value;
+                                });
+                                jobs.push(job);
                             }
                         }
+                        return jobs;
+                    }
 
-                        function closeInternshipModal() {
-                            const modal = document.getElementById('internship-modal');
-                            if (modal) {
-                                modal.classList.remove('active');
-                                setTimeout(() => modal.classList.add('hidden'), 300);
+                    async function fetchJobsFromApi() {
+                        try {
+                            const response = await fetch(GOOGLE_SHEET_CSV_URL);
+                            if (!response.ok) throw new Error('Failed to load jobs');
+                            const csvText = await response.text();
+                            const jobs = parseCSV(csvText);
+                            return { jobs: jobs };
+                        } catch (error) {
+                            console.error('Error fetching jobs:', error);
+                            throw error;
+                        }
+                    }
+
+                    async function loadJobs() {
+                        const container = document.getElementById('jobs-container');
+                        try {
+                            const data = await fetchJobsFromApi();
+                            jobsCache = Array.isArray(data.jobs) ? data.jobs : [];
+                        } catch (error) {
+                            console.error('Error:', error);
+                            if (container) {
+                                container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">Failed to load job postings. Please try again later.</p><i class="fas fa-triangle-exclamation text-5xl text-gray-300 dark:text-gray-600"></i></div>';
                             }
+                            return;
                         }
 
+                        if (!container) return;
 
-                        let jobsCache = [];
-
-                        // Google Sheet CSV URL
-                        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1zcTv57-SUUmFQw2yPxht0RvicWAxvX4Tq41mqCiQKug/export?format=csv';
-
-                        function parseCSV(csvText) {
-                            const lines = csvText.trim().split('\n');
-                            const headers = lines[0].split(',').map(h => h.trim());
-                            const jobs = [];
-
-                            for (let i = 1; i < lines.length; i++) {
-                                const row = [];
-                                let inQuotes = false;
-                                let currentField = '';
-
-                                for (let char of lines[i]) {
-                                    if (char === '"') {
-                                        inQuotes = !inQuotes;
-                                    } else if (char === ',' && !inQuotes) {
-                                        row.push(currentField.trim());
-                                        currentField = '';
-                                    } else {
-                                        currentField += char;
-                                    }
-                                }
-                                row.push(currentField.trim());
-
-                                if (row.length === headers.length) {
-                                    const job = {};
-                                    row.forEach((value, index) => {
-                                        job[headers[index]] = value;
-                                    });
-                                    jobs.push(job);
-                                }
-                            }
-                            return jobs;
-                        }
-
-                        async function fetchJobsFromApi() {
-                            try {
-                                const response = await fetch(GOOGLE_SHEET_CSV_URL);
-                                if (!response.ok) throw new Error('Failed to load jobs');
-                                const csvText = await response.text();
-                                const jobs = parseCSV(csvText);
-                                return { jobs: jobs };
-                            } catch (error) {
-                                console.error('Error fetching jobs:', error);
-                                throw error;
-                            }
-                        }
-
-                        async function loadJobs() {
-                            const container = document.getElementById('jobs-container');
-                            try {
-                                const data = await fetchJobsFromApi();
-                                jobsCache = Array.isArray(data.jobs) ? data.jobs : [];
-                            } catch (error) {
-                                console.error('Error:', error);
-                                if (container) {
-                                    container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">Failed to load job postings. Please try again later.</p><i class="fas fa-triangle-exclamation text-5xl text-gray-300 dark:text-gray-600"></i></div>';
-                                }
-                                return;
-                            }
-
-                            if (!container) return;
-
-                            if (jobsCache.length === 0) {
-                                container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">There are currently no open full-time positions. Please check back later or send your resume for future consideration.</p><i class="fas fa-folder-open text-5xl text-gray-300 dark:text-gray-600"></i></div>';
-                            } else {
-                                container.innerHTML = jobsCache.map((job, index) => `
+                        if (jobsCache.length === 0) {
+                            container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">There are currently no open full-time positions. Please check back later or send your resume for future consideration.</p><i class="fas fa-folder-open text-5xl text-gray-300 dark:text-gray-600"></i></div>';
+                        } else {
+                            container.innerHTML = jobsCache.map((job, index) => `
                     <div class="bg-white dark:bg-brand-dark p-6 rounded-2xl shadow-legal">
                         <div class="flex justify-between items-start mb-4">
                             <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight">${job.title}</h3>
@@ -822,84 +811,84 @@
                         </div>
                     </div>
                 `).join('');
-                            }
                         }
+                    }
 
 
-                        // Load jobs on page load
-                        document.addEventListener('DOMContentLoaded', () => {
+                    // Load jobs on page load
+                    document.addEventListener('DOMContentLoaded', () => {
+                        loadJobs();
+                    });
+
+                    // Sync jobs across tabs
+                    window.addEventListener('storage', (event) => {
+                        if (event.key === 'jobsUpdatedAt') {
                             loadJobs();
-                        });
+                        }
+                    });
+                </script>
 
-                        // Sync jobs across tabs
-                        window.addEventListener('storage', (event) => {
-                            if (event.key === 'jobsUpdatedAt') {
-                                loadJobs();
-                            }
-                        });
-                    </script>
-
-                    <!-- Mailto Fallback Modal -->
-                    <div id="mailto-fallback-modal"
-                        class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+                <!-- Mailto Fallback Modal -->
+                <div id="mailto-fallback-modal"
+                    class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+                    <div
+                        class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center modal-content font-sans">
                         <div
-                            class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center modal-content font-sans">
-                            <div
-                                class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                                <i class="fas fa-envelope text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Email
-                                Application</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                                If the email client didn't open, please copy this email address and send your resume
-                                manually:
-                            </p>
-                            <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
-                                <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold">
-                                    legal@trumarx.in</p>
-                            </div>
-                            <button onclick="closeMailtoFallbackModal()"
-                                class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+                            class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-envelope text-white text-2xl"></i>
                         </div>
+                        <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Email
+                            Application</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                            If the email client didn't open, please copy this email address and send your resume
+                            manually:
+                        </p>
+                        <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
+                            <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold">
+                                legal@trumarx.in</p>
+                        </div>
+                        <button onclick="closeMailtoFallbackModal()"
+                            class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
                     </div>
+                </div>
 
 
 
-                    <!-- Internship Application Modal -->
-                    <div id="internship-modal"
-                        class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+                <!-- Internship Application Modal -->
+                <div id="internship-modal"
+                    class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+                    <div
+                        class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
+                        <button onclick="closeInternshipModal()"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
+                                class="fas fa-times"></i></button>
                         <div
-                            class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
+                            class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-briefcase text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Apply for
+                            Internship</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                            If the email client didn't open, please send your resume and cover letter to:
+                        </p>
+                        <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
+                            <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold text-center">
+                                legal@trumarx.in
+                            </p>
+                        </div>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mb-6">
+                            Subject: Internship Application - [Your Name]
+                        </p>
+                        <div class="flex gap-3">
                             <button onclick="closeInternshipModal()"
-                                class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
-                                    class="fas fa-times"></i></button>
-                            <div
-                                class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                                <i class="fas fa-briefcase text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Apply for
-                                Internship</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                                If the email client didn't open, please send your resume and cover letter to:
-                            </p>
-                            <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
-                                <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold text-center">
-                                    legal@trumarx.in
-                                </p>
-                            </div>
-                            <p class="text-xs text-gray-400 dark:text-gray-500 mb-6">
-                                Subject: Internship Application - [Your Name]
-                            </p>
-                            <div class="flex gap-3">
-                                <button onclick="closeInternshipModal()"
-                                    class="flex-1 py-3 bg-gray-500 text-white font-bold text-sm rounded-full hover:bg-gray-600 transition-colors shadow-lg">Close</button>
-                                <button
-                                    onclick="window.location.href='mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]';"
-                                    class="flex-1 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Open
-                                    Email</button>
-                            </div>
+                                class="flex-1 py-3 bg-gray-500 text-white font-bold text-sm rounded-full hover:bg-gray-600 transition-colors shadow-lg">Close</button>
+                            <button
+                                onclick="window.location.href='mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]';"
+                                class="flex-1 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Open
+                                Email</button>
                         </div>
                     </div>
+                </div>
 
 
 </body>
