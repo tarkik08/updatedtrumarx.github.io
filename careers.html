@@ -401,8 +401,8 @@
                                         <h4 class="font-bold text-brand-navy dark:text-brand-textLight text-sm">Email
                                             Resume + Statement</h4>
                                         <p class="text-xs text-gray-500 mt-1">Send your Resume and a short Statement of
-                                            Interest to <a href="mailto:Legal@trumarx.in"
-                                                class="text-brand-accent hover:underline">legal@trumarx.in</a></p>
+                                            Interest to <a href="mailto:career@trumarx.in"
+                                                class="text-brand-accent hover:underline">career@trumarx.in</a></p>
                                     </div>
                                 </div>
                                 <div class="flex">
@@ -666,17 +666,17 @@
 
                     // Application Logic
                     function applyForJob(jobTitle) {
-                        const mailtoLink = `mailto:legal@trumarx.in?subject=Job Application - ${jobTitle}&body=Dear Hiring Team,%0A%0AI am writing to express my strong interest in the ${jobTitle} position at Trumarx. I found this opportunity on your careers page and believe my skills and experience align well with your requirements.%0A%0AI am particularly drawn to Trumarx's expertise in trademark and IP law, and I am excited about the possibility of contributing to your team's success.%0A%0AI have attached my resume for your review and would welcome the opportunity to discuss how my background can benefit your organization.%0A%0AThank you for considering my application. I look forward to hearing from you.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your LinkedIn/Portfolio (if applicable)]`;
+                        const mailtoLink = `mailto:career@trumarx.in?subject=Job Application - ${jobTitle}`;
                         window.location.href = mailtoLink;
 
-                        // Show fallback modal after a short delay
+                        // Always show fallback modal after attempting to open email client
                         setTimeout(() => {
                             const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
                             if (mailtoFallbackModal) {
                                 mailtoFallbackModal.classList.remove('hidden');
                                 setTimeout(() => mailtoFallbackModal.classList.add('active'), 10);
                             }
-                        }, 1000);
+                        }, 500);
                     }
 
                     function closeMailtoFallbackModal() {
@@ -689,16 +689,14 @@
 
                     // Internship Application Logic
                     function applyForInternship() {
-                        const mailtoLink = `mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]`;
+                        const mailtoLink = `mailto:career@trumarx.in?subject=Internship Application - [Your Name]`;
 
-                        // Try to open the email client
-                        const emailOpened = window.open(mailtoLink, '_blank');
+                        // Attempt to open the email client
+                        window.location.href = mailtoLink;
 
-                        // Show fallback modal if email client doesn't open
+                        // Always show fallback modal after attempting to open email client
                         setTimeout(() => {
-                            if (!emailOpened || emailOpened.closed || typeof emailOpened.closed === 'undefined') {
-                                openInternshipModal();
-                            }
+                            openInternshipModal();
                         }, 500);
                     }
 
@@ -845,7 +843,7 @@
                         </p>
                         <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
                             <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold">
-                                legal@trumarx.in</p>
+                                career@trumarx.in</p>
                         </div>
                         <button onclick="closeMailtoFallbackModal()"
                             class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
@@ -873,7 +871,7 @@
                         </p>
                         <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
                             <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold text-center">
-                                legal@trumarx.in
+                                career@trumarx.in
                             </p>
                         </div>
                         <p class="text-xs text-gray-400 dark:text-gray-500 mb-6">
@@ -883,7 +881,7 @@
                             <button onclick="closeInternshipModal()"
                                 class="flex-1 py-3 bg-gray-500 text-white font-bold text-sm rounded-full hover:bg-gray-600 transition-colors shadow-lg">Close</button>
                             <button
-                                onclick="window.location.href='mailto:legal@trumarx.in?subject=Internship Application - [Your Name]&body=Dear Trumarx Team,%0A%0AI am writing to express my interest in the Internship Program at Trumarx. I found the opportunity on your website and am excited about the possibility of contributing to your team.%0A%0AI am particularly interested in gaining hands-on experience in trademark and IP law, and I believe your structured internship program would be an excellent learning opportunity.%0A%0AI have attached my resume for your review. I look forward to discussing how my skills and enthusiasm can benefit your team.%0A%0ABest regards,%0A[Your Full Name]%0A[Your Contact Information]%0A[Your University/College]%0A[Your LinkedIn/Portfolio (if applicable)]';"
+                                onclick="window.location.href='mailto:career@trumarx.in?subject=Internship Application - [Your Name]';"
                                 class="flex-1 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Open
                                 Email</button>
                         </div>

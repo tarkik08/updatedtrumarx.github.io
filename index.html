@@ -67,6 +67,28 @@
     </script>
 
     <!-- Tailwind CSS & FontAwesome -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-accent': '#c9a961',
+                        'brand-accentHover': '#b8964d',
+                        'brand-bg': '#0a0a0a',
+                        'brand-dark': '#0a0a0a',
+                        'brand-darkCard': '#111111',
+                        'brand-card': '#1a1a1a',
+                        'brand-light': '#f8f8f8',
+                        'brand-navy': '#1e3a5f',
+                        'brand-textLight': '#ffffff',
+                        'brand-textDark': '#1a1a1a',
+                        'brand-border': '#333333'
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -74,9 +96,9 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="config.js"></script>
     <script type="text/javascript">
-        (function () {
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-        })();
+            (function () {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            })();
     </script>
     <!-- EmailJS -->
 
@@ -493,41 +515,203 @@
         </div>
     </section>
 
-    <!-- IMMERSIVE SCROLL SECTION -->
-    <section id="achievements" class="relative h-[800vh] bg-black">
-        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-
-            <!-- 1. INTRO TEXT LAYER -->
-            <div id="layer-intro" class="cinematic-layer z-50 flex-col text-center">
-                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm uppercase mb-8">GUARDIANS OF GREATNESS
-                </p>
-                <div class="mega-text">
-                    FROM FIRST FRAME<br>TO FINAL CUT
+    <!-- 1. STICKY ZOOM INTRO SECTION -->
+    <!-- Height allows for the zoom scroll effect -->
+    <section id="intro-pin-section" class="relative h-[250vh] bg-black">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+            <!-- Intro Text Layer -->
+            <div id="intro-text-layer"
+                class="flex flex-col items-center justify-center text-center transform origin-center will-change-transform">
+                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm md:text-base uppercase mb-8">Guardians of
+                    Greatness</p>
+                <div
+                    class="font-bold text-white leading-none text-[3rem] md:text-[6rem] lg:text-[8rem] whitespace-nowrap">
+                    OUR LEGACY<br>OF SUCCESS
                 </div>
-                <!-- Bouncy Arrow -->
-                <div class="mt-8 animate-bounce text-brand-accent/80">
-                    <i class="fas fa-chevron-down text-3xl"></i>
+                <div class="mt-8 text-brand-accent/80 animate-bounce">
+                    <i class="fas fa-chevron-down text-2xl md:text-3xl"></i>
                 </div>
             </div>
-
-            <!-- 2. SALAAR LAYER -->
-            <div id="layer-salaar" class="cinematic-layer z-40 opacity-0 scale-0">
-                <img src="Salaar.jpg" class="cinematic-image" alt="Salaar Poster">
-            </div>
-
-            <!-- 3. KANTARA LAYER -->
-            <div id="layer-kantara" class="cinematic-layer z-30 opacity-0 scale-0">
-                <img src="Kantara.png" class="cinematic-image" alt="Kantara Poster">
-            </div>
-
-            <!-- 4. KGF LAYER -->
-            <div id="layer-kgf" class="cinematic-layer z-20 opacity-0 scale-0">
-                <img src="KGF.png" class="cinematic-image" alt="KGF Chapter 2 Poster">
-            </div>
-
         </div>
     </section>
 
+    <!-- 2. VERTICAL TIMELINE SECTION -->
+    <section id="vertical-timeline" class="relative py-20 bg-black overflow-hidden">
+
+        <!-- Central Vertical Line -->
+        <!-- Placed absolute so it spans the container height -->
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-white/20 -translate-x-1/2 z-0"></div>
+
+        <!-- Trumarx Logo at the start of timeline (root of achievement tree) -->
+        <div class="flex flex-col items-center mb-20 relative z-10">
+            <div class="flex flex-col leading-none select-none">
+                <div class="flex items-start justify-center">
+                    <span class="text-3xl md:text-4xl font-extrabold tracking-tighter text-gray-500">tru</span>
+                    <span class="text-3xl md:text-4xl font-extrabold tracking-tighter text-white">marx</span>
+                    <div class="ml-0.5 mt-1 w-2.5 h-2.5 rounded-full border-[2px] border-white"></div>
+                </div>
+                <span class="text-[10px] text-gray-400 font-medium tracking-wide -mt-1 text-center">brand legal
+                    management</span>
+            </div>
+            <!-- Connecting line to timeline -->
+            <div class="w-px h-12 bg-gradient-to-b from-brand-accent to-white/20 mt-4"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <!-- TIMELINE ITEMS WRAPPER -->
+            <div class="space-y-24 md:space-y-40 py-20">
+
+                <!-- ITEM 1: BYJU'S (Left) -->
+                <div
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    <!-- Content Box -->
+                    <div class="w-full md:w-5/12 text-center md:text-right order-2 md:order-1">
+                        <div
+                            class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
+                            <div class="text-brand-accent text-3xl mb-4"><i class="fas fa-graduation-cap"></i></div>
+                            <h3 class="text-2xl font-bold text-white mb-2">BYJU’S</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">
+                                Pioneering IP strategy for India’s most renowned edutech brand from its inception. We
+                                managed trademark classes globally as they scaled to become a unicorn.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Connector Dot -->
+                    <div
+                        class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#c9a961] relative z-20 order-1 md:order-2 shrink-0">
+                        <!-- Horizontal Connector Line (Large Screens) - Ray shining to the left towards content -->
+                        <div
+                            class="hidden md:block absolute top-1/2 right-full w-16 h-px bg-gradient-to-l from-brand-accent to-transparent -translate-y-1/2">
+                        </div>
+                    </div>
+                    <!-- Empty Space / Image Placeholder -->
+                    <div class="hidden md:block w-5/12 order-3"></div>
+                </div>
+
+                <!-- ITEM 2: DRIVEZY (Right) -->
+                <div
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    <div class="hidden md:block w-5/12 order-1"></div>
+
+                    <div
+                        class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#c9a961] relative z-20 order-1 md:order-2 shrink-0">
+                        <!-- Horizontal Connector Line (Large Screens) - Ray shining to the right towards content -->
+                        <div
+                            class="hidden md:block absolute top-1/2 left-full w-16 h-px bg-gradient-to-r from-brand-accent to-transparent -translate-y-1/2">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-5/12 text-center md:text-left order-2 md:order-3">
+                        <div
+                            class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
+                            <div class="text-brand-accent text-3xl mb-4"><i class="fas fa-car"></i></div>
+                            <h3 class="text-2xl font-bold text-white mb-2">DRIVEZY</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">
+                                Resolving complex discrepancies and identifying key IP assets. Our intervention turned
+                                potential legal hurdles into a secure, long-term partnership.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 3: QUANTUM LEAP (Left) -->
+                <div
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    <div class="w-full md:w-5/12 text-center md:text-right order-2 md:order-1">
+                        <div
+                            class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
+                            <div class="text-brand-accent text-3xl mb-4"><i class="fas fa-microphone-alt"></i></div>
+                            <h3 class="text-2xl font-bold text-white mb-2">QUANTUM LEAP</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">
+                                Protecting the intellectual capital of Rajeev Talreja since 2007. We’ve successfully
+                                filed
+                                24+ trademarks and safeguarded his content modules.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#c9a961] relative z-20 order-1 md:order-2 shrink-0">
+                        <!-- Horizontal Connector Line (Large Screens) - Ray shining to the left towards content -->
+                        <div
+                            class="hidden md:block absolute top-1/2 right-full w-16 h-px bg-gradient-to-l from-brand-accent to-transparent -translate-y-1/2">
+                        </div>
+                    </div>
+                    <div class="hidden md:block w-5/12 order-3"></div>
+                </div>
+
+                <!-- ITEM 4: SOURCEONE (Right) -->
+                <div
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    <div class="hidden md:block w-5/12 order-1"></div>
+                    <div
+                        class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#c9a961] relative z-20 order-1 md:order-2 shrink-0">
+                        <!-- Horizontal Connector Line (Large Screens) - Ray shining to the right towards content -->
+                        <div
+                            class="hidden md:block absolute top-1/2 left-full w-16 h-px bg-gradient-to-r from-brand-accent to-transparent -translate-y-1/2">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-5/12 text-center md:text-left order-2 md:order-3">
+                        <div
+                            class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
+                            <div class="text-brand-accent text-3xl mb-4"><i class="fas fa-file-contract"></i></div>
+                            <h3 class="text-2xl font-bold text-white mb-2">SOURCEONE</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">
+                                Turning a "refused" application into a registered trademark through precise
+                                documentation.
+                                We proved that attention to detail wins cases.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM 5: CAPTAIN (Left) -->
+                <div
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    <div class="w-full md:w-5/12 text-center md:text-right order-2 md:order-1">
+                        <div
+                            class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
+                            <div class="text-brand-accent text-3xl mb-4"><i class="fas fa-anchor"></i></div>
+                            <h3 class="text-2xl font-bold text-white mb-2">CAPTAIN</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">
+                                Reviving an abandoned trademark case. Our precise intervention turned an "impossible"
+                                refusal into a success story for the brand.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#c9a961] relative z-20 order-1 md:order-2 shrink-0">
+                        <!-- Horizontal Connector Line (Large Screens) - Ray shining to the left towards content -->
+                        <div
+                            class="hidden md:block absolute top-1/2 right-full w-16 h-px bg-gradient-to-l from-brand-accent to-transparent -translate-y-1/2">
+                        </div>
+                    </div>
+                    <div class="hidden md:block w-5/12 order-3"></div>
+                </div>
+
+                <!-- PLACEHOLDERS 1-4 -->
+                <!-- P1 (Right) -->
+                <div
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    <div class="hidden md:block w-5/12 order-1"></div>
+                    <div class="w-2 h-2 rounded-full bg-gray-500 relative z-20 order-1 md:order-2 shrink-0"></div>
+                    <div class="w-full md:w-5/12 text-center md:text-left order-2 md:order-3">
+                        <div
+                            class="bg-[#111] p-8 rounded-2xl border border-white/5 border-dashed hover:border-brand-accent/30 transition-colors inline-block text-left w-full group">
+                            <div class="text-gray-600 group-hover:text-brand-accent/70 text-2xl mb-4 transition-colors">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-500 mb-2">Upcoming Success</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">Details of our next major landmark
+                                achievement.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
     <!-- Services Grid (Practice Areas) -->
     <section id="services" class="py-12 md:py-24 relative bg-brand-bg">
         <div class="max-w-7xl mx-auto px-6">
@@ -644,27 +828,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Our Valued Clients -->
-    <section class="py-24 bg-brand-bg">
-        <a href="achievements.html" class="block">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-2">Our Valued Clients
-                    </h2>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Trusted partners in innovation</p>
-                </div>
-                <div class="flex justify-center items-center gap-8 flex-wrap">
-                    <img src="captain.jpg" alt="Captain" class="w-24 h-24 rounded-full object-cover">
-                    <img src="quantum-leap.jpg" alt="Quantum Leap" class="w-24 h-24 rounded-full object-cover">
-                    <img src="goduchy-1.jpg" alt="Goduchy" class="w-24 h-24 rounded-full object-cover">
-                    <img src="byjus.jpg" alt="BYJU'S" class="w-24 h-24 rounded-full object-cover">
-                    <img src="sourceone.jpg" alt="SourceOne" class="w-24 h-24 rounded-full object-cover">
-                    <img src="drivzey-1.jpg" alt="DRIVEZY" class="w-24 h-24 rounded-full object-cover">
-                </div>
-            </div>
-        </a>
     </section>
 
 
@@ -972,112 +1135,68 @@
 
 
 
-        // CINEMATIC SCROLL ANIMATION
+        // 1. STICKY ZOOM INTRO SCROLL LOGIC
         window.addEventListener('scroll', () => {
-            const section = document.getElementById('achievements');
-            if (!section) return;
+            const introSection = document.getElementById('intro-pin-section');
+            const introText = document.getElementById('intro-text-layer');
 
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
+            if (!introSection || !introText) return;
+
+            const sectionTop = introSection.offsetTop;
+            const sectionHeight = introSection.offsetHeight;
             const windowHeight = window.innerHeight;
-            const scrollY = window.scrollY;
+            const scrollTop = window.scrollY;
 
-            // Calculate progress through the section (0 to 1)
-            const scrollProgress = (scrollY - sectionTop) / (sectionHeight - windowHeight);
-            const progress = Math.max(0, Math.min(1, scrollProgress));
+            // Only animate if near/within the section
+            if (scrollTop >= sectionTop - windowHeight && scrollTop <= sectionTop + sectionHeight) {
+                // Determine how far we are into the section
+                const scrolled = Math.max(0, scrollTop - sectionTop);
+                // The scrollable distance is height - window
+                const scrollDistance = sectionHeight - windowHeight;
 
-            // Get all layers
-            const introLayer = document.getElementById('layer-intro');
-            const salaarLayer = document.getElementById('layer-salaar');
-            const kantaraLayer = document.getElementById('layer-kantara');
-            const kgfLayer = document.getElementById('layer-kgf');
+                // 0 to 1 progress
+                let progress = scrolled / scrollDistance;
+                progress = Math.min(1, Math.max(0, progress));
 
-            if (!introLayer || !salaarLayer || !kantaraLayer || !kgfLayer) return;
+                // ZOOM & FADE EFFECT
+                // Scale from 1 to 20
+                // Opacity fades out as we zoom in
+                let scale = 1 + (progress * 20);
+                let opacity = 1 - (progress * 1.5); // Fade out faster
 
-            // Phase 1: Intro Text (0% - 25%)
-            // Dramatic zoom with slow fade
-            if (progress <= 0.25) {
-                const introProgress = progress / 0.25;
-                // Ease-out for smoother zoom
-                const eased = 1 - Math.pow(1 - introProgress, 3);
-                const scale = 1 + (eased * 0.8); // Zoom from 1 to 1.8 (more dramatic)
-                const opacity = 1 - (introProgress * introProgress); // Quadratic fade for smoothness
-
-                introLayer.style.transform = `scale(${scale})`;
-                introLayer.style.opacity = opacity;
-                introLayer.style.display = 'flex';
-            } else {
-                introLayer.style.display = 'none';
-            }
-
-            // Phase 2: Salaar (25% - 50%)
-            if (progress > 0.25 && progress <= 0.4) {
-                // Fade in with scale (25% - 40%)
-                const salaarProgress = (progress - 0.25) / 0.15;
-                const eased = salaarProgress * salaarProgress * (3 - 2 * salaarProgress); // Smoothstep
-                const scale = 0.7 + (eased * 0.3); // Scale from 0.7 to 1
-                const opacity = eased;
-
-                salaarLayer.style.transform = `scale(${scale})`;
-                salaarLayer.style.opacity = opacity;
-                salaarLayer.style.display = 'flex';
-            } else if (progress > 0.4 && progress <= 0.45) {
-                // Hold Salaar at full scale (40% - 45%)
-                salaarLayer.style.transform = 'scale(1)';
-                salaarLayer.style.opacity = '1';
-                salaarLayer.style.display = 'flex';
-            } else if (progress > 0.45 && progress <= 0.5) {
-                // Fade out (45% - 50%)
-                const fadeProgress = (progress - 0.45) / 0.05;
-                const opacity = 1 - fadeProgress;
-                salaarLayer.style.transform = 'scale(1)';
-                salaarLayer.style.opacity = opacity;
-                salaarLayer.style.display = 'flex';
-            } else if (progress <= 0.25 || progress > 0.5) {
-                salaarLayer.style.display = 'none';
-            }
-
-            // Phase 3: Kantara (50% - 75%)
-            if (progress > 0.5 && progress <= 0.65) {
-                // Fade in with scale (50% - 65%)
-                const kantaraProgress = (progress - 0.5) / 0.15;
-                const eased = kantaraProgress * kantaraProgress * (3 - 2 * kantaraProgress);
-                const scale = 0.7 + (eased * 0.3);
-                const opacity = eased;
-
-                kantaraLayer.style.transform = `scale(${scale})`;
-                kantaraLayer.style.opacity = opacity;
-                kantaraLayer.style.display = 'flex';
-            } else if (progress > 0.65 && progress <= 0.7) {
-                // Hold Kantara (65% - 70%)
-                kantaraLayer.style.transform = 'scale(1)';
-                kantaraLayer.style.opacity = '1';
-                kantaraLayer.style.display = 'flex';
-            } else if (progress > 0.7 && progress <= 0.75) {
-                // Fade out (70% - 75%)
-                const fadeProgress = (progress - 0.7) / 0.05;
-                const opacity = 1 - fadeProgress;
-                kantaraLayer.style.transform = 'scale(1)';
-                kantaraLayer.style.opacity = opacity;
-                kantaraLayer.style.display = 'flex';
-            } else if (progress <= 0.5 || progress > 0.75) {
-                kantaraLayer.style.display = 'none';
-            }
-
-            // Phase 4: KGF (75% - 100%)
-            if (progress > 0.75) {
-                const kgfProgress = (progress - 0.75) / 0.25;
-                const eased = kgfProgress * kgfProgress * (3 - 2 * kgfProgress);
-                const scale = 0.7 + (eased * 0.3);
-                const opacity = Math.min(1, eased * 1.2); // Slightly faster fade-in
-
-                kgfLayer.style.transform = `scale(${scale})`;
-                kgfLayer.style.opacity = opacity;
-                kgfLayer.style.display = 'flex';
-            } else {
-                kgfLayer.style.display = 'none';
+                // Ensure text stays centered
+                introText.style.transform = `scale(${scale})`; // Removed origin-center if managed by CSS
+                introText.style.opacity = Math.max(0, opacity);
             }
         });
+
+        // 2. VERTICAL TIMELINE ANIMATION (Intersection Observer)
+        const timelineObserverOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate in when entering viewport
+                    entry.target.classList.remove('opacity-0', 'translate-y-20');
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    // Animate out when leaving viewport (reversible)
+                    entry.target.classList.remove('opacity-100', 'translate-y-0');
+                    entry.target.classList.add('opacity-0', 'translate-y-20');
+                }
+            });
+        }, timelineObserverOptions);
+
+        // Defer observation slightly to ensure DOM is ready
+        setTimeout(() => {
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                timelineObserver.observe(item);
+            });
+        }, 100);
 
         // Mobile Menu Logic
         const mobileBtn = document.getElementById('mobile-menu-btn');
