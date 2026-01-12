@@ -134,6 +134,46 @@
         label {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
+
+        /* Logo Image Brightness Enhancement */
+        img[alt="Trumarx Logo"] {
+            filter: brightness(1.3) contrast(1.2);
+            transition: filter 0.3s ease;
+        }
+
+        /* Royal Blue Button Styles */
+        .btn-royal-blue {
+            background-color: #0a1628;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-royal-blue:hover {
+            background-color: #081220;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Navigation Pill Button Styles */
+        nav a[class*="rounded-full"],
+        footer a[class*="rounded-full"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(0px);
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        nav a[class*="rounded-full"]:hover,
+        footer a[class*="rounded-full"]:hover {
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(8, 18, 32, 0.4);
+        }
     </style>
 </head>
 
@@ -141,38 +181,37 @@
 
     <!-- Navigation -->
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300" style="background-color: #0074B7;">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <!-- Logo -->
-                <a href="index.html"
-                    class="flex flex-col leading-none group hover:opacity-80 transition-opacity select-none">
-                    <div class="flex items-start">
-                        <span class="text-4xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                        <span class="text-4xl font-extrabold tracking-tighter text-white">marx</span>
-                        <div class="ml-0.5 mt-1 w-2.5 h-2.5 rounded-full border-[2px] border-white"></div>
-                    </div>
-                    <span class="text-[10px] text-gray-400 font-medium tracking-wide -mt-1 ml-0.5">brand legal
-                        management</span>
+                <a href="index.html" class="group select-none -ml-2">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-12 w-auto">
                 </a>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
-                    <a href="index.html" class="text-gray-300 hover:text-brand-accent transition-colors">Home</a>
-                    <a href="aboutus.html" class="text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
+                    <a href="index.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                    <a href="aboutus.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About
+                        Us</a>
                     <a href="achievements.html"
-                        class="text-gray-300 hover:text-brand-accent transition-colors">Achievements</a>
-                    <a href="testimonials.html" class="text-brand-accent transition-colors">Testimonials</a>
-                    <a href="services.html" class="text-gray-300 hover:text-brand-accent transition-colors">Services</a>
-                    <a href="careers.html" class="text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Achievements</a>
+                    <a href="testimonials.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Testimonials</a>
+                    <a href="services.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
+                    <a href="careers.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
 
                     <!-- CTA Button -->
                     <button onclick="openModal()"
-                        class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        class="px-4 py-2 rounded-full btn-royal-blue text-white font-medium text-[14px] hover:btn-royal-blueHover transition-all shadow-sm">
                         Consultation
                     </button>
                 </div>
@@ -195,7 +234,7 @@
                 <a href="careers.html" class="text-gray-400">Careers</a>
 
                 <button onclick="openModal()"
-                    class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book
+                    class="w-full text-center px-5 py-3 rounded-full btn-royal-blue text-white font-bold shadow-lg">Book
                     Consultation</button>
             </div>
         </div>
@@ -216,153 +255,531 @@
     </section>
 
     <!-- Testimonials Grid Section -->
-    <section class="py-12 md:py-24 bg-brand-bg">
-        <div class="max-w-7xl mx-auto px-6">
+    <section class="py-12 md:py-24 bg-brand-bg relative overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-brand-accent/5 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-brand-navy/30 rounded-full blur-[120px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Placeholder Testimonial 1 -->
+
+                <!-- Testimonial 1 -->
                 <div
-                    class="p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent transition-all duration-300">
-                    <div class="flex flex-col h-full">
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"Trumarx provided
-                            a smooth and efficient
-                            trademark name and logo registration experience. Beula and Preethi were professional,
-                            responsive, and kept me
-                            informed throughout the process. The application was completed within just 2–3 days with
-                            clear guidance at every
-                            step. Highly recommended for reliable and hassle-free trademark registration in Bangalore."
-                        </p>
-                        <div>
-                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">- Ashish
-                                Mishra</p>
-                        </div>
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
                     </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-accent to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-brand-accent/30 shrink-0">
+                            AM
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Ashish Mishra</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "Trumarx provided a smooth and efficient trademark name and logo registration experience. Beula
+                        and Preethi were professional, responsive, and kept me informed throughout the process. Highly
+                        recommended for reliable service."
+                    </p>
                 </div>
-                <!-- Placeholder Testimonial 2 -->
+
+                <!-- Testimonial 2 -->
                 <div
-                    class="p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent transition-all duration-300">
-                    <div class="flex flex-col h-full">
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"Happy to be a
-                            customer at Trumarx.
-                            Madhusudhan clearly explained all aspects of trademark filing and offered fair pricing.
-                            Preethi Awate
-                            provided prompt legal support and valuable suggestions whenever needed. A highly trustworthy
-                            and professional team."</p>
-                        <div>
-                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">- Sudhanva
-                                Prasad</p>
-                        </div>
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
                     </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-blue to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-brand-blue/30 shrink-0">
+                            SP
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Sudhanva Prasad</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "Happy to be a customer at Trumarx. Madhusudhan clearly explained all aspects of trademark
+                        filing. Preethi Awate provided prompt legal support. A highly trustworthy and professional
+                        team."
+                    </p>
                 </div>
-                <!-- Placeholder Testimonial 3 -->
+
+                <!-- Testimonial 3 -->
                 <div
-                    class="p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent transition-all duration-300">
-                    <div class="flex flex-col h-full">
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"The Trumarx
-                            support team Beula, Bhagya,
-                            and Preethi were highly professional and efficient in handling my trademark license
-                            registration. Their guidance was4
-                            clear, the process was smooth, and their responsiveness and attention to detail were truly
-                            appreciated."</p>
-                        <div>
-                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">- AMMA
-                                SAREES
-                                AND TEXTILES</p>
-                        </div>
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
                     </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-slate to-brand-charcoal flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-brand-slate/30 shrink-0">
+                            AS
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                AMMA SAREES</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "The Trumarx support team Beula, Bhagya, and Preethi were highly professional and efficient.
+                        Their guidance was clear, the process was smooth, and their attention to detail was truly
+                        appreciated."
+                    </p>
                 </div>
-                <!-- New Testimonial 4 -->
+
+                <!-- Testimonial 4 -->
                 <div
-                    class="p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent transition-all duration-300">
-                    <div class="flex flex-col h-full">
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"We recently
-                            completed
-                            our brand and logo trademark
-                            registration with TRUMARX and are extremely satisfied with the service. Preethi and Ellango
-                            were
-                            professional, proactive,
-                            and attentive throughout the process, providing timely updates and smooth follow-ups. Thanks
-                            to
-                            their expertise, our brand is
-                            now legally protected. Highly recommended for reliable and hassle-free trademark support."
-                        </p>
-                        <div>
-                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">- Vinay
-                                Venkatesh
-                            </p>
-                        </div>
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
                     </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-accent to-brand-navyDeep flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-brand-accent/30 shrink-0">
+                            VV
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Vinay Venkatesh</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "We recently completed our brand and logo trademark registration with TRUMARX and are extremely
+                        satisfied. Preethi and Ellango were professional and proactive. Highly recommended for
+                        hassle-free support."
+                    </p>
                 </div>
-                <!-- New Testimonial 5 -->
+
+                <!-- Testimonial 5 -->
                 <div
-                    class="p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent transition-all duration-300">
-                    <div class="flex flex-col h-full">
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"Trumarx handled
-                            our
-                            trademark requirements
-                            exceptionally well. Rajat and Beula were knowledgeable, responsive, and proactive, making
-                            the
-                            entire
-                            process
-                            smooth and stress free. Highly recommended for anyone seeking reliable and top-tier
-                            trademark
-                            legal
-                            support."</p>
-                        <div>
-                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">- Nandita
-                                Kumar
-                            </p>
-                        </div>
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
                     </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-gold to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-brand-gold/30 shrink-0">
+                            NK
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Nandita Kumar</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "Trumarx handled our trademark requirements exceptionally well. Rajat and Beula were
+                        knowledgeable, responsive, and proactive, making the entire process smooth and stress free."
+                    </p>
                 </div>
-                <!-- New Testimonial 6 -->
+
+                <!-- Testimonial 6 -->
                 <div
-                    class="p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent transition-all duration-300">
-                    <div class="flex flex-col h-full">
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-justify flex-grow">"I was referred
-                            to
-                            Trumarx and had a great experience
-                            with their Brand and Legal Management team. They were transparent from the start and handled
-                            my
-                            trademark objection with
-                            professionalism and clarity. Unlike my previous service provider, Trumarx offered honest
-                            guidance,
-                            fair pricing, and prompt support,
-                            giving me confidence that my brand will be successfully registered. Special thanks to Mr.
-                            Pradeesh,
-                            Ms. Preethi, and Beula.
-                            Highly recommended for trustworthy trademark services."</p>
-                        <div>
-                            <p class="font-bold text-brand-navy dark:text-brand-textLight text-sm uppercase">- Tiffin
-                                Raja
-                            </p>
-                        </div>
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
                     </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-accent to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-purple-600/30 shrink-0">
+                            TR
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Tiffin Raja</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "I was referred to Trumarx and had a great experience. They were transparent and handled my
+                        trademark objection with professionalism. Trumarx offered honest guidance, fair pricing, and
+                        prompt support."
+                    </p>
                 </div>
+
+                <!-- Testimonial 7 - Vineeth Jain -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-emerald-500/30 shrink-0">
+                            VJ
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Vineeth Jain</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "Beula, Preethi, and Madhusudhan were exceptionally helpful throughout our trademark application
+                        process. Trumarx provided expert guidance on selecting the appropriate classes and trademarks
+                        for our business needs. Their professionalism and attention to detail were outstanding. Highly
+                        recommended for comprehensive IP protection services."
+                    </p>
+                </div>
+
+                <!-- Testimonial 8 - Nisha Murali -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-pink-500/30 shrink-0">
+                            NM
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Nisha Murali</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "Trumarx made the trademark application filing process remarkably straightforward. Preethi and
+                        Beula managed our filing with exceptional efficiency and professionalism. They handled every
+                        aspect of the process seamlessly and ensured timely completion. I highly recommend their
+                        services for trademark registration."
+                    </p>
+                </div>
+
+                <!-- Testimonial 9 - Mohammed Zaid -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-cyan-500/30 shrink-0">
+                            MZ
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Mohammed Zaid</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "Absolutely exceptional professionalism from start to finish. Trumarx stands out as one of the
+                        premier firms for comprehensive brand protection services. Bhagya, their Senior Paralegal,
+                        demonstrated outstanding expertise and dedication. Mr. Pradeesh's leadership creates a
+                        client-focused environment. I wholeheartedly recommend Trumarx for all IP protection needs."
+                    </p>
+                </div>
+
+                <!-- Testimonial 10 - Aravind R Kumar -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-orange-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-orange-500/30 shrink-0">
+                            AK
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Aravind R Kumar</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "I had an outstanding experience with Trumarx for my trademark requirements. Ms. Preethi Awate
+                        provided comprehensive legal counsel and was consistently available to address my queries
+                        promptly, ensuring a smooth and efficient process. Special appreciation to Bhagya for her
+                        invaluable support. Trumarx is a reliable and professional firm, ideal for all legal matters.
+                        Highly recommended for their expertise and exceptional service."
+                    </p>
+                </div>
+
+                <!-- Testimonial 11 - Indira Varma -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-indigo-500/30 shrink-0">
+                            IV
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Indira Varma</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "I had an excellent experience with Trumarx. Their team demonstrated exceptional
+                        professionalism, provided invaluable assistance, and exhibited sound legal expertise throughout
+                        the trademark filing process. Thanks to Ms. Soundarya, Ms. Preethi, and the guidance of Mr.
+                        Pradeesh. I would definitely recommend Trumarx for all trademark and intellectual property
+                        matters."
+                    </p>
+                </div>
+
+                <!-- Testimonial 12 - Abhijit Shetty -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-teal-500/30 shrink-0">
+                            AS
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Abhijit Shetty</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "I highly recommend the Trumarx team for all trademark, IP, and related legal matters. As a
+                        business owner, protecting my brand identity is paramount, and Pradeesh, Rajat, Bhagya, and
+                        Preethi provided exceptional guidance throughout the entire process. They expertly handled our
+                        trademark applications on our behalf. Looking forward to continued partnership."
+                    </p>
+                </div>
+
+                <!-- Testimonial 13 - Rishab Patawari -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-violet-500/30 shrink-0">
+                            RP
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Rishab Patawari</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "The TRUMARX team has been exceptionally professional and responsive throughout my engagement. I
+                        worked closely with Nirmala, who ensured a seamless trademark filing process from start to
+                        finish. They consistently met all deadlines and maintained excellent communication. Thank you to
+                        the entire team for outstanding service."
+                    </p>
+                </div>
+
+                <!-- Testimonial 14 - Nishanth Rao -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-blue-500/30 shrink-0">
+                            NR
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Nishanth Rao</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "We engaged Trumarx for trademark registration in overseas markets, and their professionalism
+                        has been exemplary. They provided comprehensive guidance throughout the process and addressed
+                        all our inquiries with clarity and expertise. Their support has been invaluable to our
+                        international expansion. I highly recommend their services to other businesses seeking global IP
+                        protection."
+                    </p>
+                </div>
+
+                <!-- Testimonial 15 - Praveen Mittal -->
+                <div
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-lg ring-2 ring-amber-500/30 shrink-0">
+                            PM
+                        </div>
+                        <div>
+                            <h3
+                                class="font-bold text-lg text-brand-text dark:text-white group-hover:text-brand-accent transition-colors">
+                                Praveen Mittal</h3>
+                            <div class="flex text-yellow-500 text-xs gap-1 mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <i
+                            class="fas fa-quote-right text-4xl text-brand-accent/10 ml-auto self-start group-hover:text-brand-accent/20 transition-colors"></i>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-300 italic leading-relaxed flex-grow relative z-10">
+                        "Mr. Pradeesh and the Trumarx team are exceptional attorneys for copyright and trademark needs.
+                        We successfully registered our brand 'GOLDEN DOLPHIN' through their services. The process was
+                        remarkably smooth, with outstanding follow-up and excellent value. Our business has grown
+                        significantly with their support, and we are grateful for their comprehensive assistance with
+                        all our IP requirements."
+                    </p>
+                </div>
+
             </div>
+
+
         </div>
     </section>
 
+
     <!-- Footer -->
-    <footer class="py-16 border-t border-brand-border bg-brand-bg">
+    <footer class="py-16 border-t border-brand-border" style="background-color: #0074B7;">
+
         <div class="max-w-7xl mx-auto px-6 text-center">
             <!-- Footer Logo -->
             <!-- Footer Logo -->
-            <a href="index.html"
-                class="inline-flex flex-col items-center group hover:opacity-80 transition-opacity mb-6 select-none">
-                <div class="flex items-start">
-                    <span class="text-3xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                    <span class="text-3xl font-extrabold tracking-tighter text-brand-text dark:text-white">marx</span>
-                    <div class="ml-0.5 mt-1 w-2 h-2 rounded-full border-[2px] border-brand-text dark:border-white">
-                    </div>
-                </div>
-                <span class="text-[9px] text-gray-500 font-medium tracking-wide -mt-0.5">brand legal management</span>
+            <a href="index.html" class="inline-flex items-center group mb-6 select-none">
+                <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-16 w-auto">
             </a>
-            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-400">
-                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
-                <a href="#" class="hover:text-brand-accent transition-colors">Practice Areas</a>
-                <a href="#" class="hover:text-brand-accent transition-colors">Our Team</a>
+            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 mb-8 text-base font-medium text-white">
+                <a href="index.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                <a href="#" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice
+                    Areas</a>
+                <a href="#" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our Team</a>
                 <a href="#" onclick="openContactModal(event)"
-                    class="hover:text-brand-accent transition-colors">Contact</a>
+                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Contact</a>
             </div>
 
 
@@ -396,7 +813,7 @@
                     <textarea name="message" placeholder="Message" rows="4"
                         class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
                     <button type="submit"
-                        class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit
+                        class="w-full py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Submit
                         Request</button>
                 </div>
             </form>
@@ -407,13 +824,13 @@
     <div id="success-popup"
         class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
         <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
-            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+            <div class="w-16 h-16 btn-royal-blue rounded-full flex items-center justify-center mx-auto mb-6">
                 <i class="fas fa-check text-white text-2xl"></i>
             </div>
             <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
             <button onclick="closeSuccessPopup()"
-                class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+                class="px-6 py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Close</button>
         </div>
     </div>
 
@@ -432,7 +849,8 @@
                         <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
                         <span class="ml-4">
                             <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
-                                rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">
+                                rel="noopener noreferrer"
+                                class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">
                                 No. 23, Hari Prem Complex, 2nd Floor,<br>
                                 CMH Road, Indiranagar 1st Stage,<br>
                                 Bangalore – 560038

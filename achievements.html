@@ -151,44 +151,84 @@
         label {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
+
+        /* Logo Image Brightness Enhancement */
+        img[alt="Trumarx Logo"] {
+            filter: brightness(1.3) contrast(1.2);
+            transition: filter 0.3s ease;
+        }
+
+
+        /* Royal Blue Button Styles */
+        .btn-royal-blue {
+            background-color: #0a1628;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-royal-blue:hover {
+            background-color: #081220;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Navigation Pill Button Styles */
+        nav a[class*="rounded-full"],
+        footer a[class*="rounded-full"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(0px);
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        nav a[class*="rounded-full"]:hover,
+        footer a[class*="rounded-full"]:hover {
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(8, 18, 32, 0.4);
+        }
     </style>
 </head>
 
 <body class="font-sans text-brand-text bg-brand-bg relative overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300" style="background-color: #0074B7;">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <!-- Logo -->
-                <a href="index.html"
-                    class="flex flex-col leading-none group hover:opacity-80 transition-opacity select-none">
-                    <div class="flex items-start">
-                        <span class="text-4xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                        <span class="text-4xl font-extrabold tracking-tighter text-white">marx</span>
-                        <div class="ml-0.5 mt-1 w-2.5 h-2.5 rounded-full border-[2px] border-white"></div>
-                    </div>
-                    <span class="text-[10px] text-gray-400 font-medium tracking-wide -mt-1 ml-0.5">brand legal
-                        management</span>
+                <a href="index.html" class="group select-none -ml-2">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-12 w-auto">
                 </a>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
-                    <a href="index.html" class="text-gray-300 hover:text-brand-accent transition-colors">Home</a>
-                    <a href="aboutus.html" class="text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
-                    <a href="achievements.html" class="text-brand-accent transition-colors">Achievements</a>
+                <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
+                    <a href="index.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                    <a href="aboutus.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About
+                        Us</a>
+                    <a href="achievements.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Achievements</a>
                     <a href="testimonials.html"
-                        class="text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
-                    <a href="services.html" class="text-gray-300 hover:text-brand-accent transition-colors">Services</a>
-                    <a href="careers.html" class="text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Testimonials</a>
+                    <a href="services.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
+                    <a href="careers.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
 
                     <!-- CTA Button -->
                     <button onclick="openModal()"
-                        class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        class="px-4 py-2 rounded-full btn-royal-blue text-white font-medium text-[14px] hover:btn-royal-blueHover transition-all shadow-sm">
                         Consultation
                     </button>
                 </div>
@@ -211,14 +251,14 @@
                 <a href="careers.html" class="text-gray-400">Careers</a>
 
                 <button onclick="openModal()"
-                    class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book
+                    class="w-full text-center px-5 py-3 rounded-full btn-royal-blue text-white font-bold shadow-lg">Book
                     Consultation</button>
             </div>
         </div>
     </nav>
 
     <!-- Achievements Hero -->
-    <section class="relative pt-32 pb-20 bg-brand-light dark:bg-brand-dark overflow-hidden">
+    <section class="relative pt-32 pb-20 bg-brand-bg overflow-hidden">
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             <h1
                 class="text-4xl md:text-6xl font-bold tracking-tight mb-8 text-brand-textDark dark:text-brand-textLight">
@@ -245,88 +285,85 @@
                 <!-- BYJU’S Card -->
                 <div onclick="openByjusModal()"
                     class="bg-brand-card p-8 rounded-2xl border border-brand-accent/30 hover:border-brand-accent shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                    <div class="h-16 mb-6 flex items-center justify-start">
-                        <img src="byjus.jpg" alt="BYJU'S Logo" class="max-h-12 object-contain">
+                    <div class="h-32 mb-6 flex items-center justify-center bg-white/5 rounded-xl transition-colors hover:bg-white/10">
+                        <img src="byjus.jpg" alt="BYJU'S Logo" class="max-h-24 max-w-full object-contain filter drop-shadow-md">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">BYJU’S</h3>
                     <p class="text-sm text-gray-400">Pioneering IP strategy for India’s most renowned
                         edutech brand from its inception.</p>
                 </div>
-                <!-- DRIVEZY Card -->
+                <!-- INDIQUBE Card -->
                 <div onclick="openDrivezyModal()"
                     class="bg-brand-card p-8 rounded-2xl border border-brand-accent/30 hover:border-brand-accent shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                    <div class="h-16 mb-6 flex items-center justify-start">
-                        <img src="drivzey-1.jpg" alt="DRIVEZY Logo" class="max-h-12 object-contain">
+                    <div class="h-32 mb-6 flex items-center justify-center bg-white/5 rounded-xl transition-colors hover:bg-white/10">
+                        <img src="Indiqube.png" alt="DRIVEZY Logo" class="max-h-24 max-w-full object-contain filter drop-shadow-md">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">DRIVEZY</h3>
-                    <p class="text-sm text-gray-400">From discrepancy to partnership, providing
-                        comprehensive IPR solutions.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">INDIQUBE</h3>
+                    <p class="text-sm text-gray-400">Comprehensive trademark due diligence and strategic filing,
+                        ensuring robust brand protection for India's leading workspace provider.</p>
                 </div>
-                <!-- QUANTUM LEAP Card -->
+                <!-- CIRKLES Card -->
                 <div onclick="openQuantumLeapModal()"
                     class="bg-brand-card p-8 rounded-2xl border border-brand-accent/30 hover:border-brand-accent shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                    <div class="h-16 mb-6 flex items-center justify-start">
-                        <img src="quantum-leap.jpg" alt="Quantum Leap Logo" class="max-h-12 object-contain">
+                    <div class="h-32 mb-6 flex items-center justify-center bg-white/5 rounded-xl transition-colors hover:bg-white/10">
+                        <img src="Cirkles.jpg" alt="Quantum Leap Logo" class="max-h-24 max-w-full object-contain filter drop-shadow-md">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">QUANTUM LEAP</h3>
-                    <p class="text-sm text-gray-400">Long-term IP partner for renowned speaker Rajeev
-                        Talreja, securing valuable content.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">CIRKLES</h3>
+                    <p class="text-sm text-gray-400">Proactive conflict resolution and strategic classification
+                        planning, delivering seamless trademark registration and ongoing IP management.</p>
                 </div>
-                <!-- SOURCEONE Card -->
+                <!-- ALUFIT Card -->
                 <div onclick="openSourceoneModal()"
                     class="bg-brand-card p-8 rounded-2xl border border-brand-accent/30 hover:border-brand-accent shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                    <div class="h-16 mb-6 flex items-center justify-start">
-                        <img src="sourceone.jpg" alt="SourceOne Logo" class="max-h-12 object-contain">
+                    <div class="h-32 mb-6 flex items-center justify-center bg-white/5 rounded-xl transition-colors hover:bg-white/10">
+                        <img src="alufit.jpg" alt="SourceOne Logo" class="max-h-24 max-w-full object-contain filter drop-shadow-md">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">SOURCEONE</h3>
-                    <p class="text-sm text-gray-400">Turned a refused application into a registered
-                        trademark through precise documentation.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">ALUFIT</h3>
+                    <p class="text-sm text-gray-400">Meticulous trademark clearance and strategic prosecution,
+                        mitigating risks and securing registrable rights across key markets.</p>
                 </div>
-                <!-- CAPTAIN Card -->
+                <!-- TROJAN PLYWOOD Card -->
                 <div onclick="openCaptainModal()"
                     class="bg-brand-card p-8 rounded-2xl border border-brand-accent/30 hover:border-brand-accent shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                    <div class="h-16 mb-6 flex items-center justify-start">
-                        <img src="captain.jpg" alt="Captain Logo" class="max-h-12 object-contain">
+                    <div class="h-32 mb-6 flex items-center justify-center bg-white/5 rounded-xl transition-colors hover:bg-white/10">
+                        <img src="Trojan.jpg" alt="Captain Logo" class="max-h-24 max-w-full object-contain filter drop-shadow-md">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">CAPTAIN</h3>
-                    <p class="text-sm text-gray-400">Successfully resolved a refused and abandoned
-                        trademark, turning an impossible case into a success.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">TROJAN PLYWOOD</h3>
+                    <p class="text-sm text-gray-400">Comprehensive IP audit and strategic filing, establishing
+                        enforceable trademark rights in competitive manufacturing sectors.</p>
                 </div>
-                <!-- GODUCHY Card -->
+                <!-- GLERRA Card -->
                 <div onclick="openGoduchyModal()"
                     class="bg-brand-card p-8 rounded-2xl border border-brand-accent/30 hover:border-brand-accent shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                    <div class="h-16 mb-6 flex items-center justify-start">
-                        <img src="goduchy-1.jpg" alt="Goduchy Logo" class="max-h-12 object-contain">
+                    <div class="h-32 mb-6 flex items-center justify-center bg-white/5 rounded-xl transition-colors hover:bg-white/10">
+                        <img src="Glerra.jpg" alt="Goduchy Logo" class="max-h-24 max-w-full object-contain filter drop-shadow-md">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">GODUCHY</h3>
-                    <p class="text-sm text-gray-400">Successfully registered a complex conical bottle
-                        design patent through detailed representation.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">GLERRA</h3>
+                    <p class="text-sm text-gray-400">Strategic brand positioning and trademark prosecution, securing
+                        exclusive rights and long-term market differentiation.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 border-t border-brand-border bg-brand-bg">
+    <footer class="py-16 border-t border-brand-border" style="background-color: #0074B7;">
+
         <div class="max-w-7xl mx-auto px-6 text-center">
             <!-- Footer Logo -->
             <!-- Footer Logo -->
             <a href="index.html"
-                class="inline-flex flex-col items-center group hover:opacity-80 transition-opacity mb-6 select-none">
-                <div class="flex items-start">
-                    <span class="text-3xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                    <span class="text-3xl font-extrabold tracking-tighter text-brand-text dark:text-white">marx</span>
-                    <div class="ml-0.5 mt-1 w-2 h-2 rounded-full border-[2px] border-brand-text dark:border-white">
-                    </div>
-                </div>
-                <span class="text-[9px] text-gray-500 font-medium tracking-wide -mt-0.5">brand legal management</span>
+                class="inline-flex items-center group mb-6 select-none">
+                <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-16 w-auto">
             </a>
-            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-400">
-                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
-                <a href="services.html" class="hover:text-brand-accent transition-colors">Practice Areas</a>
-                <a href="aboutus.html" class="hover:text-brand-accent transition-colors">Our Team</a>
+            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 mb-8 text-base font-medium text-white">
+                <a href="index.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                <a href="services.html"
+                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice Areas</a>
+                <a href="aboutus.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our
+                    Team</a>
                 <a href="#" onclick="openContactModal(); return false;"
-                    class="hover:text-brand-accent transition-colors">Contact</a>
+                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Contact</a>
             </div>
 
 
@@ -358,7 +395,7 @@
                     <textarea name="message" placeholder="Message" rows="4"
                         class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
                     <button
-                        class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit
+                        class="w-full py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Submit
                         Request</button>
                 </div>
             </form>
@@ -369,13 +406,13 @@
     <div id="success-popup"
         class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
         <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
-            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+            <div class="w-16 h-16 btn-royal-blue rounded-full flex items-center justify-center mx-auto mb-6">
                 <i class="fas fa-check text-white text-2xl"></i>
             </div>
             <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
             <button onclick="closeSuccessPopup()"
-                class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+                class="px-6 py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Close</button>
         </div>
     </div>
 
@@ -394,7 +431,8 @@
                         <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
                         <span class="ml-4">
                             <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
-                                rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">
+                                rel="noopener noreferrer"
+                                class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">
                                 No. 23, Hari Prem Complex, 2nd Floor,<br>
                                 CMH Road, Indiranagar 1st Stage,<br>
                                 Bangalore – 560038
@@ -436,8 +474,8 @@
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i
                     class="fas fa-times"></i></button>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="aspect-square rounded-2xl flex items-center justify-center">
-                    <img src="byjus.jpg" alt="BYJU'S Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                <div class="h-80 w-full bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
+                    <img src="byjus.jpg" alt="BYJU'S Logo" class="max-h-64 max-w-full object-contain rounded-xl filter drop-shadow-xl">
                 </div>
                 <div>
                     <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">BYJU’S</h3>
@@ -454,7 +492,7 @@
         </div>
     </div>
 
-    <!-- DRIVEZY Modal -->
+    <!-- INDIQUBE Modal -->
     <div id="drivezy-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
         <div
@@ -463,24 +501,26 @@
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i
                     class="fas fa-times"></i></button>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="aspect-square rounded-2xl flex items-center justify-center">
-                    <img src="drivzey-1.jpg" alt="DRIVEZY Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                <div class="h-80 w-full bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
+                    <img src="Indiqube.png" alt="DRIVEZY Logo" class="max-h-64 max-w-full object-contain rounded-xl filter drop-shadow-xl">
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">DRIVEZY</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">INDIQUBE</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        A Chance sighting of the logo evoked curiosity in identifying the classes trademark was applied
-                        for the said brand. To our surprise, a huge discrepancy was noted by the team, following which a
-                        comprehensive solution worked on and presented to the management. This solution was approved by
-                        the relevant government body and since then Drivezy has partnered with trumarx for all their IPR
-                        requirements.
+                        Trumarx conducted comprehensive trademark due diligence for IndiQube, identifying potential
+                        classification conflicts and formulating a strategic registration approach to mitigate risks.
+                        Our team developed a tailored filing strategy that addressed statutory requirements while
+                        optimizing scope of protection. The trademark applications were successfully prosecuted and
+                        registered, establishing robust IP rights for India's premier workspace solutions provider.
+                        IndiQube continues to rely on Trumarx for ongoing trademark portfolio management and strategic
+                        IP counsel.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- QUANTUM LEAP Modal -->
+    <!-- CIRKLES Modal -->
     <div id="quantumleap-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
         <div
@@ -489,25 +529,26 @@
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i
                     class="fas fa-times"></i></button>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="aspect-square rounded-2xl flex items-center justify-center">
-                    <img src="quantum-leap.jpg" alt="QUANTUM LEAP Logo"
-                        class="max-w-full max-h-full object-contain rounded-xl">
+                <div class="h-80 w-full bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
+                    <img src="Cirkles.jpg" alt="QUANTUM LEAP Logo"
+                        class="max-h-64 max-w-full object-contain rounded-xl filter drop-shadow-xl">
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">QUANTUM LEAP</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">CIRKLES</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        Rajeev Talreja is not one who requires any introduction as such. A well known motivational
-                        speaker and author,the team at trumarx considers themselves fortunate to be associated with him
-                        since 2007. The team’s committed and sincere responses have constantly derived the most
-                        effective solutions which have enabled filing of 24 different trademark applications. All
-                        valuable framing modules and content have been specifically addressed to successfully.
+                        Trumarx conducted in-depth trademark clearance for CIRKLES, identifying potential conflicts and
+                        classification risks that could have impeded registration. Our team formulated a strategic
+                        filing approach that addressed these concerns while optimizing brand protection. Through
+                        meticulous documentation and proactive engagement with the trademark office, the applications
+                        were successfully prosecuted and registered. CIRKLES continues to engage Trumarx for
+                        comprehensive IP portfolio management and strategic brand counsel.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SOURCEONE Modal -->
+    <!-- ALUFIT Modal -->
     <div id="sourceone-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
         <div
@@ -516,24 +557,25 @@
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i
                     class="fas fa-times"></i></button>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="aspect-square rounded-2xl flex items-center justify-center">
-                    <img src="sourceone.jpg" alt="SOURCEONE Logo"
-                        class="max-w-full max-h-full object-contain rounded-xl">
+                <div class="h-80 w-full bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
+                    <img src="alufit.jpg" alt="SOURCEONE Logo" class="max-h-64 max-w-full object-contain rounded-xl filter drop-shadow-xl">
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">SOURCEONE</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">ALUFIT</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        This journey started off with the client handing us over a case (of a refused application) they
-                        had considered impossible. We took up the case and re applied for the same by focusing on
-                        getting the documentations correct and precise. Currently SOURCEONE has their trademarks
-                        registered in all respective classes as also other trademarks through Trumarx.
+                        Trumarx performed comprehensive trademark clearance for Alufit, conducting detailed searches to
+                        identify potential conflicts and assess registrability across relevant classes. Our team
+                        developed a strategic filing approach that mitigated identified risks while ensuring statutory
+                        compliance. Through precise documentation and effective prosecution, the trademark applications
+                        were successfully registered, establishing enforceable rights for Alufit in key markets. This
+                        engagement demonstrates our expertise in navigating complex trademark landscapes.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CAPTAIN Modal -->
+    <!-- TROJAN PLYWOOD Modal -->
     <div id="captain-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
         <div
@@ -542,24 +584,26 @@
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i
                     class="fas fa-times"></i></button>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="aspect-square rounded-2xl flex items-center justify-center">
-                    <img src="captain.jpg" alt="CAPTAIN Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                <div class="h-80 w-full bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
+                    <img src="Trojan.jpg" alt="CAPTAIN Logo" class="max-h-64 max-w-full object-contain rounded-xl filter drop-shadow-xl">
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">CAPTAIN</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">TROJAN PLYWOOD</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        The trademark of our client was refused on certain grounds as well as abandoned. Trumarx took up
-                        this challenging case to resolve it & set the bar higher for ourselves. The team at TRUMARX
-                        studied the entire case, worked on the crucial details / documents and uploaded them precisely
-                        with utmost perfection. This impossible case was turned into a success and positioned TRUMARX as
-                        a brand in itself for making the impossible possible.
+                        Trumarx conducted comprehensive IP due diligence for Trojan Plywood, identifying potential
+                        conflicts in the competitive manufacturing sector. Our team developed a strategic trademark
+                        filing approach that addressed classification challenges while ensuring registrability and
+                        statutory compliance. Through meticulous prosecution and effective engagement with the trademark
+                        office, the applications were successfully registered, establishing enforceable trademark
+                        rights. This engagement showcases our capability in securing IP protection within highly
+                        competitive industries.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- GODUCHY Modal -->
+    <!-- GLERRA Modal -->
     <div id="goduchy-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
         <div
@@ -568,17 +612,21 @@
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors z-10"><i
                     class="fas fa-times"></i></button>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="aspect-square rounded-2xl flex items-center justify-center">
-                    <img src="goduchy-1.jpg" alt="GODUCHY Logo" class="max-w-full max-h-full object-contain rounded-xl">
+                <div class="h-80 w-full bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
+                    <img src="Glerra.jpg" alt="GODUCHY Logo" class="max-h-64 max-w-full object-contain rounded-xl filter drop-shadow-xl">
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">GODUCHY</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">GLERRA</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        A ‘Design patent’ for a ‘conical bottle design’ was a tuff case to take. Our client showed
-                        confidence in us hence, we couldn’t disappoint him. We made sure to provide the ‘Examination
-                        Team’ with the detailed representation of the design, which led to registration of the same
-                        successfully.
+                        Trumarx conducted comprehensive trademark clearance for GLERRA, performing in-depth searches to
+                        evaluate brand uniqueness and assess potential objections in a competitive market. Our team
+                        strategically defined the scope of protection and structured the application to align with
+                        statutory requirements while maximizing enforceability. Through precise prosecution and
+                        effective trademark office engagement, the applications were successfully registered, securing
+                        long-term exclusive rights. This engagement exemplifies our strategic approach to brand
+                        positioning and IP protection.
                     </p>
+
                 </div>
             </div>
         </div>

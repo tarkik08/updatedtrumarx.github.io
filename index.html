@@ -349,6 +349,47 @@
         label {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
+
+        /* Logo Image Brightness Enhancement */
+        img[alt="Trumarx Logo"] {
+            filter: brightness(1.3) contrast(1.2);
+            transition: filter 0.3s ease;
+        }
+
+
+        /* Royal Blue Button Styles */
+        .btn-royal-blue {
+            background-color: #0a1628;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-royal-blue:hover {
+            background-color: #081220;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Navigation Pill Button Styles */
+        nav a[class*="rounded-full"],
+        footer a[class*="rounded-full"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(0px);
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        nav a[class*="rounded-full"]:hover,
+        footer a[class*="rounded-full"]:hover {
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(8, 18, 32, 0.4);
+        }
     </style>
 </head>
 
@@ -356,39 +397,37 @@
     class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300" style="background-color: #0074B7;">
+
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
-                <!-- Logo -->
-                <a href="index.html"
-                    class="flex flex-col leading-none group hover:opacity-80 transition-opacity select-none">
-                    <div class="flex items-start">
-                        <span class="text-4xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                        <span class="text-4xl font-extrabold tracking-tighter text-white">marx</span>
-                        <div class="ml-0.5 mt-1 w-2.5 h-2.5 rounded-full border-[2px] border-white"></div>
-                    </div>
-                    <span class="text-[10px] text-gray-400 font-medium tracking-wide -mt-1 ml-0.5">brand legal
-                        management</span>
+                <a href="index.html" class="group select-none -ml-2">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-12 w-auto">
                 </a>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
-                    <a href="index.html" class="text-brand-accent transition-colors">Home</a>
-                    <a href="aboutus.html" class="text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
+                    <a href="index.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                    <a href="aboutus.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About
+                        Us</a>
                     <a href="achievements.html"
-                        class="text-gray-300 hover:text-brand-accent transition-colors">Achievements</a>
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Achievements</a>
                     <a href="testimonials.html"
-                        class="text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
-                    <a href="services.html" class="text-gray-300 hover:text-brand-accent transition-colors">Services</a>
-                    <a href="careers.html" class="text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Testimonials</a>
+                    <a href="services.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
+                    <a href="careers.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
 
                     <!-- CTA Button -->
-                    <button onclick="openModal()"
-                        class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                    <button onclick="openContactModal()"
+                        class="px-5 py-2.5 rounded-full text-white font-medium text-[14px] transition-all shadow-sm btn-royal-blue">
                         Consultation
                     </button>
                 </div>
@@ -410,8 +449,8 @@
                 <a href="services.html" class="text-gray-400">Services</a>
                 <a href="careers.html" class="text-gray-400">Careers</a>
 
-                <button onclick="openModal()"
-                    class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book
+                <button onclick="openContactModal()"
+                    class="w-full text-center px-5 py-3 rounded-full text-white font-bold shadow-lg btn-royal-blue">Book
                     Consultation</button>
             </div>
         </div>
@@ -441,8 +480,8 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                    <button onclick="openModal()"
-                        class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/30 w-full sm:w-auto">
+                    <button onclick="openContactModal()"
+                        class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
                         Schedule Consultation
                     </button>
                     <a href="services.html"
@@ -517,45 +556,112 @@
 
     <!-- 1. STICKY ZOOM INTRO SECTION -->
     <!-- Height allows for the zoom scroll effect -->
-    <section id="intro-pin-section" class="relative h-[250vh] bg-black">
+    <section id="intro-pin-section" class="relative h-[400vh] bg-black">
         <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
             <!-- Intro Text Layer -->
             <div id="intro-text-layer"
                 class="flex flex-col items-center justify-center text-center transform origin-center will-change-transform">
-                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm md:text-base uppercase mb-8">Guardians of
-                    Greatness</p>
+                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm md:text-base uppercase mb-8">Milestones
+                    of Excellence</p>
                 <div
                     class="font-bold text-white leading-none text-[3rem] md:text-[6rem] lg:text-[8rem] whitespace-nowrap">
-                    OUR LEGACY<br>OF SUCCESS
+                    OUR JOURNEY<br>THROUGH TIME
                 </div>
                 <div class="mt-8 text-brand-accent/80 animate-bounce">
                     <i class="fas fa-chevron-down text-2xl md:text-3xl"></i>
                 </div>
             </div>
+
         </div>
     </section>
 
     <!-- 2. VERTICAL TIMELINE SECTION -->
     <section id="vertical-timeline" class="relative py-20 bg-black overflow-hidden">
 
-        <!-- Central Vertical Line -->
-        <!-- Placed absolute so it spans the container height -->
-        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-white/20 -translate-x-1/2 z-0"></div>
+        <!-- Simple Vertical Line with Traveling Pulse -->
+        <svg class="absolute left-1/2 top-0 h-full w-[100px] -translate-x-1/2 z-0 pointer-events-none"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+                <!-- Static background line gradient -->
+                <linearGradient id="lineBg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0" />
+                    <stop offset="5%" stop-color="#3b82f6" stop-opacity="0.2" />
+                    <stop offset="95%" stop-color="#3b82f6" stop-opacity="0.2" />
+                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+                </linearGradient>
 
-        <!-- Trumarx Logo at the start of timeline (root of achievement tree) -->
-        <div class="flex flex-col items-center mb-20 relative z-10">
-            <div class="flex flex-col leading-none select-none">
-                <div class="flex items-start justify-center">
-                    <span class="text-3xl md:text-4xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                    <span class="text-3xl md:text-4xl font-extrabold tracking-tighter text-white">marx</span>
-                    <div class="ml-0.5 mt-1 w-2.5 h-2.5 rounded-full border-[2px] border-white"></div>
-                </div>
-                <span class="text-[10px] text-gray-400 font-medium tracking-wide -mt-1 text-center">brand legal
-                    management</span>
-            </div>
-            <!-- Connecting line to timeline -->
-            <div class="w-px h-12 bg-gradient-to-b from-brand-accent to-white/20 mt-4"></div>
-        </div>
+                <!-- Animated traveling pulse gradient (Radial for "Big Dot" look) -->
+                <radialGradient id="travelingPulse" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+                    <stop offset="40%" stop-color="#60a5fa" stop-opacity="1" />
+                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+                </radialGradient>
+
+                <!-- Glow filter - userSpaceOnUse to prevent clipping, even brighter -->
+                <filter id="glowPulse" x="-500%" y="-20%" width="1100%" height="140%" filterUnits="userSpaceOnUse">
+                    <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- Static Background Line -->
+            <rect x="48.5" y="0" width="3" height="100" fill="url(#lineBg)" />
+
+            <!-- Traveling Pulse Line (Big Dot) -->
+            <rect id="pulse-rect" x="42" y="-16" width="16" height="16" rx="8" ry="8" fill="url(#travelingPulse)"
+                filter="url(#glowPulse)" />
+        </svg>
+
+        <!-- CSS for pulse animation -->
+        <style>
+            @keyframes traveling-pulse-rect {
+                0% {
+                    transform: translateY(0);
+                    opacity: 0;
+                }
+
+                0% {
+                    transform: translateY(0);
+                    opacity: 0;
+                }
+
+                0% {
+                    transform: translateY(0);
+                    opacity: 0;
+                }
+
+                1.5% {
+                    opacity: 1;
+                }
+
+                87.5% {
+                    opacity: 1;
+                }
+
+                89% {
+                    transform: translateY(132px);
+                    opacity: 0;
+                }
+
+                100% {
+                    transform: translateY(132px);
+                    opacity: 0;
+                }
+            }
+
+            #pulse-rect {
+                /* Total duration 13.5s: 12s travel (~89%) + 1.5s gap (~11%) */
+                animation: traveling-pulse-rect 13.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+                transform-box: fill-box;
+            }
+        </style>
+
+
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
 
@@ -570,7 +676,7 @@
                         <div
                             class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
                             <div class="text-brand-accent text-3xl mb-4"><i class="fas fa-graduation-cap"></i></div>
-                            <h3 class="text-2xl font-bold text-white mb-2">BYJU’S</h3>
+                            <h3 class="text-2xl font-bold text-white mb-2">BYJU'S</h3>
                             <p class="text-sm text-gray-400 leading-relaxed">
                                 Pioneering IP strategy for India’s most renowned edutech brand from its inception. We
                                 managed trademark classes globally as they scaled to become a unicorn.
@@ -815,11 +921,12 @@
     </section>
 
     <!-- Founder's Spotlight -->
-    <section class="py-20 bg-brand-light dark:bg-brand-darkCard">
+    <section class="py-20 bg-brand-bg">
+
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-textLight leading-snug mb-8">
-                "Intellectual Property is not just a legal right; it is the currency of the modern economy. We are
-                dedicated to ensuring your currency never devalues."
+                "At Trumarx, we believe that every brand has a story worth protecting. Behind every name, logo, or idea
+                is hard work, vision, and ambition our role is to help safeguard that effort."
             </h2>
             <div class="flex items-center justify-center gap-4">
                 <div class="text-center">
@@ -892,7 +999,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq-section" class="py-12 md:py-24 bg-brand-light dark:bg-brand-dark">
+    <section id="faq-section" class="py-12 md:py-24 bg-brand-bg">
         <div class="max-w-4xl mx-auto px-6">
             <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-10 text-center">Frequently Asked
                 Questions</h2>
@@ -950,26 +1057,21 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 border-t border-brand-border bg-brand-bg">
+    <footer class="py-16 border-t border-brand-border" style="background-color: #0074B7;">
+
         <div class="max-w-7xl mx-auto px-6 text-center">
             <!-- Footer Logo -->
-            <!-- Footer Logo -->
-            <a href="index.html"
-                class="inline-flex flex-col items-center group hover:opacity-80 transition-opacity mb-6 select-none">
-                <div class="flex items-start">
-                    <span class="text-3xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                    <span class="text-3xl font-extrabold tracking-tighter text-brand-text dark:text-white">marx</span>
-                    <div class="ml-0.5 mt-1 w-2 h-2 rounded-full border-[2px] border-brand-text dark:border-white">
-                    </div>
-                </div>
-                <span class="text-[9px] text-gray-500 font-medium tracking-wide -mt-0.5">brand legal management</span>
+            <a href="index.html" class="inline-flex items-center group mb-6 select-none">
+                <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-16 w-auto">
             </a>
-            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-400">
-                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
-                <a href="services.html" class="hover:text-brand-accent transition-colors">Practice Areas</a>
-                <a href="aboutus.html" class="hover:text-brand-accent transition-colors">Our Team</a>
+            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 mb-8 text-base font-medium text-white">
+                <a href="index.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                <a href="services.html"
+                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice Areas</a>
+                <a href="aboutus.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our
+                    Team</a>
                 <a href="#" onclick="openContactModal(event)"
-                    class="hover:text-brand-accent transition-colors">Contact</a>
+                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Contact</a>
             </div>
 
 
@@ -1150,9 +1252,11 @@
 
 
         // 1. STICKY ZOOM INTRO SCROLL LOGIC
+        // 1. STICKY ZOOM INTRO SCROLL LOGIC
         window.addEventListener('scroll', () => {
             const introSection = document.getElementById('intro-pin-section');
             const introText = document.getElementById('intro-text-layer');
+            const scrollPill = document.getElementById('scroll-pill');
 
             if (!introSection || !introText) return;
 
@@ -1173,13 +1277,17 @@
                 progress = Math.min(1, Math.max(0, progress));
 
                 // ZOOM & FADE EFFECT
-                // Scale from 1 to 20
-                // Opacity fades out as we zoom in
-                let scale = 1 + (progress * 20);
-                let opacity = 1 - (progress * 1.5); // Fade out faster
+                // Delay zoom until user has scrolled a bit (progress > 0.3)
+                let zoomProgress = 0;
+                if (progress > 0.3) {
+                    zoomProgress = (progress - 0.3) / 0.7;
+                }
 
-                // Ensure text stays centered
-                introText.style.transform = `scale(${scale})`; // Removed origin-center if managed by CSS
+                // Scale from 1 to 25
+                let scale = 1 + (zoomProgress * 24);
+                let opacity = 1 - (zoomProgress * 1.5); // Fade out faster during zoom
+
+                introText.style.transform = `scale(${scale})`;
                 introText.style.opacity = Math.max(0, opacity);
             }
         });

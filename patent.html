@@ -150,6 +150,46 @@
         label {
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
+
+        /* Logo Image Brightness Enhancement */
+        img[alt="Trumarx Logo"] {
+            filter: brightness(1.3) contrast(1.2);
+            transition: filter 0.3s ease;
+        }
+
+        /* Royal Blue Button Styles */
+        .btn-royal-blue {
+            background-color: #0a1628;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-royal-blue:hover {
+            background-color: #081220;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Navigation Pill Button Styles */
+        nav a[class*="rounded-full"],
+        footer a[class*="rounded-full"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(0px);
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        nav a[class*="rounded-full"]:hover,
+        footer a[class*="rounded-full"]:hover {
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(8, 18, 32, 0.4);
+        }
     </style>
 </head>
 
@@ -157,39 +197,32 @@
 
     <!-- Navigation -->
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300" style="background-color: #0074B7;">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <!-- Logo -->
-                <a href="index.html"
-                    class="flex flex-col leading-none group hover:opacity-80 transition-opacity select-none">
-                    <div class="flex items-start">
-                        <span class="text-4xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                        <span class="text-4xl font-extrabold tracking-tighter text-white">marx</span>
-                        <div class="ml-0.5 mt-1 w-2.5 h-2.5 rounded-full border-[2px] border-white"></div>
-                    </div>
-                    <span class="text-[10px] text-gray-400 font-medium tracking-wide -mt-1 ml-0.5">brand legal
-                        management</span>
+                <a href="index.html" class="group select-none -ml-2">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-12 w-auto">
                 </a>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
-                    <a href="index.html" class="text-gray-300 hover:text-brand-accent transition-colors">Home</a>
-                    <a href="aboutus.html" class="text-gray-300 hover:text-brand-accent transition-colors">About Us</a>
+                <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
+                    <a href="index.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                    <a href="aboutus.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About Us</a>
                     <a href="achievements.html"
-                        class="text-gray-300 hover:text-brand-accent transition-colors">Achievements</a>
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Achievements</a>
                     <a href="testimonials.html"
-                        class="text-gray-300 hover:text-brand-accent transition-colors">Testimonials</a>
-                    <a href="services.html" class="text-brand-accent transition-colors">Services</a>
-                    <a href="careers.html" class="text-gray-300 hover:text-brand-accent transition-colors">Careers</a>
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Testimonials</a>
+                    <a href="services.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
+                    <a href="careers.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
 
                     <!-- CTA Button -->
                     <button onclick="openModal()"
-                        class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        class="px-4 py-2 rounded-full btn-royal-blue text-white font-medium text-[14px] hover:btn-royal-blueHover transition-all shadow-sm">
                         Consultation
                     </button>
                 </div>
@@ -212,7 +245,7 @@
                 <a href="careers.html" class="text-gray-400">Careers</a>
 
                 <button onclick="openModal()"
-                    class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book
+                    class="w-full text-center px-5 py-3 rounded-full btn-royal-blue text-white font-bold shadow-lg">Book
                     Consultation</button>
             </div>
         </div>
@@ -230,7 +263,7 @@
             </p>
             <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openModal()"
-                    class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg">
+                    class="px-8 py-4 rounded-full btn-royal-blue text-white font-medium text-sm hover:btn-royal-blueHover transition-all shadow-lg">
                     Start Your Application
                 </button>
                 <a href="#patent-details"
@@ -279,7 +312,7 @@
             <div id="patent-details" class="text-center mb-10">
                 <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4 uppercase tracking-wide">
                     What Can Be Patented?</h2>
-                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full"></div>
+                <div class="w-24 h-1 btn-royal-blue mx-auto rounded-full"></div>
             </div>
 
             <!-- Criteria Grid -->
@@ -359,26 +392,22 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 border-t border-brand-border bg-brand-bg">
+    <footer class="py-16 border-t border-brand-border"
+        style="background-color: #0074B7;">
+
         <div class="max-w-7xl mx-auto px-6 text-center">
             <!-- Footer Logo -->
             <!-- Footer Logo -->
             <a href="index.html"
-                class="inline-flex flex-col items-center group hover:opacity-80 transition-opacity mb-6 select-none">
-                <div class="flex items-start">
-                    <span class="text-3xl font-extrabold tracking-tighter text-gray-500">tru</span>
-                    <span class="text-3xl font-extrabold tracking-tighter text-brand-text dark:text-white">marx</span>
-                    <div class="ml-0.5 mt-1 w-2 h-2 rounded-full border-[2px] border-brand-text dark:border-white">
-                    </div>
-                </div>
-                <span class="text-[9px] text-gray-500 font-medium tracking-wide -mt-0.5">brand legal management</span>
+                class="inline-flex items-center group mb-6 select-none">
+                <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-16 w-auto">
             </a>
-            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm font-medium text-gray-400">
-                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
-                <a href="#" class="hover:text-brand-accent transition-colors">Practice Areas</a>
-                <a href="#" class="hover:text-brand-accent transition-colors">Our Team</a>
+            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 mb-8 text-base font-medium text-white">
+                <a href="index.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                <a href="#" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice Areas</a>
+                <a href="#" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our Team</a>
                 <a href="#" onclick="openContactModal(event)"
-                    class="hover:text-brand-accent transition-colors">Contact</a>
+                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Contact</a>
             </div>
 
 
@@ -410,7 +439,7 @@
                     <textarea name="message" placeholder="Message" rows="4"
                         class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
                     <button
-                        class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit
+                        class="w-full py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Submit
                         Request</button>
                 </div>
             </form>
@@ -421,13 +450,13 @@
     <div id="success-popup"
         class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
         <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
-            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+            <div class="w-16 h-16 btn-royal-blue rounded-full flex items-center justify-center mx-auto mb-6">
                 <i class="fas fa-check text-white text-2xl"></i>
             </div>
             <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
             <button onclick="closeSuccessPopup()"
-                class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
+                class="px-6 py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Close</button>
         </div>
     </div>
 
@@ -446,7 +475,7 @@
                         <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
                         <span class="ml-4">
                             <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
-                                rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">
+                                rel="noopener noreferrer" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">
                                 No. 23, Hari Prem Complex, 2nd Floor,<br>
                                 CMH Road, Indiranagar 1st Stage,<br>
                                 Bangalore – 560038
