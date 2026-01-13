@@ -322,6 +322,7 @@
             background-color: #081220;
             box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
+
         /* Royal Blue Button Styles */
         .btn-royal-blue {
             background-color: #0a1628;
@@ -373,14 +374,19 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
-                    <a href="index.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
-                    <a href="aboutus.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About Us</a>
+                    <a href="index.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
+                    <a href="aboutus.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About
+                        Us</a>
                     <a href="achievements.html"
                         class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Achievements</a>
                     <a href="testimonials.html"
                         class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Testimonials</a>
-                    <a href="services.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
-                    <a href="careers.html" class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
+                    <a href="services.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
+                    <a href="careers.html"
+                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
@@ -692,26 +698,25 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 border-t border-brand-border"
-        style="background-color: #0074B7;">
+    <footer class="py-16 border-t border-brand-border" style="background-color: #0074B7;">
 
         <div class="max-w-7xl mx-auto px-6 text-center">
             <!-- Footer Logo -->
             <!-- Footer Logo -->
-            <a href="index.html"
-                class="inline-flex items-center group mb-6 select-none">
+            <a href="index.html" class="inline-flex items-center group mb-6 select-none">
                 <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-16 w-auto">
             </a>
             <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 mb-8 text-base font-medium text-white">
                 <a href="index.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
-                <a href="#" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice Areas</a>
-                <a href="#" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our Team</a>
+                <a href="services.html"
+                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice
+                    Areas</a>
+                <a href="aboutus.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our
+                    Team</a>
                 <a href="#" onclick="openContactModal(event)"
                     class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Contact</a>
             </div>
-
-
-
+            <p class="text-white/60 text-sm mt-8">© Trumarx 2025</p>
         </div>
     </footer>
 
@@ -775,7 +780,8 @@
                         <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
                         <span class="ml-4">
                             <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
-                                rel="noopener noreferrer" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">
+                                rel="noopener noreferrer"
+                                class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">
                                 No. 23, Hari Prem Complex, 2nd Floor,<br>
                                 CMH Road, Indiranagar 1st Stage,<br>
                                 Bangalore – 560038
@@ -856,16 +862,6 @@
                 });
         }
 
-        /* Royal Blue Button Styles */
-        .btn-royal-blue {
-            background-color: #0a1628;
-            transition: all 0.3s ease;
-        }
-
-        .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
         function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(() => successPopup.classList.add('hidden'), 300); }
 
         // Contact Modal Logic
@@ -880,30 +876,9 @@
                 const y = event.clientY - rect.top;
                 modalContent.style.transformOrigin = `${x}px ${y}px`;
             }
-
-        /* Royal Blue Button Styles */
-        .btn-royal-blue {
-            background-color: #0a1628;
-            transition: all 0.3s ease;
-        }
-
-        .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
             setTimeout(() => contactModal.classList.add('active'), 10);
         }
 
-        /* Royal Blue Button Styles */
-        .btn-royal-blue {
-            background-color: #0a1628;
-            transition: all 0.3s ease;
-        }
-
-        .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
         function closeContactModal() { contactModal.classList.remove('active'); setTimeout(() => contactModal.classList.add('hidden'), 300); }
 
         // Mobile Menu Logic
@@ -915,17 +890,6 @@
             mobileMenu.querySelectorAll('a, button').forEach(link => {
                 link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
             });
-        }
-
-        /* Royal Blue Button Styles */
-        .btn-royal-blue {
-            background-color: #0a1628;
-            transition: all 0.3s ease;
-        }
-
-        .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
     </script>
 </body>
