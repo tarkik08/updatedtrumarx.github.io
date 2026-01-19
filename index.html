@@ -73,17 +73,17 @@
             theme: {
                 extend: {
                     colors: {
-                        'brand-accent': '#c9a961',
-                        'brand-accentHover': '#b8964d',
+                        'brand-accent': '#6e6e6e',
+                        'brand-accentHover': '#4a4a4a',
                         'brand-bg': '#0a0a0a',
-                        'brand-dark': '#0a0a0a',
-                        'brand-darkCard': '#111111',
-                        'brand-card': '#1a1a1a',
-                        'brand-light': '#f8f8f8',
-                        'brand-navy': '#1e3a5f',
-                        'brand-textLight': '#ffffff',
-                        'brand-textDark': '#1a1a1a',
-                        'brand-border': '#333333'
+                        'brand-dark': '#000000',
+                        'brand-darkCard': '#1d1d1f',
+                        'brand-card': '#1d1d1f',
+                        'brand-light': '#f5f5f7',
+                        'brand-navy': '#1d1d1f',
+                        'brand-textLight': '#f5f5f7',
+                        'brand-textDark': '#1d1d1f',
+                        'brand-border': '#424245'
                     }
                 }
             }
@@ -331,35 +331,18 @@
         }
 
         /* General Smooth Transitions */
-        body,
-        div,
-        nav,
-        section,
-        footer,
-        button,
-        a,
-        span,
-        i,
-        h1,
-        h2,
-        h3,
-        p,
-        input,
-        select,
-        label {
-            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
-        }
+        /* Global smooth transitions removed to prevent stuttering */
 
-        /* Logo Image Brightness Enhancement */
-        img[alt="Trumarx Logo"] {
-            filter: brightness(1.3) contrast(1.2);
-            transition: filter 0.3s ease;
+        /* Logo - No styling needed with light background */
+        nav a[href="index.html"] img[alt="Trumarx Logo"],
+        footer a[href="index.html"] img[alt="Trumarx Logo"] {
+            transition: all 0.3s ease;
         }
 
 
-        /* Royal Blue Button Styles */
+        /* Apple-Style Button Styles */
         .btn-royal-blue {
-            background-color: #0a1628;
+            background-color: #1d1d1f;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
@@ -368,8 +351,8 @@
         }
 
         .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            background-color: #0d0d0d;
+            box-shadow: 0 10px 25px rgba(110, 110, 110, 0.2);
             backdrop-filter: blur(8px);
         }
 
@@ -397,60 +380,58 @@
     class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300" style="background-color: #0074B7;">
+    <nav class="relative z-50 legal-nav transition-colors duration-300"
+        style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
 
-        <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="max-w-7xl mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <a href="index.html" class="group select-none -ml-2">
-                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-12 w-auto">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-10 w-auto">
                 </a>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
-                    <a href="index.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
-                    <a href="aboutus.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About
+                    <a href="index.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Home</a>
+                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About
                         Us</a>
                     <a href="achievements.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Achievements</a>
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
                     <a href="testimonials.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Testimonials</a>
-                    <a href="services.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
-                    <a href="careers.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Testimonials</a>
+                    <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
+                    <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
 
                     <!-- CTA Button -->
                     <button onclick="openModal()"
-                        class="px-5 py-2.5 rounded-full text-white font-medium text-[14px] transition-all shadow-sm btn-royal-blue">
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
                         Consultation
                     </button>
                 </div>
 
                 <div class="flex items-center gap-4 md:hidden">
-                    <button id="mobile-menu-btn" class="text-white text-xl">
+                    <button id="mobile-menu-btn" class="text-black text-xl">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-700 bg-brand-bg">
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-400"
+            style="background-color: #E1E2E6;">
             <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
-                <a href="index.html" class="text-white">Home</a>
-                <a href="aboutus.html" class="text-gray-400">About Us</a>
-                <a href="achievements.html" class="text-gray-400">Achievements</a>
-                <a href="testimonials.html" class="text-gray-400">Testimonials</a>
-                <a href="services.html" class="text-gray-400">Services</a>
-                <a href="careers.html" class="text-gray-400">Careers</a>
+                <a href="index.html" class="text-black">Home</a>
+                <a href="aboutus.html" class="text-black">About Us</a>
+                <a href="achievements.html" class="text-black">Achievements</a>
+                <a href="testimonials.html" class="text-black">Testimonials</a>
+                <a href="services.html" class="text-black">Services</a>
+                <a href="careers.html" class="text-black">Careers</a>
 
                 <button onclick="openModal()"
-                    class="w-full text-center px-5 py-3 rounded-full text-white font-bold shadow-lg btn-royal-blue">Book
+                    class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg btn-royal-blue">Book
                     Consultation</button>
             </div>
         </div>
@@ -584,17 +565,17 @@
             <defs>
                 <!-- Static background line gradient -->
                 <linearGradient id="lineBg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0" />
-                    <stop offset="5%" stop-color="#3b82f6" stop-opacity="0.2" />
-                    <stop offset="95%" stop-color="#3b82f6" stop-opacity="0.2" />
-                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+                    <stop offset="0%" stop-color="#6e6e6e" stop-opacity="0" />
+                    <stop offset="5%" stop-color="#6e6e6e" stop-opacity="0.2" />
+                    <stop offset="95%" stop-color="#6e6e6e" stop-opacity="0.2" />
+                    <stop offset="100%" stop-color="#6e6e6e" stop-opacity="0" />
                 </linearGradient>
 
                 <!-- Animated traveling pulse gradient (Radial for "Big Dot" look) -->
                 <radialGradient id="travelingPulse" cx="50%" cy="50%" r="50%">
                     <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
-                    <stop offset="40%" stop-color="#60a5fa" stop-opacity="1" />
-                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+                    <stop offset="40%" stop-color="#9e9e9e" stop-opacity="1" />
+                    <stop offset="100%" stop-color="#6e6e6e" stop-opacity="0" />
                 </radialGradient>
 
                 <!-- Glow filter - userSpaceOnUse to prevent clipping, even brighter -->
@@ -612,54 +593,11 @@
             <!-- Static Background Line -->
             <rect x="48.5" y="0" width="3" height="100" fill="url(#lineBg)" />
 
-            <!-- Traveling Pulse Line (Big Dot) -->
-            <rect id="pulse-rect" x="42" y="-16" width="16" height="16" rx="8" ry="8" fill="url(#travelingPulse)"
-                filter="url(#glowPulse)" />
+
         </svg>
 
         <!-- CSS for pulse animation -->
-        <style>
-            @keyframes traveling-pulse-rect {
-                0% {
-                    transform: translateY(0);
-                    opacity: 0;
-                }
 
-                0% {
-                    transform: translateY(0);
-                    opacity: 0;
-                }
-
-                0% {
-                    transform: translateY(0);
-                    opacity: 0;
-                }
-
-                1.5% {
-                    opacity: 1;
-                }
-
-                87.5% {
-                    opacity: 1;
-                }
-
-                89% {
-                    transform: translateY(132px);
-                    opacity: 0;
-                }
-
-                100% {
-                    transform: translateY(132px);
-                    opacity: 0;
-                }
-            }
-
-            #pulse-rect {
-                /* Total duration 13.5s: 12s travel (~89%) + 1.5s gap (~11%) */
-                animation: traveling-pulse-rect 13.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-                transform-box: fill-box;
-            }
-        </style>
 
 
 
@@ -670,7 +608,7 @@
 
                 <!-- ITEM 1: BYJU'S (Left) -->
                 <div
-                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition duration-1000 ease-out will-change-transform">
                     <!-- Content Box -->
                     <div class="w-full md:w-5/12 text-center md:text-right order-2 md:order-1">
                         <div
@@ -685,7 +623,7 @@
                     </div>
                     <!-- Connector Dot -->
                     <div
-                        class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#c9a961] relative z-20 order-1 md:order-2 shrink-0">
+                        class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_20px_rgba(255,255,255,0.15)] relative z-20 order-1 md:order-2 shrink-0">
                         <!-- Horizontal Connector Line (Large Screens) - Ray shining to the left towards content -->
                         <div
                             class="hidden md:block absolute top-1/2 right-full w-16 h-px bg-gradient-to-l from-brand-accent to-transparent -translate-y-1/2">
@@ -697,7 +635,7 @@
 
                 <!-- ITEM 2: DRIVEZY (Right) -->
                 <div
-                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition duration-1000 ease-out will-change-transform">
                     <div class="hidden md:block w-5/12 order-1"></div>
 
                     <div
@@ -723,7 +661,7 @@
 
                 <!-- ITEM 3: QUANTUM LEAP (Left) -->
                 <div
-                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition duration-1000 ease-out will-change-transform">
                     <div class="w-full md:w-5/12 text-center md:text-right order-2 md:order-1">
                         <div
                             class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
@@ -748,7 +686,7 @@
 
                 <!-- ITEM 4: SOURCEONE (Right) -->
                 <div
-                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition duration-1000 ease-out will-change-transform">
                     <div class="hidden md:block w-5/12 order-1"></div>
                     <div
                         class="w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#c9a961] relative z-20 order-1 md:order-2 shrink-0">
@@ -773,7 +711,7 @@
 
                 <!-- ITEM 5: CAPTAIN (Left) -->
                 <div
-                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition duration-1000 ease-out will-change-transform">
                     <div class="w-full md:w-5/12 text-center md:text-right order-2 md:order-1">
                         <div
                             class="bg-[#111] p-8 rounded-2xl border border-white/10 hover:border-brand-accent/50 transition-colors inline-block text-left w-full group">
@@ -798,7 +736,7 @@
                 <!-- PLACEHOLDERS 1-4 -->
                 <!-- P1 (Right) -->
                 <div
-                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition-all duration-1000 ease-out">
+                    class="timeline-item flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-0 translate-y-20 transition duration-1000 ease-out will-change-transform">
                     <div class="hidden md:block w-5/12 order-1"></div>
                     <div class="w-2 h-2 rounded-full bg-gray-500 relative z-20 order-1 md:order-2 shrink-0"></div>
                     <div class="w-full md:w-5/12 text-center md:text-left order-2 md:order-3">
@@ -943,8 +881,11 @@
             </h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <a href="testimonials.html"
-                    class="block p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="flex flex-col h-full">
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="flex flex-col h-full relative z-10">
                         <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-left flex-grow">"Trumarx handled
                             our
                             trademark requirements
@@ -963,8 +904,11 @@
                     </div>
                 </a>
                 <a href="testimonials.html"
-                    class="block p-8 bg-brand-card rounded-2xl border border-brand-accent/30 hover:border-brand-accent hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="flex flex-col h-full">
+                    class="group p-8 bg-brand-card dark:bg-brand-dark/50 backdrop-blur-sm rounded-3xl border border-brand-accent/20 hover:border-brand-accent transition-all duration-500 hover:shadow-gold hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+                    <div class="flex flex-col h-full relative z-10">
                         <p class="text-gray-600 dark:text-gray-300 mb-6 italic text-left flex-grow">"I was referred
                             to
                             Trumarx and had a great experience
@@ -1054,23 +998,20 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 border-t border-brand-border" style="background-color: #0074B7;">
+    <footer class="py-4 border-t border-white/10" style="background-color: #000000;">
 
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <!-- Footer Logo -->
-            <a href="index.html" class="inline-flex items-center group mb-6 select-none">
-                <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-16 w-auto">
-            </a>
-            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 mb-8 text-base font-medium text-white">
-                <a href="index.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
-                <a href="services.html"
-                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice Areas</a>
-                <a href="aboutus.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our
+            <!-- Footer Logo Removed -->
+
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 text-sm font-medium text-white">
+                <a href="index.html" class="transition-all hover:text-gray-300">Home</a>
+                <a href="services.html" class="transition-all hover:text-gray-300">Practice
+                    Areas</a>
+                <a href="aboutus.html" class="transition-all hover:text-gray-300">Our
                     Team</a>
-                <a href="#" onclick="openContactModal(event)"
-                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Contact</a>
+                <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
             </div>
-            <p class="text-white/60 text-sm mt-8">© Trumarx 2025</p>
+            <p class="text-white/60 text-xs mt-4">© Trumarx 2025</p>
         </div>
     </footer>
 

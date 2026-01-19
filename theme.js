@@ -4,50 +4,50 @@ tailwind.config = {
         extend: {
             colors: {
                 brand: {
-                    // Core Brand Colors - Midnight & Azure (Premium Trust)
-                    navy: '#0a1628',        /* Midnight Blue: Primary */
-                    gold: '#3b82f6',        /* Azure Blue: Accent */
-                    charcoal: '#1e3a5f',    /* Deep Navy: Primary Text */
-                    white: '#f1f5f9',       /* Cool White: Background */
+                    // Core Brand Colors - Apple Monochrome (Premium Trust)
+                    navy: '#1d1d1f',        /* Apple Signature Dark: Primary */
+                    gold: '#6e6e6e',        /* Sophisticated Grey: Accent */
+                    charcoal: '#1d1d1f',    /* Near Black: Primary Text */
+                    white: '#f5f5f7',       /* Apple White: Background */
 
                     // Supporting Colors
-                    navyDeep: '#050b14',    /* True Black Midnight */
-                    blue: '#60a5fa',        /* Light Azure */
-                    goldWarm: '#60a5fa',    /* Light Azure */
-                    goldAntique: '#2563eb', /* Deep Azure */
-                    slate: '#475569',       /* Slate Blue */
-                    grayLight: '#e2e8f0',   /* Cool Gray */
-                    grayMedium: '#94a3b8',  /* Medium Gray Blue */
-                    charcoalDeep: '#020408',/* Deep Midnight */
+                    navyDeep: '#000000',    /* Pure Black */
+                    blue: '#9e9e9e',        /* Light Grey */
+                    goldWarm: '#9e9e9e',    /* Light Grey */
+                    goldAntique: '#4a4a4a', /* Dark Grey */
+                    slate: '#6e6e6e',       /* Medium Grey */
+                    grayLight: '#f5f5f7',   /* Apple Light Grey */
+                    grayMedium: '#86868b',  /* Apple Medium Grey */
+                    charcoalDeep: '#000000',/* Pure Black */
 
                     // Functional Semantics
-                    bg: '#0a1628',          /* Main Background: Midnight Blue */
-                    card: '#1e3a5f',        /* Card Background: Deep Navy */
-                    text: '#f1f5f9',        /* Primary Text: Cool White */
-                    textSecondary: '#94a3b8', /* Secondary Text: Gray Blue */
-                    border: '#2563eb',      /* Borders: Deep Azure */
+                    bg: '#000000',          /* Main Background: Black */
+                    card: '#1d1d1f',        /* Card Background: Apple Dark */
+                    text: '#f5f5f7',        /* Primary Text: Apple White */
+                    textSecondary: '#86868b', /* Secondary Text: Apple Grey */
+                    border: '#424245',      /* Borders: Apple Grey Border */
 
                     // Backward Compatibility
-                    light: '#0a1628',       /* Maps to Midnight BG */
-                    dark: '#0a1628',        /* Maps to Midnight BG */
+                    light: '#f5f5f7',       /* Maps to Apple Light */
+                    dark: '#000000',        /* Maps to Black */
 
-                    darkCard: '#1e3a5f',    /* Maps to Deep Navy */
-                    darkCardHover: '#2d4f7c',
+                    darkCard: '#1d1d1f',    /* Maps to Apple Dark */
+                    darkCardHover: '#2c2c2e',
 
-                    textDark: '#f1f5f9',    /* Force text to White */
-                    textLight: '#f1f5f9',   /* Force text to White */
+                    textDark: '#f5f5f7',    /* Force text to Apple White */
+                    textLight: '#f5f5f7',   /* Force text to Apple White */
 
-                    accent: '#3b82f6',      /* Azure Accent */
-                    accentHover: '#2563eb', /* Deep Azure Hover */
+                    accent: '#6e6e6e',      /* Grey Accent */
+                    accentHover: '#4a4a4a', /* Dark Grey Hover */
 
-                    logoGrey: '#475569',
-                    logoBlack: '#0a1628',
+                    logoGrey: '#6e6e6e',
+                    logoBlack: '#1d1d1f',
                 },
                 functional: {
-                    success: '#10b981',     /* Green Success */
-                    warning: '#f59e0b',     /* Amber Warning */
-                    error: '#ef4444',       /* Red Error */
-                    info: '#3b82f6',        /* Azure Info */
+                    success: '#86868b',     /* Grey Success */
+                    warning: '#6e6e6e',     /* Grey Warning */
+                    error: '#4a4a4a',       /* Dark Grey Error */
+                    info: '#6e6e6e',        /* Grey Info */
                 }
             },
             fontFamily: {

@@ -181,60 +181,58 @@
 
     <!-- Navigation -->
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300" style="background-color: #0074B7;">
-        <div class="max-w-7xl mx-auto px-6 py-4">
+    <nav class="relative z-50 legal-nav transition-colors duration-300"
+        style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+        <div class="max-w-7xl mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <!-- Logo -->
                 <a href="index.html" class="group select-none -ml-2">
-                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-12 w-auto">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-10 w-auto">
                 </a>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
-                    <a href="index.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
-                    <a href="aboutus.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">About
+                    <a href="index.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Home</a>
+                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About
                         Us</a>
                     <a href="achievements.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Achievements</a>
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
                     <a href="testimonials.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Testimonials</a>
-                    <a href="services.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Services</a>
-                    <a href="careers.html"
-                        class="text-white transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Careers</a>
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Testimonials</a>
+                    <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
+                    <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
 
                     <!-- CTA Button -->
                     <button onclick="openModal()"
-                        class="px-4 py-2 rounded-full btn-royal-blue text-white font-medium text-[14px] hover:btn-royal-blueHover transition-all shadow-sm">
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
                         Consultation
                     </button>
                 </div>
 
                 <div class="flex items-center gap-4 md:hidden">
-                    <button id="mobile-menu-btn" class="text-white text-xl">
+                    <button id="mobile-menu-btn" class="text-black text-xl">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-700 bg-brand-bg">
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-400"
+            style="background-color: #E1E2E6;">
             <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
-                <a href="index.html" class="text-gray-400">Home</a>
-                <a href="aboutus.html" class="text-gray-400">About Us</a>
-                <a href="achievements.html" class="text-gray-400">Achievements</a>
-                <a href="testimonials.html" class="text-white">Testimonials</a>
-                <a href="services.html" class="text-gray-400">Services</a>
-                <a href="careers.html" class="text-gray-400">Careers</a>
+                <a href="index.html" class="text-black">Home</a>
+                <a href="aboutus.html" class="text-black">About Us</a>
+                <a href="achievements.html" class="text-black">Achievements</a>
+                <a href="testimonials.html" class="text-black">Testimonials</a>
+                <a href="services.html" class="text-black">Services</a>
+                <a href="careers.html" class="text-black">Careers</a>
 
                 <button onclick="openModal()"
-                    class="w-full text-center px-5 py-3 rounded-full btn-royal-blue text-white font-bold shadow-lg">Book
+                    class="w-full text-center px-5 py-3 rounded-lg btn-royal-blue text-white font-bold shadow-lg">Book
                     Consultation</button>
             </div>
         </div>
@@ -765,24 +763,18 @@
 
 
     <!-- Footer -->
-    <footer class="py-16 border-t border-brand-border" style="background-color: #0074B7;">
+    <footer class="py-4 border-t border-white/10" style="background-color: #000000;">
 
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <!-- Footer Logo -->
-            <!-- Footer Logo -->
-            <a href="index.html" class="inline-flex items-center group mb-6 select-none">
-                <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-16 w-auto">
-            </a>
-            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 mb-8 text-base font-medium text-white">
-                <a href="index.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Home</a>
-                <a href="services.html"
-                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Practice Areas</a>
-                <a href="aboutus.html" class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Our
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 text-sm font-medium text-white">
+                <a href="index.html" class="transition-all hover:text-gray-300">Home</a>
+                <a href="services.html" class="transition-all hover:text-gray-300">Practice
+                    Areas</a>
+                <a href="aboutus.html" class="transition-all hover:text-gray-300">Our
                     Team</a>
-                <a href="#" onclick="openContactModal(event)"
-                    class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">Contact</a>
+                <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
             </div>
-            <p class="text-white/60 text-sm mt-8">© Trumarx 2025</p>
+            <p class="text-white/60 text-xs mt-4">© Trumarx 2025</p>
         </div>
     </footer>
 
