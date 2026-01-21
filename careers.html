@@ -476,10 +476,10 @@
                             </div>
 
                             <div class="mt-8">
-                                <a href="https://forms.gle/rPXAEBKDXiFgFidp8" target="_blank" rel="noopener noreferrer"
+                                <button onclick="openInternshipModal()"
                                     class="block w-full py-3 btn-royal-blue hover:btn-royal-blueHover text-white font-bold text-center rounded-lg transition-colors text-sm">
                                     Apply Now
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -681,10 +681,8 @@
                     window.addEventListener('storage', (event) => { if (event.key === 'jobsUpdatedAt') loadJobs(); });
                 </script>
 
-                <!-- Modular Form Components -->
-                <script src="components/consultation-form.html"></script>
-                <script src="components/internship-form.html"></script>
-                <script src="components/job-application-form.html"></script>
+                <!-- Load Form Components -->
+                <script src="load-forms.js"></script>
 
 
 </body>
