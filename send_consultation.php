@@ -1,8 +1,11 @@
 <?php
-// Consultation Form Handler
-// Sends emails from mailservice@trumarx.in to support@trumarx.in
+// Consultation Form Handler with SMTP
+// Sends emails using SMTP for better deliverability
 
 header('Content-Type: application/json');
+
+// Include SMTP mailer
+require_once 'smtp_mailer.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -26,65 +29,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Email configuration
     $to = "molletitarkiksaiii@gmail.com, support@trumarx.in";
-    $from = "mailservice@trumarx.in";
-    $email_subject = "Consultation Request: " . $subject;
+    $email_subject = "New Consultation Request: " . $subject;
     
-    // Build email body
-    $email_body = "
-    <html>
-    <head>
-        <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #0a1628; color: white; padding: 20px; text-align: center; }
-            .content { background: #f9f9f9; padding: 20px; border: 1px solid #ddd; }
-            .field { margin-bottom: 15px; }
-            .label { font-weight: bold; color: #0a1628; }
-            .footer { text-align: center; padding: 20px; font-size: 12px; color: #666; }
-        </style>
-    </head>
-    <body>
-        <div class='container'>
-            <div class='header'>
-                <h2>New Consultation Request</h2>
-            </div>
-            <div class='content'>
-                <div class='field'>
-                    <span class='label'>Name:</span> " . $name . "
-                </div>
-                <div class='field'>
-                    <span class='label'>Email:</span> " . $email . "
-                </div>
-                <div class='field'>
-                    <span class='label'>Phone:</span> " . ($phone ?: 'Not provided') . "
-                </div>
-                <div class='field'>
-                    <span class='label'>Subject:</span> " . $subject . "
-                </div>
-                <div class='field'>
-                    <span class='label'>Message:</span><br>" . nl2br($message) . "
-                </div>
-                <div class='field'>
-                    <span class='label'>Submitted:</span> " . date('Y-m-d H:i:s') . "
-                </div>
-            </div>
-            <div class='footer'>
-                This email was sent from the Trumarx consultation form.
-            </div>
+    // Build email content
+    $content = "
+        <div class='field'>
+            <span class='label'>Client Name</span>
+            <div class='value'>{$name}</div>
         </div>
-    </body>
-    </html>
+        <div class='field'>
+            <span class='label'>Email Address</span>
+            <div class='value'><a href='mailto:{$email}'>{$email}</a></div>
+        </div>
+        <div class='field'>
+            <span class='label'>Phone Number</span>
+            <div class='value'>" . ($phone ?: 'Not provided') . "</div>
+        </div>
+        <div class='field'>
+            <span class='label'>Subject</span>
+            <div class='value'>{$subject}</div>
+        </div>
+        <div class='field'>
+            <span class='label'>Message</span>
+            <div class='value'>" . nl2br($message) . "</div>
+        </div>
+        <div class='field'>
+            <span class='label'>Submitted On</span>
+            <div class='value'>" . date('F j, Y \a\t g:i A') . "</div>
+        </div>
     ";
     
-    // Email headers
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: Trumarx Consultation <" . $from . ">" . "\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
+    // Create plain text version
+    $plain_text = "New Consultation Request\n\n";
+    $plain_text .= "Client Name: {$name}\n";
+    $plain_text .= "Email: {$email}\n";
+    $plain_text .= "Phone: " . ($phone ?: 'Not provided') . "\n";
+    $plain_text .= "Subject: {$subject}\n";
+    $plain_text .= "Message: {$message}\n";
+    $plain_text .= "Submitted: " . date('F j, Y \a\t g:i A') . "\n";
+    
+    // Initialize SMTP mailer
+    $mailer = new SMTPMailer();
+    $html_body = $mailer->createTemplate('New Consultation Request', $content);
     
     // Send email
-    if (mail($to, $email_subject, $email_body, $headers)) {
+    if ($mailer->send($to, $email_subject, $html_body, $plain_text, $email)) {
         echo json_encode([
             'success' => true, 
             'message' => 'Your consultation request has been sent successfully!'
