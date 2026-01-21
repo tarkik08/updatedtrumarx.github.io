@@ -30,14 +30,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="config.js"></script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-        })();
-    </script>
+
 
 
     <script src="theme.js"></script>
@@ -207,7 +200,7 @@
 
 
                     <!-- CTA Button -->
-                    <button onclick="openModal()"
+                    <button onclick="openConsultationModal()"
                         class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
                         Consultation
                     </button>
@@ -231,7 +224,7 @@
                 <a href="services.html" class="text-black">Services</a>
                 <a href="careers.html" class="text-black">Careers</a>
 
-                <button onclick="openModal()"
+                <button onclick="openConsultationModal()"
                     class="w-full text-center px-5 py-3 rounded-lg btn-royal-blue text-white font-bold shadow-lg">Book
                     Consultation</button>
             </div>
@@ -483,8 +476,8 @@
                             </div>
 
                             <div class="mt-8">
-                                <a onclick="applyForInternship()"
-                                    class="block w-full py-3 btn-royal-blue hover:btn-royal-blueHover text-white font-bold text-center rounded-lg transition-colors text-sm cursor-pointer">
+                                <a href="https://forms.gle/rPXAEBKDXiFgFidp8" target="_blank" rel="noopener noreferrer"
+                                    class="block w-full py-3 btn-royal-blue hover:btn-royal-blueHover text-white font-bold text-center rounded-lg transition-colors text-sm">
                                     Apply Now
                                 </a>
                             </div>
@@ -524,50 +517,7 @@
 
     </footer>
 
-    <!-- Modal -->
-    <div id="modal-overlay"
-        class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-md p-8 relative modal-content">
-            <button onclick="closeModal()"
-                class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
-                    class="fas fa-times"></i></button>
-            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Consultation</h3>
-            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
-            <form id="consultation-form" onsubmit="event.preventDefault(); submitForm();">
-                <div class="space-y-4">
-                    <input name="name" type="text" placeholder="Full Name"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight"
-                        required>
-                    <input name="email" type="email" placeholder="Email Address"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight"
-                        required>
-                    <input name="phone" type="tel" placeholder="Phone Number"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                    <input name="subject" type="text" placeholder="Subject"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                    <textarea name="message" placeholder="Message" rows="4"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
-                    <button
-                        class="w-full py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Submit
-                        Request</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- Success Popup -->
-    <div id="success-popup"
-        class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
-            <div class="w-16 h-16 btn-royal-blue rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-check text-white text-2xl"></i>
-            </div>
-            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
-            <button onclick="closeSuccessPopup()"
-                class="px-6 py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Close</button>
-        </div>
-    </div>
 
     <!-- Contact Modal -->
     <div id="contact-modal-overlay"
@@ -615,53 +565,6 @@
                     </p>
                 </div>
                 <script>
-                    // Modal Logic
-                    const modal = document.getElementById('modal-overlay');
-                    const successPopup = document.getElementById('success-popup');
-                    function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
-                    function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
-
-                    // Submit form using EmailJS
-                    function submitForm(event) {
-                        // Prevent default just to be safe if passed
-                        if (event) event.preventDefault();
-
-                        const form = document.getElementById('consultation-form');
-                        const submitButton = form.querySelector('button');
-                        const originalButtonText = submitButton.innerHTML;
-                        const formData = new FormData(form);
-
-                        const templateParams = {
-                            name: formData.get('name'),
-                            email: formData.get('email'),
-                            phone: formData.get('phone'),
-                            subject: formData.get('subject'),
-                            message: formData.get('message')
-                        };
-
-                        // Disable submit button and show loading state
-                        submitButton.disabled = true;
-                        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-
-                        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-                            .then(function (response) {
-                                console.log('SUCCESS!', response.status, response.text);
-                                closeModal();
-                                setTimeout(() => {
-                                    successPopup.classList.remove('hidden');
-                                    setTimeout(() => successPopup.classList.add('active'), 10);
-                                }, 300);
-                                form.reset();
-                            }, function (error) {
-                                console.error('FAILED...', error);
-                                alert('An error occurred. Please try again later.');
-                            })
-                            .finally(() => {
-                                submitButton.disabled = false;
-                                submitButton.innerHTML = originalButtonText;
-                            });
-                    }
-                    function closeSuccessPopup() { successPopup.classList.remove('active'); setTimeout(() => successPopup.classList.add('hidden'), 300); }
 
                     // Contact Modal Logic
                     const contactModal = document.getElementById('contact-modal-overlay');
@@ -690,91 +593,27 @@
                         });
                     }
 
-                    // Application Logic
-                    function applyForJob(jobTitle) {
-                        const mailtoLink = `mailto:career@trumarx.in?subject=Job Application - ${jobTitle}`;
-                        window.location.href = mailtoLink;
-
-                        // Always show fallback modal after attempting to open email client
-                        setTimeout(() => {
-                            const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
-                            if (mailtoFallbackModal) {
-                                mailtoFallbackModal.classList.remove('hidden');
-                                setTimeout(() => mailtoFallbackModal.classList.add('active'), 10);
-                            }
-                        }, 500);
-                    }
-
-                    function closeMailtoFallbackModal() {
-                        const mailtoFallbackModal = document.getElementById('mailto-fallback-modal');
-                        if (mailtoFallbackModal) {
-                            mailtoFallbackModal.classList.remove('active');
-                            setTimeout(() => mailtoFallbackModal.classList.add('hidden'), 300);
-                        }
-                    }
-
-                    // Internship Application Logic
-                    function applyForInternship() {
-                        const mailtoLink = `mailto:career@trumarx.in?subject=Internship Application - [Your Name]`;
-
-                        // Attempt to open the email client
-                        window.location.href = mailtoLink;
-
-                        // Always show fallback modal after attempting to open email client
-                        setTimeout(() => {
-                            openInternshipModal();
-                        }, 500);
-                    }
-
-                    function openInternshipModal() {
-                        const modal = document.getElementById('internship-modal');
-                        if (modal) {
-                            modal.classList.remove('hidden');
-                            setTimeout(() => modal.classList.add('active'), 10);
-                        }
-                    }
-
-                    function closeInternshipModal() {
-                        const modal = document.getElementById('internship-modal');
-                        if (modal) {
-                            modal.classList.remove('active');
-                            setTimeout(() => modal.classList.add('hidden'), 300);
-                        }
-                    }
-
-
+                    // Job Loading Logic (Dynamic)
                     let jobsCache = [];
-
-                    // Google Sheet CSV URL
                     const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1zcTv57-SUUmFQw2yPxht0RvicWAxvX4Tq41mqCiQKug/export?format=csv';
 
                     function parseCSV(csvText) {
                         const lines = csvText.trim().split('\n');
                         const headers = lines[0].split(',').map(h => h.trim());
                         const jobs = [];
-
                         for (let i = 1; i < lines.length; i++) {
                             const row = [];
                             let inQuotes = false;
                             let currentField = '';
-
                             for (let char of lines[i]) {
-                                if (char === '"') {
-                                    inQuotes = !inQuotes;
-                                } else if (char === ',' && !inQuotes) {
-                                    row.push(currentField.trim());
-                                    currentField = '';
-                                } else {
-                                    currentField += char;
-                                }
+                                if (char === '"') { inQuotes = !inQuotes; }
+                                else if (char === ',' && !inQuotes) { row.push(currentField.trim()); currentField = ''; }
+                                else { currentField += char; }
                             }
                             row.push(currentField.trim());
-
                             if (row.length === headers.length) {
                                 const job = {};
-                                row.forEach((value, index) => {
-                                    job[headers[index]] = value;
-                                });
+                                row.forEach((value, index) => { job[headers[index]] = value; });
                                 jobs.push(job);
                             }
                         }
@@ -786,8 +625,7 @@
                             const response = await fetch(GOOGLE_SHEET_CSV_URL);
                             if (!response.ok) throw new Error('Failed to load jobs');
                             const csvText = await response.text();
-                            const jobs = parseCSV(csvText);
-                            return { jobs: jobs };
+                            return { jobs: parseCSV(csvText) };
                         } catch (error) {
                             console.error('Error fetching jobs:', error);
                             throw error;
@@ -812,7 +650,7 @@
                         if (jobsCache.length === 0) {
                             container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">There are currently no open full-time positions. Please check back later or send your resume for future consideration.</p><i class="fas fa-folder-open text-5xl text-gray-300 dark:text-gray-600"></i></div>';
                         } else {
-                            container.innerHTML = jobsCache.map((job, index) => `
+                            container.innerHTML = jobsCache.map((job) => `
                     <div class="bg-white dark:bg-brand-dark p-6 rounded-2xl shadow-legal">
                         <div class="flex justify-between items-start mb-4">
                             <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight">${job.title}</h3>
@@ -831,88 +669,22 @@
                         </div>
                         ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${job.deadline}</span></div>` : ''}
                         <div class="flex justify-between items-center">
-                            <button onclick="applyForJob('${job.title}')" class="px-4 py-2 btn-royal-blue text-white rounded-full hover:btn-royal-blueHover transition-colors">Apply Now</button>
+                            <button onclick="openJobApplicationModal('${job.title}')" class="px-4 py-2 btn-royal-blue text-white rounded-full hover:btn-royal-blueHover transition-colors">Apply Now</button>
                         </div>
                     </div>
                 `).join('');
                         }
                     }
 
-
                     // Load jobs on page load
-                    document.addEventListener('DOMContentLoaded', () => {
-                        loadJobs();
-                    });
-
-                    // Sync jobs across tabs
-                    window.addEventListener('storage', (event) => {
-                        if (event.key === 'jobsUpdatedAt') {
-                            loadJobs();
-                        }
-                    });
+                    document.addEventListener('DOMContentLoaded', loadJobs);
+                    window.addEventListener('storage', (event) => { if (event.key === 'jobsUpdatedAt') loadJobs(); });
                 </script>
 
-                <!-- Mailto Fallback Modal -->
-                <div id="mailto-fallback-modal"
-                    class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
-                    <div
-                        class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center modal-content font-sans">
-                        <div
-                            class="w-16 h-16 btn-royal-blue rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-envelope text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Email
-                            Application</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                            If the email client didn't open, please copy this email address and send your resume
-                            manually:
-                        </p>
-                        <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
-                            <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold">
-                                career@trumarx.in</p>
-                        </div>
-                        <button onclick="closeMailtoFallbackModal()"
-                            class="px-6 py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Close</button>
-                    </div>
-                </div>
-
-
-
-                <!-- Internship Application Modal -->
-                <div id="internship-modal"
-                    class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
-                    <div
-                        class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative modal-content">
-                        <button onclick="closeInternshipModal()"
-                            class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
-                                class="fas fa-times"></i></button>
-                        <div
-                            class="w-16 h-16 btn-royal-blue rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-briefcase text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-brand-navy dark:text-brand-textLight">Apply for
-                            Internship</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                            If the email client didn't open, please send your resume and cover letter to:
-                        </p>
-                        <div class="bg-brand-light dark:bg-brand-dark p-4 rounded-lg mb-6">
-                            <p class="font-mono text-brand-navy dark:text-brand-textLight font-bold text-center">
-                                career@trumarx.in
-                            </p>
-                        </div>
-                        <p class="text-xs text-gray-400 dark:text-gray-500 mb-6">
-                            Subject: Internship Application - [Your Name]
-                        </p>
-                        <div class="flex gap-3">
-                            <button onclick="closeInternshipModal()"
-                                class="flex-1 py-3 bg-gray-500 text-white font-bold text-sm rounded-full hover:bg-gray-600 transition-colors shadow-lg">Close</button>
-                            <button
-                                onclick="window.location.href='mailto:career@trumarx.in?subject=Internship Application - [Your Name]';"
-                                class="flex-1 py-3 btn-royal-blue text-white font-bold text-sm rounded-full hover:btn-royal-blueHover transition-colors shadow-lg">Open
-                                Email</button>
-                        </div>
-                    </div>
-                </div>
+                <!-- Modular Form Components -->
+                <script src="components/consultation-form.html"></script>
+                <script src="components/internship-form.html"></script>
+                <script src="components/job-application-form.html"></script>
 
 
 </body>

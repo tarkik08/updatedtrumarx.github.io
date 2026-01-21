@@ -1,0 +1,174 @@
+<!-- Internship Application Form Modal Component -->
+<!-- Include this file in any page where you want the internship application form -->
+<!-- Usage: <script>openInternshipModal()</script> -->
+
+<div id="internship-modal"
+    class="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal p-4">
+    <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+        <button onclick="closeInternshipModal()"
+            class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <h3 class="text-2xl font-bold mb-6 text-brand-navy dark:text-brand-textLight">Apply for Internship</h3>
+
+        <form id="internship-form" onsubmit="submitInternshipForm(event)">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name *</label>
+                    <input type="text" name="name" required
+                        class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-white dark:bg-brand-dark text-brand-navy dark:text-brand-textLight">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
+                    <input type="email" name="email" required
+                        class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-white dark:bg-brand-dark text-brand-navy dark:text-brand-textLight">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone *</label>
+                    <input type="tel" name="phone" required
+                        class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-white dark:bg-brand-dark text-brand-navy dark:text-brand-textLight">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">University/College
+                        *</label>
+                    <input type="text" name="university" required
+                        class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all bg-white dark:bg-brand-dark text-brand-navy dark:text-brand-textLight">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cover Letter
+                        *</label>
+                    <textarea name="message" rows="4" required
+                        placeholder="Tell us why you'd like to intern at Trumarx..."
+                        class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none transition-all resize-none bg-white dark:bg-brand-dark text-brand-navy dark:text-brand-textLight"></textarea>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-sm text-blue-800 dark:text-blue-200">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Please email your resume to <strong>career@trumarx.in</strong> with subject "Internship Application
+                    - [Your Name]"
+                </div>
+
+                <button type="submit"
+                    class="w-full px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">
+                    Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Success Popup -->
+<div id="internship-success-popup"
+    class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
+    <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
+        <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-check text-white text-2xl"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Application Submitted</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Don't forget to email your resume to career@trumarx.in!
+        </p>
+        <button onclick="closeInternshipSuccessPopup()"
+            class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">
+            Close
+        </button>
+    </div>
+</div>
+
+<script>
+    // Internship Application Form Module
+    (function () {
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyqrnCA3dJOkYv4kpzBc9HJuGjcapJi5-ADZ6TAdxoAz-hfacZp_Vhe4jSW1qTx4KoIow/exec';
+
+        window.openInternshipModal = function () {
+            const modal = document.getElementById('internship-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+        };
+
+        window.closeInternshipModal = function () {
+            const modal = document.getElementById('internship-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        };
+
+        window.closeInternshipSuccessPopup = function () {
+            const popup = document.getElementById('internship-success-popup');
+            if (popup) {
+                popup.classList.remove('active');
+                setTimeout(() => popup.classList.add('hidden'), 300);
+            }
+        };
+
+        window.submitInternshipForm = function (event) {
+            event.preventDefault();
+
+            const form = document.getElementById('internship-form');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            const formData = new FormData(form);
+
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                university: formData.get('university'),
+                message: formData.get('message'),
+                page: window.location.pathname,
+                timestamp: new Date().toISOString(),
+                type: 'internship'
+            };
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+            const sheetsPromise = sendToGoogleSheets(data);
+            const phpPromise = fetch('send_internship.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json());
+
+            Promise.allSettled([sheetsPromise, phpPromise])
+                .then(function (results) {
+                    const sheetsResult = results[0];
+                    const phpResult = results[1];
+
+                    console.log('Google Sheets:', sheetsResult.status);
+                    console.log('PHP Email:', phpResult.status);
+
+                    if (sheetsResult.status === 'fulfilled' || (phpResult.status === 'fulfilled' && phpResult.value.success)) {
+                        closeInternshipModal();
+                        setTimeout(() => {
+                            const successPopup = document.getElementById('internship-success-popup');
+                            successPopup.classList.remove('hidden');
+                            setTimeout(() => successPopup.classList.add('active'), 10);
+                        }, 300);
+                        form.reset();
+                    } else {
+                        alert('Sorry, there was an error. Please try again later.');
+                    }
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                });
+        };
+
+        function sendToGoogleSheets(data) {
+            return fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        }
+    })();
+</script>

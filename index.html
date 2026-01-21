@@ -406,7 +406,7 @@
 
 
                     <!-- CTA Button -->
-                    <button onclick="openModal()"
+                    <button onclick="openConsultationModal()"
                         class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
                         Consultation
                     </button>
@@ -430,7 +430,7 @@
                 <a href="services.html" class="text-black">Services</a>
                 <a href="careers.html" class="text-black">Careers</a>
 
-                <button onclick="openModal()"
+                <button onclick="openConsultationModal()"
                     class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg btn-royal-blue">Book
                     Consultation</button>
             </div>
@@ -461,7 +461,7 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                    <button onclick="openModal()"
+                    <button onclick="openConsultationModal()"
                         class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
                         Schedule Consultation
                     </button>
@@ -1015,52 +1015,10 @@
         </div>
     </footer>
 
-    <!-- Modal -->
-    <div id="modal-overlay"
-        class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal overflow-y-auto p-4 sm:p-8">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
-            <button onclick="closeModal()"
-                class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
-                    class="fas fa-times"></i></button>
-            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Consultation</h3>
-            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
-            <form id="consultation-form" onsubmit="submitForm(event)">
-                <div class="space-y-4">
-                    <input name="name" type="text" placeholder="Full Name"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight"
-                        required>
-                    <input name="email" type="email" placeholder="Email Address"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight"
-                        required>
-                    <input name="phone" type="tel" placeholder="Phone Number"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                    <input name="subject" type="text" placeholder="Subject"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight">
-                    <textarea name="message" placeholder="Message" rows="4"
-                        class="w-full p-3 bg-brand-light dark:bg-brand-dark border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-brand-textLight resize-none"></textarea>
-                    <button type="submit"
-                        class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit
-                        Request</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!-- Modular Form Components -->
+    <script src="components/consultation-form.html"></script>
 
-    <!-- Success Popup -->
-    <div id="success-popup"
-        class="fixed inset-0 z-[70] flex items-center justify-center bg-brand-dark/60 backdrop-blur-sm hidden modal p-4">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center">
-            <div class="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-check text-white text-2xl"></i>
-            </div>
-            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-brand-textLight">Request Received</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Our legal team will contact you shortly.</p>
-            <button onclick="closeSuccessPopup()"
-                class="px-6 py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Close</button>
-        </div>
-    </div>
-
-    <!-- Contact Modal -->
+    <!-- Contact Modal (Keep - this is for contact info display, not a form) -->
     <div id="contact-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
         <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
@@ -1110,19 +1068,7 @@
 
     <!-- Scripts (Scroll & Logic Preserved) -->
     <script>
-
-
-        // Modal Logic
-        const modal = document.getElementById('modal-overlay');
-        const successPopup = document.getElementById('success-popup');
-        function openModal() { modal.classList.remove('hidden'); setTimeout(() => modal.classList.add('active'), 10); }
-        function closeModal() { modal.classList.remove('active'); setTimeout(() => modal.classList.add('hidden'), 300); }
-        function closeSuccessPopup() {
-            successPopup.classList.remove('active');
-            setTimeout(() => successPopup.classList.add('hidden'), 300);
-        }
-
-        // Contact Modal Functions
+        // Contact Modal Logic (for contact info display only)
         const contactModal = document.getElementById('contact-modal-overlay');
         function openContactModal(event) {
             if (event) event.preventDefault();
@@ -1140,49 +1086,6 @@
             contactModal.classList.remove('active');
             setTimeout(() => contactModal.classList.add('hidden'), 300);
         }
-
-        // Submit form using EmailJS
-        function submitForm(event) {
-            event.preventDefault();
-
-            const form = document.getElementById('consultation-form');
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            const formData = new FormData(form);
-
-            // Prepare data for EmailJS
-            const templateParams = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                subject: formData.get('subject'),
-                message: formData.get('message')
-            };
-
-            // Disable submit button and show loading state
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-                .then(function (response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    closeModal();
-                    setTimeout(() => {
-                        successPopup.classList.remove('hidden');
-                        setTimeout(() => successPopup.classList.add('active'), 10);
-                    }, 300);
-                    form.reset();
-                }, function (error) {
-                    console.log('FAILED...', error);
-                    alert('Sorry, there was an error sending your message. Please try again later.');
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                });
-        }
-
-
 
 
 
