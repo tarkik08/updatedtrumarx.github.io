@@ -128,15 +128,15 @@
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Logo Image Brightness Enhancement */
-        img[alt="Trumarx Logo"] {
-            filter: brightness(1.3) contrast(1.2);
-            transition: filter 0.3s ease;
+        /* Logo - No styling needed with light background */
+        nav a[href="index.html"] img[alt="Trumarx Logo"],
+        footer a[href="index.html"] img[alt="Trumarx Logo"] {
+            transition: all 0.3s ease;
         }
 
         /* Royal Blue Button Styles */
         .btn-royal-blue {
-            background-color: #0a1628;
+            background-color: #000000;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
@@ -145,8 +145,8 @@
         }
 
         .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            background-color: #1f1f1f;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
         }
 
@@ -239,8 +239,8 @@
                 Our Services in <br><span class="text-brand-accent">IP Law.</span>
             </h1>
             <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10">
-                We provide a full spectrum of intellectual property services designed to protect your innovations and
-                strengthen your brand's legal standing.
+                IP protection that actually makes sense. We've got your back on trademarks, patents, copyrights, and
+                more.
             </p>
         </div>
     </section>
@@ -249,9 +249,8 @@
     <section class="py-12 md:py-24 bg-white dark:bg-brand-dark">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">Our Practice Areas</h2>
-                <p class="text-gray-500 dark:text-gray-400">Detailed service information will be available here soon.
-                </p>
+                <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">What We Offer</h2>
+                <p class="text-gray-500 dark:text-gray-400">Full-spectrum IP protection for your business.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -316,7 +315,7 @@
     <!-- Contact Modal -->
     <div id="contact-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+        <div class="bg-white dark:bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
             <button onclick="closeContactModal()"
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
                     class="fas fa-times"></i></button>
@@ -339,7 +338,7 @@
                     </p>
                 </address>
 
-                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+                <div class="border-t border-gray-200 dark:border-gray-200 my-4"></div>
 
                 <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                     <p class="flex justify-between items-center"><span><i

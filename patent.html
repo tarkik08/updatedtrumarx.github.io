@@ -144,15 +144,15 @@
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Logo Image Brightness Enhancement */
-        img[alt="Trumarx Logo"] {
-            filter: brightness(1.3) contrast(1.2);
-            transition: filter 0.3s ease;
+        /* Logo - No styling needed with light background */
+        nav a[href="index.html"] img[alt="Trumarx Logo"],
+        footer a[href="index.html"] img[alt="Trumarx Logo"] {
+            transition: all 0.3s ease;
         }
 
         /* Royal Blue Button Styles */
         .btn-royal-blue {
-            background-color: #0a1628;
+            background-color: #000000;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
@@ -161,8 +161,8 @@
         }
 
         .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            background-color: #1f1f1f;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
         }
 
@@ -278,26 +278,26 @@
             <!-- Intro Block -->
             <div class="prose dark:prose-invert max-w-none">
                 <div
-                    class="bg-gray-50 dark:bg-brand-darkCard p-8 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm">
+                    class="bg-gray-50 dark:bg-white p-8 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm">
                     <h2 class="text-2xl font-bold text-brand-navy dark:text-brand-textLight mb-6 flex items-center">
                         <i class="fas fa-lightbulb text-brand-accent mr-3"></i> Understanding Patents in India
                     </h2>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify mb-4">
+                    <p class="text-gray-600 dark:text-gray-700 leading-relaxed text-justify mb-4">
                         In India, Patents are granted for inventions which culminate in a product or process. Mere
                         abstract theories or mathematical formulae are kept out of the purview of Patenting in India.
                         Also computer programs ‘per se’ cannot be Patented in India, as they are considered to be
                         Copyrights in India.
                     </p>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify mb-4">
+                    <p class="text-gray-600 dark:text-gray-700 leading-relaxed text-justify mb-4">
                         What are some of the Patentable inventions? This is a question that troubles many people. When
                         you come to us, we will give you a comprehensive answer to the question.
                     </p>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify mb-4">
+                    <p class="text-gray-600 dark:text-gray-700 leading-relaxed text-justify mb-4">
                         Patent rights can be given for inventions in any technological field, regardless of whether it
                         is a nanotechnology chip or a kitchen utensil. It can either be a product or a process, like a
                         chemical compound or the process of making that chemical compound respectively.
                     </p>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-justify">
+                    <p class="text-gray-600 dark:text-gray-700 leading-relaxed text-justify">
                         As a matter of fact, most products contain several inventions. A laptop, for instance, can
                         comprise of multiple inventions that seamlessly work together.
                     </p>
@@ -316,7 +316,7 @@
 
                 <!-- Novelty -->
                 <div
-                    class="bg-brand-card dark:bg-brand-darkCard p-8 rounded-2xl border border-brand-border shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
+                    class="bg-brand-card dark:bg-white p-8 rounded-2xl border border-brand-border shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
                     <div class="flex-shrink-0">
                         <div
                             class="w-16 h-16 bg-brand-bg dark:bg-white/5 rounded-full flex items-center justify-center text-brand-accent text-2xl">
@@ -340,7 +340,7 @@
 
                 <!-- Inventive Step -->
                 <div
-                    class="bg-brand-card dark:bg-brand-darkCard p-8 rounded-2xl border border-brand-border shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
+                    class="bg-brand-card dark:bg-white p-8 rounded-2xl border border-brand-border shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
                     <div class="flex-shrink-0">
                         <div
                             class="w-16 h-16 bg-brand-bg dark:bg-white/5 rounded-full flex items-center justify-center text-brand-accent text-2xl">
@@ -363,7 +363,7 @@
 
                 <!-- Patentable Subject Matter -->
                 <div
-                    class="bg-brand-card dark:bg-brand-darkCard p-8 rounded-2xl border border-brand-border shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
+                    class="bg-brand-card dark:bg-white p-8 rounded-2xl border border-brand-border shadow-legal hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row gap-6">
                     <div class="flex-shrink-0">
                         <div
                             class="w-16 h-16 bg-brand-bg dark:bg-white/5 rounded-full flex items-center justify-center text-brand-accent text-2xl">
@@ -408,7 +408,7 @@
     <!-- Contact Modal -->
     <div id="contact-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+        <div class="bg-white dark:bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
             <button onclick="closeContactModal()"
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
                     class="fas fa-times"></i></button>
@@ -430,7 +430,7 @@
                     </p>
                 </address>
 
-                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+                <div class="border-t border-gray-200 dark:border-gray-200 my-4"></div>
 
                 <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                     <p class="flex justify-between items-center"><span><i

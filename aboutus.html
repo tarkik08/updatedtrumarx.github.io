@@ -84,10 +84,10 @@
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Logo Image Brightness Enhancement */
-        img[alt="Trumarx Logo"] {
-            filter: brightness(1.3) contrast(1.2);
-            transition: filter 0.3s ease;
+        /* Logo - No styling needed with light background */
+        nav a[href="index.html"] img[alt="Trumarx Logo"],
+        footer a[href="index.html"] img[alt="Trumarx Logo"] {
+            transition: all 0.3s ease;
         }
 
         /* Royal Blue Button Styles */
@@ -230,20 +230,19 @@
                 </h2>
 
                 <p class="text-gray-400 mb-6 leading-relaxed text-lg font-light">
-                    "At Trumarx, we believe that every brand has a story worth protecting. Behind every name, logo, or
-                    idea is hard work, vision, and ambition and our role is to help safeguard that effort.
+                    "Every brand has a story worth protecting. Behind every name and logo is hard work, vision, and
+                    ambition—and we're here to safeguard that.
                 </p>
 
                 <p class="text-sm text-gray-500 leading-relaxed max-w-md mx-auto md:mx-0 mb-6">
-                    Over the years, we have worked closely with entrepreneurs, startups, and established businesses,
-                    guiding them through the complexities of trademarks and intellectual property with clarity and
-                    confidence. Our focus has always been on providing honest advice, dependable service, and solutions
-                    that truly add value.
+                    We've worked with everyone from scrappy startups to established giants, guiding them through IP
+                    complexities with clarity and confidence. Our focus? Honest advice, dependable service, and real
+                    value.
                 </p>
 
                 <p class="text-sm text-gray-500 leading-relaxed max-w-md mx-auto md:mx-0">
-                    At Trumarx, we don’t just handle registrations we build long-term partnerships based on trust,
-                    transparency, and results. We are committed to supporting your brand at every stage of its growth."
+                    At Trumarx, we don't just file paperwork—we build partnerships based on trust and results. We're
+                    with you at every stage of your brand's journey."
                 </p>
             </div>
 
@@ -291,9 +290,8 @@
     <section class="py-12 md:py-24 bg-brand-bg">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-white mb-4">Our Core Values</h2>
-                <p class="text-gray-400">The principles that guide every case we handle.
-                </p>
+                <h2 class="text-3xl font-bold text-white mb-4">What Drives Us</h2>
+                <p class="text-gray-400">The principles behind every case we handle.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
@@ -304,10 +302,9 @@
                         class="w-12 h-12 btn-royal-blue/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:btn-royal-blue group-hover:text-white transition-colors">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Integrity</h3>
-                    <p class="text-sm text-gray-400">Unwavering ethical standards in all
-                        our
-                        dealings. We provide honest assessments, even when they are difficult to hear.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">We Keep It Real</h3>
+                    <p class="text-sm text-gray-400">Honest assessments, every time—even when they're tough to hear. No
+                        sugarcoating, just straight talk.</p>
                 </div>
                 <!-- Value 2 -->
                 <div
@@ -316,10 +313,9 @@
                         class="w-12 h-12 btn-royal-blue/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:btn-royal-blue group-hover:text-white transition-colors">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Strategy</h3>
-                    <p class="text-sm text-gray-400">IP is not just paperwork; it's a
-                        business asset.
-                        We craft strategies that align with your long-term commercial goals.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">Smart Strategy</h3>
+                    <p class="text-sm text-gray-400">IP isn't just paperwork—it's a business asset. We craft strategies
+                        that align with your long-term goals.</p>
                 </div>
                 <!-- Value 3 -->
                 <div
@@ -328,10 +324,9 @@
                         class="w-12 h-12 btn-royal-blue/10 rounded-full flex items-center justify-center text-brand-accent mb-6 group-hover:btn-royal-blue group-hover:text-white transition-colors">
                         <i class="fas fa-globe"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Accessibility</h3>
-                    <p class="text-sm text-gray-400">Demystifying complex legal jargon.
-                        We ensure you
-                        understand every step of the process protecting your work.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">No Jargon Zone</h3>
+                    <p class="text-sm text-gray-400">We ditch the legal mumbo-jumbo. You'll understand every step of
+                        protecting your work.</p>
                 </div>
             </div>
         </div>
@@ -357,11 +352,11 @@
     <!-- Contact Modal -->
     <div id="contact-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+        <div class="bg-white dark:bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
             <button onclick="closeContactModal()"
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-white transition-colors"><i
                     class="fas fa-times"></i></button>
-            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Contact Information</h3>
+            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-black">Contact Information</h3>
             <div class="space-y-6">
                 <address class="not-italic text-gray-600 dark:text-gray-400 space-y-2">
                     <p class="flex items-start">
@@ -376,7 +371,7 @@
                         </span>
                     </p>
                 </address>
-                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+                <div class="border-t border-gray-200 dark:border-gray-200 my-4"></div>
                 <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                     <p class="flex justify-between items-center"><span><i
                                 class="fas fa-envelope w-5 mr-3 text-gray-400"></i>Email:</span> <a

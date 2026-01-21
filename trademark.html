@@ -144,15 +144,15 @@
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Logo Image Brightness Enhancement */
-        img[alt="Trumarx Logo"] {
-            filter: brightness(1.3) contrast(1.2);
-            transition: filter 0.3s ease;
+        /* Logo - No styling needed with light background */
+        nav a[href="index.html"] img[alt="Trumarx Logo"],
+        footer a[href="index.html"] img[alt="Trumarx Logo"] {
+            transition: all 0.3s ease;
         }
 
         /* Royal Blue Button Styles */
         .btn-royal-blue {
-            background-color: #0a1628;
+            background-color: #000000;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
@@ -161,8 +161,8 @@
         }
 
         .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            background-color: #1f1f1f;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
         }
 
@@ -255,8 +255,8 @@
                 Trademark <br><span class="text-brand-accent">Protection.</span>
             </h1>
             <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10">
-                Safeguard your brand identity with expert trademark services. From registration to enforcement, we
-                protect what makes your business unique.
+                Your brand name is your identity. We protect it from day one—registration, enforcement, and everything
+                in between.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openConsultationModal()"
@@ -277,8 +277,8 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">What is a Trademark?</h2>
-                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">A trademark is your brand's visual
-                    identity, distinguishing your goods and services in the marketplace.</p>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Your brand's visual identity—the mark that
+                    sets you apart in the marketplace.</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -286,8 +286,8 @@
                     <h3 class="text-2xl font-bold text-brand-navy dark:text-brand-textLight mb-6">Elements of a
                         Trademark</h3>
                     <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                        A trademark can include words, logos, symbols, designs, colors, or combinations thereof. It's
-                        any mark that represents your brand and helps consumers identify your products or services.
+                        A trademark can be words, logos, symbols, designs, colors, or any combo. It's the mark that
+                        makes your brand instantly recognizable.
                     </p>
                     <ul class="space-y-3 text-gray-600 dark:text-gray-400">
                         <li class="flex items-start">
@@ -308,7 +308,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl">
+                <div class="bg-brand-light dark:bg-white p-8 rounded-2xl">
                     <div class="text-brand-accent mb-6 text-4xl text-center"><i class="fas fa-registered"></i></div>
                     <p class="text-gray-600 dark:text-gray-400 text-center leading-relaxed">
                         "A trademark is a visual symbol that distinguishes your goods or services from others. It
@@ -321,13 +321,13 @@
     </section>
 
     <!-- Why Register a Trademark -->
-    <section class="py-12 md:py-24 bg-brand-light dark:bg-brand-darkCard">
+    <section class="py-12 md:py-24 bg-brand-light dark:bg-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">Why Register Your
                     Trademark?</h2>
-                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Registration provides legal protection and
-                    exclusive rights to use your mark commercially.</p>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Registration gives you legal firepower and
+                    exclusive rights to your mark.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
@@ -335,8 +335,7 @@
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-shield-alt"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Legal Protection</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Exclusive rights to use your mark and prevent others from using similar marks that could confuse
-                        consumers.
+                        Exclusive rights to your mark. Stop others from using confusingly similar names.
                     </p>
                 </div>
 
@@ -344,7 +343,7 @@
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-chart-line"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Brand Value</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Build a strong brand identity that increases customer loyalty and market recognition.
+                        Build a strong brand that customers trust and remember.
                     </p>
                 </div>
 
@@ -352,7 +351,7 @@
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-gavel"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Enforcement Rights</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Ability to take legal action against infringers and protect your intellectual property rights.
+                        Take legal action against copycats. Protect what's yours.
                     </p>
                 </div>
             </div>
@@ -365,66 +364,66 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">Our Trademark Services
                 </h2>
-                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Comprehensive trademark solutions tailored
-                    to your business needs.</p>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Everything you need to protect your brand.
+                </p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div
-                    class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    class="bg-brand-light dark:bg-white p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-search"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Trademark Search</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Comprehensive clearance searches to ensure your mark is available and avoid conflicts.
+                        We search to make sure your mark is available. No surprises, no conflicts.
                     </p>
                 </div>
 
                 <div
-                    class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    class="bg-brand-light dark:bg-white p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-file-signature"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Registration Filing
                     </h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Expert filing and prosecution of trademark applications in India and internationally.
+                        Expert filing in India and worldwide. We handle the paperwork.
                     </p>
                 </div>
 
                 <div
-                    class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    class="bg-brand-light dark:bg-white p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-eye"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Monitoring & Watch</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Ongoing surveillance to detect potential infringements and protect your brand.
+                        We keep watch for potential copycats. Your brand stays protected 24/7.
                     </p>
                 </div>
 
                 <div
-                    class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    class="bg-brand-light dark:bg-white p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-balance-scale"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Opposition & Defense
                     </h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Strategic handling of trademark oppositions and infringement disputes.
+                        Fight trademark battles with strategic defense. We've got your back.
                     </p>
                 </div>
 
                 <div
-                    class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    class="bg-brand-light dark:bg-white p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-globe"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">International
                         Protection</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Global trademark strategies including Madrid Protocol filings and foreign registrations.
+                        Global protection via Madrid Protocol and foreign filings.
                     </p>
                 </div>
 
                 <div
-                    class="bg-brand-light dark:bg-brand-darkCard p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    class="bg-brand-light dark:bg-white p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
                     <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-handshake"></i></div>
                     <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-brand-textLight">Licensing & Assignment
                     </h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Guidance on trademark licensing agreements and ownership transfers.
+                        License or transfer your mark with airtight agreements.
                     </p>
                 </div>
             </div>
@@ -432,14 +431,13 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-12 md:py-24 bg-brand-light dark:bg-brand-darkCard">
+    <section class="py-12 md:py-24 bg-brand-light dark:bg-white">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-6">
                 Ready to Protect Your Brand?
             </h2>
             <p class="text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">
-                Don't let your brand's value diminish. Secure your trademark today and gain the legal protection you
-                deserve.
+                Don't let copycats steal your thunder. Secure your trademark today.
             </p>
             <button onclick="openConsultationModal()"
                 class="px-8 py-4 rounded-full btn-royal-blue text-white font-medium text-sm hover:btn-royal-blueHover transition-all shadow-lg">
@@ -469,7 +467,7 @@
     <!-- Contact Modal -->
     <div id="contact-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
-        <div class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+        <div class="bg-white dark:bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
             <button onclick="closeContactModal()"
                 class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
                     class="fas fa-times"></i></button>
@@ -491,7 +489,7 @@
                     </p>
                 </address>
 
-                <div class="border-t border-gray-200 dark:border-white/10 my-4"></div>
+                <div class="border-t border-gray-200 dark:border-gray-200 my-4"></div>
 
                 <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                     <p class="flex justify-between items-center"><span><i
