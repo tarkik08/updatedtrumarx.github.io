@@ -70,10 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Initialize SMTP mailer
     $mailer = new SMTPMailer();
-    $html_body = $mailer->createTemplate('New Consultation Request', $content);
     
-    // Send email
-    if ($mailer->send($to, $email_subject, $html_body, $plain_text, $email)) {
+    // Send email (plain text only)
+    if ($mailer->send($to, $email_subject, '', $plain_text, $email)) {
         echo json_encode([
             'success' => true, 
             'message' => 'Your consultation request has been sent successfully!'
@@ -81,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo json_encode([
             'success' => false, 
-            'message' => 'Failed to send email. Please try again or contact us directly.'
+            'message' => 'Failed to send email. Please try again or contact us directly.',
+            'error' => $mailer->getLastError()
         ]);
     }
     

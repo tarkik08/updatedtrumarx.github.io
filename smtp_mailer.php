@@ -14,6 +14,11 @@ class SMTPMailer {
     private $from_name = 'Trumarx IP Services';
     private $timeout = 20;
     private $secure = 'ssl';
+    private $lastError = '';
+
+    public function getLastError() {
+        return $this->lastError;
+    }
 
     /**
      * Send email using SMTP
