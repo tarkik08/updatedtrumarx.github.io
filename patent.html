@@ -152,7 +152,7 @@
 
         /* Royal Blue Button Styles */
         .btn-royal-blue {
-            background-color: #000000;
+            background-color: #1d1d1f;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
@@ -161,8 +161,8 @@
         }
 
         .btn-royal-blue:hover {
-            background-color: #1f1f1f;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background-color: #0d0d0d;
+            box-shadow: 0 10px 25px rgba(110, 110, 110, 0.2);
             backdrop-filter: blur(8px);
         }
 
@@ -217,7 +217,7 @@
 
                     <!-- CTA Button -->
                     <button onclick="openConsultationModal()"
-                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm btn-royal-blue">
                         Consultation
                     </button>
                 </div>
@@ -259,7 +259,7 @@
             </p>
             <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openConsultationModal()"
-                    class="px-8 py-4 rounded-full btn-royal-blue text-white font-medium text-sm hover:btn-royal-blueHover transition-all shadow-lg">
+                    class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
                     Start Your Application
                 </button>
                 <a href="#patent-details"
@@ -482,7 +482,7 @@
             });
         }
     </script>
-    <script src="components/consultation-form.html"></script>
+    <script src="load-forms.js"></script>
 </body>
 
 </html>

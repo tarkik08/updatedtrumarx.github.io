@@ -137,7 +137,7 @@
 
         /* Royal Blue Button Styles */
         .btn-royal-blue {
-            background-color: #0a1628;
+            background-color: #1d1d1f;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
@@ -146,8 +146,8 @@
         }
 
         .btn-royal-blue:hover {
-            background-color: #081220;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            background-color: #0d0d0d;
+            box-shadow: 0 10px 25px rgba(110, 110, 110, 0.2);
             backdrop-filter: blur(8px);
         }
 
@@ -179,7 +179,6 @@
         <div class="max-w-7xl mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
-                <!-- Logo -->
                 <a href="index.html" class="group select-none -ml-2">
                     <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-10 w-auto">
                 </a>
@@ -201,7 +200,7 @@
 
                     <!-- CTA Button -->
                     <button onclick="openConsultationModal()"
-                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm btn-royal-blue">
                         Consultation
                     </button>
                 </div>
@@ -251,7 +250,7 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">Why Join Trumarx?</h2>
                 <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-                    We don't just handle cases—we shape the future of brands. Join a team where your work actually
+                    We don't just handle cases we shape the future of brands. Join a team where your work actually
                     matters.
                 </p>
             </div>
@@ -476,7 +475,7 @@
 
                             <div class="mt-8">
                                 <button onclick="openInternshipModal()"
-                                    class="block w-full py-3 btn-royal-blue hover:btn-royal-blueHover text-white font-bold text-center rounded-lg transition-colors text-sm">
+                                    class="block w-full py-3 rounded-lg text-white font-bold text-center text-sm transition-all shadow-lg btn-royal-blue">
                                     Apply Now
                                 </button>
                             </div>
@@ -511,7 +510,7 @@
                 <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
             </div>
 
-            <p class="text-white/60 text-xs mt-4">© Trumarx 2025</p>
+            <p class="text-white/60 text-xs mt-4"> Trumarx 2025</p>
         </div>
 
     </footer>
@@ -668,7 +667,7 @@
                         </div>
                         ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${job.deadline}</span></div>` : ''}
                         <div class="flex justify-between items-center">
-                            <button onclick="openJobApplicationModal('${job.title}')" class="px-4 py-2 btn-royal-blue text-white rounded-full hover:btn-royal-blueHover transition-colors">Apply Now</button>
+                            <button onclick="openJobApplicationModal('${job.title}')" class="px-4 py-2 text-white rounded-full transition-all shadow-lg btn-royal-blue">Apply Now</button>
                         </div>
                     </div>
                 `).join('');
@@ -678,6 +677,62 @@
                     // Load jobs on page load
                     document.addEventListener('DOMContentLoaded', loadJobs);
                     window.addEventListener('storage', (event) => { if (event.key === 'jobsUpdatedAt') loadJobs(); });
+                </script>
+
+                <script>
+                    if (typeof window.openInternshipModal !== 'function') {
+                        window.openInternshipModal = function () {
+                            let tries = 0;
+                            const maxTries = 50;
+                            const intervalMs = 100;
+
+                            const tryOpen = function () {
+                                const modal = document.getElementById('internship-modal');
+                                if (modal) {
+                                    modal.classList.remove('hidden');
+                                    setTimeout(() => modal.classList.add('active'), 10);
+                                    return;
+                                }
+
+                                tries += 1;
+                                if (tries < maxTries) {
+                                    setTimeout(tryOpen, intervalMs);
+                                }
+                            };
+
+                            tryOpen();
+                        };
+                    }
+
+                    if (typeof window.openJobApplicationModal !== 'function') {
+                        window.openJobApplicationModal = function (jobTitle) {
+                            let tries = 0;
+                            const maxTries = 50;
+                            const intervalMs = 100;
+
+                            const tryOpen = function () {
+                                const modal = document.getElementById('job-application-modal');
+                                const titleDisplay = document.getElementById('job-title-display');
+                                const titleInput = document.getElementById('job-title-input');
+
+                                if (titleDisplay && typeof jobTitle === 'string') titleDisplay.textContent = jobTitle;
+                                if (titleInput && typeof jobTitle === 'string') titleInput.value = jobTitle;
+
+                                if (modal) {
+                                    modal.classList.remove('hidden');
+                                    setTimeout(() => modal.classList.add('active'), 10);
+                                    return;
+                                }
+
+                                tries += 1;
+                                if (tries < maxTries) {
+                                    setTimeout(tryOpen, intervalMs);
+                                }
+                            };
+
+                            tryOpen();
+                        };
+                    }
                 </script>
 
                 <!-- Load Form Components -->

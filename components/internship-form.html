@@ -3,10 +3,10 @@
 <!-- Usage: <script>openInternshipModal()</script> -->
 
 <div id="internship-modal"
-    class="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-lg hidden modal p-4">
-    <div class="bg-[#1d1d1f] rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content border border-white/10">
+    class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-black/70 backdrop-blur-lg hidden modal overflow-y-auto p-4 sm:p-8">
+    <div class="bg-[#1d1d1f] rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content border border-white/10 max-h-[90vh] overflow-y-auto">
         <button onclick="closeInternshipModal()"
-            class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+            class="sticky top-4 ml-auto block text-gray-400 hover:text-white transition-colors">
             <i class="fas fa-times text-xl"></i>
         </button>
 
@@ -84,7 +84,7 @@
     // Internship Application Form Module
     (function () {
         // TODO: Replace this URL with your new Internship Google Apps Script deployment URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdH5l_UetQdWM58RPGiPXtvkpYAIkAfZwOLCKPdk8pTvV3wFtoT3SwTmrUbQTd6WjCWQ/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyn3CUAeHZL9a_niJC28HLotsR6nmFN0CkF9KMTyG98SMStU7DJW4oXPkKdR2o1d2QY/exec';
 
         window.openInternshipModal = function () {
             const modal = document.getElementById('internship-modal');

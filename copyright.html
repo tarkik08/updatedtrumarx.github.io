@@ -216,7 +216,7 @@
 
                     <!-- CTA Button -->
                     <button onclick="openConsultationModal()"
-                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm btn-royal-blue w-full sm:w-auto">
                         Consultation
                     </button>
                 </div>
@@ -258,7 +258,7 @@
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openConsultationModal()"
-                    class="px-8 py-4 rounded-full btn-royal-blue text-white font-medium text-sm hover:btn-royal-blueHover transition-all shadow-lg">
+                    class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
                     Get Started
                 </button>
                 <a href="#what-is-copyright"
@@ -311,11 +311,30 @@
                 </div>
                 <div class="bg-brand-bg p-8 rounded-2xl">
                     <div class="text-brand-accent mb-6 text-4xl text-center"><i class="fas fa-copyright"></i></div>
-                    <p class="text-gray-600 dark:text-gray-400 text-center leading-relaxed">
-                        "The protection and safeguards provided by copyright are conducive to the reward of creativity.
-                        This protection induces creators to create more and motivates others to contribute to the world
-                        of art and literature."
+                    <h4 class="text-xl font-bold text-brand-navy dark:text-brand-textLight text-center mb-4">Protect it. Prove it. Monetize it.</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-center leading-relaxed mb-6">
+                        If you create music, code, designs, or content—copyright helps you defend ownership, license confidently, and act fast against misuse.
                     </p>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                        <li class="flex items-start">
+                            <i class="fas fa-shield-alt text-brand-accent mt-1 mr-3"></i>
+                            <span>Clear proof of ownership and stronger enforcement</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-handshake text-brand-accent mt-1 mr-3"></i>
+                            <span>Safer licensing and assignments for paid deals</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-bolt text-brand-accent mt-1 mr-3"></i>
+                            <span>Faster action when your work is copied or misused</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8 text-center">
+                        <button onclick="openConsultationModal()"
+                            class="px-6 py-3 rounded-full btn-royal-blue text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto">
+                            Check My Work’s Eligibility
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -443,7 +462,7 @@
                 Your creativity deserves legal protection. Register your copyright today.
             </p>
             <button onclick="openConsultationModal()"
-                class="px-8 py-4 rounded-full btn-royal-blue text-white font-medium text-sm hover:btn-royal-blueHover transition-all shadow-lg">
+                class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
                 Start Your Copyright Registration
             </button>
         </div>
@@ -545,7 +564,7 @@
             });
         }
     </script>
-    <script src="components/consultation-form.html"></script>
+    <script src="load-forms.js"></script>
 </body>
 
 </html>

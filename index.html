@@ -330,6 +330,36 @@
             animation: scroll-left 50s linear infinite;
         }
 
+        #clients:hover #logo-river-1,
+        #clients:hover #logo-river-2,
+        #clients:hover #logo-river-3 {
+            animation-play-state: paused;
+        }
+
+        .client-logo {
+            filter: grayscale(100%);
+            opacity: 0.75;
+            transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            #logo-river-1,
+            #logo-river-2,
+            #logo-river-3 {
+                animation: none !important;
+                transform: none !important;
+            }
+        }
+
         /* General Smooth Transitions */
         /* Global smooth transitions removed to prevent stuttering */
 
@@ -528,6 +558,76 @@
                     <div class="mt-8 text-center">
                         <a href="aboutus.html" class="text-xs font-medium text-brand-accent hover:underline">More about
                             us &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Logo River -->
+    <section id="clients" class="py-16 bg-white dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-brand-textDark dark:text-brand-textLight">
+                    Trusted by Brands & Creators
+                </h2>
+                <p class="text-gray-500 dark:text-gray-400 mt-3 max-w-2xl mx-auto">
+                    A few of the clients we’ve had the privilege to work with.
+                </p>
+            </div>
+
+            <div
+                class="relative overflow-hidden rounded-2xl border border-gray-200/70 dark:border-white/10 bg-white/50 dark:bg-white/5">
+                <div
+                    class="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white dark:from-brand-dark to-transparent z-10">
+                </div>
+                <div
+                    class="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white dark:from-brand-dark to-transparent z-10">
+                </div>
+
+                <div class="py-8">
+                    <div id="logo-river-1" class="gap-12 px-8">
+                        <img src="Hombale%20Films.jpg" alt="Hombale Films" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="SALAAR.jpg" alt="Salaar" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="KGF.jpg" alt="KGF" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="atmosphere-1.png" alt="Atmosphere" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="Indiqube.png" alt="Indiqube" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="byjus.jpg" alt="Byju's" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="Micro%20Labs%20logo.jpg" alt="Micro Labs" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="Bagmane%20Logo.jpg" alt="Bagmane" class="client-logo h-12 md:h-14 w-auto object-contain" />
+
+                        <img src="Hombale%20Films.jpg" alt="Hombale Films" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="SALAAR.jpg" alt="Salaar" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="KGF.jpg" alt="KGF" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="atmosphere-1.png" alt="Atmosphere" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="Indiqube.png" alt="Indiqube" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="byjus.jpg" alt="Byju's" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="Micro%20Labs%20logo.jpg" alt="Micro Labs" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                        <img src="Bagmane%20Logo.jpg" alt="Bagmane" class="client-logo h-12 md:h-14 w-auto object-contain" />
+                    </div>
+                </div>
+
+                <div class="pb-10">
+                    <div id="logo-river-2" class="gap-12 px-8">
+                        <img src="krismar-logo-14-04-22.png" alt="Krismar" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Careernet%20logo.png" alt="Careernet" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Brahma%20Brews%20logo.png" alt="Brahma Brews" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Bhurani%20Logo.png" alt="Bhurani" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Sumadhura%20logo.jpg" alt="Sumadhura" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Glerra.jpg" alt="Glerra" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Cirkles.jpg" alt="Cirkles" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Trojan.jpg" alt="Trojan" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Value%20Point-1.png" alt="Value Point" class="client-logo h-10 md:h-12 w-auto object-contain" />
+
+                        <img src="krismar-logo-14-04-22.png" alt="Krismar" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Careernet%20logo.png" alt="Careernet" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Brahma%20Brews%20logo.png" alt="Brahma Brews" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Bhurani%20Logo.png" alt="Bhurani" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Sumadhura%20logo.jpg" alt="Sumadhura" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Glerra.jpg" alt="Glerra" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Cirkles.jpg" alt="Cirkles" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Trojan.jpg" alt="Trojan" class="client-logo h-10 md:h-12 w-auto object-contain" />
+                        <img src="Value%20Point-1.png" alt="Value Point" class="client-logo h-10 md:h-12 w-auto object-contain" />
                     </div>
                 </div>
             </div>
@@ -1057,12 +1157,9 @@
                     Team</a>
                 <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
             </div>
-            <p class="text-white/60 text-xs mt-4">© Trumarx 2025</p>
+            <p class="text-white/60 text-xs mt-4"> Trumarx 2025</p>
         </div>
     </footer>
-
-    <!-- Modular Form Components -->
-    <script src="components/consultation-form.html"></script>
 
     <!-- Contact Modal (Keep - this is for contact info display, not a form) -->
     <div id="contact-modal-overlay"

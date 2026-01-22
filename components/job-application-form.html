@@ -3,10 +3,10 @@
 <!-- Usage: <script>openJobApplicationModal('Job Title')</script> -->
 
 <div id="job-application-modal"
-    class="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-lg hidden modal p-4">
-    <div class="bg-[#1d1d1f] rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content border border-white/10">
+    class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-black/70 backdrop-blur-lg hidden modal overflow-y-auto p-4 sm:p-8">
+    <div class="bg-[#1d1d1f] rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content border border-white/10 max-h-[90vh] overflow-y-auto">
         <button onclick="closeJobApplicationModal()"
-            class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+            class="sticky top-4 ml-auto block text-gray-400 hover:text-white transition-colors">
             <i class="fas fa-times text-xl"></i>
         </button>
 
@@ -86,7 +86,7 @@
 <script>
     // Job Application Form Module
     (function () {
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycby4xOysy4kCqYqPllAV2qKXRtTRZllrVSXPuAS23uud1xLprwRgskJVUq7YMDCjJgfA/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBZRpjUEejESBKrt1CGwKvVILDiVAT6mR3WpmiVPBFPaVzDzDNg2ViVE0pQoyXpYQF/exec';
 
         window.openJobApplicationModal = function (jobTitle) {
             const modal = document.getElementById('job-application-modal');

@@ -152,7 +152,7 @@
 
         /* Royal Blue Button Styles */
         .btn-royal-blue {
-            background-color: #000000;
+            background-color: #1d1d1f;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
@@ -161,8 +161,8 @@
         }
 
         .btn-royal-blue:hover {
-            background-color: #1f1f1f;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background-color: #0d0d0d;
+            box-shadow: 0 10px 25px rgba(110, 110, 110, 0.2);
             backdrop-filter: blur(8px);
         }
 
@@ -217,7 +217,7 @@
 
                     <!-- CTA Button -->
                     <button onclick="openConsultationModal()"
-                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm btn-royal-blue">
                         Consultation
                     </button>
                 </div>
@@ -255,14 +255,15 @@
                 Trademark <br><span class="text-brand-accent">Protection.</span>
             </h1>
             <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10">
-                Your brand name is your identity. We protect it from day one—registration, enforcement, and everything
+                Your brand name is your identity. We protect it from day one registration, enforcement, and everything
                 in between.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openConsultationModal()"
-                    class=""px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
+                    class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
                     Get Started
                 </button>
+
                 <a href="#what-is-trademark"
                     class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center gap-2 group">
                     Learn More <i
@@ -277,7 +278,7 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-brand-navy dark:text-brand-textLight mb-4">What is a Trademark?</h2>
-                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Your brand's visual identity—the mark that
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Your brand's visual identity the mark that
                     sets you apart in the marketplace.</p>
             </div>
 
@@ -440,7 +441,7 @@
                 Don't let copycats steal your thunder. Secure your trademark today.
             </p>
             <button onclick="openConsultationModal()"
-                class="px-8 py-4 rounded-full btn-royal-blue text-white font-medium text-sm hover:btn-royal-blueHover transition-all shadow-lg">
+                class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
                 Start Your Trademark Application
             </button>
         </div>
@@ -458,7 +459,7 @@
                     Team</a>
                 <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
             </div>
-            <p class="text-white/60 text-xs mt-4">© Trumarx 2025</p>
+            <p class="text-white/60 text-xs mt-4"> Trumarx 2025</p>
         </div>
     </footer>
 
@@ -544,7 +545,32 @@
             });
         }
     </script>
-    <script src="components/consultation-form.html"></script>
+    <script>
+        if (typeof window.openConsultationModal !== 'function') {
+            window.openConsultationModal = function () {
+                let tries = 0;
+                const maxTries = 50;
+                const intervalMs = 100;
+
+                const tryOpen = function () {
+                    const modal = document.getElementById('consultation-modal');
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        setTimeout(() => modal.classList.add('active'), 10);
+                        return;
+                    }
+
+                    tries += 1;
+                    if (tries < maxTries) {
+                        setTimeout(tryOpen, intervalMs);
+                    }
+                };
+
+                tryOpen();
+            };
+        }
+    </script>
+    <script src="load-forms.js"></script>
 </body>
 
 </html>

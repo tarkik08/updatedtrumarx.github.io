@@ -48,6 +48,29 @@
             .catch(error => console.error('Error loading form component:', error));
     }
 
+    if (typeof window.openConsultationModal !== 'function') {
+        window.openConsultationModal = function () {
+            const tryOpen = function () {
+                const modal = document.getElementById('consultation-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    setTimeout(() => modal.classList.add('active'), 10);
+                    return;
+                }
+
+                loadFormComponent('components/consultation-form.html', function () {
+                    const loadedModal = document.getElementById('consultation-modal');
+                    if (loadedModal) {
+                        loadedModal.classList.remove('hidden');
+                        setTimeout(() => loadedModal.classList.add('active'), 10);
+                    }
+                });
+            };
+
+            tryOpen();
+        };
+    }
+
     // Load all forms when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
