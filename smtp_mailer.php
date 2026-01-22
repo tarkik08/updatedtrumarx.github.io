@@ -9,10 +9,12 @@ class SMTPMailer {
     private $host = 'smtpout.secureserver.net';
     private $port = 465;
     private $username = 'mailservice@trumarx.in';
-    private $password = 'Tarkik@2007';
+    private $password = '';
     private $from_email = 'mailservice@trumarx.in';
     private $from_name = 'Trumarx IP Services';
-    
+    private $timeout = 20;
+    private $secure = 'ssl';
+
     /**
      * Send email using SMTP
      * 
@@ -24,45 +26,176 @@ class SMTPMailer {
      * @return bool Success status
      */
     public function send($to, $subject, $html_body, $plain_body = '', $reply_to = null) {
-        // Create boundary for multipart email
-        $boundary = md5(uniqid(time()));
-        
-        // Build headers
-        $headers = "MIME-Version: 1.0\r\n";
-        $headers .= "From: " . $this->from_name . " <" . $this->from_email . ">\r\n";
-        
+        $encodedSubject = $this->encodeHeader($subject);
+        $fromHeader = $this->formatAddress($this->from_email, $this->from_name);
+
+        $body = $plain_body !== '' ? $plain_body : strip_tags((string)$html_body);
+        $body = str_replace(["\r\n", "\r"], ["\n", "\n"], (string)$body);
+        $body = str_replace("\n", "\r\n", $body);
+
+        $headers = [];
+        $headers[] = 'Date: ' . date('r');
+        $headers[] = 'Message-ID: <' . bin2hex(random_bytes(16)) . '@' . $this->getDomainFromEmail($this->from_email) . '>';
+        $headers[] = 'From: ' . $fromHeader;
+        $headers[] = 'To: ' . $to;
+        $headers[] = 'Subject: ' . $encodedSubject;
         if ($reply_to) {
-            // Include reply-to in body instead of header to avoid spam
-            $html_body = "<p><strong>Reply to:</strong> <a href='mailto:$reply_to'>$reply_to</a></p>" . $html_body;
+            $headers[] = 'Reply-To: ' . $this->formatAddress($reply_to);
         }
-        
-        $headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
-        $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-        $headers .= "X-Priority: 3\r\n";
-        $headers .= "X-MSMail-Priority: Normal\r\n";
-        $headers .= "Importance: Normal\r\n";
-        
-        // Build email body with both plain text and HTML
-        $message = "--{$boundary}\r\n";
-        $message .= "Content-Type: text/plain; charset=UTF-8\r\n";
-        $message .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-        $message .= $plain_body ?: strip_tags($html_body);
-        $message .= "\r\n\r\n";
-        
-        $message .= "--{$boundary}\r\n";
-        $message .= "Content-Type: text/html; charset=UTF-8\r\n";
-        $message .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-        $message .= $html_body;
-        $message .= "\r\n\r\n";
-        $message .= "--{$boundary}--";
-        
-        // Configure PHP mail to use SMTP
-        ini_set('SMTP', $this->host);
-        ini_set('smtp_port', $this->port);
-        ini_set('sendmail_from', $this->from_email);
-        
-        // Send email
-        return mail($to, $subject, $message, $headers);
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+
+        return $this->sendSmtp($to, implode("\r\n", $headers) . "\r\n\r\n" . $body);
+    }
+
+    private function sendSmtp($to, $data) {
+        if (!$this->password) {
+            return false;
+        }
+
+        $transport = ($this->secure === 'ssl') ? 'ssl://' : 'tcp://';
+        $socket = @stream_socket_client(
+            $transport . $this->host . ':' . $this->port,
+            $errno,
+            $errstr,
+            $this->timeout,
+            STREAM_CLIENT_CONNECT
+        );
+
+        if (!$socket) {
+            return false;
+        }
+
+        stream_set_timeout($socket, $this->timeout);
+
+        if (!$this->expect($socket, [220])) {
+            fclose($socket);
+            return false;
+        }
+
+        $this->command($socket, 'EHLO ' . $this->getDomainFromEmail($this->from_email));
+        if (!$this->expect($socket, [250])) {
+            $this->command($socket, 'HELO ' . $this->getDomainFromEmail($this->from_email));
+            if (!$this->expect($socket, [250])) {
+                fclose($socket);
+                return false;
+            }
+        }
+
+        $this->command($socket, 'AUTH LOGIN');
+        if (!$this->expect($socket, [334])) {
+            fclose($socket);
+            return false;
+        }
+        $this->command($socket, base64_encode($this->username));
+        if (!$this->expect($socket, [334])) {
+            fclose($socket);
+            return false;
+        }
+        $this->command($socket, base64_encode($this->password));
+        if (!$this->expect($socket, [235])) {
+            fclose($socket);
+            return false;
+        }
+
+        $this->command($socket, 'MAIL FROM:<' . $this->from_email . '>');
+        if (!$this->expect($socket, [250])) {
+            fclose($socket);
+            return false;
+        }
+
+        $recipients = $this->parseRecipients($to);
+        foreach ($recipients as $rcpt) {
+            $this->command($socket, 'RCPT TO:<' . $rcpt . '>');
+            if (!$this->expect($socket, [250, 251])) {
+                fclose($socket);
+                return false;
+            }
+        }
+
+        $this->command($socket, 'DATA');
+        if (!$this->expect($socket, [354])) {
+            fclose($socket);
+            return false;
+        }
+
+        $normalized = str_replace(["\r\n", "\r"], ["\n", "\n"], $data);
+        $normalized = str_replace("\n", "\r\n", $normalized);
+        $normalized = preg_replace('/\r\n\./', "\r\n..", $normalized);
+        fwrite($socket, $normalized . "\r\n.\r\n");
+
+        if (!$this->expect($socket, [250])) {
+            fclose($socket);
+            return false;
+        }
+
+        $this->command($socket, 'QUIT');
+        $this->expect($socket, [221]);
+        fclose($socket);
+        return true;
+    }
+
+    private function command($socket, $command) {
+        fwrite($socket, $command . "\r\n");
+    }
+
+    private function expect($socket, $expectedCodes) {
+        $response = '';
+        while (!feof($socket)) {
+            $line = fgets($socket, 515);
+            if ($line === false) {
+                break;
+            }
+            $response .= $line;
+            if (preg_match('/^\d{3} /', $line)) {
+                break;
+            }
+        }
+
+        if ($response === '') {
+            return false;
+        }
+
+        $code = (int)substr(trim($response), 0, 3);
+        return in_array($code, $expectedCodes, true);
+    }
+
+    private function parseRecipients($to) {
+        $parts = preg_split('/\s*,\s*/', trim((string)$to));
+        $out = [];
+        foreach ($parts as $p) {
+            $p = trim($p);
+            if ($p === '') {
+                continue;
+            }
+            if (preg_match('/<([^>]+)>/', $p, $m)) {
+                $p = trim($m[1]);
+            }
+            $out[] = $p;
+        }
+        return $out;
+    }
+
+    private function encodeHeader($str) {
+        return '=?UTF-8?B?' . base64_encode($str) . '?=';
+    }
+
+    private function formatAddress($email, $name = null) {
+        $email = trim((string)$email);
+        $name = $name !== null ? trim((string)$name) : '';
+        if ($name === '') {
+            return $email;
+        }
+        return $this->encodeHeader($name) . ' <' . $email . '>';
+    }
+
+    private function getDomainFromEmail($email) {
+        $email = (string)$email;
+        $pos = strrpos($email, '@');
+        if ($pos === false) {
+            return 'localhost';
+        }
+        return substr($email, $pos + 1);
     }
     
     /**
