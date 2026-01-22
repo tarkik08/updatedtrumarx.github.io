@@ -41,8 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'molletitarkiksai@gmail.com'; // Your Gmail
-        $mail->Password = 'vhdq nrus zcbv mble'; // REPLACE WITH YOUR 16-CHAR APP PASSWORD
+        // CREDENTIALS - DO NOT CHANGE
+        $mail->Username = 'molletitarkiksai@gmail.com'; 
+        $mail->Password = 'vhdq nrus zcbv mble'; 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         
@@ -52,41 +53,94 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->addAddress('career@trumarx.in');
         $mail->addReplyTo($email, $name);
         
-        $mail->isHTML(false); // Plain text for better deliverability
+        $mail->isHTML(true); // HTML Enabled
         $mail->Subject = 'Job Application - ' . $job_title . ' - ' . $name;
         
-        // PLAIN TEXT email body (spam-filter friendly)
-        $body = "JOB APPLICATION\n";
-        $body .= str_repeat("=", 50) . "\n\n";
+        // HTML Email Template
+        $html_body = "
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <style>
+                body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; color: #333333; }
+                .email-container { max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                .header { background-color: #1d1d1f; color: #ffffff; padding: 30px 20px; text-align: center; border-bottom: 3px solid #d4af37; }
+                .header h1 { margin: 0; font-size: 24px; font-weight: 600; letter-spacing: 1px; }
+                .header .subtitle { font-size: 14px; color: #d4af37; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+                .content { padding: 40px 30px; }
+                .section-title { font-size: 14px; color: #d4af37; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px; letter-spacing: 0.5px; }
+                .data-row { margin-bottom: 20px; }
+                .label { font-size: 13px; color: #666666; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 5px; }
+                .value { font-size: 16px; color: #1d1d1f; line-height: 1.5; font-weight: 500; }
+                .message-box { background-color: #f9f9f9; border-left: 4px solid #1d1d1f; padding: 15px; margin-top: 5px; border-radius: 4px; }
+                .footer { background-color: #1d1d1f; color: #888888; padding: 30px; text-align: center; font-size: 13px; line-height: 1.6; border-top: 1px solid #333; }
+                .footer p { margin: 5px 0; }
+                .footer strong { color: #ffffff; }
+                .footer a { color: #d4af37; text-decoration: none; }
+                .btn { display: inline-block; background-color: #1d1d1f; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 5px; font-weight: 600; margin-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class='email-container'>
+                <div class='header'>
+                    <h1>Job Application</h1>
+                    <div class='subtitle'>" . $job_title . "</div>
+                </div>
+                <div class='content'>
+                    <div class='section-title'>Applicant Details</div>
+                    
+                    <div class='data-row'>
+                        <span class='label'>Full Name</span>
+                        <div class='value'>" . $name . "</div>
+                    </div>
+                    
+                    <div class='data-row'>
+                        <span class='label'>Email Address</span>
+                        <div class='value'><a href='mailto:" . $email . "' style='color: #1d1d1f; text-decoration: none;'>" . $email . "</a></div>
+                    </div>
+                    
+                    <div class='data-row'>
+                        <span class='label'>Phone Number</span>
+                        <div class='value'>" . ($phone ?: 'Not provided') . "</div>
+                    </div>
+                    
+                    <div class='data-row'>
+                        <span class='label'>Years of Experience</span>
+                        <div class='value'>" . ($experience ?: 'Not provided') . " years</div>
+                    </div>
+                    
+                    <div class='section-title' style='margin-top: 30px;'>Cover Letter</div>
+                    <div class='message-box'>
+                        <div class='value'>" . nl2br($message) . "</div>
+                    </div>
+
+                    <div style='text-align: center; margin-top: 30px;'>
+                         <a href='mailto:" . $email . "' class='btn'>Reply to Applicant</a>
+                    </div>
+                    
+                    <div style='margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; font-size: 12px; color: #999; text-align: center;'>
+                        Submitted On: " . date('F j, Y \a\t g:i A T') . "<br>
+                        IP Address: " . $_SERVER['REMOTE_ADDR'] . "
+                    </div>
+                </div>
+                <div class='footer'>
+                    <p><strong>Trumarx IP Services</strong></p>
+                    <p>No. 23, Hari Prem Complex, 2nd Floor</p>
+                    <p>CMH Road, Indiranagar 1st Stage</p>
+                    <p>Bangalore - 560038</p>
+                    <p style='margin-top: 15px;'>
+                        <a href='mailto:support@trumarx.in'>support@trumarx.in</a> &bull; 
+                        <a href='https://trumarx.in'>trumarx.in</a>
+                    </p>
+                </div>
+            </div>
+        </body>
+        </html>";
         
-        $body .= "POSITION: " . $job_title . "\n\n";
-        
-        $body .= "APPLICANT INFORMATION\n";
-        $body .= str_repeat("-", 50) . "\n";
-        $body .= "Name: " . $name . "\n";
-        $body .= "Email: " . $email . "\n";
-        $body .= "Phone: " . ($phone ?: 'Not provided') . "\n";
-        $body .= "Experience: " . ($experience ?: 'Not provided') . " years\n\n";
-        
-        $body .= "COVER LETTER\n";
-        $body .= str_repeat("-", 50) . "\n";
-        $body .= $message . "\n\n";
-        
-        $body .= "SUBMISSION DETAILS\n";
-        $body .= str_repeat("-", 50) . "\n";
-        $body .= "Submitted: " . date('F j, Y \a\t g:i A T') . "\n";
-        $body .= "IP Address: " . $_SERVER['REMOTE_ADDR'] . "\n\n";
-        
-        $body .= str_repeat("=", 50) . "\n";
-        $body .= "Trumarx IP Services\n";
-        $body .= "No. 23, Hari Prem Complex, 2nd Floor\n";
-        $body .= "CMH Road, Indiranagar 1st Stage\n";
-        $body .= "Bangalore - 560038\n";
-        $body .= "Email: support@trumarx.in\n";
-        $body .= "Website: https://trumarx.in\n";
-        $body .= str_repeat("=", 50) . "\n";
-        
-        $mail->Body = $body;
+        $mail->Body = $html_body;
+        $mail->AltBody = "Job Application for $job_title from $name. Email: $email. Message: $message";
         
         $mail->send();
         echo json_encode([

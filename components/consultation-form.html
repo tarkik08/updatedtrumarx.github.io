@@ -88,6 +88,9 @@
 <script>
     // Consultation Form Module with Anti-Spam
     (function () {
+        // Google Apps Script Web App URL
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyqrnCA3dJOkYv4kpzBc9HJuGjcapJi5-ADZ6TAdxoAz-hfacZp_Vhe4jSW1qTx4KoIow/exec';
+
         let formOpenTime = 0;
 
         window.openConsultationModal = function () {
@@ -137,14 +140,37 @@
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
             try {
-                const response = await fetch('send_consultation_cpanel.php', {
+                // Prepare data for Google Sheets
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message'),
+                    page: window.location.pathname,
+                    timestamp: new Date().toISOString(),
+                    type: 'consultation'
+                };
+
+                // Send to Google Sheets (no-cors mode)
+                const sheetsPromise = sendToGoogleSheets(data);
+
+                // Send to PHP Handler (for Email)
+                const phpPromise = fetch('send_consultation_cpanel.php', {
                     method: 'POST',
                     body: formData
-                });
+                }).then(response => response.json());
 
-                const result = await response.json();
+                // Wait for both (so we don't close modal too early)
+                const results = await Promise.allSettled([sheetsPromise, phpPromise]);
+                const sheetsResult = results[0];
+                const phpResult = results[1];
 
-                if (result.success) {
+                // Check if at least ONE succeeded (resilient behavior)
+                const emailSuccess = (phpResult.status === 'fulfilled' && phpResult.value.success);
+                const sheetsSuccess = (sheetsResult.status === 'fulfilled');
+
+                if (emailSuccess || sheetsSuccess) {
                     closeConsultationModal();
                     setTimeout(() => {
                         const successPopup = document.getElementById('consultation-success-popup');
@@ -153,7 +179,10 @@
                     }, 300);
                     form.reset();
                 } else {
-                    alert(result.message || 'Sorry, there was an error. Please try again later.');
+                    const errorMsg = (phpResult.status === 'fulfilled' && phpResult.value.message)
+                        ? phpResult.value.message
+                        : 'Sorry, there was an error. Please try again later.';
+                    alert(errorMsg);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -163,5 +192,14 @@
                 submitButton.innerHTML = originalButtonText;
             }
         };
+
+        function sendToGoogleSheets(data) {
+            return fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        }
     })();
 </script>
