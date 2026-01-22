@@ -87,7 +87,7 @@
 <script>
     // Job Application Form Module
     (function () {
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBZRpjUEejESBKrt1CGwKvVILDiVAT6mR3WpmiVPBFPaVzDzDNg2ViVE0pQoyXpYQF/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwk0gsiK5pgDlYXPa-8iIpstcJ3uoCFUS4Rrpd8zIvTHfubVG25gIW5noKGmo_EUCGC/exec';
 
         window.openJobApplicationModal = function (jobTitle) {
             const modal = document.getElementById('job-application-modal');
@@ -158,11 +158,8 @@
                     page: window.location.pathname,
                     timestamp: new Date().toISOString(),
                     type: 'job_application',
-                    file: {
-                        name: file.name,
-                        mimeType: file.type,
-                        data: fileBase64
-                    }
+                    // Note: File is sent via email only. Sheets gets metadata.
+                    fileName: file.name
                 };
 
                 const sheetsPromise = sendToGoogleSheets(data);
@@ -204,11 +201,16 @@
         };
 
         function sendToGoogleSheets(data) {
+            const params = new URLSearchParams();
+            for (const key in data) {
+                params.append(key, data[key]);
+            }
+
             return fetch(GOOGLE_SHEETS_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString()
             });
         }
     })();

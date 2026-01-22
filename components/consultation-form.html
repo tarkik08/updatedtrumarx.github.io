@@ -89,7 +89,7 @@
     // Consultation Form Module with Anti-Spam
     (function () {
         // Google Apps Script Web App URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyqrnCA3dJOkYv4kpzBc9HJuGjcapJi5-ADZ6TAdxoAz-hfacZp_Vhe4jSW1qTx4KoIow/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwWlo2UBZmmGsY1hu0UriBD0wCDNkd7nrREvoGYxXqToml-TK2tGzvVY736J3CW5e6k_g/exec';
 
         let formOpenTime = 0;
 
@@ -194,11 +194,18 @@
         };
 
         function sendToGoogleSheets(data) {
+            // Convert simple object to URLSearchParams (form-encoded)
+            // This ensures Google Apps Script receives data in e.parameter
+            const params = new URLSearchParams();
+            for (const key in data) {
+                params.append(key, data[key]);
+            }
+
             return fetch(GOOGLE_SHEETS_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString()
             });
         }
     })();
