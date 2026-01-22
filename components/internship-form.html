@@ -40,17 +40,18 @@
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Upload CV/Resume *</label>
+                    <input type="file" name="cv" id="cv-upload" required accept=".pdf,.doc,.docx"
+                        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-white hover:file:bg-gray-700">
+                    <p class="text-xs text-gray-400 mt-1">Accepted formats: PDF, DOC, DOCX (Max 10MB)</p>
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Cover Letter
                         *</label>
                     <textarea name="message" rows="4" required
                         placeholder="Tell us why you'd like to intern at Trumarx..."
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all resize-none bg-white text-black placeholder-gray-400"></textarea>
-                </div>
-
-                <div class="bg-blue-900/30 border border-blue-700/50 p-4 rounded-lg text-sm text-blue-200">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    Please email your resume to <strong>career@trumarx.in</strong> with subject "Internship Application
-                    - [Your Name]"
                 </div>
 
                 <button type="submit"
@@ -82,7 +83,8 @@
 <script>
     // Internship Application Form Module
     (function () {
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyqrnCA3dJOkYv4kpzBc9HJuGjcapJi5-ADZ6TAdxoAz-hfacZp_Vhe4jSW1qTx4KoIow/exec';
+        // TODO: Replace this URL with your new Internship Google Apps Script deployment URL
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwdH5l_UetQdWM58RPGiPXtvkpYAIkAfZwOLCKPdk8pTvV3wFtoT3SwTmrUbQTd6WjCWQ/exec';
 
         window.openInternshipModal = function () {
             const modal = document.getElementById('internship-modal');
@@ -108,58 +110,86 @@
             }
         };
 
-        window.submitInternshipForm = function (event) {
+        window.submitInternshipForm = async function (event) {
             event.preventDefault();
 
             const form = document.getElementById('internship-form');
             const submitButton = form.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.innerHTML;
             const formData = new FormData(form);
+            const fileInput = document.getElementById('cv-upload');
+            const file = fileInput.files[0];
 
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                university: formData.get('university'),
-                message: formData.get('message'),
-                page: window.location.pathname,
-                timestamp: new Date().toISOString(),
-                type: 'internship'
-            };
+            // Validate file size (10MB max)
+            if (file && file.size > 10 * 1024 * 1024) {
+                alert('File size must be less than 10MB');
+                return;
+            }
 
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
 
-            const sheetsPromise = sendToGoogleSheets(data);
-            const phpPromise = fetch('send_internship.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json());
-
-            Promise.allSettled([sheetsPromise, phpPromise])
-                .then(function (results) {
-                    const sheetsResult = results[0];
-                    const phpResult = results[1];
-
-                    console.log('Google Sheets:', sheetsResult.status);
-                    console.log('PHP Email:', phpResult.status);
-
-                    if (sheetsResult.status === 'fulfilled' || (phpResult.status === 'fulfilled' && phpResult.value.success)) {
-                        closeInternshipModal();
-                        setTimeout(() => {
-                            const successPopup = document.getElementById('internship-success-popup');
-                            successPopup.classList.remove('hidden');
-                            setTimeout(() => successPopup.classList.add('active'), 10);
-                        }, 300);
-                        form.reset();
-                    } else {
-                        alert('Sorry, there was an error. Please try again later.');
-                    }
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
+            try {
+                // Convert file to base64
+                const fileBase64 = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result.split(',')[1]);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
                 });
+
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    university: formData.get('university'),
+                    message: formData.get('message'),
+                    page: window.location.pathname,
+                    timestamp: new Date().toISOString(),
+                    type: 'internship',
+                    file: {
+                        name: file.name,
+                        mimeType: file.type,
+                        data: fileBase64
+                    }
+                };
+
+                const sheetsPromise = sendToGoogleSheets(data);
+                const phpPromise = fetch('send_internship.php', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json());
+
+                Promise.allSettled([sheetsPromise, phpPromise])
+                    .then(function (results) {
+                        const sheetsResult = results[0];
+                        const phpResult = results[1];
+
+                        console.log('Google Sheets:', sheetsResult.status);
+                        console.log('PHP Email:', phpResult.status);
+
+                        if (sheetsResult.status === 'fulfilled' || (phpResult.status === 'fulfilled' && phpResult.value.success)) {
+                            closeInternshipModal();
+                            setTimeout(() => {
+                                const successPopup = document.getElementById('internship-success-popup');
+                                successPopup.classList.remove('hidden');
+                                setTimeout(() => successPopup.classList.add('active'), 10);
+                            }, 300);
+                            form.reset();
+                        } else {
+                            alert('Sorry, there was an error. Please try again later.');
+                        }
+                    })
+                    .finally(() => {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalButtonText;
+                    });
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                alert('Error uploading file. Please try again.');
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            }
         };
 
         function sendToGoogleSheets(data) {
