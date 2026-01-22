@@ -31,6 +31,8 @@ class SMTPMailer {
      * @return bool Success status
      */
     public function send($to, $subject, $html_body, $plain_body = '', $reply_to = null) {
+        $this->lastError = '';
+
         $encodedSubject = $this->encodeHeader($subject);
         $fromHeader = $this->formatAddress($this->from_email, $this->from_name);
 
@@ -55,6 +57,7 @@ class SMTPMailer {
 
     private function sendSmtp($to, $data) {
         if (!$this->password) {
+            $this->lastError = 'SMTP password is missing.';
             return false;
         }
 
@@ -68,6 +71,7 @@ class SMTPMailer {
         );
 
         if (!$socket) {
+            $this->lastError = 'Failed to connect to SMTP server: ' . $errstr . ' (' . $errno . ')';
             return false;
         }
 
