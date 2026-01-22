@@ -517,23 +517,22 @@
 
 
 
-    <!-- Contact Modal -->
+    <!-- Contact Modal (Keep - this is for contact info display, not a form) -->
     <div id="contact-modal-overlay"
         class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
-        <div class="bg-white dark:bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
             <button onclick="closeContactModal()"
-                class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-brand-textLight transition-colors"><i
+                class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"><i
                     class="fas fa-times"></i></button>
-            <h3 class="text-2xl font-bold mb-6 text-brand-navy dark:text-brand-textLight">Contact Information</h3>
+            <h3 class="text-2xl font-bold mb-6 text-black">Contact Information</h3>
 
             <div class="space-y-6">
-                <address class="not-italic text-gray-600 dark:text-gray-400 space-y-2">
+                <address class="not-italic text-black space-y-2">
                     <p class="flex items-start">
                         <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
                         <span class="ml-4">
                             <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
-                                rel="noopener noreferrer"
-                                class="transition-all px-4 py-2 rounded-full hover:bg-[rgba(8,18,32,0.6)]">
+                                rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">
                                 No. 23, Hari Prem Complex, 2nd Floor,<br>
                                 CMH Road, Indiranagar 1st Stage,<br>
                                 Bangalore – 560038
@@ -542,113 +541,117 @@
                     </p>
                 </address>
 
-                <div class="border-t border-gray-200 dark:border-gray-200 my-4"></div>
+                <div class="border-t border-gray-200 my-4"></div>
 
-                <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                <div class="space-y-3 text-sm text-black">
                     <p class="flex justify-between items-center"><span><i
                                 class="fas fa-envelope w-5 mr-3 text-gray-400"></i>Email:</span> <a
                             href="mailto:support@trumarx.in"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">support@trumarx.in</a>
+                            class="hover:text-brand-accent text-black">support@trumarx.in</a>
                     </p>
                     <p class="flex justify-between items-center"><span><i
                                 class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Number:</span> <a
-                            href="tel:+918310179462"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight font-bold">+91
+                            href="tel:+918310179462" class="hover:text-brand-accent text-black font-bold">+91
                             831-0179462</a>
                     </p>
                     <p class="flex justify-between items-center"><span><i
                                 class="fas fa-phone w-5 mr-3 text-gray-400"></i>Landline:</span> <a
-                            href="tel:08040911324"
-                            class="hover:text-brand-accent text-brand-navy dark:text-brand-textLight">080 4091 1324</a>
+                            href="tel:08040911324" class="hover:text-brand-accent text-black">080 4091 1324</a>
                     </p>
                 </div>
-                <script>
+            </div>
+        </div>
+    </div>
 
-                    // Contact Modal Logic
-                    const contactModal = document.getElementById('contact-modal-overlay');
-                    function openContactModal(event) {
-                        if (event) event.preventDefault();
-                        contactModal.classList.remove('hidden');
-                        if (event) {
-                            const modalContent = contactModal.querySelector('.modal-content');
-                            const rect = modalContent.getBoundingClientRect();
-                            const x = event.clientX - rect.left;
-                            const y = event.clientY - rect.top;
-                            modalContent.style.transformOrigin = `${x}px ${y}px`;
-                        }
-                        setTimeout(() => contactModal.classList.add('active'), 10);
-                    }
-                    function closeContactModal() { contactModal.classList.remove('active'); setTimeout(() => contactModal.classList.add('hidden'), 300); }
+    <script>
+        // Contact Modal Logic
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal(event) {
+            if (event) event.preventDefault();
+            contactModal.classList.remove('hidden');
+            if (event) {
+                const modalContent = contactModal.querySelector('.modal-content');
+                const rect = modalContent.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                modalContent.style.transformOrigin = `${x}px ${y}px`;
+            }
+            setTimeout(() => contactModal.classList.add('active'), 10);
+        }
+        function closeContactModal() {
+            contactModal.classList.remove('active');
+            setTimeout(() => contactModal.classList.add('hidden'), 300);
+        }
 
-                    // Mobile Menu Logic
-                    const mobileBtn = document.getElementById('mobile-menu-btn');
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (mobileBtn && mobileMenu) {
-                        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-                        // Close menu when a link is clicked
-                        mobileMenu.querySelectorAll('a, button').forEach(link => {
-                            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-                        });
-                    }
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
 
-                    // Job Loading Logic (Dynamic)
-                    let jobsCache = [];
-                    const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1zcTv57-SUUmFQw2yPxht0RvicWAxvX4Tq41mqCiQKug/export?format=csv';
+        // Job Loading Logic (Dynamic)
+        let jobsCache = [];
+        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1zcTv57-SUUmFQw2yPxht0RvicWAxvX4Tq41mqCiQKug/export?format=csv';
 
-                    function parseCSV(csvText) {
-                        const lines = csvText.trim().split('\n');
-                        const headers = lines[0].split(',').map(h => h.trim());
-                        const jobs = [];
-                        for (let i = 1; i < lines.length; i++) {
-                            const row = [];
-                            let inQuotes = false;
-                            let currentField = '';
-                            for (let char of lines[i]) {
-                                if (char === '"') { inQuotes = !inQuotes; }
-                                else if (char === ',' && !inQuotes) { row.push(currentField.trim()); currentField = ''; }
-                                else { currentField += char; }
-                            }
-                            row.push(currentField.trim());
-                            if (row.length === headers.length) {
-                                const job = {};
-                                row.forEach((value, index) => { job[headers[index]] = value; });
-                                jobs.push(job);
-                            }
-                        }
-                        return jobs;
-                    }
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const jobs = [];
+            for (let i = 1; i < lines.length; i++) {
+                const row = [];
+                let inQuotes = false;
+                let currentField = '';
+                for (let char of lines[i]) {
+                    if (char === '"') { inQuotes = !inQuotes; }
+                    else if (char === ',' && !inQuotes) { row.push(currentField.trim()); currentField = ''; }
+                    else { currentField += char; }
+                }
+                row.push(currentField.trim());
+                if (row.length === headers.length) {
+                    const job = {};
+                    row.forEach((value, index) => { job[headers[index]] = value; });
+                    jobs.push(job);
+                }
+            }
+            return jobs;
+        }
 
-                    async function fetchJobsFromApi() {
-                        try {
-                            const response = await fetch(GOOGLE_SHEET_CSV_URL);
-                            if (!response.ok) throw new Error('Failed to load jobs');
-                            const csvText = await response.text();
-                            return { jobs: parseCSV(csvText) };
-                        } catch (error) {
-                            console.error('Error fetching jobs:', error);
-                            throw error;
-                        }
-                    }
+        async function fetchJobsFromApi() {
+            try {
+                const response = await fetch(GOOGLE_SHEET_CSV_URL);
+                if (!response.ok) throw new Error('Failed to load jobs');
+                const csvText = await response.text();
+                return { jobs: parseCSV(csvText) };
+            } catch (error) {
+                console.error('Error fetching jobs:', error);
+                throw error;
+            }
+        }
 
-                    async function loadJobs() {
-                        const container = document.getElementById('jobs-container');
-                        try {
-                            const data = await fetchJobsFromApi();
-                            jobsCache = Array.isArray(data.jobs) ? data.jobs : [];
-                        } catch (error) {
-                            console.error('Error:', error);
-                            if (container) {
-                                container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">Failed to load job postings. Please try again later.</p><i class="fas fa-triangle-exclamation text-5xl text-gray-300 dark:text-gray-600"></i></div>';
-                            }
-                            return;
-                        }
+        async function loadJobs() {
+            const container = document.getElementById('jobs-container');
+            try {
+                const data = await fetchJobsFromApi();
+                jobsCache = Array.isArray(data.jobs) ? data.jobs : [];
+            } catch (error) {
+                console.error('Error:', error);
+                if (container) {
+                    container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">Failed to load job postings. Please try again later.</p><i class="fas fa-triangle-exclamation text-5xl text-gray-300 dark:text-gray-600"></i></div>';
+                }
+                return;
+            }
 
-                        if (!container) return;
+            if (!container) return;
 
-                        if (jobsCache.length === 0) {
-                            container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">There are currently no open full-time positions. Please check back later or send your resume for future consideration.</p><i class="fas fa-folder-open text-5xl text-gray-300 dark:text-gray-600"></i></div>';
-                        } else {
-                            container.innerHTML = jobsCache.map((job) => `
+            if (jobsCache.length === 0) {
+                container.innerHTML = '<div class="bg-white dark:bg-brand-dark p-12 rounded-2xl shadow-sm"><p class="text-gray-500 dark:text-gray-400 mb-8">There are currently no open full-time positions. Please check back later or send your resume for future consideration.</p><i class="fas fa-folder-open text-5xl text-gray-300 dark:text-gray-600"></i></div>';
+            } else {
+                container.innerHTML = jobsCache.map((job) => `
                     <div class="bg-white dark:bg-brand-dark p-6 rounded-2xl shadow-legal">
                         <div class="flex justify-between items-start mb-4">
                             <h3 class="text-xl font-bold text-brand-navy dark:text-brand-textLight">${job.title}</h3>
@@ -671,72 +674,72 @@
                         </div>
                     </div>
                 `).join('');
-                        }
+            }
+        }
+
+        // Load jobs on page load
+        document.addEventListener('DOMContentLoaded', loadJobs);
+        window.addEventListener('storage', (event) => { if (event.key === 'jobsUpdatedAt') loadJobs(); });
+    </script>
+
+    <script>
+        if (typeof window.openInternshipModal !== 'function') {
+            window.openInternshipModal = function () {
+                let tries = 0;
+                const maxTries = 50;
+                const intervalMs = 100;
+
+                const tryOpen = function () {
+                    const modal = document.getElementById('internship-modal');
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        setTimeout(() => modal.classList.add('active'), 10);
+                        return;
                     }
 
-                    // Load jobs on page load
-                    document.addEventListener('DOMContentLoaded', loadJobs);
-                    window.addEventListener('storage', (event) => { if (event.key === 'jobsUpdatedAt') loadJobs(); });
-                </script>
+                    tries += 1;
+                    if (tries < maxTries) {
+                        setTimeout(tryOpen, intervalMs);
+                    }
+                };
 
-                <script>
-                    if (typeof window.openInternshipModal !== 'function') {
-                        window.openInternshipModal = function () {
-                            let tries = 0;
-                            const maxTries = 50;
-                            const intervalMs = 100;
+                tryOpen();
+            };
+        }
 
-                            const tryOpen = function () {
-                                const modal = document.getElementById('internship-modal');
-                                if (modal) {
-                                    modal.classList.remove('hidden');
-                                    setTimeout(() => modal.classList.add('active'), 10);
-                                    return;
-                                }
+        if (typeof window.openJobApplicationModal !== 'function') {
+            window.openJobApplicationModal = function (jobTitle) {
+                let tries = 0;
+                const maxTries = 50;
+                const intervalMs = 100;
 
-                                tries += 1;
-                                if (tries < maxTries) {
-                                    setTimeout(tryOpen, intervalMs);
-                                }
-                            };
+                const tryOpen = function () {
+                    const modal = document.getElementById('job-application-modal');
+                    const titleDisplay = document.getElementById('job-title-display');
+                    const titleInput = document.getElementById('job-title-input');
 
-                            tryOpen();
-                        };
+                    if (titleDisplay && typeof jobTitle === 'string') titleDisplay.textContent = jobTitle;
+                    if (titleInput && typeof jobTitle === 'string') titleInput.value = jobTitle;
+
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        setTimeout(() => modal.classList.add('active'), 10);
+                        return;
                     }
 
-                    if (typeof window.openJobApplicationModal !== 'function') {
-                        window.openJobApplicationModal = function (jobTitle) {
-                            let tries = 0;
-                            const maxTries = 50;
-                            const intervalMs = 100;
-
-                            const tryOpen = function () {
-                                const modal = document.getElementById('job-application-modal');
-                                const titleDisplay = document.getElementById('job-title-display');
-                                const titleInput = document.getElementById('job-title-input');
-
-                                if (titleDisplay && typeof jobTitle === 'string') titleDisplay.textContent = jobTitle;
-                                if (titleInput && typeof jobTitle === 'string') titleInput.value = jobTitle;
-
-                                if (modal) {
-                                    modal.classList.remove('hidden');
-                                    setTimeout(() => modal.classList.add('active'), 10);
-                                    return;
-                                }
-
-                                tries += 1;
-                                if (tries < maxTries) {
-                                    setTimeout(tryOpen, intervalMs);
-                                }
-                            };
-
-                            tryOpen();
-                        };
+                    tries += 1;
+                    if (tries < maxTries) {
+                        setTimeout(tryOpen, intervalMs);
                     }
-                </script>
+                };
 
-                <!-- Load Form Components -->
-                <script src="load-forms.js"></script>
+                tryOpen();
+            };
+        }
+    </script>
+
+    <!-- Load Form Components -->
+    <script src="load-forms.js"></script>
 
 
 </body>
