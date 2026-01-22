@@ -1,10 +1,10 @@
-<!-- Consultation Form Modal Component -->
-<!-- Include this file in any page where you want the consultation form -->
-<!-- Usage: <script>openConsultationModal()</script> -->
+<!-- Consultation Form Modal with Anti-Spam Measures -->
+<!-- Include this in your HTML pages where you want the consultation form -->
 
 <div id="consultation-modal"
     class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-black/70 backdrop-blur-lg hidden modal overflow-y-auto p-4 sm:p-8">
-    <div class="bg-[#1d1d1f] rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content border border-white/10 max-h-[90vh] overflow-y-auto">
+    <div
+        class="bg-[#1d1d1f] rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content border border-white/10 max-h-[90vh] overflow-y-auto">
         <button onclick="closeConsultationModal()"
             class="sticky top-4 ml-auto block text-gray-400 hover:text-white transition-colors">
             <i class="fas fa-times text-xl"></i>
@@ -13,9 +13,15 @@
         <h3 class="text-2xl font-bold mb-6 text-white">Book a Consultation</h3>
 
         <form id="consultation-form" onsubmit="submitConsultationForm(event)">
+            <!-- Hidden honeypot field (bots will fill this, humans won't see it) -->
+            <input type="text" name="website" id="website" style="display:none;" tabindex="-1" autocomplete="off">
+
+            <!-- Hidden timestamp for timing check -->
+            <input type="hidden" name="submit_time" id="submit_time" value="">
+
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Name *</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
                     <input type="text" name="name" required
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
                 </div>
@@ -33,20 +39,30 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
-                    <input type="text" name="subject"
-                        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Subject *</label>
+                    <select name="subject" required
+                        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black">
+                        <option value="">Select a topic...</option>
+                        <option value="Trademark Registration">Trademark Registration</option>
+                        <option value="Patent Filing">Patent Filing</option>
+                        <option value="Copyright Protection">Copyright Protection</option>
+                        <option value="Industrial Design">Industrial Design</option>
+                        <option value="IP Litigation">IP Litigation</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Message *</label>
-                    <textarea name="message" rows="4" required
+                    <textarea name="message" rows="4" required minlength="10" maxlength="5000"
+                        placeholder="Please describe your consultation needs..."
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all resize-none bg-white text-black placeholder-gray-400"></textarea>
+                    <p class="text-xs text-gray-400 mt-1">Minimum 10 characters</p>
                 </div>
 
                 <button type="submit"
                     class="w-full px-6 py-3 bg-black text-white font-bold text-sm rounded-lg hover:bg-gray-800 transition-all shadow-lg">
-                    Send Message
+                    Send Consultation Request
                 </button>
             </div>
         </form>
@@ -60,8 +76,8 @@
         <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
             <i class="fas fa-check text-white text-2xl"></i>
         </div>
-        <h3 class="text-2xl font-bold mb-2 text-white">Request Received</h3>
-        <p class="text-sm text-gray-400 mb-6">Our team will contact you shortly.</p>
+        <h3 class="text-2xl font-bold mb-2 text-white">Request Sent!</h3>
+        <p class="text-sm text-gray-400 mb-6">We'll get back to you within 24 hours.</p>
         <button onclick="closeConsultationSuccessPopup()"
             class="px-6 py-3 bg-black text-white font-bold text-sm rounded-lg hover:bg-gray-800 transition-all shadow-lg">
             Close
@@ -70,15 +86,19 @@
 </div>
 
 <script>
-    // Consultation Form Module
+    // Consultation Form Module with Anti-Spam
     (function () {
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyqrnCA3dJOkYv4kpzBc9HJuGjcapJi5-ADZ6TAdxoAz-hfacZp_Vhe4jSW1qTx4KoIow/exec';
+        let formOpenTime = 0;
 
         window.openConsultationModal = function () {
             const modal = document.getElementById('consultation-modal');
             if (modal) {
                 modal.classList.remove('hidden');
                 setTimeout(() => modal.classList.add('active'), 10);
+
+                // Record when form was opened (for timing check)
+                formOpenTime = Math.floor(Date.now() / 1000);
+                document.getElementById('submit_time').value = formOpenTime;
             }
         };
 
@@ -98,7 +118,7 @@
             }
         };
 
-        window.submitConsultationForm = function (event) {
+        window.submitConsultationForm = async function (event) {
             event.preventDefault();
 
             const form = document.getElementById('consultation-form');
@@ -106,59 +126,42 @@
             const originalButtonText = submitButton.innerHTML;
             const formData = new FormData(form);
 
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone') || '',
-                subject: formData.get('subject') || 'Consultation Request',
-                message: formData.get('message') || '',
-                page: window.location.pathname,
-                timestamp: new Date().toISOString(),
-                type: 'consultation'
-            };
+            // Client-side validation
+            const message = formData.get('message');
+            if (message.length < 10) {
+                alert('Please provide a more detailed message (at least 10 characters).');
+                return;
+            }
 
             submitButton.disabled = true;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-            const sheetsPromise = sendToGoogleSheets(data);
-            const phpPromise = fetch('send_consultation.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json());
-
-            Promise.allSettled([sheetsPromise, phpPromise])
-                .then(function (results) {
-                    const sheetsResult = results[0];
-                    const phpResult = results[1];
-
-                    console.log('Google Sheets:', sheetsResult.status);
-                    console.log('PHP Email:', phpResult.status);
-
-                    if (sheetsResult.status === 'fulfilled' || (phpResult.status === 'fulfilled' && phpResult.value.success)) {
-                        closeConsultationModal();
-                        setTimeout(() => {
-                            const successPopup = document.getElementById('consultation-success-popup');
-                            successPopup.classList.remove('hidden');
-                            setTimeout(() => successPopup.classList.add('active'), 10);
-                        }, 300);
-                        form.reset();
-                    } else {
-                        alert('Sorry, there was an error. Please try again later.');
-                    }
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
+            try {
+                const response = await fetch('send_consultation_cpanel.php', {
+                    method: 'POST',
+                    body: formData
                 });
-        };
 
-        function sendToGoogleSheets(data) {
-            return fetch(GOOGLE_SHEETS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-        }
+                const result = await response.json();
+
+                if (result.success) {
+                    closeConsultationModal();
+                    setTimeout(() => {
+                        const successPopup = document.getElementById('consultation-success-popup');
+                        successPopup.classList.remove('hidden');
+                        setTimeout(() => successPopup.classList.add('active'), 10);
+                    }, 300);
+                    form.reset();
+                } else {
+                    alert(result.message || 'Sorry, there was an error. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to send request. Please try again or email us directly at support@trumarx.in');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            }
+        };
     })();
 </script>
