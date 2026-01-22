@@ -9,7 +9,7 @@ class SMTPMailer {
     private $host = 'smtpout.secureserver.net';
     private $port = 465;
     private $username = 'mailservice@trumarx.in';
-    private $password = '';
+    private $password = 'Tarkik@2007';
     private $from_email = 'mailservice@trumarx.in';
     private $from_name = 'Trumarx IP Services';
     private $timeout = 20;
