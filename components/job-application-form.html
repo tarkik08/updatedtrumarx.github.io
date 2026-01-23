@@ -87,7 +87,7 @@
 <script>
     // Job Application Form Module
     (function () {
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwk0gsiK5pgDlYXPa-8iIpstcJ3uoCFUS4Rrpd8zIvTHfubVG25gIW5noKGmo_EUCGC/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwc5DF5yi1pRDPExCvEsqcJderXQu86fkmAYRMeCox59uxC6DxPV7UbMekiZqvmdAj-/exec';
 
         window.openJobApplicationModal = function (jobTitle) {
             const modal = document.getElementById('job-application-modal');
@@ -129,18 +129,12 @@
             const formData = new FormData(form);
             const fileInput = document.getElementById('job-cv-upload');
 
-            // Debug logging
-            console.log('File input element:', fileInput);
-            console.log('Files:', fileInput ? fileInput.files : 'fileInput is null');
-            console.log('File count:', fileInput ? fileInput.files.length : 0);
-
             if (!fileInput) {
                 alert('Error: File input not found. Please refresh the page and try again.');
                 return;
             }
 
             const file = fileInput.files[0];
-            console.log('Selected file:', file);
 
             // Validate file is selected
             if (!file) {
@@ -158,7 +152,10 @@
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
 
             try {
-                // Prepare data for Google Sheets (metadata only, no file)
+                // Read file as Base64 for Google Apps Script
+                const fileData = await readFileAsBase64(file);
+
+                // Prepare data for Google Sheets
                 const data = {
                     name: formData.get('name'),
                     email: formData.get('email'),
@@ -169,7 +166,9 @@
                     page: window.location.pathname,
                     timestamp: new Date().toISOString(),
                     type: 'job_application',
-                    fileName: file.name
+                    fileName: file.name,
+                    mimeType: file.type,
+                    fileContent: fileData // Base64 content
                 };
 
                 const sheetsPromise = sendToGoogleSheets(data);
@@ -209,6 +208,20 @@
                 submitButton.innerHTML = originalButtonText;
             }
         };
+
+        // Helper to read file as Base64
+        function readFileAsBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    // Remove "data:application/pdf;base64," prefix
+                    const base64 = reader.result.split(',')[1];
+                    resolve(base64);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
 
         function sendToGoogleSheets(data) {
             const params = new URLSearchParams();
