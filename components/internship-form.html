@@ -42,7 +42,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Upload CV/Resume *</label>
-                    <input type="file" name="cv" id="cv-upload" required accept=".pdf,.doc,.docx"
+                    <input type="file" name="cv" id="internship-cv-upload" required accept=".pdf,.doc,.docx"
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-white hover:file:bg-gray-700">
                     <p class="text-xs text-gray-400 mt-1">Accepted formats: PDF, DOC, DOCX (Max 10MB)</p>
                 </div>
@@ -118,7 +118,7 @@
             const submitButton = form.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.innerHTML;
             const formData = new FormData(form);
-            const fileInput = document.getElementById('cv-upload');
+            const fileInput = document.getElementById('internship-cv-upload');
 
             // Debug logging
             console.log('File input element:', fileInput);
