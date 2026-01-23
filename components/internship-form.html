@@ -121,8 +121,14 @@
             const fileInput = document.getElementById('cv-upload');
             const file = fileInput.files[0];
 
+            // Validate file is selected
+            if (!file) {
+                alert('Please select a CV/Resume file to upload.');
+                return;
+            }
+
             // Validate file size (10MB max)
-            if (file && file.size > 10 * 1024 * 1024) {
+            if (file.size > 10 * 1024 * 1024) {
                 alert('File size must be less than 10MB');
                 return;
             }
@@ -131,14 +137,7 @@
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
 
             try {
-                // Convert file to base64
-                const fileBase64 = await new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result.split(',')[1]);
-                    reader.onerror = reject;
-                    reader.readAsDataURL(file);
-                });
-
+                // Prepare data for Google Sheets (metadata only, no file)
                 const data = {
                     name: formData.get('name'),
                     email: formData.get('email'),
@@ -148,7 +147,6 @@
                     page: window.location.pathname,
                     timestamp: new Date().toISOString(),
                     type: 'internship',
-                    // Note: File is sent via email only. Sheets gets metadata.
                     fileName: file.name
                 };
 
