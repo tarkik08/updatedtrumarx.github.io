@@ -119,7 +119,19 @@
             const originalButtonText = submitButton.innerHTML;
             const formData = new FormData(form);
             const fileInput = document.getElementById('cv-upload');
+
+            // Debug logging
+            console.log('File input element:', fileInput);
+            console.log('Files:', fileInput ? fileInput.files : 'fileInput is null');
+            console.log('File count:', fileInput ? fileInput.files.length : 0);
+
+            if (!fileInput) {
+                alert('Error: File input not found. Please refresh the page and try again.');
+                return;
+            }
+
             const file = fileInput.files[0];
+            console.log('Selected file:', file);
 
             // Validate file is selected
             if (!file) {
