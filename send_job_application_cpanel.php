@@ -34,6 +34,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
+    // Handle file upload
+    $uploadedFile = null;
+    $fileName = '';
+    
+    if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['cv'];
+        $fileName = $file['name'];
+        $fileTmpPath = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileType = $file['type'];
+        
+        // Validate file size (10MB max)
+        if ($fileSize > 10 * 1024 * 1024) {
+            echo json_encode(['success' => false, 'message' => 'File size must be less than 10MB.']);
+            exit;
+        }
+        
+        // Validate file type
+        $allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        $allowedExtensions = ['pdf', 'doc', 'docx'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            echo json_encode(['success' => false, 'message' => 'Only PDF, DOC, and DOCX files are allowed.']);
+            exit;
+        }
+        
+        $uploadedFile = $fileTmpPath;
+    } else if (isset($_FILES['cv']) && $_FILES['cv']['error'] !== UPLOAD_ERR_NO_FILE) {
+        // Handle upload errors
+        $errorMessage = 'File upload error: ';
+        switch ($_FILES['cv']['error']) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                $errorMessage .= 'File is too large.';
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $errorMessage .= 'File was only partially uploaded.';
+                break;
+            default:
+                $errorMessage .= 'Unknown error occurred.';
+        }
+        echo json_encode(['success' => false, 'message' => $errorMessage]);
+        exit;
+    } else {
+        echo json_encode(['success' => false, 'message' => 'CV/Resume is required.']);
+        exit;
+    }
+    
     try {
         $mail = new PHPMailer(true);
         
@@ -141,6 +190,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $mail->Body = $html_body;
         $mail->AltBody = "Job Application for $job_title from $name. Email: $email. Message: $message";
+        
+        // Attach CV/Resume if uploaded
+        if ($uploadedFile && file_exists($uploadedFile)) {
+            $mail->addAttachment($uploadedFile, $fileName);
+        }
         
         $mail->send();
         echo json_encode([
