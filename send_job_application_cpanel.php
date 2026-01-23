@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->SMTPAuth = true;
         // CREDENTIALS - DO NOT CHANGE
         $mail->Username = 'trumarxmailservice@gmail.com'; 
-        $mail->Password = 'wsqe qpyg jqaw ewlb'; 
+        $mail->Password = 'wsqeqpygjqawewlb'; 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         
