@@ -41,13 +41,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         // CREDENTIALS - DO NOT CHANGE
-        $mail->Username = 'molletitarkiksai@gmail.com'; 
-        $mail->Password = 'vhdq nrus zcbv mble'; 
+        $mail->Username = 'trumarxmailservice@gmail.com'; 
+        $mail->Password = 'wsqe qpyg jqaw ewlb; 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         
         // Email Settings
-        $mail->setFrom('molletitarkiksai@gmail.com', 'Trumarx Consultation Portal');
+        $mail->setFrom('trumarxmailservice@gmail.com', 'Trumarx Consultation Portal');
         $mail->addAddress('molletitarkiksaiii@gmail.com');
         $mail->addAddress('support@trumarx.in');
         $mail->addReplyTo($email, $name);
