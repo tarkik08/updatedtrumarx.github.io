@@ -670,7 +670,7 @@
                         </div>
                         ${job.deadline ? `<div class="flex items-center justify-center text-sm text-red-500 dark:text-red-400 mb-4"><i class="fas fa-clock mr-2"></i><span>Deadline: ${job.deadline}</span></div>` : ''}
                         <div class="flex justify-between items-center">
-                            <button onclick="openJobApplicationModal('${job.title}')" class="px-4 py-2 text-white rounded-full transition-all shadow-lg btn-royal-blue">Apply Now</button>
+                            <button onclick="openJobApplicationModal(this.getAttribute('data-job-title'))" data-job-title="${(job.title || '').replace(/"/g, '&quot;')}" class="px-4 py-2 text-white rounded-full transition-all shadow-lg btn-royal-blue">Apply Now</button>
                         </div>
                     </div>
                 `).join('');

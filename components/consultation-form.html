@@ -166,6 +166,12 @@
                 const sheetsResult = results[0];
                 const phpResult = results[1];
 
+                // Debug logging
+                console.log('Consultation Form Submission Results:');
+                console.log('Google Sheets:', sheetsResult.status, sheetsResult);
+                console.log('PHP Email:', phpResult.status, phpResult);
+                console.log('Data sent to Sheets:', data);
+
                 // Check if at least ONE succeeded (resilient behavior)
                 const emailSuccess = (phpResult.status === 'fulfilled' && phpResult.value.success);
                 const sheetsSuccess = (sheetsResult.status === 'fulfilled');
