@@ -93,14 +93,14 @@
             const modal = document.getElementById('job-application-modal');
             const titleDisplay = document.getElementById('job-title-display');
             const titleInput = document.getElementById('job-title-input');
-            const titleEmail = document.getElementById('job-title-email');
 
             if (modal && titleDisplay && titleInput) {
                 titleDisplay.textContent = jobTitle;
                 titleInput.value = jobTitle;
-                titleEmail.textContent = jobTitle;
                 modal.classList.remove('hidden');
                 setTimeout(() => modal.classList.add('active'), 10);
+            } else {
+                console.error('Job application modal elements not found. Modal may not be loaded yet.');
             }
         };
 
