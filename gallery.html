@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Trumarx IP Law Firm | Our Journey in Pictures</title>
+    <meta name="description"
+        content="Explore Trumarx's journey through pictures. View our office, events, team moments, and achievements in intellectual property law. Bangalore's leading IP law firm since 2014.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://trumarx.org/gallery.html">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gallery | Trumarx IP Law Firm">
+    <meta property="og:description"
+        content="Explore Trumarx's journey through pictures. View our office, events, team moments, and achievements.">
+    <meta property="og:url" content="https://trumarx.org/gallery.html">
+    <meta property="og:site_name" content="Trumarx">
+    <meta property="og:image" content="https://trumarx.org/og-image.jpg">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gallery | Trumarx IP Law Firm">
+    <meta name="twitter:description" content="Explore Trumarx's journey through pictures.">
+
+    <!-- Tailwind CSS & FontAwesome -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-accent': '#6e6e6e',
+                        'brand-accentHover': '#4a4a4a',
+                        'brand-bg': '#0a0a0a',
+                        'brand-dark': '#000000',
+                        'brand-darkCard': '#1d1d1f',
+                        'brand-card': '#1d1d1f',
+                        'brand-light': '#f5f5f7',
+                        'brand-navy': '#1d1d1f',
+                        'brand-textLight': '#f5f5f7',
+                        'brand-textDark': '#1d1d1f',
+                        'brand-border': '#424245'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript">
+            (function () {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            })();
+    </script>
+
+    <script src="theme.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .legal-nav {
+            background: rgba(17, 17, 17, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Gallery Image Hover Effects */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease, filter 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        /* Filter Buttons */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background-color: #6e6e6e;
+            color: white;
+        }
+
+        /* Smooth Fade In Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Royal Blue Button */
+        .btn-royal-blue {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .btn-royal-blue:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark">
+
+    <!-- Navigation -->
+    <nav class="relative z-50 legal-nav transition-colors duration-300"
+        style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="group select-none -ml-2">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-10 w-auto">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
+                    <a href="index.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Home</a>
+                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About
+                        Us</a>
+                    <a href="achievements.html"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
+                    <a href="testimonials.html"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Testimonials</a>
+                    <a href="gallery.html"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600 font-bold">Gallery</a>
+                    <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
+                    <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
+
+                    <div class="h-4 w-px bg-gray-700"></div>
+
+                    <!-- CTA Button -->
+                    <button onclick="openConsultationModal()"
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-black text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-400"
+            style="background-color: #E1E2E6;">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-black">Home</a>
+                <a href="aboutus.html" class="text-black">About Us</a>
+                <a href="achievements.html" class="text-black">Achievements</a>
+                <a href="testimonials.html" class="text-black">Testimonials</a>
+                <a href="gallery.html" class="text-black font-bold">Gallery</a>
+                <a href="services.html" class="text-black">Services</a>
+                <a href="careers.html" class="text-black">Careers</a>
+
+                <button onclick="openConsultationModal()"
+                    class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg btn-royal-blue">Book
+                    Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-16 bg-brand-bg overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="inline-block mb-4">
+                <span class="text-brand-accent font-semibold tracking-wide text-xs uppercase">Visual Journey</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+                Our Journey in <span class="text-brand-accent">Pictures</span>
+            </h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                Explore the moments that define Trumarx. From our office spaces to memorable events, team achievements,
+                and client celebrations.
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section
+        class="bg-brand-light dark:bg-brand-darkCard py-6 sticky top-0 z-40 border-b border-gray-200 dark:border-brand-border">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <button onclick="filterGallery('all')"
+                    class="filter-btn active px-6 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-brand-navy text-brand-textDark dark:text-brand-textLight hover:bg-brand-accent hover:text-white transition-all"
+                    data-filter="all">
+                    All
+                </button>
+                <button onclick="filterGallery('office')"
+                    class="filter-btn px-6 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-brand-navy text-brand-textDark dark:text-brand-textLight hover:bg-brand-accent hover:text-white transition-all"
+                    data-filter="office">
+                    Office
+                </button>
+                <button onclick="filterGallery('events')"
+                    class="filter-btn px-6 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-brand-navy text-brand-textDark dark:text-brand-textLight hover:bg-brand-accent hover:text-white transition-all"
+                    data-filter="events">
+                    Events
+                </button>
+                <button onclick="filterGallery('team')"
+                    class="filter-btn px-6 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-brand-navy text-brand-textDark dark:text-brand-textLight hover:bg-brand-accent hover:text-white transition-all"
+                    data-filter="team">
+                    Team
+                </button>
+                <button onclick="filterGallery('achievements')"
+                    class="filter-btn px-6 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-brand-navy text-brand-textDark dark:text-brand-textLight hover:bg-brand-accent hover:text-white transition-all"
+                    data-filter="achievements">
+                    Achievements
+                </button>
+                <button onclick="filterGallery('clients')"
+                    class="filter-btn px-6 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-brand-navy text-brand-textDark dark:text-brand-textLight hover:bg-brand-accent hover:text-white transition-all"
+                    data-filter="clients">
+                    Clients
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Image Section -->
+    <section id="featured-section" class="bg-white dark:bg-brand-dark pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-navy dark:text-brand-textLight mb-2">
+                    Featured Moment
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400">Our latest highlight</p>
+            </div>
+
+            <div class="gallery-item rounded-2xl overflow-hidden shadow-2xl bg-brand-light dark:bg-brand-darkCard"
+                onclick="openLightbox(0)">
+                <div
+                    class="aspect-[21/9] bg-gradient-to-br from-gray-200 to-gray-300 dark:from-brand-darkCard dark:to-brand-navy flex items-center justify-center">
+                    <div class="text-center p-8">
+                        <i class="fas fa-image text-6xl text-gray-400 dark:text-gray-600 mb-4"></i>
+                        <p class="text-gray-500 dark:text-gray-400 text-lg">Featured image will appear here</p>
+                        <p class="text-gray-400 dark:text-gray-500 text-sm mt-2">Connect your backend to load images</p>
+                    </div>
+                </div>
+                <div class="gallery-overlay">
+                    <h3 class="text-white font-bold text-xl mb-1">Featured Event Title</h3>
+                    <p class="text-gray-300 text-sm">Click to view full size</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Additions Section -->
+    <section id="recent-section" class="bg-brand-light dark:bg-brand-bg pt-12 pb-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-navy dark:text-brand-textLight mb-2">
+                    Recent Additions
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400">Latest moments from our journey</p>
+            </div>
+
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Placeholder Gallery Items (8 items) -->
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="office" onclick="openLightbox(1)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-brand-darkCard dark:to-brand-navy flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-building text-4xl text-gray-400 dark:text-gray-600 mb-2"></i>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Office Photo</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">Office Space</h3>
+                        <p class="text-gray-300 text-xs">Indiranagar, Bangalore</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="events" onclick="openLightbox(2)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-blue-200 to-blue-300 dark:from-blue-900 dark:to-blue-800 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-calendar-alt text-4xl text-blue-600 dark:text-blue-400 mb-2"></i>
+                            <p class="text-blue-700 dark:text-blue-300 text-sm">Event Photo</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">Annual Event</h3>
+                        <p class="text-gray-300 text-xs">2024</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="team" onclick="openLightbox(3)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-green-200 to-green-300 dark:from-green-900 dark:to-green-800 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-users text-4xl text-green-600 dark:text-green-400 mb-2"></i>
+                            <p class="text-green-700 dark:text-green-300 text-sm">Team Photo</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">Team Meeting</h3>
+                        <p class="text-gray-300 text-xs">Collaboration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="achievements" onclick="openLightbox(4)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-yellow-200 to-yellow-300 dark:from-yellow-900 dark:to-yellow-800 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-trophy text-4xl text-yellow-600 dark:text-yellow-400 mb-2"></i>
+                            <p class="text-yellow-700 dark:text-yellow-300 text-sm">Achievement</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">Milestone Reached</h3>
+                        <p class="text-gray-300 text-xs">Success Story</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="clients" onclick="openLightbox(5)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-purple-200 to-purple-300 dark:from-purple-900 dark:to-purple-800 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-handshake text-4xl text-purple-600 dark:text-purple-400 mb-2"></i>
+                            <p class="text-purple-700 dark:text-purple-300 text-sm">Client Meeting</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">Client Partnership</h3>
+                        <p class="text-gray-300 text-xs">Collaboration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="office" onclick="openLightbox(6)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-brand-darkCard dark:to-brand-navy flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-building text-4xl text-gray-400 dark:text-gray-600 mb-2"></i>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Office Interior</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">Conference Room</h3>
+                        <p class="text-gray-300 text-xs">Modern Workspace</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="events" onclick="openLightbox(7)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-blue-200 to-blue-300 dark:from-blue-900 dark:to-blue-800 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-calendar-alt text-4xl text-blue-600 dark:text-blue-400 mb-2"></i>
+                            <p class="text-blue-700 dark:text-blue-300 text-sm">Seminar</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">IP Law Seminar</h3>
+                        <p class="text-gray-300 text-xs">Knowledge Sharing</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard"
+                    data-category="team" onclick="openLightbox(8)">
+                    <div
+                        class="aspect-square bg-gradient-to-br from-green-200 to-green-300 dark:from-green-900 dark:to-green-800 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <i class="fas fa-users text-4xl text-green-600 dark:text-green-400 mb-2"></i>
+                            <p class="text-green-700 dark:text-green-300 text-sm">Team Outing</p>
+                        </div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3 class="text-white font-semibold text-sm mb-1">Team Building</h3>
+                        <p class="text-gray-300 text-xs">Fun & Learning</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button onclick="loadMoreImages()"
+                    class="px-8 py-3 rounded-full bg-brand-accent hover:bg-brand-accentHover text-white font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    <i class="fas fa-plus-circle mr-2"></i>Load More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="bg-brand-bg pt-16 pb-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Want to Be Part of Our Story?
+            </h2>
+            <p class="text-lg text-gray-400 mb-8">
+                Join our team or partner with us to protect your intellectual property.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="careers.html"
+                    class="px-8 py-4 rounded-full text-white font-medium text-sm transition-all shadow-lg w-full sm:w-auto btn-royal-blue">
+                    Explore Careers
+                </a>
+                <button onclick="openConsultationModal()"
+                    class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
+                    Book Consultation <i
+                        class="fas fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4">
+        <button onclick="closeLightbox()"
+            class="absolute top-6 right-6 text-white text-3xl hover:text-gray-400 transition-colors z-10">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <button onclick="previousImage()"
+            class="absolute left-6 text-white text-4xl hover:text-gray-400 transition-colors z-10">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <button onclick="nextImage()"
+            class="absolute right-6 text-white text-4xl hover:text-gray-400 transition-colors z-10">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div class="lightbox-content max-w-6xl w-full">
+            <div class="bg-white dark:bg-brand-darkCard rounded-2xl overflow-hidden shadow-2xl">
+                <div id="lightbox-image"
+                    class="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-brand-darkCard dark:to-brand-navy flex items-center justify-center">
+                    <div class="text-center p-8">
+                        <i class="fas fa-image text-6xl text-gray-400 dark:text-gray-600 mb-4"></i>
+                        <p class="text-gray-500 dark:text-gray-400 text-lg">Image will appear here</p>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 id="lightbox-title" class="text-2xl font-bold text-brand-navy dark:text-brand-textLight mb-2">
+                        Image Title
+                    </h3>
+                    <p id="lightbox-description" class="text-gray-600 dark:text-gray-400">
+                        Image description will appear here
+                    </p>
+                    <div
+                        class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-brand-border">
+                        <span id="lightbox-counter" class="text-sm text-gray-500 dark:text-gray-400">1 / 9</span>
+                        <div class="flex gap-3">
+                            <button class="text-brand-accent hover:text-brand-accentHover transition-colors">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="text-brand-accent hover:text-brand-accentHover transition-colors">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-8 pb-6">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <!-- Column 1: About -->
+                <div>
+                    <h4 class="font-bold text-sm mb-3 text-white">About Trumarx</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Leading IP law firm in Bangalore specializing in trademark, patent, copyright, and industrial
+                        design protection since 2014.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="font-bold text-sm mb-3 text-white">Quick Links</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="aboutus.html" class="text-gray-400 hover:text-white transition-colors">About Us</a>
+                        </li>
+                        <li><a href="services.html"
+                                class="text-gray-400 hover:text-white transition-colors">Services</a>
+                        </li>
+                        <li><a href="careers.html" class="text-gray-400 hover:text-white transition-colors">Careers</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div>
+                    <h4 class="font-bold text-sm mb-3 text-white">Our Services</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="trademark.html" class="text-gray-400 hover:text-white transition-colors">Trademark
+                                Registration</a></li>
+                        <li><a href="patent.html" class="text-gray-400 hover:text-white transition-colors">Patent
+                                Filing</a></li>
+                        <li><a href="copyright.html" class="text-gray-400 hover:text-white transition-colors">Copyright
+                                Protection</a></li>
+                        <li><a href="industrialdesign.html"
+                                class="text-gray-400 hover:text-white transition-colors">Industrial Design</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div>
+                    <h4 class="font-bold text-sm mb-3 text-white">Contact</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-map-marker-alt mt-1 text-white"></i>
+                            <span>Indiranagar, Bangalore, Karnataka, India</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-white"></i>
+                            <a href="mailto:info@trumarx.org"
+                                class="hover:text-white transition-colors">info@trumarx.org</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-white"></i>
+                            <a href="tel:+919876543210" class="hover:text-white transition-colors">+91 98765 43210</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div
+                class="border-t border-gray-800 pt-4 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-400">
+                <p>&copy; 2026 Trumarx. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Consultation Modal Placeholder -->
+    <div id="consultation-modal-container"></div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Gallery Filter Function
+        let currentFilter = 'all';
+
+        function filterGallery(category) {
+            currentFilter = category;
+            const items = document.querySelectorAll('#gallery-grid .gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update active button
+            buttons.forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    item.classList.add('fade-in');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Lightbox Functions
+        let currentImageIndex = 0;
+        const totalImages = 9; // Update this when you add real images
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            document.getElementById('lightbox').classList.add('active');
+            updateLightboxContent();
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % totalImages;
+            updateLightboxContent();
+        }
+
+        function previousImage() {
+            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            // Update counter
+            document.getElementById('lightbox-counter').textContent = `${currentImageIndex + 1} / ${totalImages}`;
+
+            // This is where you'll update the actual image, title, and description
+            // For now, it shows placeholder content
+            document.getElementById('lightbox-title').textContent = `Image ${currentImageIndex + 1}`;
+            document.getElementById('lightbox-description').textContent = 'Connect your backend to load image details';
+        }
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', function (e) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') previousImage();
+            }
+        });
+
+        // Close lightbox when clicking outside
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Load More Function (placeholder)
+        function loadMoreImages() {
+            alert('Connect your backend to load more images. This function will fetch additional images from your server.');
+        }
+
+        // Consultation Modal Function (placeholder)
+        function openConsultationModal() {
+            alert('Consultation modal will open here. Make sure to include your consultation form component.');
+        }
+    </script>
+
+    <!-- Load Form Components -->
+    <script src="load-forms.js"></script>
+
+</body>
+
+</html>
