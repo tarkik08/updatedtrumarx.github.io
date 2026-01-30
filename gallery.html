@@ -26,6 +26,7 @@
     <meta name="twitter:description" content="Explore Trumarx's journey through pictures.">
 
     <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -48,7 +49,6 @@
             }
         }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- EmailJS SDK -->
@@ -409,11 +409,14 @@
                 if (!response.ok) throw new Error('Failed to fetch gallery data');
 
                 const events = await response.json();
+                console.log('WordPress events:', events);
 
                 // Transform WordPress data and fetch Drive images
                 for (const event of events) {
                     const driveLink = event.drive_folder_link;
+                    console.log('Event:', event.title.rendered, 'Drive link:', driveLink);
                     const images = await fetchImagesFromDrive(driveLink);
+                    console.log('Images fetched:', images.length, 'images');
 
                     galleryData.push({
                         id: event.id,
