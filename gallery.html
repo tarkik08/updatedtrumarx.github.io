@@ -466,6 +466,9 @@
         }
 
         function extractFolderId(driveLink) {
+            // Remove query parameters (e.g., ?usp=drive_link)
+            const cleanLink = driveLink.split('?')[0];
+
             const patterns = [
                 /folders\/([a-zA-Z0-9_-]+)/,
                 /id=([a-zA-Z0-9_-]+)/,
@@ -473,7 +476,7 @@
             ];
 
             for (const pattern of patterns) {
-                const match = driveLink.match(pattern);
+                const match = cleanLink.match(pattern);
                 if (match) return match[1];
             }
 
