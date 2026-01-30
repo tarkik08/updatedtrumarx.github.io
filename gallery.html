@@ -542,125 +542,182 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white pt-8 pb-6">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <!-- Column 1: About -->
-                <div>
-                    <h4 class="font-bold text-sm mb-3 text-white">About Trumarx</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed">
-                        Leading IP law firm in Bangalore specializing in trademark, patent, copyright, and industrial
-                        design protection since 2014.
-                    </p>
-                </div>
 
-                <!-- Column 2: Quick Links -->
-                <div>
-                    <h4 class="font-bold text-sm mb-3 text-white">Quick Links</h4>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="aboutus.html" class="text-gray-400 hover:text-white transition-colors">About Us</a>
-                        </li>
-                        <li><a href="services.html"
-                                class="text-gray-400 hover:text-white transition-colors">Services</a>
-                        </li>
-                        <li><a href="careers.html" class="text-gray-400 hover:text-white transition-colors">Careers</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Services -->
-                <div>
-                    <h4 class="font-bold text-sm mb-3 text-white">Our Services</h4>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="trademark.html" class="text-gray-400 hover:text-white transition-colors">Trademark
-                                Registration</a></li>
-                        <li><a href="patent.html" class="text-gray-400 hover:text-white transition-colors">Patent
-                                Filing</a></li>
-                        <li><a href="copyright.html" class="text-gray-400 hover:text-white transition-colors">Copyright
-                                Protection</a></li>
-                        <li><a href="industrialdesign.html"
-                                class="text-gray-400 hover:text-white transition-colors">Industrial Design</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact -->
-                <div>
-                    <h4 class="font-bold text-sm mb-3 text-white">Contact</h4>
-                    <ul class="space-y-2 text-xs text-gray-400">
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-map-marker-alt mt-1 text-white"></i>
-                            <span>Indiranagar, Bangalore, Karnataka, India</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-envelope text-white"></i>
-                            <a href="mailto:info@trumarx.org"
-                                class="hover:text-white transition-colors">info@trumarx.org</a>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fas fa-phone text-white"></i>
-                            <a href="tel:+919876543210" class="hover:text-white transition-colors">+91 98765 43210</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Bottom Bar -->
-            <div
-                class="border-t border-gray-800 pt-4 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-400">
-                <p>&copy; 2026 Trumarx. All rights reserved.</p>
-                <div class="flex gap-4">
-                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- Consultation Modal Placeholder -->
     <div id="consultation-modal-container"></div>
 
     <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
+        // ============================================
+        // GOOGLE SHEETS/DRIVE INTEGRATION
+        // ============================================
 
-        // Gallery Filter Function
+        // TODO: Replace with your actual Google Apps Script Web App URL
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQ6X8fO4dK8su9FClJwBSy54ry3tZrlrIm4i94LX99c-r6upGk9GZnf84vMBojj0kp/exec';
+
+        // Global variables
+        let galleryData = [];
+        let allImages = []; // Flattened array of all images for lightbox navigation
+        let currentImageIndex = 0;
         let currentFilter = 'all';
 
-        function filterGallery(category) {
-            currentFilter = category;
-            const items = document.querySelectorAll('#gallery-grid .gallery-item');
-            const buttons = document.querySelectorAll('.filter-btn');
+        // ============================================
+        // LOAD GALLERY DATA ON PAGE LOAD
+        // ============================================
 
-            // Update active button
-            buttons.forEach(btn => {
-                if (btn.dataset.filter === category) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+        document.addEventListener('DOMContentLoaded', async function () {
+            await loadGalleryData();
+        });
 
-            // Filter items
-            items.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = 'block';
-                    item.classList.add('fade-in');
+        async function loadGalleryData() {
+            try {
+                showLoadingState();
+
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL);
+                const result = await response.json();
+
+                if (result.success) {
+                    galleryData = result.data;
+                    console.log('Gallery data loaded:', galleryData.length, 'events');
+
+                    // Flatten all images for lightbox navigation
+                    flattenImages();
+
+                    // Display gallery
+                    displayGallery();
+                    hideLoadingState();
                 } else {
-                    item.style.display = 'none';
+                    throw new Error(result.error || 'Failed to load gallery data');
                 }
+            } catch (error) {
+                console.error('Error loading gallery:', error);
+                showErrorMessage('Unable to load gallery. Please try again later.');
+                hideLoadingState();
+            }
+        }
+
+        function flattenImages() {
+            allImages = [];
+            galleryData.forEach((event, eventIndex) => {
+                event.images.forEach((image, imageIndex) => {
+                    allImages.push({
+                        ...image,
+                        eventTitle: event.title,
+                        eventIndex: eventIndex,
+                        imageIndex: imageIndex
+                    });
+                });
             });
         }
 
-        // Lightbox Functions
-        let currentImageIndex = 0;
-        const totalImages = 9; // Update this when you add real images
+        // ============================================
+        // DISPLAY GALLERY
+        // ============================================
 
-        function openLightbox(index) {
+        function displayGallery() {
+            if (galleryData.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            displayFeaturedImage();
+            displayRecentAdditions();
+        }
+
+        function displayFeaturedImage() {
+            const featuredSection = document.getElementById('featured-section');
+            const featured = galleryData[0]; // Most recent event
+
+            if (!featured || featured.images.length === 0) {
+                featuredSection.innerHTML = `
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="mb-8">
+                            <h2 class="text-3xl md:text-4xl font-bold text-brand-navy dark:text-brand-textLight mb-2">
+                                Featured Moment
+                            </h2>
+                            <p class="text-gray-600 dark:text-gray-400">No featured images yet</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const firstImage = featured.images[0];
+
+            featuredSection.innerHTML = `
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold text-brand-navy dark:text-brand-textLight mb-2">
+                            Featured Moment
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-400">Our latest highlight</p>
+                    </div>
+                    
+                    <div class="gallery-item rounded-2xl overflow-hidden shadow-2xl bg-brand-light dark:bg-brand-darkCard cursor-pointer"
+                        onclick="openLightboxByGlobalIndex(0)">
+                        <img src="${firstImage.url}" 
+                             alt="${featured.title}"
+                             class="w-full aspect-[21/9] object-cover"
+                             loading="eager"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22800%22 height=%22400%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not available%3C/text%3E%3C/svg%3E'">
+                        <div class="gallery-overlay">
+                            <h3 class="text-white font-bold text-xl mb-1">${featured.title}</h3>
+                            <p class="text-gray-300 text-sm">Click to view full size</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function displayRecentAdditions() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+
+            let globalImageIndex = 0;
+
+            galleryData.forEach((event, eventIndex) => {
+                // Skip first image of first event (already featured)
+                const startIndex = (eventIndex === 0) ? 1 : 0;
+
+                for (let i = startIndex; i < event.images.length; i++) {
+                    globalImageIndex++;
+                    const image = event.images[i];
+
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item rounded-xl overflow-hidden shadow-lg bg-white dark:bg-brand-darkCard';
+                    item.setAttribute('data-category', 'all'); // Simplified: no categories
+                    item.onclick = () => openLightboxByGlobalIndex(globalImageIndex);
+
+                    item.innerHTML = `
+                        <img src="${image.thumbnail}" 
+                             alt="${event.title}"
+                             class="w-full aspect-square object-cover"
+                             loading="lazy"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ddd%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not available%3C/text%3E%3C/svg%3E'">
+                        <div class="gallery-overlay">
+                            <h3 class="text-white font-semibold text-sm mb-1">${event.title}</h3>
+                            <p class="text-gray-300 text-xs">${image.name}</p>
+                        </div>
+                    `;
+
+                    grid.appendChild(item);
+                }
+            });
+
+            // Hide "Load More" button (all images loaded at once)
+            const loadMoreBtn = document.querySelector('button[onclick="loadMoreImages()"]');
+            if (loadMoreBtn) {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+
+        // ============================================
+        // LIGHTBOX FUNCTIONS
+        // ============================================
+
+        function openLightboxByGlobalIndex(index) {
+            if (allImages.length === 0) return;
+
             currentImageIndex = index;
             document.getElementById('lightbox').classList.add('active');
             updateLightboxContent();
@@ -671,23 +728,36 @@
         }
 
         function nextImage() {
-            currentImageIndex = (currentImageIndex + 1) % totalImages;
+            if (allImages.length === 0) return;
+            currentImageIndex = (currentImageIndex + 1) % allImages.length;
             updateLightboxContent();
         }
 
         function previousImage() {
-            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+            if (allImages.length === 0) return;
+            currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
             updateLightboxContent();
         }
 
         function updateLightboxContent() {
-            // Update counter
-            document.getElementById('lightbox-counter').textContent = `${currentImageIndex + 1} / ${totalImages}`;
+            if (allImages.length === 0) return;
 
-            // This is where you'll update the actual image, title, and description
-            // For now, it shows placeholder content
-            document.getElementById('lightbox-title').textContent = `Image ${currentImageIndex + 1}`;
-            document.getElementById('lightbox-description').textContent = 'Connect your backend to load image details';
+            const currentImage = allImages[currentImageIndex];
+
+            // Update image
+            document.getElementById('lightbox-image').innerHTML = `
+                <img src="${currentImage.url}" 
+                     alt="${currentImage.eventTitle}"
+                     class="w-full h-full object-contain"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect fill=%22%23ddd%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not available%3C/text%3E%3C/svg%3E'">
+            `;
+
+            // Update title and description
+            document.getElementById('lightbox-title').textContent = currentImage.eventTitle;
+            document.getElementById('lightbox-description').textContent = currentImage.name;
+
+            // Update counter
+            document.getElementById('lightbox-counter').textContent = `${currentImageIndex + 1} / ${allImages.length}`;
         }
 
         // Keyboard navigation for lightbox
@@ -707,13 +777,85 @@
             }
         });
 
-        // Load More Function (placeholder)
-        function loadMoreImages() {
-            alert('Connect your backend to load more images. This function will fetch additional images from your server.');
+        // ============================================
+        // FILTER FUNCTIONS (Simplified - No Categories)
+        // ============================================
+
+        function filterGallery(category) {
+            // Simplified: All images shown, no filtering
+            // Keeping function for UI consistency
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-filter="${category}"]`).classList.add('active');
         }
 
-        // Consultation Modal Function (placeholder)
+        // ============================================
+        // UI STATE FUNCTIONS
+        // ============================================
+
+        function showLoadingState() {
+            const featuredSection = document.getElementById('featured-section');
+            const grid = document.getElementById('gallery-grid');
+
+            featuredSection.innerHTML = `
+                <div class="max-w-7xl mx-auto px-6 text-center py-20">
+                    <i class="fas fa-spinner fa-spin text-4xl text-brand-accent mb-4"></i>
+                    <p class="text-gray-600 dark:text-gray-400">Loading gallery...</p>
+                </div>
+            `;
+
+            grid.innerHTML = '';
+        }
+
+        function hideLoadingState() {
+            // Loading state is replaced by actual content
+        }
+
+        function showErrorMessage(message) {
+            const featuredSection = document.getElementById('featured-section');
+            featuredSection.innerHTML = `
+                <div class="max-w-7xl mx-auto px-6 text-center py-20">
+                    <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
+                    <p class="text-gray-600 dark:text-gray-400">${message}</p>
+                    <button onclick="location.reload()" 
+                        class="mt-4 px-6 py-2 bg-brand-accent text-white rounded-lg hover:bg-brand-accentHover transition-colors">
+                        Retry
+                    </button>
+                </div>
+            `;
+        }
+
+        function showEmptyState() {
+            const featuredSection = document.getElementById('featured-section');
+            featuredSection.innerHTML = `
+                <div class="max-w-7xl mx-auto px-6 text-center py-20">
+                    <i class="fas fa-images text-4xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-600 dark:text-gray-400">No images available yet.</p>
+                    <p class="text-gray-500 dark:text-gray-500 text-sm mt-2">Check back soon!</p>
+                </div>
+            `;
+        }
+
+        // ============================================
+        // MOBILE MENU & OTHER UI
+        // ============================================
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Load More Function (not used with Google integration)
+        function loadMoreImages() {
+            // All images loaded at once
+        }
+
+        // Consultation Modal Function
         function openConsultationModal() {
+            // This should be handled by your existing consultation modal system
             alert('Consultation modal will open here. Make sure to include your consultation form component.');
         }
     </script>
