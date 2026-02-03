@@ -16,8 +16,14 @@
         <form id="internship-form" onsubmit="submitInternshipForm(event)">
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
-                    <input type="text" name="name" required
+                    <label class="block text-sm font-medium text-gray-300 mb-2">First name *</label>
+                    <input type="text" name="firstName" required
+                        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Last name *</label>
+                    <input type="text" name="lastName" required
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
                 </div>
 
@@ -34,9 +40,28 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">University/College
-                        *</label>
-                    <input type="text" name="university" required
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Post qualified experience (if
+                        any)</label>
+                    <input type="text" name="experience" placeholder="e.g., 2 years at XYZ Law Firm"
+                        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Name of the institution last attended
+                        (or currently attending) *</label>
+                    <input type="text" name="institution" required
+                        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Start Date *</label>
+                    <input type="date" name="startDate" required
+                        class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">End Date *</label>
+                    <input type="date" name="endDate" required
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
                 </div>
 
@@ -48,7 +73,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Cover Letter
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Why do you want to intern at Trumarx?
                         *</label>
                     <textarea name="message" rows="4" required
                         placeholder="Tell us why you'd like to intern at Trumarx..."
@@ -148,10 +173,14 @@
 
                 // Prepare data for Google Sheets including file content
                 const data = {
-                    name: formData.get('name'),
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
                     email: formData.get('email'),
                     phone: formData.get('phone'),
-                    university: formData.get('university'),
+                    experience: formData.get('experience') || 'N/A',
+                    institution: formData.get('institution'),
+                    startDate: formData.get('startDate'),
+                    endDate: formData.get('endDate'),
                     message: formData.get('message'),
                     page: window.location.pathname,
                     timestamp: new Date().toISOString(),

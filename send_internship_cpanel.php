@@ -16,15 +16,20 @@ header('Access-Control-Allow-Headers: Content-Type');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Get form data
-    $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
+    $firstName = isset($_POST['firstName']) ? htmlspecialchars(trim($_POST['firstName'])) : '';
+    $lastName = isset($_POST['lastName']) ? htmlspecialchars(trim($_POST['lastName'])) : '';
+    $name = $firstName . ' ' . $lastName; // Full name for email subject
     $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL) : '';
     $phone = isset($_POST['phone']) ? htmlspecialchars(trim($_POST['phone'])) : '';
-    $university = isset($_POST['university']) ? htmlspecialchars(trim($_POST['university'])) : '';
+    $experience = isset($_POST['experience']) ? htmlspecialchars(trim($_POST['experience'])) : '';
+    $institution = isset($_POST['institution']) ? htmlspecialchars(trim($_POST['institution'])) : '';
+    $startDate = isset($_POST['startDate']) ? htmlspecialchars(trim($_POST['startDate'])) : '';
+    $endDate = isset($_POST['endDate']) ? htmlspecialchars(trim($_POST['endDate'])) : '';
     $message = isset($_POST['message']) ? htmlspecialchars(trim($_POST['message'])) : '';
     
     // Validation
-    if (empty($name) || empty($email)) {
-        echo json_encode(['success' => false, 'message' => 'Name and email are required.']);
+    if (empty($firstName) || empty($lastName) || empty($email)) {
+        echo json_encode(['success' => false, 'message' => 'First name, last name, and email are required.']);
         exit;
     }
     
@@ -138,8 +143,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class='section-title'>Applicant Details</div>
                     
                     <div class='data-row'>
-                        <span class='label'>Full Name</span>
-                        <div class='value'>" . $name . "</div>
+                        <span class='label'>First Name</span>
+                        <div class='value'>" . $firstName . "</div>
+                    </div>
+                    
+                    <div class='data-row'>
+                        <span class='label'>Last Name</span>
+                        <div class='value'>" . $lastName . "</div>
                     </div>
                     
                     <div class='data-row'>
@@ -153,11 +163,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     
                     <div class='data-row'>
-                        <span class='label'>University / College</span>
-                        <div class='value'>" . ($university ?: 'Not provided') . "</div>
+                        <span class='label'>Post Qualified Experience</span>
+                        <div class='value'>" . ($experience ?: 'N/A') . "</div>
                     </div>
                     
-                    <div class='section-title' style='margin-top: 30px;'>Cover Letter</div>
+                    <div class='data-row'>
+                        <span class='label'>Institution</span>
+                        <div class='value'>" . ($institution ?: 'Not provided') . "</div>
+                    </div>
+                    
+                    <div class='data-row'>
+                        <span class='label'>Start Date</span>
+                        <div class='value'>" . ($startDate ?: 'Not provided') . "</div>
+                    </div>
+                    
+                    <div class='data-row'>
+                        <span class='label'>End Date</span>
+                        <div class='value'>" . ($endDate ?: 'Not provided') . "</div>
+                    </div>
+                    
+                    <div class='section-title' style='margin-top: 30px;'>Why do you want to intern at Trumarx?</div>
                     <div class='message-box'>
                         <div class='value'>" . nl2br($message) . "</div>
                     </div>
