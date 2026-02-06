@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->setFrom('trumarxmailservice@gmail.com', 'Trumarx Career Portal');
         $mail->addAddress('molletitarkiksaiii@gmail.com');
         $mail->addAddress('career@trumarx.in');
-        $mail->addReplyTo($email, $name);
+        $mail->addReplyTo($email, trim($name));
         
         $mail->isHTML(true); // HTML Enabled
         $mail->Subject = 'Internship Application - ' . $name;
@@ -226,9 +226,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
         
     } catch (Exception $e) {
+        error_log('Internship email error: ' . $mail->ErrorInfo);
         echo json_encode([
             'success' => false, 
-            'message' => 'Failed to send application: ' . $mail->ErrorInfo
+            'message' => 'Failed to send application.',
+            'error' => $mail->ErrorInfo,
+            'debug' => [
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'email' => $email,
+                'hasFile' => !empty($uploadedFile)
+            ]
         ]);
     }
     
