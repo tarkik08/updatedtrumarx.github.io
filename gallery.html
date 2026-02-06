@@ -393,6 +393,21 @@
         let currentSlideshow = null;
         let currentSlideIndex = 0;
 
+        // Video file extensions
+        const VIDEO_EXTENSIONS = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'm4v'];
+
+        // Helper function to check if file is a video
+        function isVideo(filename) {
+            if (!filename) return false;
+            const ext = filename.split('.').pop().toLowerCase();
+            return VIDEO_EXTENSIONS.includes(ext);
+        }
+
+        // Helper function to get media type
+        function getMediaType(item) {
+            return isVideo(item.name) ? 'video' : 'image';
+        }
+
         // ============================================
         // LOAD GALLERY DATA
         // ============================================
@@ -411,19 +426,25 @@
                 const events = await response.json();
                 console.log('WordPress events:', events);
 
-                // Transform WordPress data and fetch Drive images
+                // Transform WordPress data and fetch Drive media (images + videos)
                 for (const event of events) {
                     const driveLink = event.drive_folder_link;
                     console.log('Event:', event.title.rendered, 'Drive link:', driveLink);
-                    const images = await fetchImagesFromDrive(driveLink);
-                    console.log('Images fetched:', images.length, 'images');
+                    const media = await fetchImagesFromDrive(driveLink);
+                    console.log('Media fetched:', media.length, 'items');
+
+                    // Add media type to each item
+                    const mediaWithTypes = media.map(item => ({
+                        ...item,
+                        type: getMediaType(item)
+                    }));
 
                     galleryData.push({
                         id: event.id,
                         title: event.title.rendered,
                         description: event.content.rendered.replace(/<[^>]*>/g, '').trim(),
                         date: event.date,
-                        images: images
+                        images: mediaWithTypes // Keep name as 'images' for compatibility
                     });
                 }
 
@@ -511,8 +532,14 @@
             const section = document.createElement('section');
             section.className = 'py-12 border-b border-gray-200 dark:border-brand-border last:border-b-0';
 
-            const coverImage = event.images[0];
-            console.log('Creating card for:', event.title, 'Cover image URL:', coverImage.url);
+            const coverMedia = event.images[0];
+            const isCoverVideo = coverMedia.type === 'video';
+
+            // Count images and videos
+            const imageCount = event.images.filter(m => m.type === 'image').length;
+            const videoCount = event.images.filter(m => m.type === 'video').length;
+
+            console.log('Creating card for:', event.title, 'Cover media URL:', coverMedia.url, 'Type:', coverMedia.type);
 
             section.innerHTML = `
                 <div class="max-w-5xl mx-auto px-6">
@@ -522,7 +549,7 @@
                         
                         <!-- Cover Image -->
                         <div class="relative aspect-[16/9] overflow-hidden bg-gray-200 dark:bg-brand-navy">
-                            <img src="${coverImage.url}" 
+                            <img src="${coverMedia.url}" 
                                  alt="${event.title}"
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                  loading="lazy"
@@ -535,9 +562,11 @@
                                 </div>
                             </div>
                             
-                            <!-- Image count badge -->
+                            <!-- Media count badge -->
                             <div class="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-1.5 rounded-full text-sm font-medium">
-                                <i class="fas fa-images mr-1"></i> ${event.images.length} ${event.images.length === 1 ? 'photo' : 'photos'}
+                                ${imageCount > 0 ? `<i class="fas fa-images mr-1"></i> ${imageCount}` : ''}
+                                ${imageCount > 0 && videoCount > 0 ? ' • ' : ''}
+                                ${videoCount > 0 ? `<i class="fas fa-video mr-1"></i> ${videoCount}` : ''}
                             </div>
                         </div>
                         
@@ -594,12 +623,9 @@
                     <i class="fas fa-chevron-right text-3xl md:text-4xl"></i>
                 </button>
                 
-                <!-- Image container -->
-                <div class="w-full h-full flex items-center justify-center p-4 md:p-20">
-                    <img id="slideshow-image" 
-                         src="" 
-                         alt=""
-                         class="max-w-full max-h-full object-contain">
+                <!-- Media container -->
+                <div id="slideshow-media-container" class="w-full h-full flex items-center justify-center p-4 md:p-20">
+                    <!-- Media will be inserted here dynamically -->
                 </div>
                 
                 <!-- Bottom info bar -->
@@ -641,18 +667,44 @@
         function updateSlideshow() {
             if (!currentSlideshow) return;
 
-            const image = currentSlideshow.images[currentSlideIndex];
+            const media = currentSlideshow.images[currentSlideIndex];
+            const container = document.getElementById('slideshow-media-container');
 
-            const imgElement = document.getElementById('slideshow-image');
-            imgElement.src = image.url;
-            imgElement.alt = currentSlideshow.title;
-            imgElement.onerror = function () {
-                this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect fill=%22%23333%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not available%3C/text%3E%3C/svg%3E';
-            };
+            // Clear previous media
+            container.innerHTML = '';
+
+            if (media.type === 'video') {
+                // Create video element
+                const video = document.createElement('video');
+                video.src = media.url;
+                video.controls = true;
+                video.autoplay = true;
+                video.className = 'max-w-full max-h-full object-contain';
+                video.onerror = function () {
+                    container.innerHTML = `
+                        <div class="text-center text-white">
+                            <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+                            <p>Video not available</p>
+                        </div>
+                    `;
+                };
+                container.appendChild(video);
+            } else {
+                // Create image element
+                const img = document.createElement('img');
+                img.src = media.url;
+                img.alt = currentSlideshow.title;
+                img.className = 'max-w-full max-h-full object-contain';
+                img.onerror = function () {
+                    this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect fill=%22%23333%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EMedia not available%3C/text%3E%3C/svg%3E';
+                };
+                container.appendChild(img);
+            }
 
             document.getElementById('slideshow-title').textContent = currentSlideshow.title;
+            const mediaType = media.type === 'video' ? 'Video' : 'Photo';
             document.getElementById('slideshow-counter').textContent =
-                `Photo ${currentSlideIndex + 1} of ${currentSlideshow.images.length}`;
+                `${mediaType} ${currentSlideIndex + 1} of ${currentSlideshow.images.length}`;
         }
 
         // Keyboard navigation
@@ -753,14 +805,36 @@
     <!-- Load Form Components -->
     <script src="load-forms.js"></script>
 
+
     <!-- Floating WhatsApp Button -->
-    <a href="https://api.whatsapp.com/send/?phone=9606010198&text&type=phone_number&app_absent=0" target="_blank"
-        rel="noopener noreferrer"
+    <a id="whatsapp-float" href="https://api.whatsapp.com/send/?phone=9606010198&text&type=phone_number&app_absent=0"
+        target="_blank" rel="noopener noreferrer"
         class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
         aria-label="Contact us on WhatsApp">
         <i class="fab fa-whatsapp text-2xl"></i>
         <span class="font-medium text-sm">Contact Us</span>
     </a>
+
+    <script>
+        (function () {
+            const whatsappBtn = document.getElementById('whatsapp-float');
+            const footer = document.querySelector('footer');
+            if (whatsappBtn && footer) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            whatsappBtn.style.opacity = '0';
+                            whatsappBtn.style.pointerEvents = 'none';
+                        } else {
+                            whatsappBtn.style.opacity = '1';
+                            whatsappBtn.style.pointerEvents = 'auto';
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(footer);
+            }
+        })();
+    </script>
 
 </body>
 

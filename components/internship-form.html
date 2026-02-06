@@ -201,8 +201,21 @@
                         const sheetsResult = results[0];
                         const phpResult = results[1];
 
-                        console.log('Google Sheets:', sheetsResult.status);
-                        console.log('PHP Email:', phpResult.status);
+                        console.log('=== SUBMISSION RESULTS ===');
+                        console.log('Google Sheets Status:', sheetsResult.status);
+                        if (sheetsResult.status === 'rejected') {
+                            console.error('Google Sheets Error:', sheetsResult.reason);
+                        } else {
+                            console.log('Google Sheets Response:', sheetsResult.value);
+                        }
+
+                        console.log('PHP Email Status:', phpResult.status);
+                        if (phpResult.status === 'rejected') {
+                            console.error('PHP Email Error:', phpResult.reason);
+                        } else {
+                            console.log('PHP Email Response:', phpResult.value);
+                        }
+                        console.log('=========================');
 
                         if (sheetsResult.status === 'fulfilled' || (phpResult.status === 'fulfilled' && phpResult.value.success)) {
                             closeInternshipModal();
@@ -213,7 +226,8 @@
                             }, 300);
                             form.reset();
                         } else {
-                            alert('Sorry, there was an error. Please try again later.');
+                            console.error('Both submissions failed!');
+                            alert('Sorry, there was an error. Please check the console for details.');
                         }
                     })
                     .finally(() => {

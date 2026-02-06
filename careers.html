@@ -855,13 +855,39 @@
     <script src="load-forms.js"></script>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://api.whatsapp.com/send/?phone=9606010198&text&type=phone_number&app_absent=0" target="_blank"
-        rel="noopener noreferrer"
+    <a id="whatsapp-float" href="https://api.whatsapp.com/send/?phone=9606010198&text&type=phone_number&app_absent=0"
+        target="_blank" rel="noopener noreferrer"
         class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
         aria-label="Contact us on WhatsApp">
         <i class="fab fa-whatsapp text-2xl"></i>
         <span class="font-medium text-sm">Contact Us</span>
     </a>
+
+    <!-- Script to hide WhatsApp button when footer is visible -->
+    <script>
+        (function () {
+            const whatsappBtn = document.getElementById('whatsapp-float');
+            const footer = document.querySelector('footer');
+
+            if (whatsappBtn && footer) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            whatsappBtn.style.opacity = '0';
+                            whatsappBtn.style.pointerEvents = 'none';
+                        } else {
+                            whatsappBtn.style.opacity = '1';
+                            whatsappBtn.style.pointerEvents = 'auto';
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+
+                observer.observe(footer);
+            }
+        })();
+    </script>
 
 
 </body>
