@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="post-title">Blog Post | Trumarx</title>
+    <meta name="description" id="post-description" content="Read our latest insights on intellectual property law">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://trumarx.org/blog-post.html">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" id="og-title" content="Blog Post | Trumarx">
+    <meta property="og:description" id="og-description" content="Read our latest insights">
+    <meta property="og:url" content="https://trumarx.org/blog-post.html">
+    <meta property="og:site_name" content="Trumarx">
+    <meta property="og:image" id="og-image" content="https://trumarx.org/og-image.jpg">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="twitter-title" content="Blog Post | Trumarx">
+    <meta name="twitter:description" id="twitter-description" content="Read our latest insights">
+    <meta name="twitter:image" id="twitter-image" content="https://trumarx.org/og-image.jpg">
+
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-accent': '#c9a961',
+                        'brand-accentHover': '#b8984d',
+                        'brand-bg': '#0a0a0a',
+                        'brand-dark': '#000000',
+                        'brand-darkCard': '#1d1d1f',
+                        'brand-light': '#f5f5f7',
+                        'brand-navy': '#0a1628',
+                        'brand-textLight': '#f5f5f7',
+                        'brand-textDark': '#1d1d1f',
+                        'brand-border': '#424245',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Merriweather', serif;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Blog Post Content Styling */
+        .blog-content {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #1d1d1f;
+        }
+
+        .blog-content h1,
+        .blog-content h2,
+        .blog-content h3,
+        .blog-content h4,
+        .blog-content h5,
+        .blog-content h6 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .blog-content h2 {
+            font-size: 2rem;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content ul,
+        .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-content a {
+            color: #c9a961;
+            text-decoration: underline;
+        }
+
+        .blog-content a:hover {
+            color: #b8984d;
+        }
+
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #c9a961;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #4a4a4a;
+        }
+
+        .blog-content code {
+            background: #f5f5f7;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .blog-content pre {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .blog-content pre code {
+            background: transparent;
+            padding: 0;
+            color: #f5f5f7;
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Smooth transitions */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-brand-textDark">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="group select-none -ml-2">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-10 w-auto">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
+                    <a href="index.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Home</a>
+                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About Us</a>
+                    <a href="achievements.html"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
+                    <a href="testimonials.html"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Testimonials</a>
+                    <a href="gallery.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Gallery</a>
+                    <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
+                    <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
+                    <a href="blog.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Blog</a>
+
+                    <div class="h-4 w-px bg-gray-700"></div>
+
+                    <!-- CTA Button -->
+                    <button onclick="openConsultationModal()"
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        Consultation
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-black text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-400"
+            style="background-color: #E1E2E6;">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-black">Home</a>
+                <a href="aboutus.html" class="text-black">About Us</a>
+                <a href="achievements.html" class="text-black">Achievements</a>
+                <a href="testimonials.html" class="text-black">Testimonials</a>
+                <a href="gallery.html" class="text-black">Gallery</a>
+                <a href="services.html" class="text-black">Services</a>
+                <a href="careers.html" class="text-black">Careers</a>
+                <a href="blog.html" class="text-black">Blog</a>
+
+                <button onclick="openConsultationModal()"
+                    class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg bg-black hover:bg-gray-800">
+                    Book Consultation
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading State -->
+    <div id="loading-state" class="max-w-4xl mx-auto px-6 py-24">
+        <div class="skeleton h-12 w-3/4 mb-6 rounded"></div>
+        <div class="skeleton h-6 w-1/2 mb-12 rounded"></div>
+        <div class="skeleton h-96 w-full mb-8 rounded-lg"></div>
+        <div class="skeleton h-4 w-full mb-4 rounded"></div>
+        <div class="skeleton h-4 w-full mb-4 rounded"></div>
+        <div class="skeleton h-4 w-3/4 mb-4 rounded"></div>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="hidden max-w-4xl mx-auto px-6 py-24 text-center">
+        <i class="fas fa-exclamation-circle text-6xl text-red-500 mb-6"></i>
+        <h2 class="text-3xl font-bold mb-4">Post Not Found</h2>
+        <p class="text-gray-600 mb-8">Sorry, we couldn't load this blog post.</p>
+        <a href="blog.html"
+            class="inline-block px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-all">
+            Back to Blog
+        </a>
+    </div>
+
+    <!-- Blog Post Content -->
+    <article id="post-content" class="hidden fade-in">
+        <!-- Hero Section with Featured Image -->
+        <div id="post-hero" class="relative h-[60vh] min-h-[400px] bg-brand-bg overflow-hidden">
+            <img id="featured-image" src="" alt="" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/50 to-transparent"></div>
+
+            <div class="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto px-6 pb-12">
+                <!-- Category Badge -->
+                <div id="category-badge" class="inline-block mb-4"></div>
+
+                <!-- Title -->
+                <h1 id="post-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                </h1>
+
+                <!-- Meta Info -->
+                <div class="flex flex-wrap items-center gap-4 text-gray-300 text-sm">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-user"></i>
+                        <span id="post-author"></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-calendar"></i>
+                        <span id="post-date"></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-clock"></i>
+                        <span id="reading-time"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Body -->
+        <div class="max-w-4xl mx-auto px-6 py-16">
+            <!-- Excerpt -->
+            <div id="post-excerpt" class="text-xl text-gray-600 mb-12 pb-8 border-b border-gray-200"></div>
+
+            <!-- Main Content -->
+            <div id="post-body" class="blog-content"></div>
+
+            <!-- Tags -->
+            <div id="post-tags" class="mt-12 pt-8 border-t border-gray-200">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Tags</h3>
+                <div id="tags-container" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Share Buttons -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Share This Post</h3>
+                <div class="flex gap-4">
+                    <button onclick="shareOnTwitter()"
+                        class="px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition-all">
+                        <i class="fab fa-twitter mr-2"></i>Twitter
+                    </button>
+                    <button onclick="shareOnLinkedIn()"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
+                        <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                    </button>
+                    <button onclick="shareOnWhatsApp()"
+                        class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all">
+                        <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                    </button>
+                    <button onclick="copyLink()"
+                        class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all">
+                        <i class="fas fa-link mr-2"></i>Copy Link
+                    </button>
+                </div>
+            </div>
+
+            <!-- Back to Blog -->
+            <div class="mt-12 text-center">
+                <a href="blog.html"
+                    class="inline-flex items-center gap-2 text-brand-accent hover:text-brand-accentHover transition-all">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to All Posts
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="py-4 border-t border-white/10 relative" style="background-color: #000000;">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 text-sm font-medium text-white">
+                <a href="index.html" class="transition-all hover:text-gray-300">Home</a>
+                <a href="services.html" class="transition-all hover:text-gray-300">Practice Areas</a>
+                <a href="aboutus.html" class="transition-all hover:text-gray-300">Our Team</a>
+                <a href="blog.html" class="transition-all hover:text-gray-300">Blog</a>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="absolute bottom-4 right-6 flex items-center gap-4">
+                <a href="https://www.instagram.com/trumarx.in/" target="_blank" rel="noopener noreferrer"
+                    class="text-white hover:text-gray-300 transition-all" aria-label="Instagram">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/trumarx/posts/?feedView=all" target="_blank"
+                    rel="noopener noreferrer" class="text-white hover:text-gray-300 transition-all"
+                    aria-label="LinkedIn">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send/?phone=9606010198&text&type=phone_number&app_absent=0"
+                    target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300 transition-all"
+                    aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </a>
+            </div>
+
+            <p class="text-white/60 text-xs mt-4">&copy; Trumarx 2026</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a id="whatsapp-float" href="https://api.whatsapp.com/send/?phone=9606010198&text&type=phone_number&app_absent=0"
+        target="_blank" rel="noopener noreferrer"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+        aria-label="Contact us on WhatsApp">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        <span class="font-medium text-sm">Contact Us</span>
+    </a>
+
+    <script src="load-forms.js"></script>
+
+    <script>
+        // WordPress API Configuration
+        const WP_API_URL = 'https://cms.trumarx.in/wp/wp-json/wp/v2/posts';
+        const CATEGORIES_URL = 'https://cms.trumarx.in/wp/wp-json/wp/v2/categories';
+
+        let currentPost = null;
+        let categories = {};
+
+        // Get post ID from URL parameter
+        function getPostId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // Fetch categories
+        async function fetchCategories() {
+            try {
+                const response = await fetch(CATEGORIES_URL);
+                const data = await response.json();
+                data.forEach(cat => {
+                    categories[cat.id] = cat.name;
+                });
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        }
+
+        // Fetch single post
+        async function fetchPost(postId) {
+            try {
+                const response = await fetch(`${WP_API_URL}/${postId}?_embed`);
+                if (!response.ok) throw new Error('Post not found');
+
+                const post = await response.json();
+                currentPost = post;
+                displayPost(post);
+            } catch (error) {
+                console.error('Error fetching post:', error);
+                showError();
+            }
+        }
+
+        // Calculate reading time
+        function calculateReadingTime(content) {
+            const text = content.replace(/<[^>]*>/g, '');
+            const words = text.trim().split(/\s+/).length;
+            const minutes = Math.ceil(words / 200);
+            return `${minutes} min read`;
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Display post
+        function displayPost(post) {
+            // Hide loading, show content
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('post-content').classList.remove('hidden');
+
+            // Set title and meta tags
+            const title = post.title.rendered;
+            const excerpt = post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 160);
+
+            document.getElementById('post-title').textContent = `${title} | Trumarx Blog`;
+            document.getElementById('post-description').content = excerpt;
+            document.getElementById('og-title').content = title;
+            document.getElementById('og-description').content = excerpt;
+            document.getElementById('twitter-title').content = title;
+            document.getElementById('twitter-description').content = excerpt;
+
+            // Featured image
+            const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 'https://via.placeholder.com/1200x675?text=Trumarx+Blog';
+            document.getElementById('featured-image').src = featuredImage;
+            document.getElementById('featured-image').alt = title;
+            document.getElementById('og-image').content = featuredImage;
+            document.getElementById('twitter-image').content = featuredImage;
+
+            // Category badge
+            const categoryId = post.categories?.[0];
+            const categoryName = categories[categoryId] || 'Uncategorized';
+            document.getElementById('category-badge').innerHTML = `
+                <span class="px-4 py-2 bg-gradient-to-r from-brand-accent to-brand-accentHover text-white text-xs font-semibold uppercase tracking-wider rounded-full">
+                    ${categoryName}
+                </span>
+            `;
+
+            // Title
+            document.getElementById('post-heading').textContent = title;
+
+            // Author
+            const author = post._embedded?.author?.[0]?.name || 'Trumarx Team';
+            document.getElementById('post-author').textContent = author;
+
+            // Date
+            document.getElementById('post-date').textContent = formatDate(post.date);
+
+            // Reading time
+            document.getElementById('reading-time').textContent = calculateReadingTime(post.content.rendered);
+
+            // Excerpt
+            document.getElementById('post-excerpt').innerHTML = post.excerpt.rendered;
+
+            // Content
+            document.getElementById('post-body').innerHTML = post.content.rendered;
+
+            // Tags (if available)
+            if (post.tags && post.tags.length > 0) {
+                const tagsContainer = document.getElementById('tags-container');
+                post.tags.forEach(tagId => {
+                    // You can fetch tag names separately if needed
+                    const tag = document.createElement('span');
+                    tag.className = 'px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full';
+                    tag.textContent = `Tag ${tagId}`;
+                    tagsContainer.appendChild(tag);
+                });
+            } else {
+                document.getElementById('post-tags').classList.add('hidden');
+            }
+        }
+
+        // Show error state
+        function showError() {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('error-state').classList.remove('hidden');
+        }
+
+        // Social sharing functions
+        function shareOnTwitter() {
+            const text = currentPost?.title.rendered || 'Check out this blog post';
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareOnLinkedIn() {
+            const url = window.location.href;
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareOnWhatsApp() {
+            const text = currentPost?.title.rendered || 'Check out this blog post';
+            const url = window.location.href;
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+
+        // WhatsApp button hide on footer visible
+        (function () {
+            const whatsappBtn = document.getElementById('whatsapp-float');
+            const footer = document.querySelector('footer');
+            if (whatsappBtn && footer) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            whatsappBtn.style.opacity = '0';
+                            whatsappBtn.style.pointerEvents = 'none';
+                        } else {
+                            whatsappBtn.style.opacity = '1';
+                            whatsappBtn.style.pointerEvents = 'auto';
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(footer);
+            }
+        })();
+
+        // Initialize
+        async function init() {
+            const postId = getPostId();
+
+            if (!postId) {
+                showError();
+                return;
+            }
+
+            await fetchCategories();
+            await fetchPost(postId);
+        }
+
+        // Load post when page loads
+        init();
+    </script>
+</body>
+
+</html>

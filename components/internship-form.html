@@ -165,14 +165,12 @@
             }
 
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading file...';
 
             try {
-                // Read file as Base64 for Google Apps Script
-                const fileData = await readFileAsBase64(file);
-
-                // Prepare data for Google Sheets including file content
-                const data = {
+                // OPTIMIZATION: Send metadata only to Google Sheets (no file content)
+                // File will be uploaded to Google Drive via PHP backend
+                const metadataForSheets = {
                     firstName: formData.get('firstName'),
                     lastName: formData.get('lastName'),
                     email: formData.get('email'),
@@ -186,11 +184,15 @@
                     timestamp: new Date().toISOString(),
                     type: 'internship',
                     fileName: file.name,
-                    mimeType: file.type,
-                    fileContent: fileData // Base64 content
+                    fileSize: (file.size / 1024).toFixed(2) + ' KB'
+                    // NOTE: No fileContent - file is uploaded via PHP to Google Drive
                 };
 
-                const sheetsPromise = sendToGoogleSheets(data);
+                // Send to Google Sheets (fast - metadata only)
+                const sheetsPromise = sendToGoogleSheets(metadataForSheets);
+
+                // Send to PHP (handles file upload to Google Drive + email)
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to Drive...';
                 const phpPromise = fetch('send_internship_cpanel.php', {
                     method: 'POST',
                     body: formData
@@ -242,19 +244,7 @@
             }
         };
 
-        // Helper to read file as Base64
-        function readFileAsBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => {
-                    // Remove "data:application/pdf;base64," prefix
-                    const base64 = reader.result.split(',')[1];
-                    resolve(base64);
-                };
-                reader.onerror = error => reject(error);
-            });
-        }
+        // Base64 encoding removed for performance - files now uploaded directly via PHP
 
         function sendToGoogleSheets(data) {
             const params = new URLSearchParams();
