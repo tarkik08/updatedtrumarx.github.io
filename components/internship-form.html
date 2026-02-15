@@ -110,7 +110,7 @@
     // Internship Application Form Module
     (function () {
         // TODO: Replace this URL with your new Internship Google Apps Script deployment URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzgUDMv23pecs0ftUW9Mv5WHANxDxm6UZPRmiA8zd6i65ojsDNMXBZdRxhfmgMFT3FO/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx8d_27W9nb2tkJQsGA7yj4EH1W1hG4Yiw9J_qC4xjnZBgJDdeo0DlHxvJ0bpih0aFH/exec';
 
         window.openInternshipModal = function () {
             const modal = document.getElementById('internship-modal');
@@ -181,8 +181,6 @@
                     endDate: formData.get('endDate'),
                     message: formData.get('message'),
                     page: window.location.pathname,
-                    timestamp: new Date().toISOString(),
-                    type: 'internship',
                     fileName: file.name,
                     fileSize: (file.size / 1024).toFixed(2) + ' KB'
                     // NOTE: No fileContent - file is uploaded via PHP to Google Drive

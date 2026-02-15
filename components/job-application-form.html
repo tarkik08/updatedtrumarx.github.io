@@ -87,7 +87,7 @@
 <script>
     // Job Application Form Module
     (function () {
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwc5DF5yi1pRDPExCvEsqcJderXQu86fkmAYRMeCox59uxC6DxPV7UbMekiZqvmdAj-/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycby2f-OuiQnSRB4Kok5MqrW9nQ4KyZp6dGvuh2VQXnF26c1t7u0yLqz56nqTJ7admINa/exec';
 
         window.openJobApplicationModal = function (jobTitle) {
             const modal = document.getElementById('job-application-modal');
@@ -152,7 +152,27 @@
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading file...';
 
             try {
-                // OPTIMIZATION: Send metadata only to Google Sheets (no file content)
+                // STEP 1: Send to PHP first (handles file upload to Google Drive + email)
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to Drive...';
+
+                const phpResponse = await fetch('send_job_application_cpanel.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const phpResult = await phpResponse.json();
+
+                console.log('=== PHP RESPONSE ===');
+                console.log('PHP Status:', phpResponse.ok ? 'Success' : 'Failed');
+                console.log('PHP Result:', phpResult);
+
+                if (!phpResult.success) {
+                    throw new Error(phpResult.message || 'Failed to submit application');
+                }
+
+                // STEP 2: Send metadata + Drive link to Google Sheets
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving to database...';
+
                 const metadataForSheets = {
                     name: formData.get('name'),
                     email: formData.get('email'),
@@ -161,50 +181,37 @@
                     job_title: formData.get('job_title'),
                     message: formData.get('message'),
                     page: window.location.pathname,
-                    timestamp: new Date().toISOString(),
-                    type: 'job_application',
                     fileName: file.name,
-                    fileSize: (file.size / 1024).toFixed(2) + ' KB'
-                    // NOTE: No fileContent - file is uploaded via PHP to Google Drive
+                    fileSize: (file.size / 1024).toFixed(2) + ' KB',
+                    driveFileUrl: phpResult.driveFileUrl || 'N/A'  // Use Drive URL from PHP response
                 };
 
-                // Send to Google Sheets (fast - metadata only)
-                const sheetsPromise = sendToGoogleSheets(metadataForSheets);
+                console.log('=== SENDING TO SHEETS ===');
+                console.log('Sheets Data:', metadataForSheets);
 
-                // Send to PHP (handles file upload to Google Drive + email)
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to Drive...';
-                const phpPromise = fetch('send_job_application_cpanel.php', {
-                    method: 'POST',
-                    body: formData
-                }).then(response => response.json());
+                const sheetsResult = await sendToGoogleSheets(metadataForSheets);
 
-                Promise.allSettled([sheetsPromise, phpPromise])
-                    .then(function (results) {
-                        const sheetsResult = results[0];
-                        const phpResult = results[1];
+                console.log('=== SHEETS RESPONSE ===');
+                console.log('Sheets Result:', sheetsResult);
 
-                        console.log('Google Sheets:', sheetsResult.status);
-                        console.log('PHP Email:', phpResult.status);
+                // Show success if either email was sent OR sheets was saved
+                if (phpResult.success || sheetsResult.status === 'success') {
+                    closeJobApplicationModal();
+                    setTimeout(() => {
+                        const successPopup = document.getElementById('job-application-success-popup');
+                        successPopup.classList.remove('hidden');
+                        setTimeout(() => successPopup.classList.add('active'), 10);
+                    }, 300);
+                    form.reset();
+                } else {
+                    console.error('Both submissions failed!');
+                    alert('Sorry, there was an error. Please check the console for details.');
+                }
 
-                        if (sheetsResult.status === 'fulfilled' || (phpResult.status === 'fulfilled' && phpResult.value.success)) {
-                            closeJobApplicationModal();
-                            setTimeout(() => {
-                                const successPopup = document.getElementById('job-application-success-popup');
-                                successPopup.classList.remove('hidden');
-                                setTimeout(() => successPopup.classList.add('active'), 10);
-                            }, 300);
-                            form.reset();
-                        } else {
-                            alert('Sorry, there was an error. Please try again later.');
-                        }
-                    })
-                    .finally(() => {
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = originalButtonText;
-                    });
             } catch (error) {
                 console.error('Error uploading file:', error);
-                alert('Error uploading file. Please try again.');
+                alert('Error: ' + error.message);
+            } finally {
                 submitButton.disabled = false;
                 submitButton.innerHTML = originalButtonText;
             }
