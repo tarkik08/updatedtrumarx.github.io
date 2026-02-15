@@ -1,54 +1,59 @@
 // Internship Application Script
 
 function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.tryLock(10000);
-
   try {
-    var doc = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = doc.getSheetByName('Internship Applications'); // Ensure this sheet exists!
-
-    if (!sheet) {
-      sheet = doc.insertSheet('Internship Applications');
-      // Set headers if new sheet
-      sheet.appendRow(['Timestamp', 'First Name', 'Last Name', 'Email', 'Phone', 'Experience', 'Institution', 'Start Date', 'End Date', 'Message', 'Page', 'File Name', 'File Size']);
-    }
-
-    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-    var nextRow = sheet.getLastRow() + 1;
-
-    var newRow = headers.map(function(header) {
-      if (header === 'Timestamp') return new Date();
-      
-      // Map headers to parameters
-      // Note: These keys must match the `metadataForSheets` keys in your JS
-      switch(header) {
-        case 'First Name': return e.parameter.firstName;
-        case 'Last Name': return e.parameter.lastName;
-        case 'Email': return e.parameter.email;
-        case 'Phone': return e.parameter.phone;
-        case 'Experience': return e.parameter.experience;
-        case 'Institution': return e.parameter.institution;
-        case 'Start Date': return e.parameter.startDate;
-        case 'End Date': return e.parameter.endDate;
-        case 'Message': return e.parameter.message;
-        case 'Page': return e.parameter.page;
-        case 'File Name': return e.parameter.fileName;
-        case 'File Size': return e.parameter.fileSize;
-        default: return '';
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Get data from POST request
+    let data = e.parameter;
+    
+    // Fallback: try parsing JSON if parameter is empty
+    if (!data || Object.keys(data).length === 0) {
+      if (e.postData && e.postData.contents) {
+        try {
+          data = JSON.parse(e.postData.contents);
+        } catch (err) {
+          Logger.log('Error parsing JSON: ' + err);
+          data = {};
+        }
       }
-    });
-
-    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
-
-    return ContentService
-      .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (e) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } finally {
-    lock.releaseLock();
+    }
+    
+    // Log received data for debugging
+    Logger.log('Received data: ' + JSON.stringify(data));
+    
+    // Append row to sheet - Make sure columns match this order
+    // Order: Timestamp | First Name | Last Name | Email | Phone | Experience | Institution | Start Date | End Date | Message | File Name | File Size | Page
+    sheet.appendRow([
+      data.timestamp || new Date().toISOString(),
+      data.firstName || '',
+      data.lastName || '',
+      data.email || '',
+      data.phone || '',
+      data.experience || '',
+      data.institution || '',
+      data.startDate || '',
+      data.endDate || '',
+      data.message || '',
+      data.fileName || '',
+      data.fileSize || '',
+      data.page || ''
+    ]);
+    
+    // Return success response
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'success',
+      message: 'Data saved successfully'
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    // Log error
+    Logger.log('Error: ' + error.toString());
+    
+    // Return error response
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
   }
 }
