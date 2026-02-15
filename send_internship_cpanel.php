@@ -227,17 +227,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
     } catch (Exception $e) {
         error_log('Internship email error: ' . $mail->ErrorInfo);
-        echo json_encode([
-            'success' => false, 
-            'message' => 'Failed to send application.',
-            'error' => $mail->ErrorInfo,
-            'debug' => [
-                'firstName' => $firstName,
-                'lastName' => $lastName,
+        // Continue to WordPress even if email fails? Maybe better to log and continue.
+    }
+    
+    // ==========================================
+    // WORDPRESS INTEGRATION
+    // ==========================================
+    
+    // CONFIGURATION - UPDATE THESE
+    $wp_url = 'https://cms.trumarx.in/wp/wp-json/wp/v2/internship_app';
+    $wp_user = 'admin'; // Update this
+    $wp_app_password = '1o9L 2uXs pUjQ Zw5e n6fY xALu'; // Update this (format: xxxx xxxx xxxx xxxx)
+    
+    // Check if configuration is set (placeholder check)
+    if ($wp_user !== 'YOUR_WORDPRESS_USERNAME') {
+        
+        $auth = base64_encode("$wp_user:$wp_app_password");
+        
+        // Prepare data for WordPress
+        $wp_data = [
+            'title' => $name . ' - ' . date('Y-m-d'),
+            'content' => $message,
+            'status' => 'publish', // or 'private'
+            'meta' => [
                 'email' => $email,
-                'hasFile' => !empty($uploadedFile)
+                'phone' => $phone,
+                'experience' => $experience,
+                'institution' => $institution,
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                // We can't easily upload the file to WP Media Library without more complex logic
+                // For now, we'll note if a file was attached in the content
+                'has_attachment' => ($uploadedFile ? 'Yes' : 'No')
             ]
+        ];
+        
+        // Initialize cURL
+        $ch = curl_init($wp_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Basic ' . $auth,
+            'Content-Type: application/json'
         ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($wp_data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+        // Log result (optional)
+        if ($http_code < 200 || $http_code >= 300) {
+            error_log("WordPress API Error: $http_code - Response: $response");
+        }
     }
     
 } else {

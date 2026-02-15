@@ -203,10 +203,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
         
     } catch (Exception $e) {
-        echo json_encode([
-            'success' => false, 
-            'message' => 'Failed to send application: ' . $mail->ErrorInfo
+        // Log email error
+        error_log('Job App email error: ' . $mail->ErrorInfo);
+    }
+    
+    // ==========================================
+    // WORDPRESS INTEGRATION
+    // ==========================================
+    
+    // CONFIGURATION - UPDATE THESE
+    $wp_url = 'https://cms.trumarx.in/wp/wp-json/wp/v2/job_app';
+    $wp_user = 'admin'; // Update this
+    $wp_app_password = '1o9L 2uXs pUjQ Zw5e n6fY xALu'; // Update this
+    
+    if ($wp_user !== 'YOUR_WORDPRESS_USERNAME') {
+        
+        $auth = base64_encode("$wp_user:$wp_app_password");
+        
+        $wp_data = [
+            'title' => $job_title . ' - ' . $name,
+            'content' => $message,
+            'status' => 'publish',
+            'meta' => [
+                'email' => $email,
+                'phone' => $phone,
+                'experience' => $experience,
+                'job_title' => $job_title,
+                'has_attachment' => ($uploadedFile ? 'Yes' : 'No')
+            ]
+        ];
+        
+        $ch = curl_init($wp_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Basic ' . $auth,
+            'Content-Type: application/json'
         ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($wp_data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        $response = curl_exec($ch);
+        curl_close($ch);
     }
     
 } else {
