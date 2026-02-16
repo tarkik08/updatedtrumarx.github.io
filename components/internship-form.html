@@ -97,7 +97,7 @@
             <i class="fas fa-check text-white text-2xl"></i>
         </div>
         <h3 class="text-2xl font-bold mb-2 text-white">Application Submitted</h3>
-        <p class="text-sm text-gray-400 mb-6">Don't forget to email your resume to career@trumarx.in!
+        <p class="text-sm text-gray-400 mb-6">We will get back to you soon!
         </p>
         <button onclick="closeInternshipSuccessPopup()"
             class="px-6 py-3 bg-black text-white font-bold text-sm rounded-lg hover:bg-gray-800 transition-all shadow-lg">
@@ -109,6 +109,9 @@
 <script>
     // Internship Application Form Module
     (function () {
+        // REPLACE WITH YOUR PUBLISHED SCRIPT URL
+        const DRIVE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytVMtRmeEVQsG2L3FHywpfMv5TUCS8wt-PxsbR3rXeEAhBT1uu-Ucy4ZsLDFg1DfZARQ/exec';
+
         window.openInternshipModal = function () {
             const modal = document.getElementById('internship-modal');
             if (modal) {
@@ -142,30 +145,63 @@
             const formData = new FormData(form);
             const fileInput = document.getElementById('internship-cv-upload');
 
-            if (!fileInput) {
-                alert('Error: File input not found. Please refresh the page and try again.');
+            if (!fileInput || !fileInput.files[0]) {
+                alert('Please select a CV/Resume file to upload.');
                 return;
             }
 
             const file = fileInput.files[0];
 
-            // Validate file is selected
-            if (!file) {
-                alert('Please select a CV/Resume file to upload.');
-                return;
-            }
-
-            // Validate file size (10MB max)
             if (file.size > 10 * 1024 * 1024) {
                 alert('File size must be less than 10MB');
                 return;
             }
 
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading CV...';
 
             try {
-                // Send to PHP (handles file upload to Google Drive + email)
+                // STEP 1: Upload to Google Drive
+                let driveLink = 'No Link';
+
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                await new Promise((resolve, reject) => {
+                    reader.onload = async function () {
+                        try {
+                            const base64Data = reader.result.split(',')[1];
+                            const params = new URLSearchParams();
+                            params.append('filename', file.name);
+                            params.append('mimeType', file.type);
+                            params.append('file', base64Data);
+
+                            const driveResponse = await fetch(DRIVE_SCRIPT_URL, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: params.toString()
+                            });
+
+                            const driveResult = await driveResponse.json();
+
+                            if (driveResult.result === 'success') {
+                                driveLink = driveResult.url;
+                                resolve();
+                            } else {
+                                throw new Error('Drive Upload Failed: ' + driveResult.error);
+                            }
+                        } catch (err) {
+                            reject(err);
+                        }
+                    };
+                    reader.onerror = reject;
+                });
+
+                // STEP 2: Send to PHP
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+                formData.append('driveLink', driveLink);
+
                 const response = await fetch('send_internship_cpanel.php', {
                     method: 'POST',
                     body: formData
@@ -187,7 +223,7 @@
                 }
             } catch (error) {
                 console.error('Error submitting form:', error);
-                alert('Error submitting form. Please try again.');
+                alert('Error: ' + error.message);
             } finally {
                 submitButton.disabled = false;
                 submitButton.innerHTML = originalButtonText;

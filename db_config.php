@@ -3,9 +3,9 @@
 // Update these values with your actual cPanel database credentials
 
 $db_host = 'localhost';
-$db_name = 'YOUR_DATABASE_NAME'; // Update this
-$db_user = 'YOUR_DATABASE_USER'; // Update this
-$db_pass = 'YOUR_DATABASE_PASSWORD'; // Update this
+$db_name = 'trumarx_forms'; // Update this
+$db_user = 'trumarx_admin'; // Update this
+$db_pass = 'Trumarxadmin@2026'; // Update this
 
 try {
     $pdo = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8mb4", $db_user, $db_pass);
