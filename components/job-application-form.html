@@ -87,8 +87,6 @@
 <script>
     // Job Application Form Module
     (function () {
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwcKMfaQSf7XclJeHr9EtGsIbIzBJAu4_fKoH4VUKPDW_OBpcMl9iaYI2qT4qCe0Pjn/exec';
-
         window.openJobApplicationModal = function (jobTitle) {
             const modal = document.getElementById('job-application-modal');
             const titleDisplay = document.getElementById('job-title-display');
@@ -149,53 +147,18 @@
             }
 
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading file...';
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
             try {
-                // STEP 1: Send to PHP first (handles file upload to Google Drive + email)
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to Drive...';
-
-                const phpResponse = await fetch('send_job_application_cpanel.php', {
+                // Send to PHP (handles file upload to Google Drive + email)
+                const response = await fetch('send_job_application_cpanel.php', {
                     method: 'POST',
                     body: formData
                 });
 
-                const phpResult = await phpResponse.json();
+                const result = await response.json();
 
-                console.log('=== PHP RESPONSE ===');
-                console.log('PHP Status:', phpResponse.ok ? 'Success' : 'Failed');
-                console.log('PHP Result:', phpResult);
-
-                if (!phpResult.success) {
-                    throw new Error(phpResult.message || 'Failed to submit application');
-                }
-
-                // STEP 2: Send metadata + Drive link to Google Sheets
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving to database...';
-
-                const metadataForSheets = {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    experience: formData.get('experience'),
-                    job_title: formData.get('job_title'),
-                    message: formData.get('message'),
-                    page: window.location.pathname,
-                    fileName: file.name,
-                    fileSize: (file.size / 1024).toFixed(2) + ' KB',
-                    driveFileUrl: phpResult.driveFileUrl || 'N/A'  // Use Drive URL from PHP response
-                };
-
-                console.log('=== SENDING TO SHEETS ===');
-                console.log('Sheets Data:', metadataForSheets);
-
-                const sheetsResult = await sendToGoogleSheets(metadataForSheets);
-
-                console.log('=== SHEETS RESPONSE ===');
-                console.log('Sheets Result:', sheetsResult);
-
-                // Show success if either email was sent OR sheets was saved
-                if (phpResult.success || sheetsResult.status === 'success') {
+                if (result.success) {
                     closeJobApplicationModal();
                     setTimeout(() => {
                         const successPopup = document.getElementById('job-application-success-popup');
@@ -204,32 +167,17 @@
                     }, 300);
                     form.reset();
                 } else {
-                    console.error('Both submissions failed!');
-                    alert('Sorry, there was an error. Please check the console for details.');
+                    console.error('Submission failed:', result.message);
+                    alert('Error: ' + (result.message || 'Failed to submit application.'));
                 }
 
             } catch (error) {
-                console.error('Error uploading file:', error);
+                console.error('Error submitting application:', error);
                 alert('Error: ' + error.message);
             } finally {
                 submitButton.disabled = false;
                 submitButton.innerHTML = originalButtonText;
             }
         };
-
-        // Base64 encoding removed for performance - files now uploaded directly via PHP
-
-        function sendToGoogleSheets(data) {
-            const params = new URLSearchParams();
-            for (const key in data) {
-                params.append(key, data[key]);
-            }
-
-            return fetch(GOOGLE_SHEETS_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
-            }).then(response => response.json());
-        }
     })();
 </script>

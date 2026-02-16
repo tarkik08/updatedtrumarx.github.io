@@ -405,6 +405,10 @@
 
         // Helper function to get media type
         function getMediaType(item) {
+            // Use mimeType from API if available
+            if (item.mimeType) {
+                return item.mimeType.startsWith('video/') ? 'video' : 'image';
+            }
             return isVideo(item.name) ? 'video' : 'image';
         }
 

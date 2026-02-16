@@ -109,9 +109,6 @@
 <script>
     // Internship Application Form Module
     (function () {
-        // TODO: Replace this URL with your new Internship Google Apps Script deployment URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxqIvUqsgIfOgrlwkWpaX1owLQ6PRR5J78KFbrBEHCWtCrIwmmYPuImem4gvx8A8yh-/exec';
-
         window.openInternshipModal = function () {
             const modal = document.getElementById('internship-modal');
             if (modal) {
@@ -165,96 +162,36 @@
             }
 
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading file...';
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
             try {
-                // OPTIMIZATION: Send metadata only to Google Sheets (no file content)
-                // File will be uploaded to Google Drive via PHP backend
-                const metadataForSheets = {
-                    firstName: formData.get('firstName'),
-                    lastName: formData.get('lastName'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    experience: formData.get('experience') || 'N/A',
-                    institution: formData.get('institution'),
-                    startDate: formData.get('startDate'),
-                    endDate: formData.get('endDate'),
-                    message: formData.get('message'),
-                    page: window.location.pathname,
-                    fileName: file.name,
-                    fileSize: (file.size / 1024).toFixed(2) + ' KB'
-                    // NOTE: No fileContent - file is uploaded via PHP to Google Drive
-                };
-
-                // Send to Google Sheets (fast - metadata only)
-                const sheetsPromise = sendToGoogleSheets(metadataForSheets);
-
                 // Send to PHP (handles file upload to Google Drive + email)
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to Drive...';
-                const phpPromise = fetch('send_internship_cpanel.php', {
+                const response = await fetch('send_internship_cpanel.php', {
                     method: 'POST',
                     body: formData
-                }).then(response => response.json());
+                });
 
-                Promise.allSettled([sheetsPromise, phpPromise])
-                    .then(function (results) {
-                        const sheetsResult = results[0];
-                        const phpResult = results[1];
+                const result = await response.json();
 
-                        console.log('=== SUBMISSION RESULTS ===');
-                        console.log('Google Sheets Status:', sheetsResult.status);
-                        if (sheetsResult.status === 'rejected') {
-                            console.error('Google Sheets Error:', sheetsResult.reason);
-                        } else {
-                            console.log('Google Sheets Response:', sheetsResult.value);
-                        }
-
-                        console.log('PHP Email Status:', phpResult.status);
-                        if (phpResult.status === 'rejected') {
-                            console.error('PHP Email Error:', phpResult.reason);
-                        } else {
-                            console.log('PHP Email Response:', phpResult.value);
-                        }
-                        console.log('=========================');
-
-                        if (sheetsResult.status === 'fulfilled' || (phpResult.status === 'fulfilled' && phpResult.value.success)) {
-                            closeInternshipModal();
-                            setTimeout(() => {
-                                const successPopup = document.getElementById('internship-success-popup');
-                                successPopup.classList.remove('hidden');
-                                setTimeout(() => successPopup.classList.add('active'), 10);
-                            }, 300);
-                            form.reset();
-                        } else {
-                            console.error('Both submissions failed!');
-                            alert('Sorry, there was an error. Please check the console for details.');
-                        }
-                    })
-                    .finally(() => {
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = originalButtonText;
-                    });
+                if (result.success) {
+                    closeInternshipModal();
+                    setTimeout(() => {
+                        const successPopup = document.getElementById('internship-success-popup');
+                        successPopup.classList.remove('hidden');
+                        setTimeout(() => successPopup.classList.add('active'), 10);
+                    }, 300);
+                    form.reset();
+                } else {
+                    console.error('Submission failed:', result.message);
+                    alert('Error: ' + (result.message || 'Failed to submit application.'));
+                }
             } catch (error) {
-                console.error('Error uploading file:', error);
-                alert('Error uploading file. Please try again.');
+                console.error('Error submitting form:', error);
+                alert('Error submitting form. Please try again.');
+            } finally {
                 submitButton.disabled = false;
                 submitButton.innerHTML = originalButtonText;
             }
         };
-
-        // Base64 encoding removed for performance - files now uploaded directly via PHP
-
-        function sendToGoogleSheets(data) {
-            const params = new URLSearchParams();
-            for (const key in data) {
-                params.append(key, data[key]);
-            }
-
-            return fetch(GOOGLE_SHEETS_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
-            }).then(response => response.json());
-        }
     })();
 </script>

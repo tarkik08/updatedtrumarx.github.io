@@ -33,8 +33,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
+    }
+    
+    // ==========================================
+    // DATABASE STORAGE
+    // ==========================================
+    try {
+        require_once 'db_config.php';
+        
+        $stmt = $pdo->prepare("INSERT INTO consultations (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $email, $phone, $subject, $message]);
+        
+    } catch (Exception $e) {
+        // Log database error but don't stop email sending
+        error_log("Database Error (Consultation): " . $e->getMessage());
+    }
+    
     try {
         $mail = new PHPMailer(true);
+        // ... rest of email logic ...
+
         
         // SMTP Configuration
         $mail->isSMTP();

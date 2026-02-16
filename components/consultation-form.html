@@ -88,9 +88,6 @@
 <script>
     // Consultation Form Module with Anti-Spam
     (function () {
-        // Google Apps Script Web App URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwWlo2UBZmmGsY1hu0UriBD0wCDNkd7nrREvoGYxXqToml-TK2tGzvVY736J3CW5e6k_g/exec';
-
         let formOpenTime = 0;
 
         window.openConsultationModal = function () {
@@ -140,43 +137,15 @@
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
             try {
-                // Prepare data for Google Sheets
-                const data = {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    subject: formData.get('subject'),
-                    message: formData.get('message'),
-                    page: window.location.pathname,
-                    timestamp: new Date().toISOString(),
-                    type: 'consultation'
-                };
-
-                // Send to Google Sheets (no-cors mode)
-                const sheetsPromise = sendToGoogleSheets(data);
-
-                // Send to PHP Handler (for Email)
-                const phpPromise = fetch('send_consultation_cpanel.php', {
+                // Send to PHP Handler (for Email + DB)
+                const response = await fetch('send_consultation_cpanel.php', {
                     method: 'POST',
                     body: formData
-                }).then(response => response.json());
+                });
 
-                // Wait for both (so we don't close modal too early)
-                const results = await Promise.allSettled([sheetsPromise, phpPromise]);
-                const sheetsResult = results[0];
-                const phpResult = results[1];
+                const result = await response.json();
 
-                // Debug logging
-                console.log('Consultation Form Submission Results:');
-                console.log('Google Sheets:', sheetsResult.status, sheetsResult);
-                console.log('PHP Email:', phpResult.status, phpResult);
-                console.log('Data sent to Sheets:', data);
-
-                // Check if at least ONE succeeded (resilient behavior)
-                const emailSuccess = (phpResult.status === 'fulfilled' && phpResult.value.success);
-                const sheetsSuccess = (sheetsResult.status === 'fulfilled');
-
-                if (emailSuccess || sheetsSuccess) {
+                if (result.success) {
                     closeConsultationModal();
                     setTimeout(() => {
                         const successPopup = document.getElementById('consultation-success-popup');
@@ -185,10 +154,8 @@
                     }, 300);
                     form.reset();
                 } else {
-                    const errorMsg = (phpResult.status === 'fulfilled' && phpResult.value.message)
-                        ? phpResult.value.message
-                        : 'Sorry, there was an error. Please try again later.';
-                    alert(errorMsg);
+                    console.error('Submission failed:', result.message);
+                    alert('Error: ' + (result.message || 'Failed to send request.'));
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -198,20 +165,5 @@
                 submitButton.innerHTML = originalButtonText;
             }
         };
-
-        function sendToGoogleSheets(data) {
-            // Convert simple object to URLSearchParams (form-encoded)
-            // This ensures Google Apps Script receives data in e.parameter
-            const params = new URLSearchParams();
-            for (const key in data) {
-                params.append(key, data[key]);
-            }
-
-            return fetch(GOOGLE_SHEETS_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
-            }).then(response => response.json());
-        }
     })();
 </script>
