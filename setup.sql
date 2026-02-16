@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 -- Default Admin User (username: admin, password: password123)
 -- You should change this password immediately after logging in!
 INSERT INTO `admin_users` (`username`, `password`) VALUES
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+('admin', '$2y$10$vI8aWBnW3fID.ZQ4/zo1G.q1lRps.9cGLcZEiGDMVr5yUP1KUOYTa');
 
 
 -- 2. Consultations Table
