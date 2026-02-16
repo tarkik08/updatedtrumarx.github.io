@@ -164,8 +164,8 @@ try {
                                 <td class="p-2 border-b text-xs text-gray-500">
                                     <?php echo $row['start_date'] . ' to ' . $row['end_date']; ?>
                                 </td>
-                                <td class="p-2 border-b text-xs text-gray-500 max-w-xs truncate" title="<?php echo htmlspecialchars($row['message']); ?>">
-                                    <?php echo htmlspecialchars($row['message']); ?>
+                                <td class="p-2 border-b text-xs text-gray-500">
+                                    <?php echo htmlspecialchars($row['message']) ?: '<span class="text-gray-300 italic">No message</span>'; ?>
                                 </td>
                                 <td class="p-2 border-b">
                                     <?php if($row['cv_file'] && strpos($row['cv_file'], 'http') === 0): ?>
@@ -207,8 +207,8 @@ try {
                                     <div class="text-blue-600"><?php echo htmlspecialchars($row['email']); ?></div>
                                     <div class="text-gray-500"><?php echo htmlspecialchars($row['phone']); ?></div>
                                 </td>
-                                <td class="p-2 border-b text-xs text-gray-500 max-w-xs truncate" title="<?php echo htmlspecialchars($row['message']); ?>">
-                                    <?php echo htmlspecialchars($row['message']); ?>
+                                <td class="p-2 border-b text-xs text-gray-500">
+                                    <?php echo htmlspecialchars($row['message']) ?: '<span class="text-gray-300 italic">No message</span>'; ?>
                                 </td>
                                 <td class="p-2 border-b">
                                     <?php if($row['cv_file'] && strpos($row['cv_file'], 'http') === 0): ?>

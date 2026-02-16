@@ -8,9 +8,9 @@ error_reporting(0);
 ini_set('display_errors', 0);
 
 // Load PHPMailer files
+require 'Exception.php';
 require 'PHPMailer.php';
 require 'SMTP.php';
-require 'Exception.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -35,8 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo json_encode(['success' => false, 'message' => 'Invalid email format.']);
         exit;
-    }
-    
     }
     
     // ==========================================
