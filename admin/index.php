@@ -126,7 +126,7 @@ try {
                         </thead>
                         <tbody>
                             <?php foreach($consultations as $row): ?>
-                            <tr>
+                            <tr class="<?php echo ($row['status'] == 'completed') ? 'completed' : ''; ?>">
                                 <td class="p-2 border-b text-sm text-gray-500"><?php echo date('M d, Y', strtotime($row['submitted_at'])); ?></td>
                                 <td class="p-2 border-b font-medium"><?php echo htmlspecialchars($row['name']); ?></td>
                                 <td class="p-2 border-b text-blue-600"><a href="mailto:<?php echo htmlspecialchars($row['email']); ?>"><?php echo htmlspecialchars($row['email']); ?></a></td>
@@ -140,7 +140,6 @@ try {
                                     </button>
                                 </td>
                             </tr>
-                            <tr class="<?php echo ($row['status'] == 'completed') ? 'completed' : ''; ?>">
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -163,7 +162,7 @@ try {
                         </thead>
                         <tbody>
                             <?php foreach($internships as $row): ?>
-                            <tr>
+                            <tr class="<?php echo ($row['status'] == 'completed') ? 'completed' : ''; ?>">
                                 <td class="p-2 border-b text-sm text-gray-500"><?php echo date('M d, Y', strtotime($row['submitted_at'])); ?></td>
                                 <td class="p-2 border-b font-medium"><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></td>
                                 <td class="p-2 border-b text-sm">
@@ -212,7 +211,7 @@ try {
                         </thead>
                         <tbody>
                             <?php foreach($job_applications as $row): ?>
-                            <tr>
+                            <tr class="<?php echo ($row['status'] == 'completed') ? 'completed' : ''; ?>">
                                 <td class="p-2 border-b text-sm text-gray-500"><?php echo date('M d, Y', strtotime($row['submitted_at'])); ?></td>
                                 <td class="p-2 border-b font-medium"><?php echo htmlspecialchars($row['name']); ?></td>
                                 <td class="p-2 border-b"><span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded"><?php echo htmlspecialchars($row['job_title']); ?></span></td>

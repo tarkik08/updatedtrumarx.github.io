@@ -159,6 +159,7 @@
     <!-- Navigation -->
     <nav class="relative z-50 legal-nav transition-colors duration-300"
         style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+
         <div class="max-w-7xl mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
@@ -179,6 +180,8 @@
                     <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
                     <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
                     <a href="blog.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Blog</a>
+                    <a href="#" onclick="openContactModal(event)"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Contact</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
 
@@ -209,9 +212,10 @@
                 <a href="services.html" class="text-black">Services</a>
                 <a href="careers.html" class="text-black">Careers</a>
                 <a href="blog.html" class="text-black">Blog</a>
+                <a href="#" onclick="openContactModal(event)" class="text-black">Contact</a>
 
                 <button onclick="openConsultationModal()"
-                    class="w-full text-center px-5 py-3 rounded-lg btn-royal-blue text-white font-bold shadow-lg">Book
+                    class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg btn-royal-blue">Book
                     Consultation</button>
             </div>
         </div>
@@ -511,7 +515,6 @@
         class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
         aria-label="Contact us on WhatsApp">
         <i class="fab fa-whatsapp text-2xl"></i>
-        <span class="font-medium text-sm">Contact Us</span>
     </a>
 
     <!-- Script to hide WhatsApp button when footer is visible -->
