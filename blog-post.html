@@ -201,7 +201,9 @@
 
 <body class="bg-white text-brand-textDark">
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300">
+    <nav class="relative z-50 legal-nav transition-colors duration-300"
+        style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+
         <div class="max-w-7xl mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
@@ -212,7 +214,8 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
                     <a href="index.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Home</a>
-                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About Us</a>
+                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About
+                        Us</a>
                     <a href="achievements.html"
                         class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
                     <a href="testimonials.html"
@@ -221,8 +224,11 @@
                     <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
                     <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
                     <a href="blog.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Blog</a>
+                    <a href="#" onclick="openContactModal(event)"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Contact</a>
 
                     <div class="h-4 w-px bg-gray-700"></div>
+
 
                     <!-- CTA Button -->
                     <button onclick="openConsultationModal()"
@@ -231,7 +237,6 @@
                     </button>
                 </div>
 
-                <!-- Mobile Menu Button -->
                 <div class="flex items-center gap-4 md:hidden">
                     <button id="mobile-menu-btn" class="text-black text-xl">
                         <i class="fas fa-bars"></i>
@@ -239,7 +244,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-400"
             style="background-color: #E1E2E6;">
@@ -252,15 +256,15 @@
                 <a href="services.html" class="text-black">Services</a>
                 <a href="careers.html" class="text-black">Careers</a>
                 <a href="blog.html" class="text-black">Blog</a>
+                <a href="#" onclick="openContactModal(event)" class="text-black">Contact</a>
 
                 <button onclick="openConsultationModal()"
-                    class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg bg-black hover:bg-gray-800">
-                    Book Consultation
-                </button>
+                    class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg btn-royal-blue">Book
+                    Consultation</button>
             </div>
         </div>
     </nav>
-
+    
     <!-- Loading State -->
     <div id="loading-state" class="max-w-4xl mx-auto px-6 py-24">
         <div class="skeleton h-12 w-3/4 mb-6 rounded"></div>
