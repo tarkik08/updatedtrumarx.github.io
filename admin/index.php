@@ -44,6 +44,8 @@ try {
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         .tab-btn.active { border-bottom: 2px solid #000; color: #000; font-weight: bold; }
+        .completed { text-decoration: line-through; opacity: 0.6; }
+        .btn-status.active { color: #10B981; } /* Green color for active checks */
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
@@ -119,6 +121,7 @@ try {
                                 <th class="border-b p-2">Email</th>
                                 <th class="border-b p-2">Service</th>
                                 <th class="border-b p-2">Message</th>
+                                <th class="border-b p-2">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,7 +134,13 @@ try {
                                 <td class="p-2 border-b text-gray-600 text-sm max-w-xs truncate" title="<?php echo htmlspecialchars($row['message']); ?>">
                                     <?php echo htmlspecialchars($row['message']); ?>
                                 </td>
+                                <td class="p-2 border-b text-center">
+                                    <button onclick="toggleStatus(this, <?php echo $row['id']; ?>, 'consultations')" class="btn-status text-gray-400 hover:text-green-500 transition-colors <?php echo ($row['status'] == 'completed') ? 'active' : ''; ?>">
+                                        <i class="fas fa-check-circle text-xl"></i>
+                                    </button>
+                                </td>
                             </tr>
+                            <tr class="<?php echo ($row['status'] == 'completed') ? 'completed' : ''; ?>">
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -149,6 +158,7 @@ try {
                                 <th class="border-b p-2">Duration</th>
                                 <th class="border-b p-2">Message</th>
                                 <th class="border-b p-2">CV</th>
+                                <th class="border-b p-2">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -172,9 +182,12 @@ try {
                                         <a href="<?php echo htmlspecialchars($row['cv_file']); ?>" target="_blank" class="text-blue-600 hover:text-blue-800 underline text-sm">
                                             <i class="fas fa-external-link-alt"></i> View CV
                                         </a>
-                                    <?php else: ?>
-                                        <span class="text-gray-400 text-sm">No Link</span>
                                     <?php endif; ?>
+                                </td>
+                                <td class="p-2 border-b text-center">
+                                    <button onclick="toggleStatus(this, <?php echo $row['id']; ?>, 'internships')" class="btn-status text-gray-400 hover:text-green-500 transition-colors <?php echo ($row['status'] == 'completed') ? 'active' : ''; ?>">
+                                        <i class="fas fa-check-circle text-xl"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -194,6 +207,7 @@ try {
                                 <th class="border-b p-2">Contact</th>
                                 <th class="border-b p-2">Cover Letter</th>
                                 <th class="border-b p-2">CV</th>
+                                <th class="border-b p-2">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -218,6 +232,11 @@ try {
                                     <?php else: ?>
                                         <span class="text-gray-400 text-sm">No Link</span>
                                     <?php endif; ?>
+                                </td>
+                                <td class="p-2 border-b text-center">
+                                    <button onclick="toggleStatus(this, <?php echo $row['id']; ?>, 'job_applications')" class="btn-status text-gray-400 hover:text-green-500 transition-colors <?php echo ($row['status'] == 'completed') ? 'active' : ''; ?>">
+                                        <i class="fas fa-check-circle text-xl"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -250,6 +269,40 @@ try {
             if(tabName === 'consultations') buttons[0].classList.add('active');
             if(tabName === 'internships') buttons[1].classList.add('active');
             if(tabName === 'jobs') buttons[2].classList.add('active');
+        }
+
+        function toggleStatus(btn, id, table) {
+            const row = btn.closest('tr'); // Get the row containing the button
+            const isCompleted = btn.classList.contains('active');
+            const newStatus = isCompleted ? 'pending' : 'completed';
+
+            // Optimistic UI update
+            btn.classList.toggle('active');
+            row.classList.toggle('completed');
+
+            fetch('update_status.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id, table: table, status: newStatus }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    // Revert changes if failed
+                    btn.classList.toggle('active');
+                    row.classList.toggle('completed');
+                    alert('Failed to update status: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Revert changes if error
+                btn.classList.toggle('active');
+                row.classList.toggle('completed');
+                alert('An error occurred while updating status.');
+            });
         }
     </script>
 </body>
