@@ -22,7 +22,7 @@ base_dir = r'd:\updatedtrumarx.github.io'
 # Template for the button
 # We use a placeholder for the bottom class
 button_template = '''    <!-- Floating WhatsApp Button -->
-    <a id="whatsapp-float" href="https://api.whatsapp.com/send/?phone=9606010198&text&type=phone_number&app_absent=0"
+    <a id="whatsapp-float" href="https://api.whatsapp.com/send/?phone=7204759965&text&type=phone_number&app_absent=0"
         target="_blank" rel="noopener noreferrer"
         class="fixed {bottom_class} right-6 z-50 flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
         aria-label="Contact us on WhatsApp">
