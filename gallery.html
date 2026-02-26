@@ -51,6 +51,10 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Video.js -->
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="config.js"></script>
@@ -176,6 +180,58 @@
             background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+        }
+
+        /* Video.js Custom Styling */
+        .vjs-gallery-player {
+            width: 100% !important;
+            max-width: 960px;
+            max-height: 70vh;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .vjs-gallery-player .vjs-big-play-button {
+            background-color: rgba(110, 110, 110, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            font-size: 40px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .vjs-gallery-player:hover .vjs-big-play-button {
+            background-color: rgba(110, 110, 110, 1);
+        }
+
+        /* Video cover overlay for cards */
+        .video-cover-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .video-cover-overlay i {
+            font-size: 4rem;
+            color: white;
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Google Drive iframe embed */
+        .drive-video-embed {
+            width: 100%;
+            max-width: 960px;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            border: none;
         }
     </style>
 </head>
@@ -392,6 +448,58 @@
             return isVideo(item.name) ? 'video' : 'image';
         }
 
+        // Get the Drive file ID from a media item (prefers API-provided id)
+        function getDriveFileId(mediaItem) {
+            // The Apps Script API already returns item.id
+            if (mediaItem && mediaItem.id) return mediaItem.id;
+            // Fallback: try to extract from URL
+            if (!mediaItem || !mediaItem.url) return null;
+            const patterns = [
+                /\/file\/d\/([a-zA-Z0-9_-]+)/,
+                /id=([a-zA-Z0-9_-]+)/,
+                /uc\?.*id=([a-zA-Z0-9_-]+)/,
+                /open\?id=([a-zA-Z0-9_-]+)/
+            ];
+            for (const pattern of patterns) {
+                const match = mediaItem.url.match(pattern);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // Get a streamable video URL for Google Drive files
+        function getDriveVideoStreamUrl(mediaItem) {
+            const fileId = getDriveFileId(mediaItem);
+            if (fileId) {
+                return `https://drive.google.com/uc?export=download&id=${fileId}`;
+            }
+            return mediaItem.url;
+        }
+
+        // Get a Google Drive preview/embed URL (for iframe fallback)
+        function getDriveVideoEmbedUrl(mediaItem) {
+            const fileId = getDriveFileId(mediaItem);
+            if (fileId) {
+                return `https://drive.google.com/file/d/${fileId}/preview`;
+            }
+            return mediaItem.url;
+        }
+
+        // Get a thumbnail URL for a video media item
+        function getVideoThumbnail(mediaItem) {
+            // Prefer the thumbnailLink from the API
+            if (mediaItem.thumbnailLink) return mediaItem.thumbnailLink;
+            // Fallback: construct from file ID
+            const fileId = getDriveFileId(mediaItem);
+            if (fileId) {
+                return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+            }
+            return null;
+        }
+
+        // Track the current Video.js player instance for cleanup
+        let currentVideoPlayer = null;
+
         // ============================================
         // LOAD GALLERY DATA
         // ============================================
@@ -525,31 +633,40 @@
 
             console.log('Creating card for:', event.title, 'Cover media URL:', coverMedia.url, 'Type:', coverMedia.type);
 
+            // Determine cover image URL - use thumbnail for videos
+            let coverImageUrl = coverMedia.url;
+            if (isCoverVideo) {
+                const thumb = getVideoThumbnail(coverMedia);
+                if (thumb) coverImageUrl = thumb;
+            }
+
             section.innerHTML = `
                 <div class="max-w-5xl mx-auto px-6">
                     <!-- Event Card -->
                     <div class="bg-white dark:bg-brand-darkCard rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group"
                         onclick="openSlideshow(${eventIndex})">
                         
-                        <!-- Cover Image -->
+                        <!-- Cover Image/Video Thumbnail -->
                         <div class="relative aspect-[16/9] overflow-hidden bg-gray-200 dark:bg-brand-navy">
-                            <img src="${coverMedia.url}" 
+                            <img src="${coverImageUrl}" 
                                  alt="${event.title}"
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                  loading="lazy"
                                  onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22%3E%3Crect fill=%22%23ddd%22 width=%22800%22 height=%22450%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not available%3C/text%3E%3C/svg%3E'">
                             
+                            ${isCoverVideo ? '<div class="video-cover-overlay"><i class="fas fa-play-circle"></i></div>' : ''}
+                            
                             <!-- Overlay on hover -->
                             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
                                 <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <i class="fas fa-play-circle text-white text-6xl"></i>
+                                    <i class="fas fa-${isCoverVideo ? 'play' : 'images'} text-white text-5xl"></i>
                                 </div>
                             </div>
                             
                             <!-- Media count badge -->
                             <div class="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-1.5 rounded-full text-sm font-medium">
                                 ${imageCount > 0 ? `<i class="fas fa-images mr-1"></i> ${imageCount}` : ''}
-                                ${imageCount > 0 && videoCount > 0 ? ' • ' : ''}
+                                ${imageCount > 0 && videoCount > 0 ? ' &bull; ' : ''}
                                 ${videoCount > 0 ? `<i class="fas fa-video mr-1"></i> ${videoCount}` : ''}
                             </div>
                         </div>
@@ -628,6 +745,11 @@
         }
 
         function closeSlideshow() {
+            // Dispose Video.js player before removing modal
+            if (currentVideoPlayer) {
+                try { currentVideoPlayer.dispose(); } catch (e) { }
+                currentVideoPlayer = null;
+            }
             const modal = document.getElementById('slideshow-modal');
             if (modal) {
                 modal.remove();
@@ -654,25 +776,117 @@
             const media = currentSlideshow.images[currentSlideIndex];
             const container = document.getElementById('slideshow-media-container');
 
+            // Dispose previous Video.js player if it exists
+            if (currentVideoPlayer) {
+                try { currentVideoPlayer.dispose(); } catch (e) { }
+                currentVideoPlayer = null;
+            }
+
             // Clear previous media
             container.innerHTML = '';
 
             if (media.type === 'video') {
-                // Create video element
-                const video = document.createElement('video');
-                video.src = media.url;
-                video.controls = true;
-                video.autoplay = true;
-                video.className = 'max-w-full max-h-full object-contain';
-                video.onerror = function () {
-                    container.innerHTML = `
-                        <div class="text-center text-white">
-                            <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
-                            <p>Video not available</p>
-                        </div>
-                    `;
-                };
-                container.appendChild(video);
+                // Check if we have a Drive file ID (from API or parsed from URL)
+                const driveFileId = getDriveFileId(media);
+
+                if (driveFileId) {
+                    // For Google Drive videos, try Video.js first with direct stream URL,
+                    // and fall back to iframe embed if it fails
+                    const streamUrl = getDriveVideoStreamUrl(media);
+                    const embedUrl = getDriveVideoEmbedUrl(media);
+
+                    // Create a wrapper div
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'flex items-center justify-center w-full h-full';
+
+                    // Try Video.js player first
+                    const videoEl = document.createElement('video');
+                    videoEl.id = 'gallery-videojs-player';
+                    videoEl.className = 'video-js vjs-big-play-centered vjs-gallery-player';
+                    videoEl.setAttribute('controls', '');
+                    videoEl.setAttribute('preload', 'auto');
+                    videoEl.setAttribute('playsinline', '');
+
+                    const sourceEl = document.createElement('source');
+                    sourceEl.src = streamUrl;
+                    sourceEl.type = 'video/mp4';
+                    videoEl.appendChild(sourceEl);
+
+                    wrapper.appendChild(videoEl);
+                    container.appendChild(wrapper);
+
+                    // Initialize Video.js
+                    try {
+                        currentVideoPlayer = videojs('gallery-videojs-player', {
+                            fluid: false,
+                            responsive: true,
+                            controls: true,
+                            autoplay: true,
+                            preload: 'auto'
+                        });
+
+                        // If Video.js stream fails, fall back to Drive iframe embed
+                        currentVideoPlayer.on('error', function () {
+                            console.log('Video.js stream failed, falling back to Drive embed');
+                            try { currentVideoPlayer.dispose(); } catch (e) { }
+                            currentVideoPlayer = null;
+                            container.innerHTML = '';
+
+                            const iframe = document.createElement('iframe');
+                            iframe.src = embedUrl;
+                            iframe.className = 'drive-video-embed';
+                            iframe.setAttribute('allowfullscreen', '');
+                            iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                            container.appendChild(iframe);
+                        });
+                    } catch (e) {
+                        console.error('Video.js init failed:', e);
+                        // Fallback to iframe
+                        container.innerHTML = '';
+                        const iframe = document.createElement('iframe');
+                        iframe.src = embedUrl;
+                        iframe.className = 'drive-video-embed';
+                        iframe.setAttribute('allowfullscreen', '');
+                        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                        container.appendChild(iframe);
+                    }
+                } else {
+                    // Non-Drive video: use Video.js directly
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'flex items-center justify-center w-full h-full';
+
+                    const videoEl = document.createElement('video');
+                    videoEl.id = 'gallery-videojs-player';
+                    videoEl.className = 'video-js vjs-big-play-centered vjs-gallery-player';
+                    videoEl.setAttribute('controls', '');
+                    videoEl.setAttribute('preload', 'auto');
+                    videoEl.setAttribute('playsinline', '');
+
+                    const sourceEl = document.createElement('source');
+                    sourceEl.src = media.url;
+                    sourceEl.type = 'video/mp4';
+                    videoEl.appendChild(sourceEl);
+
+                    wrapper.appendChild(videoEl);
+                    container.appendChild(wrapper);
+
+                    currentVideoPlayer = videojs('gallery-videojs-player', {
+                        fluid: false,
+                        responsive: true,
+                        controls: true,
+                        autoplay: true,
+                        preload: 'auto'
+                    });
+
+                    currentVideoPlayer.on('error', function () {
+                        container.innerHTML = `
+                            <div class="text-center text-white">
+                                <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+                                <p>Video not available</p>
+                            </div>
+                        `;
+                    });
+                }
             } else {
                 // Create image element
                 const img = document.createElement('img');
