@@ -6,7 +6,7 @@ User-agent: *
 Disallow:
 
 # Sitemap location
-Sitemap: https://trumarx.in/sitemap.xml
+Sitemap: https://trumarx.in/sitemap.php
 
 # Optional: Crawl delay (uncomment if needed to prevent server overload)
 # Crawl-delay: 10
