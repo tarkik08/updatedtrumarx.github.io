@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Consultation | Protect Your Ideas | Trumarx Bangalore</title>
+    <meta name="description"
+        content="Understand Intellectual Property. Protect Your Ideas. Connect with Trumarx today.">
+
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="theme.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .legal-nav {
+            background: rgba(17, 17, 17, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Royal Blue Button Styles */
+        .btn-royal-blue {
+            background-color: #1d1d1f;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-royal-blue:hover {
+            background-color: #0d0d0d;
+            box-shadow: 0 10px 25px rgba(110, 110, 110, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Navigation Pill Button Styles */
+        nav a[class*="rounded-full"],
+        footer a[class*="rounded-full"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(0px);
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        nav a[class*="rounded-full"]:hover,
+        footer a[class*="rounded-full"]:hover {
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(8, 18, 32, 0.4);
+        }
+
+        /* Modal Transitions */
+        .modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-brand-text bg-brand-bg relative overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="relative z-50 legal-nav transition-colors duration-300"
+        style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="group select-none -ml-2">
+                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-10 w-auto">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-3 text-[14px] font-medium tracking-normal">
+                    <a href="index.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Home</a>
+                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About Us</a>
+                    <a href="achievements.html"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
+                    <a href="testimonials.html"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Testimonials</a>
+                    <a href="gallery.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Gallery</a>
+                    <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
+                    <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
+                    <a href="blog.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Blog</a>
+                    <a href="#" onclick="openContactModal(event)"
+                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Contact</a>
+
+                    <div class="h-4 w-px bg-gray-700"></div>
+
+                    <!-- CTA Button -->
+                    <button onclick="openConsultationModal()"
+                        class="px-5 py-2.5 rounded-lg text-white font-medium text-[14px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-black text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-400"
+            style="background-color: #E1E2E6;">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="index.html" class="text-black">Home</a>
+                <a href="aboutus.html" class="text-black">About Us</a>
+                <a href="achievements.html" class="text-black">Achievements</a>
+                <a href="testimonials.html" class="text-black">Testimonials</a>
+                <a href="gallery.html" class="text-black">Gallery</a>
+                <a href="services.html" class="text-black">Services</a>
+                <a href="careers.html" class="text-black">Careers</a>
+                <a href="blog.html" class="text-black">Blog</a>
+                <a href="#" onclick="openContactModal(event)" class="text-black">Contact</a>
+
+                <button onclick="openConsultationModal()"
+                    class="w-full text-center px-5 py-3 rounded-lg text-white font-bold shadow-lg btn-royal-blue">Book
+                    Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Social Hero Section -->
+    <section class="relative pt-24 pb-16 bg-brand-bg overflow-hidden border-b border-gray-200 dark:border-white/5">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h1
+                class="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-brand-textDark dark:text-brand-textLight">
+                Understand Intellectual Property.<br><span class="text-brand-accent">Protect Your Ideas.</span>
+            </h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto font-medium">
+                If you have discovered us through social media, you may be exploring how intellectual property
+                protection works. At Trumarx, we help businesses, creators, and innovators secure their ideas through
+                structured legal protection.
+            </p>
+        </div>
+    </section>
+
+    <!-- Detailed Content & Form Section -->
+    <section class="py-16 md:py-24 bg-brand-bg relative space-y-16">
+
+        <!-- Info Grid -->
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 text-left">
+            <!-- Our Services -->
+            <div class="bg-white p-8 rounded-2xl border border-brand-accent/20 shadow-legal">
+                <h3 class="text-2xl font-bold mb-6 text-black flex items-center gap-3">
+                    <i class="fas fa-briefcase text-brand-accent"></i> Our Services
+                </h3>
+                <ul class="space-y-4 text-black text-sm md:text-base pb-4">
+                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-accent"></i> Trademark
+                        Registration</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-accent"></i> Patent
+                        Advisory</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-accent"></i> Copyright
+                        Protection</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-accent"></i> Design
+                        Registration</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-accent"></i> Startup IP
+                        Protection</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-accent"></i>
+                        International IP Services</li>
+                </ul>
+            </div>
+
+            <!-- Why Protect Your IP -->
+            <div class="bg-[#111] p-8 rounded-2xl border border-white/10 shadow-legal text-white">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="fas fa-shield-alt text-brand-accent"></i> Why Protect Your Intellectual Property?
+                </h3>
+                <p class="text-gray-300 mb-6 font-medium text-sm md:text-base">Protecting intellectual property helps
+                    businesses:</p>
+                <div class="space-y-4 text-gray-300 text-sm md:text-base">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-brand-accent shrink-0 mt-1">
+                            <i class="fas fa-crown text-sm"></i></div>
+                        <div><strong class="text-white">Secure brand ownership</strong> <br>Establish absolute legal
+                            rights over your creations.</div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-brand-accent shrink-0 mt-1">
+                            <i class="fas fa-ban text-sm"></i></div>
+                        <div><strong class="text-white">Prevent misuse by competitors</strong> <br>Stop others from
+                            cloning or stealing your unique work.</div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-brand-accent shrink-0 mt-1">
+                            <i class="fas fa-chart-line text-sm"></i></div>
+                        <div><strong class="text-white">Build long-term business value</strong> <br>Turn your concepts
+                            into tangible, tradable legal assets.</div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-brand-accent shrink-0 mt-1">
+                            <i class="fas fa-handshake text-sm"></i></div>
+                        <div><strong class="text-white">Strengthen investor confidence</strong> <br>Investors trust
+                            businesses that protect their core valuation.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action & Form -->
+        <div class="max-w-4xl mx-auto px-6 text-center">
+
+            <div class="mb-10">
+                <h2
+                    class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-brand-textDark dark:text-white uppercase">
+                    Book a Consultation
+                </h2>
+                <div class="w-24 h-1 bg-brand-accent mx-auto rounded-full mb-6 relative"></div>
+                <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                    Speak with our intellectual property professionals to understand how your brand or innovation can be
+                    legally protected.
+                </p>
+            </div>
+
+            <!-- Custom Form mapped to backend -->
+            <form id="social-landing-form" onsubmit="submitSocialConsultation(event)"
+                class="bg-[#1d1d1f] p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl text-left">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Name *</label>
+                        <input type="text" name="name" required
+                            class="w-full p-4 border border-gray-600 rounded-xl focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none bg-white text-black placeholder-gray-400 transition-all font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Email *</label>
+                        <input type="email" name="email" required
+                            class="w-full p-4 border border-gray-600 rounded-xl focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none bg-white text-black placeholder-gray-400 transition-all font-medium">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Phone *</label>
+                        <input type="tel" name="phone" required
+                            class="w-full p-4 border border-gray-600 rounded-xl focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none bg-white text-black placeholder-gray-400 transition-all font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Business Name *</label>
+                        <input type="text" id="businessNameField" required
+                            class="w-full p-4 border border-gray-600 rounded-xl focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none bg-white text-black placeholder-gray-400 transition-all font-medium">
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Query *</label>
+                    <textarea id="queryField" rows="5" required minlength="10"
+                        placeholder="Tell us about the intellectual property you want to protect..."
+                        class="w-full p-4 border border-gray-600 rounded-xl focus:ring-2 focus:ring-brand-accent focus:border-brand-accent outline-none resize-none bg-white text-black placeholder-gray-400 transition-all font-medium"></textarea>
+                </div>
+
+                <button type="submit"
+                    class="w-full md:w-auto px-10 py-4 bg-brand-accent text-white font-bold text-lg rounded-xl hover:bg-[#b09455] transition-all shadow-lg text-center mx-auto block uppercase tracking-wide">
+                    Submit Request
+                </button>
+            </form>
+        </div>
+
+    </section>
+
+    <!-- Success Popup Structure (Matches existing UI) -->
+    <div id="local-success-popup"
+        class="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 backdrop-blur-lg hidden modal p-4">
+        <div
+            class="bg-[#1d1d1f] rounded-2xl shadow-2xl w-full max-w-sm p-8 relative text-center border border-white/10 modal-content">
+            <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2 text-white">Request Sent!</h3>
+            <p class="text-sm text-gray-400 mb-6">We'll get back to you within 24 hours.</p>
+            <button onclick="closeLocalSuccessPopup()"
+                class="px-6 py-3 bg-white text-black font-bold text-sm rounded-lg hover:bg-gray-200 transition-all shadow-lg btn-royal-blue">
+                Close
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="py-4 border-t border-white/10 relative" style="background-color: #000000;">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 text-sm font-medium text-white">
+                <a href="index.html" class="transition-all hover:text-gray-300">Home</a>
+                <a href="services.html" class="transition-all hover:text-gray-300">Practice Areas</a>
+                <a href="aboutus.html" class="transition-all hover:text-gray-300">Our Team</a>
+                <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
+            </div>
+
+            <!-- Social Media Icons - Bottom Right -->
+            <div class="absolute bottom-4 right-6 flex items-center gap-4">
+                <a href="https://www.instagram.com/trumarx.in/" target="_blank" rel="noopener noreferrer"
+                    class="text-white hover:text-gray-300 transition-all" aria-label="Instagram">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/trumarx/posts/?feedView=all" target="_blank"
+                    rel="noopener noreferrer" class="text-white hover:text-gray-300 transition-all"
+                    aria-label="LinkedIn">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send/?phone=7204759965&text&type=phone_number&app_absent=0"
+                    target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300 transition-all"
+                    aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </a>
+            </div>
+            <p class="text-white/60 text-xs mt-4">&copy; Trumarx 2026</p>
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal-overlay"
+        class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+            <button onclick="closeContactModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"><i
+                    class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-6 text-black">Connect With Us</h3>
+            <div class="mb-6">
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    If you require assistance with intellectual property protection
+                    or would like to discuss your requirements, our team would be
+                    pleased to assist.
+                </p>
+                <p class="text-sm text-gray-600 leading-relaxed mb-2">Contact us for:</p>
+                <ul class="text-sm text-gray-600 leading-relaxed list-disc pl-5">
+                    <li>Trademark advisory</li>
+                    <li>IP portfolio management</li>
+                    <li>International protection</li>
+                    <li>Legal consultations</li>
+                </ul>
+            </div>
+
+            <div class="space-y-6">
+                <address class="not-italic text-black space-y-2">
+                    <p class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
+                        <span class="ml-4">
+                            <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
+                                rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">
+                                No. 23, Hari Prem Complex, 2nd Floor,<br>
+                                CMH Road, Indiranagar 1st Stage,<br>
+                                Bangalore – 560038
+                            </a>
+                        </span>
+                    </p>
+                </address>
+                <div class="border-t border-gray-200 my-4"></div>
+                <div class="space-y-3 text-sm text-black">
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-envelope w-5 mr-3 text-gray-400"></i>Email:</span> <a
+                            href="mailto:support@trumarx.in"
+                            class="hover:text-brand-accent text-black">support@trumarx.in</a></p>
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Number:</span> <a
+                            href="tel:+918310179462" class="hover:text-brand-accent text-black font-bold">+91
+                            831-0179462</a></p>
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-phone w-5 mr-3 text-gray-400"></i>Landline:</span> <a
+                            href="tel:08040911324" class="hover:text-brand-accent text-black">080 4091 1324</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="load-forms.js"></script>
+    <script>
+        // Form handling linking to backend
+        async function submitSocialConsultation(event) {
+            event.preventDefault();
+            const form = document.getElementById('social-landing-form');
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            const businessName = document.getElementById('businessNameField').value.trim();
+            const query = document.getElementById('queryField').value.trim();
+
+            // Map our fields to the expected payload for the backend
+            const formData = new FormData(form);
+            formData.append('subject', 'Social Media Lead / ' + businessName);
+            formData.append('message', query);
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+
+            try {
+                const response = await fetch('send_consultation_cpanel.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                if (result.success) {
+                    const popup = document.getElementById('local-success-popup');
+                    popup.classList.remove('hidden');
+                    setTimeout(() => popup.classList.add('active'), 10);
+                    form.reset();
+                } else {
+                    alert('Error: ' + (result.message || 'Failed to send request.'));
+                }
+            } catch (error) {
+                alert('Failed to send request. Please try again or email us directly.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'SUBMIT REQUEST';
+            }
+        }
+
+        function closeLocalSuccessPopup() {
+            const popup = document.getElementById('local-success-popup');
+            popup.classList.remove('active');
+            setTimeout(() => popup.classList.add('hidden'), 300);
+        }
+
+        // Standard Modal Logic
+        const contactModal = document.getElementById('contact-modal-overlay');
+        function openContactModal(event) {
+            if (event) event.preventDefault();
+            contactModal.classList.remove('hidden');
+            setTimeout(() => contactModal.classList.add('active'), 10);
+        }
+        function closeContactModal() {
+            contactModal.classList.remove('active');
+            setTimeout(() => contactModal.classList.add('hidden'), 300);
+        }
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenu.querySelectorAll('a, button').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+    </script>
+</body>
+
+</html>
