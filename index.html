@@ -432,11 +432,7 @@
             pointer-events: none;
         }
 
-        #splash-logo.retract {
-            animation: none !important;
-            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
-            opacity: 0;
-        }
+
         
         #floating-stamp {
             opacity: 0;
@@ -1968,7 +1964,7 @@
                     splash.classList.add('fade-out');
                     
                     if (stamp) {
-                        // Force layout
+                        // Use getBoundingClientRect to find exact center coordinates
                         const logoRect = logo.getBoundingClientRect();
                         const stampRect = stamp.getBoundingClientRect();
                         
@@ -1984,13 +1980,21 @@
                         const translateY = stampCenterY - logoCenterY;
                         const scale = stampRect.width / logoRect.width;
                         
-                        logo.classList.add('retract');
-                        // Override CSS transform
-                        logo.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                        // Use Web Animations API for smooth, non-teleporting transition
+                        // This overrides the CSS animations cleanly
+                        logo.animate([
+                            { transform: 'translate(0px, 0px) scale(1)', opacity: 1 },
+                            { transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`, opacity: 0 }
+                        ], {
+                            duration: 700,
+                            easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                            fill: 'forwards'
+                        });
                         
+                        // Show the stamp halfway through the movement for a seamless morph
                         setTimeout(() => {
                             stamp.classList.add('show');
-                        }, 500);
+                        }, 300);
                     }
                 }, 1600);
 
