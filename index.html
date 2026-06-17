@@ -437,11 +437,13 @@
         #floating-stamp {
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease-in;
+            transform: scale(0.6);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .splash-skip #floating-stamp, #floating-stamp.show {
             opacity: 1 !important;
+            transform: scale(1) !important;
             pointer-events: auto !important;
         }
 
@@ -1983,18 +1985,18 @@
                         // Use Web Animations API for smooth, non-teleporting transition
                         // This overrides the CSS animations cleanly
                         logo.animate([
-                            { transform: 'translate(0px, 0px) scale(1)', opacity: 1 },
-                            { transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`, opacity: 0 }
+                            { transform: 'translate(0px, 0px) scale(1)', opacity: 1, filter: 'blur(0px)' },
+                            { transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`, opacity: 0, filter: 'blur(3px)' }
                         ], {
-                            duration: 1500,
-                            easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+                            duration: 900,
+                            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
                             fill: 'forwards'
                         });
                         
-                        // Show the stamp halfway through the movement for a seamless morph
+                        // Wait until the logo is almost at its destination, then pop the stamp in
                         setTimeout(() => {
                             stamp.classList.add('show');
-                        }, 750);
+                        }, 700);
                     }
                 }, 1600);
 
@@ -2007,7 +2009,7 @@
                     const d = new Date();
                     d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
                     document.cookie = "visited=true; expires=" + d.toUTCString() + "; path=/";
-                }, 3300);
+                }, 2600);
             }
         })();
     </script>
