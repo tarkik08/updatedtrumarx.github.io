@@ -1986,15 +1986,15 @@
                             { transform: 'translate(0px, 0px) scale(1)', opacity: 1 },
                             { transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`, opacity: 0 }
                         ], {
-                            duration: 700,
-                            easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                            duration: 1500,
+                            easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
                             fill: 'forwards'
                         });
                         
                         // Show the stamp halfway through the movement for a seamless morph
                         setTimeout(() => {
                             stamp.classList.add('show');
-                        }, 300);
+                        }, 750);
                     }
                 }, 1600);
 
@@ -2007,7 +2007,7 @@
                     const d = new Date();
                     d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
                     document.cookie = "visited=true; expires=" + d.toUTCString() + "; path=/";
-                }, 2300);
+                }, 3300);
             }
         })();
     </script>
