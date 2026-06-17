@@ -575,7 +575,7 @@
             const categoryId = post.categories?.[0];
             const categoryName = categories[categoryId] || 'Uncategorized';
             document.getElementById('category-badge').innerHTML = `
-                <span class="px-4 py-2 bg-gradient-to-r from-brand-accent to-brand-accentHover text-white text-xs font-semibold uppercase tracking-wider rounded-full">
+                <span class="px-4 py-2 bg-gradient-to-r from-brand-accent to-brand-accentHover text-white text-sm md:text-base font-semibold uppercase tracking-wider rounded-full">
                     ${categoryName}
                 </span>
             `;
