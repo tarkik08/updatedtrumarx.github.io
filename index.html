@@ -2,6 +2,12 @@
 <html lang="en" class="dark scroll-smooth">
 
 <head>
+    <!-- Cookie Check for First-time Visitor Splash Screen -->
+    <script>
+        if (document.cookie.indexOf('visited=') !== -1) {
+            document.documentElement.classList.add('splash-skip');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trumarx | Best IP Law Firm in Bangalore | Trademark, Patent & Copyright Attorneys</title>
@@ -401,11 +407,105 @@
             backdrop-filter: blur(8px);
             box-shadow: 0 4px 12px rgba(8, 18, 32, 0.4);
         }
+
+        /* First-time Visitor Splash Screen Styles */
+        .splash-skip #splash-screen {
+            display: none !important;
+        }
+
+        #splash-screen {
+            display: flex;
+            position: fixed;
+            inset: 0;
+            background-color: #000000;
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            opacity: 1;
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .splash-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #splash-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 12rem;
+            height: 12rem;
+            background-color: #ffffff;
+            border-radius: 50%;
+            padding: 1.75rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(-150px) scale(0.8);
+            transition: none;
+        }
+
+        .splash-logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        #splash-logo.animate-drop {
+            animation: splashDropBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+                splashPulsePop 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.8s forwards;
+        }
+
+        @keyframes splashDropBounce {
+            0% {
+                opacity: 0;
+                transform: translateY(-150px) scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes splashPulsePop {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+            }
+
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.3));
+            }
+
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+            }
+        }
     </style>
 </head>
 
 <body
     class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
+
+    <!-- Visitor Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-logo-container">
+            <div id="splash-logo">
+                <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="splash-logo-img">
+            </div>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300"
@@ -479,15 +579,13 @@
             <!-- Left: Content -->
             <div class="text-center lg:text-left">
                 <div class="inline-block mb-4">
-                    <span class="text-brand-accent font-semibold tracking-wide text-xs uppercase block sm:inline">Est.
-                        2014</span>
                 </div>
 
                 <h1
                     class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 text-white leading-tight">
                     <span style="white-space: nowrap;">Protecting Innovation</span><br>
                     Securing Brands<br>
-                    <span class="text-brand-accent">Enabling Growth</span>
+                    <span style="white-space: nowrap;">Enabling Growth</span>
                 </h1>
 
                 <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed break-words px-4 sm:px-0">
@@ -1550,15 +1648,8 @@
 
     <!-- Footer -->
     <footer class="py-4 border-t border-white/10 relative" style="background-color: #000000;">
-
         <div class="max-w-7xl mx-auto px-6 text-center">
             <!-- Footer Logo Removed -->
-
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 text-sm font-medium text-white">
-                <a href="index.html" class="transition-all hover:text-gray-300">Home</a>
-                <a href="services.html" class="transition-all hover:text-gray-300">Practice Areas</a>
-            </div>
-
             <!-- Social Media Icons - Bottom Right -->
             <div class="absolute bottom-4 right-6 flex items-center gap-4">
                 <a href="https://www.instagram.com/trumarx.in/" target="_blank" rel="noopener noreferrer"
@@ -1576,7 +1667,6 @@
                     <i class="fab fa-whatsapp text-xl"></i>
                 </a>
             </div>
-
             <p class="text-white/60 text-xs mt-4">&copy; Trumarx 2026</p>
         </div>
     </footer>
@@ -1644,7 +1734,7 @@
     <!-- Scripts (Scroll & Logic Preserved) -->
     <script>
         // Contact Modal Logic (for contact info display only)
-        
+
         // Contact Modal Logic (for contact info display only)
         function openContactModal(event) {
             if (event) event.preventDefault();
@@ -1872,6 +1962,47 @@
                 });
 
                 observer.observe(footer);
+            }
+        })();
+    </script>
+
+    <!-- Visitor Splash Screen Controller -->
+    <script>
+        (function () {
+            // Check if the splash screen needs to be skipped
+            if (document.documentElement.classList.contains('splash-skip')) {
+                const splash = document.getElementById('splash-screen');
+                if (splash) splash.style.display = 'none';
+                return;
+            }
+
+            const splash = document.getElementById('splash-screen');
+            const logo = document.getElementById('splash-logo');
+
+            if (splash && logo) {
+                // Disable scrolling on body during animation
+                document.body.style.overflow = 'hidden';
+
+                // Trigger the logo animation slightly after loading
+                setTimeout(function () {
+                    logo.classList.add('animate-drop');
+                }, 100);
+
+                // Start fading out the splash screen after 1.6s
+                setTimeout(function () {
+                    splash.classList.add('fade-out');
+                }, 1600);
+
+                // Fully hide splash screen and enable scrolling after 2.3s
+                setTimeout(function () {
+                    splash.style.display = 'none';
+                    document.body.style.overflow = '';
+
+                    // Set visited cookie for 7 days
+                    const d = new Date();
+                    d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
+                    document.cookie = "visited=true; expires=" + d.toUTCString() + "; path=/";
+                }, 2300);
             }
         })();
     </script>
