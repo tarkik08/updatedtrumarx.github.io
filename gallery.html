@@ -249,16 +249,27 @@
             border-radius: 12px;
             border: none;
         }
-    </style>
+    
+        /* Contact Modal Animation Override */
+        #contact-modal-overlay .modal-content {
+            transform: scale(0.5);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
+        }
+
+        #contact-modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }</style>
 </head>
 
 <body class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark">
 
     <!-- Navigation -->
-    <nav class="relative z-50 legal-nav transition-colors duration-300"
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300"
         style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
 
-        <div class="max-w-7xl mx-auto px-6 py-3">
+        <div class="max-w-7xl mx-auto px-6 py-1.5">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <a href="index.html" class="group select-none -ml-2">
@@ -405,8 +416,6 @@
             <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 text-sm font-medium text-white">
                 <a href="index.html" class="transition-all hover:text-gray-300">Home</a>
                 <a href="services.html" class="transition-all hover:text-gray-300">Practice Areas</a>
-                <a href="aboutus.html" class="transition-all hover:text-gray-300">Our Team</a>
-                <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
             </div>
 
             <!-- Social Media Icons - Bottom Right -->
@@ -1017,9 +1026,97 @@
         function openConsultationModal() {
             alert('Consultation modal will open here.');
         }
+    
+        // Contact Modal Logic (for contact info display only)
+        function openContactModal(event) {
+            if (event) event.preventDefault();
+            const contactModal = document.getElementById('contact-modal-overlay');
+            if (!contactModal) return;
+            contactModal.classList.remove('hidden');
+            if (event) {
+                const modalContent = contactModal.querySelector('.modal-content');
+                if (modalContent) {
+                    const rect = modalContent.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const y = event.clientY - rect.top;
+                    modalContent.style.transformOrigin = `${x}px ${y}px`;
+                }
+            }
+            setTimeout(() => {
+                if (contactModal) contactModal.classList.add('active');
+            }, 10);
+        }
+        function closeContactModal() {
+            const contactModal = document.getElementById('contact-modal-overlay');
+            if (!contactModal) return;
+            contactModal.classList.remove('active');
+            setTimeout(() => {
+                if (contactModal) contactModal.classList.add('hidden');
+            }, 300);
+        }
     </script>
 
     <!-- Load Form Components -->
+        <!-- Contact Modal -->
+    <div id="contact-modal-overlay"
+        class="fixed inset-0 z-[60] flex items-start sm:items-center justify-center bg-brand-dark/60 backdrop-blur-md hidden modal overflow-y-auto p-4 sm:p-8">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative modal-content">
+            <button onclick="closeContactModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"><i
+                    class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-6 text-black">Connect With Us</h3>
+            <div class="mb-6">
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    If you require assistance with intellectual property protection
+                    or would like to discuss your requirements, our team would be
+                    pleased to assist.
+                </p>
+                <p class="text-sm text-gray-600 leading-relaxed mb-2">Contact us for:</p>
+                <ul class="text-sm text-gray-600 leading-relaxed list-disc pl-5">
+                    <li>Trademark advisory</li>
+                    <li>IP portfolio management</li>
+                    <li>International protection</li>
+                    <li>Legal consultations</li>
+                </ul>
+            </div>
+
+            <div class="space-y-6">
+                <address class="not-italic text-black space-y-2">
+                    <p class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-brand-accent w-5 mt-1"></i>
+                        <span class="ml-4">
+                            <a href="https://maps.app.goo.gl/mWF3Rkrza4THw35r9" target="_blank"
+                                rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">
+                                No. 23, Hari Prem Complex, 2nd Floor,<br>
+                                CMH Road, Indiranagar 1st Stage,<br>
+                                Bangalore – 560038
+                            </a>
+                        </span>
+                    </p>
+                </address>
+
+                <div class="border-t border-gray-200 my-4"></div>
+
+                <div class="space-y-3 text-sm text-black">
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-envelope w-5 mr-3 text-gray-400"></i>Email:</span> <a
+                            href="mailto:support@trumarx.in"
+                            class="hover:text-brand-accent text-black">support@trumarx.in</a>
+                    </p>
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-mobile-alt w-5 mr-3 text-gray-400"></i>Number:</span> <a
+                            href="tel:+918310179462" class="hover:text-brand-accent text-black font-bold">+91
+                            831-0179462</a>
+                    </p>
+                    <p class="flex justify-between items-center"><span><i
+                                class="fas fa-phone w-5 mr-3 text-gray-400"></i>Landline:</span> <a
+                            href="tel:08040911324" class="hover:text-brand-accent text-black">080 4091 1324</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="load-forms.js"></script>
 
 

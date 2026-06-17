@@ -408,10 +408,10 @@
     class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-brand-dark relative overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="relative z-50 legal-nav transition-colors duration-300"
+    <nav class="sticky top-0 z-50 legal-nav transition-colors duration-300"
         style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
 
-        <div class="max-w-7xl mx-auto px-6 py-3">
+        <div class="max-w-7xl mx-auto px-6 py-1.5">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <a href="index.html" class="group select-none -ml-2">
@@ -1557,8 +1557,6 @@
             <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4 text-sm font-medium text-white">
                 <a href="index.html" class="transition-all hover:text-gray-300">Home</a>
                 <a href="services.html" class="transition-all hover:text-gray-300">Practice Areas</a>
-                <a href="aboutus.html" class="transition-all hover:text-gray-300">Our Team</a>
-                <a href="#" onclick="openContactModal(event)" class="transition-all hover:text-gray-300">Contact</a>
             </div>
 
             <!-- Social Media Icons - Bottom Right -->
@@ -1646,22 +1644,33 @@
     <!-- Scripts (Scroll & Logic Preserved) -->
     <script>
         // Contact Modal Logic (for contact info display only)
-        const contactModal = document.getElementById('contact-modal-overlay');
+        
+        // Contact Modal Logic (for contact info display only)
         function openContactModal(event) {
             if (event) event.preventDefault();
+            const contactModal = document.getElementById('contact-modal-overlay');
+            if (!contactModal) return;
             contactModal.classList.remove('hidden');
             if (event) {
                 const modalContent = contactModal.querySelector('.modal-content');
-                const rect = modalContent.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                modalContent.style.transformOrigin = `${x}px ${y}px`;
+                if (modalContent) {
+                    const rect = modalContent.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const y = event.clientY - rect.top;
+                    modalContent.style.transformOrigin = `${x}px ${y}px`;
+                }
             }
-            setTimeout(() => contactModal.classList.add('active'), 10);
+            setTimeout(() => {
+                if (contactModal) contactModal.classList.add('active');
+            }, 10);
         }
         function closeContactModal() {
+            const contactModal = document.getElementById('contact-modal-overlay');
+            if (!contactModal) return;
             contactModal.classList.remove('active');
-            setTimeout(() => contactModal.classList.add('hidden'), 300);
+            setTimeout(() => {
+                if (contactModal) contactModal.classList.add('hidden');
+            }, 300);
         }
 
 
