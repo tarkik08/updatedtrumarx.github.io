@@ -193,46 +193,34 @@
         style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
 
         <div class="max-w-7xl mx-auto px-6 py-0">
-            <div class="flex justify-between items-center">
-                <!-- Logo -->
-                <a href="index.html" class="group select-none -ml-2">
-                    <img src="Trumarx_Logo-removebg-preview.png" alt="Trumarx Logo" class="h-6 w-auto">
-                </a>
-
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-4 text-[12px] font-medium tracking-wide">
+                        <div class="flex justify-center items-center relative h-10 w-full">
+                <!-- Desktop Menu (Centered) -->
+                <div class="hidden md:flex items-center gap-4 text-[12px] font-bold tracking-wide">
                     <a href="index.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Home</a>
-                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About
-                        Us</a>
-                    <a href="achievements.html"
-                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
-                    <a href="testimonials.html"
-                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Testimonials</a>
+                    <a href="aboutus.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">About Us</a>
+                    <a href="achievements.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Achievements</a>
+                    <a href="testimonials.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Testimonials</a>
                     <a href="gallery.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Gallery</a>
                     <a href="services.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Services</a>
                     <a href="careers.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Careers</a>
                     <a href="blog.html" class="text-black transition-all px-2 py-2 hover:text-gray-600">Blog</a>
-                    <a href="#" onclick="openContactModal(event)"
-                        class="text-black transition-all px-2 py-2 hover:text-gray-600">Contact</a>
-
-                    <div class="h-4 w-px bg-gray-700"></div>
-
-
-                    <!-- CTA Button -->
-                    <button onclick="openConsultationModal()"
-                        class="px-4 py-1.5 rounded-full text-white font-medium text-[12px] transition-all shadow-sm bg-black hover:bg-gray-800">
-                        Consultation
-                    </button>
+                    <a href="#" onclick="openContactModal(event)" class="text-black transition-all px-2 py-2 hover:text-gray-600">Contact</a>
                 </div>
 
-                <div class="flex items-center gap-4 md:hidden">
-                    <button id="mobile-menu-btn" class="text-black text-xl">
+                <!-- CTA Button & Mobile Toggle (Right) -->
+                <div class="absolute right-0 flex items-center gap-4">
+                    <!-- Desktop CTA -->
+                    <button onclick="openConsultationModal()" class="hidden md:block px-4 py-1.5 rounded-full text-white font-bold text-[12px] transition-all shadow-sm bg-black hover:bg-gray-800">
+                        Consultation
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden text-black text-xl">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu -->
+<!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-400"
             style="background-color: #E1E2E6;">
             <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
