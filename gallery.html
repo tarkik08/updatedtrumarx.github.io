@@ -327,7 +327,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-24 pb-16 bg-brand-bg overflow-hidden">
+    <section class="relative pt-24 pb-4 bg-brand-bg overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <div class="inline-block mb-4">
                 <span class="text-white font-semibold tracking-wide text-sm md:text-base uppercase">Visual Journey</span>
@@ -350,7 +350,7 @@
     <!-- Gallery Container (Dynamically populated) -->
     <div id="gallery-container" class="bg-white dark:bg-brand-dark">
         <!-- Loading state -->
-        <div id="loading-state" class="max-w-7xl mx-auto px-6 text-center py-20">
+        <div id="loading-state" class="max-w-7xl mx-auto px-6 text-center py-10">
             <i class="fas fa-spinner fa-spin text-4xl text-brand-accent mb-4"></i>
             <p class="text-gray-600 dark:text-gray-400">Loading gallery...</p>
         </div>
@@ -967,7 +967,7 @@
 
         function showLoadingState() {
             document.getElementById('gallery-container').innerHTML = `
-                <div class="max-w-7xl mx-auto px-6 text-center py-20">
+                <div class="max-w-7xl mx-auto px-6 text-center py-10">
                     <i class="fas fa-spinner fa-spin text-4xl text-brand-accent mb-4"></i>
                     <p class="text-gray-600 dark:text-gray-400">Loading gallery...</p>
                 </div>
@@ -981,7 +981,7 @@
 
         function showErrorMessage(message) {
             document.getElementById('gallery-container').innerHTML = `
-                <div class="max-w-7xl mx-auto px-6 text-center py-20">
+                <div class="max-w-7xl mx-auto px-6 text-center py-10">
                     <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
                     <p class="text-gray-600 dark:text-gray-400 mb-4">${message}</p>
                     <button onclick="location.reload()" 
@@ -994,7 +994,7 @@
 
         function showEmptyState() {
             document.getElementById('gallery-container').innerHTML = `
-                <div class="max-w-7xl mx-auto px-6 text-center py-20">
+                <div class="max-w-7xl mx-auto px-6 text-center py-10">
                     <i class="fas fa-images text-4xl text-gray-400 mb-4"></i>
                     <p class="text-gray-600 dark:text-gray-400">No gallery events yet.</p>
                     <p class="text-gray-500 dark:text-gray-500 text-sm mt-2">Check back soon!</p>

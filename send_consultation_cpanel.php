@@ -27,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = isset($_POST['message']) ? htmlspecialchars(trim($_POST['message'])) : '';
     
     // Validation
-    if (empty($name) || empty($email) || empty($message)) {
-        echo json_encode(['success' => false, 'message' => 'Name, email, and message are required.']);
+    if (empty($name) || empty($email) || empty($phone)) {
+        echo json_encode(['success' => false, 'message' => 'Name, email, and phone are required.']);
         exit;
     }
     

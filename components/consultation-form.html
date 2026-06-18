@@ -33,8 +33,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Phone</label>
-                    <input type="tel" name="phone"
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Phone *</label>
+                    <input type="tel" name="phone" required
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-black placeholder-gray-400">
                 </div>
 
@@ -53,11 +53,10 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Message *</label>
-                    <textarea name="message" rows="4" required minlength="10" maxlength="5000"
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                    <textarea name="message" rows="4" maxlength="5000"
                         placeholder="Please describe your consultation needs..."
                         class="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all resize-none bg-white text-black placeholder-gray-400"></textarea>
-                    <p class="text-xs text-gray-400 mt-1">Minimum 10 characters</p>
                 </div>
 
                 <button type="submit"
@@ -127,9 +126,9 @@
             const formData = new FormData(form);
 
             // Client-side validation
-            const message = formData.get('message');
-            if (message.length < 10) {
-                alert('Please provide a more detailed message (at least 10 characters).');
+            const phone = formData.get('phone');
+            if (!phone || phone.trim() === '') {
+                alert('Please provide a phone number.');
                 return;
             }
 
